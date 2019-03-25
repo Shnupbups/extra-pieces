@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:mossy_cobblestone_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:mossy_cobblestone_slab",
+    "count": 1
+  }
+}

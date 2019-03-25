@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_siding_to_slab",
+  "ingredients": [
+    {
+      "item": "extrapieces:spruce_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:spruce_slab",
+    "count": 1
+  }
+}

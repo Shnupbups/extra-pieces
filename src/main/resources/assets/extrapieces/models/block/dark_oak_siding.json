@@ -1,0 +1,8 @@
+{
+  "parent": "extrapieces:block/siding",
+  "textures": {
+    "front": "block/dark_oak_planks",
+    "back": "block/dark_oak_planks",
+    "side": "block/dark_oak_planks"
+  }
+}

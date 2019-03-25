@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:smooth_red_sandstone_siding"
+    },
+    {
+      "item": "extrapieces:smooth_red_sandstone_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:smooth_red_sandstone",
+    "count": 1
+  }
+}

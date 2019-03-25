@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:smooth_quartz"
+    }
+  },
+  "result": {
+    "item": "extrapieces:smooth_quartz_siding",
+    "count": 6
+  }
+}

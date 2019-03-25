@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:prismarine_bricks"
+  },
+  "result": "extrapieces:prismarine_brick_siding",
+  "count": 2
+}

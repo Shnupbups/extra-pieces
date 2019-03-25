@@ -1,0 +1,8 @@
+{
+  "parent": "extrapieces:block/siding",
+  "textures": {
+    "front": "block/smooth_stone",
+    "back": "block/smooth_stone",
+    "side": "block/smooth_stone"
+  }
+}

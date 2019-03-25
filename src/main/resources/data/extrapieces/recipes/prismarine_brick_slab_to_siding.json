@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:prismarine_brick_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:prismarine_brick_siding",
+    "count": 1
+  }
+}

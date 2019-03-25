@@ -1,0 +1,8 @@
+{
+  "parent": "extrapieces:block/siding",
+  "textures": {
+    "front": "block/mossy_cobblestone",
+    "back": "block/mossy_cobblestone",
+    "side": "block/mossy_cobblestone"
+  }
+}

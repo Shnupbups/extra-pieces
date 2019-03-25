@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:granite_siding"
+    },
+    {
+      "item": "extrapieces:granite_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:granite",
+    "count": 1
+  }
+}

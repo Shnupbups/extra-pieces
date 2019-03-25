@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:purpur_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:purpur_slab",
+    "count": 1
+  }
+}

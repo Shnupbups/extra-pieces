@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:cut_sandstone_siding"
+    },
+    {
+      "item": "extrapieces:cut_sandstone_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:cut_sandstone",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:polished_diorite_siding"
+    },
+    {
+      "item": "extrapieces:polished_diorite_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:polished_diorite",
+    "count": 1
+  }
+}

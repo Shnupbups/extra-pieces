@@ -1,0 +1,10 @@
+{
+  "parent": "extrapieces:block/siding",
+  "textures": {
+    "front": "block/sandstone",
+    "back": "block/sandstone",
+    "side": "block/sandstone",
+    "bottom": "block/sandstone_top",
+    "top": "block/sandstone_top"
+  }
+}

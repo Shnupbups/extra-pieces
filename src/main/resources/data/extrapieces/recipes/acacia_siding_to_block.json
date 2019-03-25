@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:acacia_siding"
+    },
+    {
+      "item": "extrapieces:acacia_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:acacia_planks",
+    "count": 1
+  }
+}

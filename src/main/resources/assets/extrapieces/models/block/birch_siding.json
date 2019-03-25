@@ -1,0 +1,8 @@
+{
+  "parent": "extrapieces:block/siding",
+  "textures": {
+    "front": "block/birch_planks",
+    "back": "block/birch_planks",
+    "side": "block/birch_planks"
+  }
+}

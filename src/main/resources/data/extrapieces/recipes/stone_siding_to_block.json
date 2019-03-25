@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:stone_siding"
+    },
+    {
+      "item": "extrapieces:stone_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:stone",
+    "count": 1
+  }
+}

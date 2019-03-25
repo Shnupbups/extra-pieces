@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:jungle_siding"
+    },
+    {
+      "item": "extrapieces:jungle_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:jungle_planks",
+    "count": 1
+  }
+}

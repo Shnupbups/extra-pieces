@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:red_nether_brick_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:red_nether_brick_siding",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:quartz_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:quartz_siding",
+    "count": 1
+  }
+}

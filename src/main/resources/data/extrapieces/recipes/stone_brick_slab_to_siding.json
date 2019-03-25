@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:stone_brick_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:stone_brick_siding",
+    "count": 1
+  }
+}
