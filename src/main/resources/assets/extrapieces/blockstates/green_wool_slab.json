@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/green_wool_slab" },
+        "type=top": { "model": "extrapieces:block/green_wool_slab_top" },
+        "type=double": { "model": "block/green_wool" }
+    }
+}

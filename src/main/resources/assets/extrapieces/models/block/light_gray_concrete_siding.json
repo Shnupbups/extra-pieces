@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/light_gray_concrete",
+        "back": "block/light_gray_concrete",
+        "side": "block/light_gray_concrete"
+    }
+}

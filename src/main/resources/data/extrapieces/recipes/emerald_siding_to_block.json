@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:emerald_siding"
+    },
+    {
+      "item": "extrapieces:emerald_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:emerald_block",
+    "count": 1
+  }
+}

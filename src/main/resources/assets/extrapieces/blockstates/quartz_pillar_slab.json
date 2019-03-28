@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/quartz_pillar_slab" },
+        "type=top": { "model": "extrapieces:block/quartz_pillar_slab_top" },
+        "type=double": { "model": "block/quartz_pillar" }
+    }
+}

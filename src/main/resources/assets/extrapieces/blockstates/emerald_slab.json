@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/emerald_slab" },
+        "type=top": { "model": "extrapieces:block/emerald_slab_top" },
+        "type=double": { "model": "block/emerald_block" }
+    }
+}

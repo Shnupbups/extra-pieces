@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:iron_slab"
+    },
+    {
+      "item": "extrapieces:iron_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_block",
+    "count": 1
+  }
+}

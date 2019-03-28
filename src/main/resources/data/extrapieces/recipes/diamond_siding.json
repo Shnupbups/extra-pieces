@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "result": {
+    "item": "extrapieces:diamond_siding",
+    "count": 6
+  }
+}

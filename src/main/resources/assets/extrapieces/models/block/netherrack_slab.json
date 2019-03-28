@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "block/netherrack",
+        "top": "block/netherrack",
+        "side": "block/netherrack"
+    }
+}

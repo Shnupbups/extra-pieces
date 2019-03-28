@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/netherrack_slab" },
+        "type=top": { "model": "extrapieces:block/netherrack_slab_top" },
+        "type=double": { "model": "block/netherrack" }
+    }
+}

@@ -2,7 +2,7 @@
   "id": "extrapieces",
   "name": "Extra Pieces",
   "description": "Adds more block shapes to Minecraft",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "side": "universal",
   "initializers": [
     "com.shnupbups.extrapieces.ExtraPieces"

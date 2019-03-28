@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:redstone_stairs"
+    }
+  },
+  "result": {
+    "item": "minecraft:redstone_block",
+    "count": 3
+  }
+}

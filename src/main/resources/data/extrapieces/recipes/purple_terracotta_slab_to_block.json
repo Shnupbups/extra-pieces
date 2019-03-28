@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:purple_terracotta_slab"
+    },
+    {
+      "item": "extrapieces:purple_terracotta_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:purple_terracotta",
+    "count": 1
+  }
+}

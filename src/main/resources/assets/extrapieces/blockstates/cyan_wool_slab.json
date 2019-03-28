@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/cyan_wool_slab" },
+        "type=top": { "model": "extrapieces:block/cyan_wool_slab_top" },
+        "type=double": { "model": "block/cyan_wool" }
+    }
+}

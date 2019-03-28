@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/cyan_wool",
+        "back": "block/cyan_wool",
+        "side": "block/cyan_wool"
+    }
+}

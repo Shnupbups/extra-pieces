@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:cyan_terracotta"
+    }
+  },
+  "result": {
+    "item": "extrapieces:cyan_terracotta_stairs",
+    "count": 4
+  }
+}

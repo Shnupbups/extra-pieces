@@ -1,0 +1,10 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/quartz_pillar",
+        "back": "block/quartz_pillar",
+        "side": "block/quartz_pillar",
+        "top": "block/quartz_pillar_top",
+        "bottom": "block/quartz_pillar_top"
+    }
+}

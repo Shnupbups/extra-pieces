@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:pink_terracotta_siding"
+    },
+    {
+      "item": "extrapieces:pink_terracotta_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pink_terracotta",
+    "count": 1
+  }
+}

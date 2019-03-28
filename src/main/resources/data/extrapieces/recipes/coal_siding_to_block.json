@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:coal_siding"
+    },
+    {
+      "item": "extrapieces:coal_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:coal_block",
+    "count": 1
+  }
+}

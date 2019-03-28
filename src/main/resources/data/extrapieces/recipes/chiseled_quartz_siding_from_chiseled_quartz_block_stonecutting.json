@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:chiseled_quartz_block"
+  },
+  "result": "extrapieces:chiseled_quartz_siding",
+  "count": 2
+}

@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/magenta_wool",
+        "back": "block/magenta_wool",
+        "side": "block/magenta_wool"
+    }
+}

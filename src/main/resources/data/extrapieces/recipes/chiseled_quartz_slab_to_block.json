@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:chiseled_quartz_slab"
+    },
+    {
+      "item": "extrapieces:chiseled_quartz_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:chiseled_quartz_block",
+    "count": 1
+  }
+}

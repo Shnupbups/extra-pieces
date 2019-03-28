@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:smooth_quartz"
+  },
+  "result": "extrapieces:smooth_quartz_wall",
+  "count": 1
+}

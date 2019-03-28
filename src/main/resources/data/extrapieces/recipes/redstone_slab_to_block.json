@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:redstone_slab"
+    },
+    {
+      "item": "extrapieces:redstone_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:redstone_block",
+    "count": 1
+  }
+}

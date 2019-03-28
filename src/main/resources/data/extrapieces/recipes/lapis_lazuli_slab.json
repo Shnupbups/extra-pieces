@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:lapis_block"
+    }
+  },
+  "result": {
+    "item": "extrapieces:lapis_lazuli_slab",
+    "count": 6
+  }
+}

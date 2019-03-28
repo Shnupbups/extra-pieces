@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "item": "extrapieces:redstone_slab",
+    "count": 6
+  }
+}

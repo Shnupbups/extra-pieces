@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:packed_ice_stairs"
+    }
+  },
+  "result": {
+    "item": "minecraft:packed_ice",
+    "count": 3
+  }
+}

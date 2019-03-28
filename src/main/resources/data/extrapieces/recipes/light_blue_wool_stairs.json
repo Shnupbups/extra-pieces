@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:light_blue_wool"
+    }
+  },
+  "result": {
+    "item": "extrapieces:light_blue_wool_stairs",
+    "count": 4
+  }
+}

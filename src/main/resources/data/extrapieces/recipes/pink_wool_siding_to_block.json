@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:pink_wool_siding"
+    },
+    {
+      "item": "extrapieces:pink_wool_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pink_wool",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:diamond_siding"
+    },
+    {
+      "item": "extrapieces:diamond_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:diamond_block",
+    "count": 1
+  }
+}

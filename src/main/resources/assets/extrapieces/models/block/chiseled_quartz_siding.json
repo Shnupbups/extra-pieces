@@ -1,0 +1,10 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/chiseled_quartz_block",
+        "back": "block/chiseled_quartz_block",
+        "side": "block/chiseled_quartz_block",
+        "top": "block/chiseled_quartz_block_top",
+        "bottom": "block/chiseled_quartz_block_top"
+    }
+}

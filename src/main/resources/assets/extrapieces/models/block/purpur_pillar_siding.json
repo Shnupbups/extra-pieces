@@ -1,0 +1,10 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/purpur_pillar",
+        "back": "block/purpur_pillar",
+        "side": "block/purpur_pillar",
+        "top": "block/purpur_pillar_top",
+        "bottom": "block/purpur_pillar_top"
+    }
+}

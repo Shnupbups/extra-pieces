@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:green_wool"
+    }
+  },
+  "result": {
+    "item": "extrapieces:green_wool_siding",
+    "count": 6
+  }
+}

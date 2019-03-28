@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/packed_ice",
+        "back": "block/packed_ice",
+        "side": "block/packed_ice"
+    }
+}

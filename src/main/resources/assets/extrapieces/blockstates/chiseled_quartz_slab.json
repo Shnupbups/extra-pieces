@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/chiseled_quartz_slab" },
+        "type=top": { "model": "extrapieces:block/chiseled_quartz_slab_top" },
+        "type=double": { "model": "block/chiseled_quartz_block" }
+    }
+}

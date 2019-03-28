@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:lime_concrete_wall"
+    }
+  },
+  "result": {
+    "item": "minecraft:lime_concrete",
+    "count": 4
+  }
+}

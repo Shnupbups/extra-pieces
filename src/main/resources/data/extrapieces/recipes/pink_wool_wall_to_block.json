@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:pink_wool_wall"
+    }
+  },
+  "result": {
+    "item": "minecraft:pink_wool",
+    "count": 4
+  }
+}
