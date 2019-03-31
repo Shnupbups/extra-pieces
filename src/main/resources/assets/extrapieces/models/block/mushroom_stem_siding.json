@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/mushroom_stem",
+        "back": "block/mushroom_stem",
+        "side": "block/mushroom_stem"
+    }
+}

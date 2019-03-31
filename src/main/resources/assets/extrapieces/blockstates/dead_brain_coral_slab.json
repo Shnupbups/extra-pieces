@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/dead_brain_coral_slab" },
+        "type=top": { "model": "extrapieces:block/dead_brain_coral_slab_top" },
+        "type=double": { "model": "block/dead_brain_coral_block" }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "block/jungle_log",
+        "top": "block/jungle_log",
+        "side": "block/jungle_log"
+    }
+}

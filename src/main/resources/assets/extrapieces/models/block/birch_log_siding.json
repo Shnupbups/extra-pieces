@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/birch_log",
+        "back": "block/birch_log",
+        "side": "block/birch_log"
+    }
+}

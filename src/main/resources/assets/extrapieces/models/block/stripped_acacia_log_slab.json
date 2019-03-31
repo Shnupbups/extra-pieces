@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "block/stripped_acacia_log",
+        "top": "block/stripped_acacia_log",
+        "side": "block/stripped_acacia_log"
+    }
+}

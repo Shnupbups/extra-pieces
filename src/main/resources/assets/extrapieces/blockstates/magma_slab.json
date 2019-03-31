@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/magma_slab" },
+        "type=top": { "model": "extrapieces:block/magma_slab_top" },
+        "type=double": { "model": "block/magma_block" }
+    }
+}

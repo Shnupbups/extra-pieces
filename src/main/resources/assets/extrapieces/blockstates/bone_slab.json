@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/bone_slab" },
+        "type=top": { "model": "extrapieces:block/bone_slab_top" },
+        "type=double": { "model": "block/bone_block" }
+    }
+}

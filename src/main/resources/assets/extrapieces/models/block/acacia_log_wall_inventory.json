@@ -1,0 +1,7 @@
+{
+    "parent": "extrapieces:block/wall_inventory",
+    "textures": {
+        "wall": "block/acacia_log",
+        "top": "block/acacia_log_top"
+    }
+}

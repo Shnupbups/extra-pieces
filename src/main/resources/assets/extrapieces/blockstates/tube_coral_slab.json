@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/tube_coral_slab" },
+        "type=top": { "model": "extrapieces:block/tube_coral_slab_top" },
+        "type=double": { "model": "block/tube_coral_block" }
+    }
+}

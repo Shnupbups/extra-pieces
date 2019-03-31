@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/hay_slab" },
+        "type=top": { "model": "extrapieces:block/hay_slab_top" },
+        "type=double": { "model": "block/hay_block" }
+    }
+}

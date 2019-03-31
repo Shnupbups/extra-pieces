@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/jungle_log_slab" },
+        "type=top": { "model": "extrapieces:block/jungle_log_slab_top" },
+        "type=double": { "model": "block/jungle_log" }
+    }
+}

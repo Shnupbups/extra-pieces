@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/lime_glazed_terracotta",
+        "back": "block/lime_glazed_terracotta",
+        "side": "block/lime_glazed_terracotta"
+    }
+}

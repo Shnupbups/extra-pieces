@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/spruce_wood",
+        "back": "block/spruce_wood",
+        "side": "block/spruce_wood"
+    }
+}

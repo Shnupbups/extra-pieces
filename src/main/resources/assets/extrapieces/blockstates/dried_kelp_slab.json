@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/dried_kelp_slab" },
+        "type=top": { "model": "extrapieces:block/dried_kelp_slab_top" },
+        "type=double": { "model": "block/dried_kelp_block" }
+    }
+}

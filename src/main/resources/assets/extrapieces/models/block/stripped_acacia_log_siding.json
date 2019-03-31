@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/stripped_acacia_log",
+        "back": "block/stripped_acacia_log",
+        "side": "block/stripped_acacia_log"
+    }
+}

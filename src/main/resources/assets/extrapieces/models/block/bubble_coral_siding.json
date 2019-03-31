@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/bubble_coral_block",
+        "back": "block/bubble_coral_block",
+        "side": "block/bubble_coral_block"
+    }
+}

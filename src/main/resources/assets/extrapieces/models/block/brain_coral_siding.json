@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/brain_coral_block",
+        "back": "block/brain_coral_block",
+        "side": "block/brain_coral_block"
+    }
+}

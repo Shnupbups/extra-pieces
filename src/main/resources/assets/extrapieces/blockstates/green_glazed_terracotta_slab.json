@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/green_glazed_terracotta_slab" },
+        "type=top": { "model": "extrapieces:block/green_glazed_terracotta_slab_top" },
+        "type=double": { "model": "block/green_glazed_terracotta" }
+    }
+}

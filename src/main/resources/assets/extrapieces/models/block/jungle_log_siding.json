@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/siding",
+    "textures": {
+        "front": "block/jungle_log",
+        "back": "block/jungle_log",
+        "side": "block/jungle_log"
+    }
+}

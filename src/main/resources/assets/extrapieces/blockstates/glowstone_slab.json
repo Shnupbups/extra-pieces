@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/glowstone_slab" },
+        "type=top": { "model": "extrapieces:block/glowstone_slab_top" },
+        "type=double": { "model": "block/glowstone" }
+    }
+}

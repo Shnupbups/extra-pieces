@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "block/stripped_birch_wood",
+        "top": "block/stripped_birch_wood",
+        "side": "block/stripped_birch_wood"
+    }
+}

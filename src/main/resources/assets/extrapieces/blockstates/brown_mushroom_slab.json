@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "extrapieces:block/brown_mushroom_slab" },
+        "type=top": { "model": "extrapieces:block/brown_mushroom_slab_top" },
+        "type=double": { "model": "block/brown_mushroom_block" }
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "extrapieces:block/wall_inventory",
+  "textures": {
+    "wall": "block/birch_log",
+    "top": "block/birch_log_top"
+  }
+}
