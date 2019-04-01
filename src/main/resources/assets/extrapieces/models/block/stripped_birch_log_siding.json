@@ -3,6 +3,8 @@
     "textures": {
         "front": "block/stripped_birch_log",
         "back": "block/stripped_birch_log",
-        "side": "block/stripped_birch_log"
+        "side": "block/stripped_birch_log",
+        "top": "block/stripped_birch_log_top",
+        "bottom": "block/stripped_birch_log_top"
     }
 }

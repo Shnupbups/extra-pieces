@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_post",
+    "parent": "extrapieces:block/wall_post",
     "textures": {
-        "wall": "block/dried_kelp_block"
+        "wall": "block/dried_kelp_side",
+        "top": "block/dried_kelp_top"
     }
 }

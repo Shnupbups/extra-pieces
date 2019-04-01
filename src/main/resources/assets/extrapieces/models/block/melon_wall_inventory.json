@@ -1,6 +1,7 @@
 {
-    "parent": "block/wall_inventory",
+    "parent": "extrapieces:block/wall_inventory",
     "textures": {
-        "wall": "block/melon_side"
+        "wall": "block/melon_side",
+        "top": "block/melon_top"
     }
 }

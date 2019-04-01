@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_side",
-    "textures": {
-        "wall": "block/melon_side"
-    }
+  "parent": "extrapieces:block/wall_side",
+  "textures": {
+    "wall": "block/melon_side",
+    "top": "block/melon_top"
+  }
 }

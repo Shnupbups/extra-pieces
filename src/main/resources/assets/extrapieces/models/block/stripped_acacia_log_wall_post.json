@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_post",
-    "textures": {
-        "wall": "block/stripped_acacia_log"
-    }
+  "parent": "extrapieces:block/wall_post",
+  "textures": {
+    "wall": "block/stripped_acacia_log",
+    "top": "block/stripped_acacia_log_top"
+  }
 }

@@ -1,8 +1,8 @@
 {
     "parent": "block/outer_stairs",
     "textures": {
-        "bottom": "block/oak_wood",
-        "top": "block/oak_wood",
-        "side": "block/oak_wood"
+        "bottom": "block/oak_log",
+        "top": "block/oak_log",
+        "side": "block/oak_log"
     }
 }

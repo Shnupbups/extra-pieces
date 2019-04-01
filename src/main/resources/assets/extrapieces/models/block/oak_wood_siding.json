@@ -1,8 +1,8 @@
 {
     "parent": "extrapieces:block/siding",
     "textures": {
-        "front": "block/oak_wood",
-        "back": "block/oak_wood",
-        "side": "block/oak_wood"
+        "front": "block/oak_log",
+        "back": "block/oak_log",
+        "side": "block/oak_log"
     }
 }

@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_side",
-    "textures": {
-        "wall": "block/stripped_oak_log"
-    }
+  "parent": "extrapieces:block/wall_side",
+  "textures": {
+    "wall": "block/stripped_oak_log",
+    "top": "block/stripped_oak_log_top"
+  }
 }

@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_side",
-    "textures": {
-        "wall": "block/hay_block"
-    }
+  "parent": "extrapieces:block/wall_side",
+  "textures": {
+    "wall": "block/hay_block_side",
+    "top": "block/hay_block_top"
+  }
 }

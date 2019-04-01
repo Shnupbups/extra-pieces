@@ -1,6 +1,7 @@
 {
-    "parent": "block/wall_inventory",
-    "textures": {
-        "wall": "block/pumpkin_side"
-    }
+  "parent": "extrapieces:block/wall_inventory",
+  "textures": {
+    "wall": "block/pumpkin_side",
+    "top": "block/pumpkin_top"
+  }
 }

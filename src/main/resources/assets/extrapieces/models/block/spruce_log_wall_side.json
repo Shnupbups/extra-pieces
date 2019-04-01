@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_side",
-    "textures": {
-        "wall": "block/spruce_log"
-    }
+  "parent": "extrapieces:block/wall_side",
+  "textures": {
+    "wall": "block/spruce_log",
+    "top": "block/spruce_log_top"
+  }
 }

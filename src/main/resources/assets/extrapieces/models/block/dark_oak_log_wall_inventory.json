@@ -1,6 +1,7 @@
 {
-    "parent": "block/wall_inventory",
+    "parent": "extrapieces:block/wall_inventory",
     "textures": {
-        "wall": "block/dark_oak_log"
+        "wall": "block/dark_oak_log",
+        "top": "block/dark_oak_log_top"
     }
 }

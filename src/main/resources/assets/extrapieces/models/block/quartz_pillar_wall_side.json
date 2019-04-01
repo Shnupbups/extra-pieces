@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_side",
-    "textures": {
-        "wall": "block/quartz_pillar"
-    }
+  "parent": "extrapieces:block/wall_side",
+  "textures": {
+    "wall": "block/quartz_pillar",
+    "top": "block/quartz_pillar_top"
+  }
 }

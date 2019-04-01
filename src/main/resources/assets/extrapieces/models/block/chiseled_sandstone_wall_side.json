@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_side",
-    "textures": {
-        "wall": "block/chiseled_sandstone"
-    }
+  "parent": "extrapieces:block/wall_side",
+  "textures": {
+    "wall": "block/chiseled_sandstone",
+    "top": "block/sandstone_top"
+  }
 }

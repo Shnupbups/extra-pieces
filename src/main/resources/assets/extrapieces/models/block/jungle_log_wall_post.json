@@ -1,6 +1,7 @@
 {
-    "parent": "block/template_wall_post",
+    "parent": "extrapieces:block/wall_post",
     "textures": {
-        "wall": "block/jungle_log"
+        "wall": "block/jungle_log",
+        "top": "block/jungle_log_top"
     }
 }

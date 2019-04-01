@@ -1,6 +1,7 @@
 {
-    "parent": "block/wall_inventory",
-    "textures": {
-        "wall": "block/cut_sandstone"
-    }
+  "parent": "extrapieces:block/wall_inventory",
+  "textures": {
+    "wall": "block/cut_sandstone",
+    "top": "block/sandstone_top"
+  }
 }

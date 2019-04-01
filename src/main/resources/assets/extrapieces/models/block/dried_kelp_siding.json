@@ -1,8 +1,10 @@
 {
     "parent": "extrapieces:block/siding",
     "textures": {
-        "front": "block/dried_kelp_block",
-        "back": "block/dried_kelp_block",
-        "side": "block/dried_kelp_block"
+        "front": "block/dried_kelp_side",
+        "back": "block/dried_kelp_side",
+        "side": "block/dried_kelp_side",
+        "bottom": "block/dried_kelp_bottom",
+        "top": "block/dried_kelp_top"
     }
 }

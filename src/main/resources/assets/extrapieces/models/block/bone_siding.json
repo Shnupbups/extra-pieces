@@ -1,8 +1,10 @@
 {
     "parent": "extrapieces:block/siding",
     "textures": {
-        "front": "block/bone_block",
-        "back": "block/bone_block",
-        "side": "block/bone_block"
+        "front": "block/bone_block_side",
+        "back": "block/bone_block_side",
+        "side": "block/bone_block_side",
+        "top": "block/bone_block_top",
+        "bottom": "block/bone_block_top"
     }
 }

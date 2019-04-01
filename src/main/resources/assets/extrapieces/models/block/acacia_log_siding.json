@@ -3,6 +3,8 @@
     "textures": {
         "front": "block/acacia_log",
         "back": "block/acacia_log",
-        "side": "block/acacia_log"
+        "side": "block/acacia_log",
+        "top": "block/acacia_log_top",
+        "bottom": "block/acacia_log_top"
     }
 }

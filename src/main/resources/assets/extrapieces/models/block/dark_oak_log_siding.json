@@ -1,8 +1,10 @@
 {
-    "parent": "extrapieces:block/siding",
-    "textures": {
-        "front": "block/dark_oak_log",
-        "back": "block/dark_oak_log",
-        "side": "block/dark_oak_log"
-    }
+  "parent": "extrapieces:block/siding",
+  "textures": {
+    "front": "block/dark_oak_log",
+    "back": "block/dark_oak_log",
+    "side": "block/dark_oak_log",
+    "top": "block/dark_oak_log_top",
+    "bottom": "block/dark_oak_log_top"
+  }
 }

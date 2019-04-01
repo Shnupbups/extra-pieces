@@ -1,6 +1,7 @@
 {
-    "parent": "block/wall_inventory",
-    "textures": {
-        "wall": "block/stripped_spruce_log"
-    }
+  "parent": "extrapieces:block/wall_inventory",
+  "textures": {
+    "wall": "block/stripped_spruce_log",
+    "top": "block/stripped_spruce_log_top"
+  }
 }

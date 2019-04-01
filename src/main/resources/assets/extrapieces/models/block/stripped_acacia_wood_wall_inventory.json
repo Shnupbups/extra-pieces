@@ -1,6 +1,6 @@
 {
     "parent": "block/wall_inventory",
     "textures": {
-        "wall": "block/stripped_acacia_wood"
+        "wall": "block/stripped_acacia_log"
     }
 }
