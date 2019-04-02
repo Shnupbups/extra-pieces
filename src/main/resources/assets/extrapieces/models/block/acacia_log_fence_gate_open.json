@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/fence_gate_open",
+    "textures": {
+        "texture": "block/acacia_log",
+      "top": "block/acacia_log_top",
+      "bottom": "block/acacia_log_top"
+    }
+}

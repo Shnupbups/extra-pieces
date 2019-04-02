@@ -1,0 +1,6 @@
+{
+    "parent": "extrapieces:block/fence_inventory",
+    "textures": {
+        "texture": "block/lime_concrete"
+    }
+}

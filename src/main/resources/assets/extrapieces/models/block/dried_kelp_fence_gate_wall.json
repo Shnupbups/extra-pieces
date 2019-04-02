@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/fence_gate_wall",
+    "textures": {
+        "texture": "block/dried_kelp_side",
+      "top": "block/dried_kelp_top",
+      "bottom": "block/dried_kelp_bottom"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "extrapieces:block/fence_post",
+    "textures": {
+        "texture": "block/dead_bubble_coral_block"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "extrapieces:block/fence_side",
+    "textures": {
+        "texture": "block/quartz_block_bottom"
+    }
+}

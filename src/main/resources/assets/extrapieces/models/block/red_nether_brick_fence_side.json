@@ -1,5 +1,5 @@
 {
-    "parent": "block/fence_side",
+    "parent": "extrapieces:block/fence_side",
     "textures": {
         "texture": "block/red_nether_bricks"
     }

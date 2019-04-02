@@ -1,0 +1,6 @@
+{
+    "parent": "extrapieces:block/fence_gate_open",
+    "textures": {
+        "texture": "block/cobblestone"
+    }
+}

@@ -1,5 +1,5 @@
 {
-    "parent": "block/fence_inventory",
+    "parent": "extrapieces:block/fence_inventory",
     "textures": {
         "texture": "block/red_nether_bricks"
     }

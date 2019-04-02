@@ -1,0 +1,6 @@
+{
+    "parent": "extrapieces:block/fence_gate",
+    "textures": {
+        "texture": "block/blue_glazed_terracotta"
+    }
+}

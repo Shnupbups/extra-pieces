@@ -1,0 +1,6 @@
+{
+    "parent": "extrapieces:block/fence_post",
+    "textures": {
+        "texture": "block/iron_block"
+    }
+}

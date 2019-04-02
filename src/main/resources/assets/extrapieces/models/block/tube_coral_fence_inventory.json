@@ -1,0 +1,6 @@
+{
+    "parent": "extrapieces:block/fence_inventory",
+    "textures": {
+        "texture": "block/tube_coral_block"
+    }
+}
