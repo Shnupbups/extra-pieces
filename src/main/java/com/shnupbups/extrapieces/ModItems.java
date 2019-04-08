@@ -954,7 +954,6 @@ public class ModItems {
 		RED_SANDSTONE_SIDING = registerBlock(ModBlocks.RED_SANDSTONE_PIECES.getSiding(), ExtraPieces.group);
 		CUT_RED_SANDSTONE_SIDING = registerBlock(ModBlocks.CUT_RED_SANDSTONE_PIECES.getSiding(), ExtraPieces.group);
 		PURPUR_SIDING = registerBlock(ModBlocks.PURPUR_PIECES.getSiding(), ExtraPieces.group);
-		//PRISMARINE_SIDING = registerBlock(ModBlocks.PRISMARINE_PIECES.getSiding(), ExtraPieces.group);
 		PRISMARINE_SIDING = registerBlock(ModBlocks.PRISMARINE_PIECES.getSiding(), ExtraPieces.group);
 		PRISMARINE_BRICK_SIDING = registerBlock(ModBlocks.PRISMARINE_BRICK_PIECES.getSiding(), ExtraPieces.group);
 		DARK_PRISMARINE_SIDING = registerBlock(ModBlocks.DARK_PRISMARINE_PIECES.getSiding(), ExtraPieces.group);
@@ -1516,7 +1515,6 @@ public class ModItems {
 		STRIPPED_DARK_OAK_WOOD_WALL = registerBlock(ModBlocks.STRIPPED_DARK_OAK_WOOD_PIECES.getWall(),ExtraPieces.group);
 		
 		RED_NETHER_BRICK_FENCE = registerBlock(ModBlocks.RED_NETHER_BRICK_PIECES.getFence(),ExtraPieces.group);
-		//PRISMARINE_FENCE = registerBlock(ModBlocks.PRISMARINE_PIECES.getFence(),ExtraPieces.group);
 		PRISMARINE_FENCE = registerBlock(ModBlocks.PRISMARINE_PIECES.getFence(),ExtraPieces.group);
 		PRISMARINE_BRICK_FENCE = registerBlock(ModBlocks.PRISMARINE_BRICK_PIECES.getFence(),ExtraPieces.group);
 		DARK_PRISMARINE_FENCE = registerBlock(ModBlocks.DARK_PRISMARINE_PIECES.getFence(),ExtraPieces.group);
@@ -1675,7 +1673,6 @@ public class ModItems {
 		
 		NETHER_BRICK_FENCE_GATE = registerBlock(ModBlocks.NETHER_BRICK_PIECES.getFenceGate(),ExtraPieces.group);
 		RED_NETHER_BRICK_FENCE_GATE = registerBlock(ModBlocks.RED_NETHER_BRICK_PIECES.getFenceGate(),ExtraPieces.group);
-		//PRISMARINE_FENCE_GATE = registerBlock(ModBlocks.PRISMARINE_PIECES.getFenceGate(),ExtraPieces.group);
 		PRISMARINE_FENCE_GATE = registerBlock(ModBlocks.PRISMARINE_PIECES.getFenceGate(),ExtraPieces.group);
 		PRISMARINE_BRICK_FENCE_GATE = registerBlock(ModBlocks.PRISMARINE_BRICK_PIECES.getFenceGate(),ExtraPieces.group);
 		DARK_PRISMARINE_FENCE_GATE = registerBlock(ModBlocks.DARK_PRISMARINE_PIECES.getFenceGate(),ExtraPieces.group);

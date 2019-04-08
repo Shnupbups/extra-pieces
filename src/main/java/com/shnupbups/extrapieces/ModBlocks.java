@@ -341,20 +341,5 @@ public class ModBlocks {
 		STRIPPED_JUNGLE_WOOD_PIECES = PiecesSet.createSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").register();
 		STRIPPED_ACACIA_WOOD_PIECES = PiecesSet.createSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").register();
 		STRIPPED_DARK_OAK_WOOD_PIECES = PiecesSet.createSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").register();
-/*
-		Iterator var0 = Registry.BLOCK.iterator();
-
-		while(var0.hasNext()) {
-			Block block_1 = (Block)var0.next();
-			UnmodifiableIterator var2 = block_1.getStateFactory().getStates().iterator();
-
-			while(var2.hasNext()) {
-				BlockState blockState_1 = (BlockState)var2.next();
-				blockState_1.initShapeCache();
-				Block.STATE_IDS.add(blockState_1);
-			}
-
-			block_1.getDropTableId();
-		}*/
 	}
 }
