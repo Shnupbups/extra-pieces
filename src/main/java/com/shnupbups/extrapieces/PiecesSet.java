@@ -31,6 +31,35 @@ public class PiecesSet {
 		else return null;
 	}
 
+	public static Block getPiece(Block base, BlockPiece piece) {
+		if(getSet(base)!=null && getSet(base).hasPiece(piece)) return getSet(base).getPiece(piece);
+		return null;
+	}
+
+	public static StairsBlock getStairs(Block base) {
+		return (StairsBlock)getPiece(base, BlockPiece.STAIRS);
+	}
+
+	public static SlabBlock getSlab(Block base) {
+		return (SlabBlock)getPiece(base, BlockPiece.SLAB);
+	}
+
+	public static SidingBlock getSiding(Block base) {
+		return (SidingBlock)getPiece(base, BlockPiece.SIDING);
+	}
+
+	public static WallBlock getWall(Block base) {
+		return (WallBlock)getPiece(base, BlockPiece.WALL);
+	}
+
+	public static FenceBlock getFence(Block base) {
+		return (FenceBlock)getPiece(base, BlockPiece.FENCE);
+	}
+
+	public static FenceGateBlock getFenceGate(Block base) {
+		return (FenceGateBlock)getPiece(base, BlockPiece.FENCE_GATE);
+	}
+
 	public static PiecesSet createSet(Block base, String name, BlockPiece... types) {
 		if(hasSet(base)) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet in registry! Use getSet!");
 		else return new PiecesSet(base, name, types);
@@ -64,7 +93,6 @@ public class PiecesSet {
 		if(shouldHavePiece(BlockPiece.FENCE_GATE)) {
 			pieces.put(BlockPiece.FENCE_GATE, new FenceGateBlock(Block.Settings.copy(base)));
 		}
-		registry.put(base, this);
 		return this;
 	}
 
@@ -75,7 +103,6 @@ public class PiecesSet {
 			ModBlocks.register(b.getName(getName()), pieces.get(b));
 		}
 		registered = true;
-		registry.put(base, this);
 		return this;
 	}
 

@@ -2,6 +2,8 @@ package com.shnupbups.extrapieces;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.block.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -172,8 +174,12 @@ public class ModBlocks {
 	public static PiecesSet STRIPPED_ACACIA_WOOD_PIECES;
 	public static PiecesSet STRIPPED_DARK_OAK_WOOD_PIECES;
 
-	protected static Block register(String string_1, Block block_1) {
-		return Registry.register(Registry.BLOCK, new Identifier("extrapieces",string_1), block_1);
+	protected static Block register(String name, Block block) {
+		block = Registry.register(Registry.BLOCK, new Identifier("extrapieces",name), block);
+		Item item = new BlockItem(block, (new Item.Settings()).itemGroup(ExtraPieces.group));
+		((BlockItem)item).registerBlockItemMap(Item.BLOCK_ITEM_MAP, item);
+		Registry.register(Registry.ITEM, Registry.BLOCK.getId(block), item);
+		return block;
 	}
 
 	public static void init() {
