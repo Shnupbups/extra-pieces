@@ -13,7 +13,7 @@ public class ExtraPieces implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModBlocks.init();
-		group = FabricItemGroupBuilder.create(new Identifier("extrapieces","blocks")).icon(() -> new ItemStack(ModBlocks.OAK_SIDING)).build();
+		group = FabricItemGroupBuilder.create(new Identifier("extrapieces","blocks")).icon(() -> new ItemStack(ModBlocks.OAK_PIECES.getSiding())).build();
 		ModItems.init();
 	}
 

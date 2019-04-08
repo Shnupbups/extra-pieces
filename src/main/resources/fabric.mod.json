@@ -1,15 +1,33 @@
 {
+  "schemaVersion": 1,
   "id": "extrapieces",
-  "name": "Extra Pieces",
-  "description": "Adds more block shapes to Minecraft",
   "version": "1.2.0",
-  "side": "universal",
-  "initializers": [
-    "com.shnupbups.extrapieces.ExtraPieces"
+
+  "name": "Extra Pieces",
+  "description": "Adds more block shapes to Minecraft!",
+  "authors": [
+    "Shnupbups"
   ],
-  "requires": {
-    "fabric": "*"
+  "contact": {
+    "homepage": "https://minecraft.curseforge.com/projects/extra-pieces",
+    "sources": "https://github.com/Shnupbups/extra-pieces",
+    "issues": "https://github.com/Shnupbups/extra-pieces/issues"
   },
-  "mixins": {
+
+  "license": "All Rights Reserved",
+  "icon": "assets/extrapieces/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.shnupbups.extrapieces.ExtraPieces"
+    ]
+  },
+  "mixins": [
+  ],
+
+  "requires": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
   }
 }
