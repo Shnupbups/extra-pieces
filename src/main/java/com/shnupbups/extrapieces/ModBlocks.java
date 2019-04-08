@@ -1,11 +1,9 @@
 package com.shnupbups.extrapieces;
 
-import com.google.common.collect.UnmodifiableIterator;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import java.util.Iterator;
 
 public class ModBlocks {
 
@@ -175,7 +173,7 @@ public class ModBlocks {
 	public static PiecesSet STRIPPED_DARK_OAK_WOOD_PIECES;
 
 	protected static Block register(String string_1, Block block_1) {
-		return Registry.register(Registry.BLOCK, new Identifier("extrapieces",(String)string_1), block_1);
+		return Registry.register(Registry.BLOCK, new Identifier("extrapieces",string_1), block_1);
 	}
 
 	public static void init() {
@@ -343,7 +341,7 @@ public class ModBlocks {
 		STRIPPED_JUNGLE_WOOD_PIECES = PiecesSet.createSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").register();
 		STRIPPED_ACACIA_WOOD_PIECES = PiecesSet.createSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").register();
 		STRIPPED_DARK_OAK_WOOD_PIECES = PiecesSet.createSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").register();
-
+/*
 		Iterator var0 = Registry.BLOCK.iterator();
 
 		while(var0.hasNext()) {
@@ -357,6 +355,6 @@ public class ModBlocks {
 			}
 
 			block_1.getDropTableId();
-		}
+		}*/
 	}
 }
