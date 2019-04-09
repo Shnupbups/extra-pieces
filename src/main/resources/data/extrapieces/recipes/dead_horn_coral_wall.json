@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:dead_horn_coral_block"
+    }
+  },
+  "result": {
+    "item": "extrapieces:dead_horn_coral_wall",
+    "count": 6
+  }
+}

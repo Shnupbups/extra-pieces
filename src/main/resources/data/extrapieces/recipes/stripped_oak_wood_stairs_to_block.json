@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:stripped_oak_wood_stairs"
+    }
+  },
+  "result": {
+    "item": "minecraft:",
+    "count": 3
+  }
+}

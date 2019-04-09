@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:"
+    }
+  },
+  "result": {
+    "item": "extrapieces:spruce_wood_slab",
+    "count": 6
+  }
+}

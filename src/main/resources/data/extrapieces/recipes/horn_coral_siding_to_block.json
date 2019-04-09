@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:horn_coral_siding"
+    },
+    {
+      "item": "extrapieces:horn_coral_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:horn_coral_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:glowstone_slab"
+    },
+    {
+      "item": "extrapieces:glowstone_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:glowstone",
+    "count": 1
+  }
+}

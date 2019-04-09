@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:fire_coral_block"
+    }
+  },
+  "result": {
+    "item": "extrapieces:fire_coral_slab",
+    "count": 6
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:red_mushroom_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:red_mushroom_siding",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:obsidian_slab"
+    },
+    {
+      "item": "extrapieces:obsidian_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:obsidian",
+    "count": 1
+  }
+}

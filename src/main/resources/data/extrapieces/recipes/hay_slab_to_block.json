@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:hay_slab"
+    },
+    {
+      "item": "extrapieces:hay_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:hay_block",
+    "count": 1
+  }
+}

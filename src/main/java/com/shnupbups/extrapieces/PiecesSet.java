@@ -1,6 +1,10 @@
 package com.shnupbups.extrapieces;
 
 import net.minecraft.block.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.block.BlockItem;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -100,7 +104,10 @@ public class PiecesSet {
 		if(isRegistered()) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet registered! Cannot register again!");
 		if(!isGenerated()) generate();
 		for(BlockPiece b : pieces.keySet()) {
-			ModBlocks.register(b.getName(getName()), pieces.get(b));
+			Registry.register(Registry.BLOCK, new Identifier("extrapieces",b.getName(getName())), pieces.get(b));
+			Item item = new BlockItem(pieces.get(b), (new Item.Settings()).itemGroup(ExtraPieces.groups.get(b)));
+			((BlockItem)item).registerBlockItemMap(Item.BLOCK_ITEM_MAP, item);
+			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b)), item);
 		}
 		registered = true;
 		return this;
@@ -173,6 +180,9 @@ public class PiecesSet {
 
 		public String getName(String baseName) {
 			return baseName+"_"+this.name().toLowerCase();
+		}
+		public String getName() {
+			return this.name().toLowerCase();
 		}
 	}
 }

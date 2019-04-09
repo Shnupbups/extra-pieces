@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:bone_stairs"
+    }
+  },
+  "result": {
+    "item": "minecraft:bone_block",
+    "count": 3
+  }
+}

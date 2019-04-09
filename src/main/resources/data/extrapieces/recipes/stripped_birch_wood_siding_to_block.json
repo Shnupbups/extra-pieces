@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:stripped_birch_wood_siding"
+    },
+    {
+      "item": "extrapieces:stripped_birch_wood_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:stripped_birch_wood",
+    "count": 1
+  }
+}

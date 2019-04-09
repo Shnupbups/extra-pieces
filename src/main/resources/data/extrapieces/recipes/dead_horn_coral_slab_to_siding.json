@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:dead_horn_coral_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:dead_horn_coral_siding",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:melon_siding"
+    },
+    {
+      "item": "extrapieces:melon_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:melon",
+    "count": 1
+  }
+}

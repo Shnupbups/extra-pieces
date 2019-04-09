@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:snow_siding"
+    },
+    {
+      "item": "extrapieces:snow_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:snow_block",
+    "count": 1
+  }
+}

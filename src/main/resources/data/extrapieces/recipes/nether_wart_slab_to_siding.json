@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:nether_wart_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:nether_wart_siding",
+    "count": 1
+  }
+}

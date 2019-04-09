@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:brown_mushroom_block"
+    }
+  },
+  "result": {
+    "item": "extrapieces:brown_mushroom_stairs",
+    "count": 4
+  }
+}

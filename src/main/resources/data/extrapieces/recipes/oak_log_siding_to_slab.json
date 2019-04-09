@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:oak_log_siding"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:oak_log_slab",
+    "count": 1
+  }
+}

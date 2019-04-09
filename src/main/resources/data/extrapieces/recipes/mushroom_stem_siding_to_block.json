@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:mushroom_stem_siding"
+    },
+    {
+      "item": "extrapieces:mushroom_stem_siding"
+    }
+  ],
+  "result": {
+    "item": "minecraft:mushroom_stem",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:bubble_coral_slab"
+    },
+    {
+      "item": "extrapieces:bubble_coral_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:bubble_coral_block",
+    "count": 1
+  }
+}

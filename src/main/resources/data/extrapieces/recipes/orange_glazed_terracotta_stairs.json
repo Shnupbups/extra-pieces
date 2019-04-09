@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:orange_glazed_terracotta"
+    }
+  },
+  "result": {
+    "item": "extrapieces:orange_glazed_terracotta_stairs",
+    "count": 4
+  }
+}

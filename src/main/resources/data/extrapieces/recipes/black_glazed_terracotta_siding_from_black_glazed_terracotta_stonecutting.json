@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:black_glazed_terracotta"
+  },
+  "result": "extrapieces:black_glazed_terracotta_siding",
+  "count": 2
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:tube_coral_siding"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:tube_coral_slab",
+    "count": 1
+  }
+}

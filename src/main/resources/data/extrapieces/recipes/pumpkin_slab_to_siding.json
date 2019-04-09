@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:pumpkin_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:pumpkin_siding",
+    "count": 1
+  }
+}

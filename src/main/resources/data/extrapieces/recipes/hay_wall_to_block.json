@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:hay_wall"
+    }
+  },
+  "result": {
+    "item": "minecraft:hay_block",
+    "count": 4
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:black_glazed_terracotta_slab"
+    },
+    {
+      "item": "extrapieces:black_glazed_terracotta_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:black_glazed_terracotta",
+    "count": 1
+  }
+}

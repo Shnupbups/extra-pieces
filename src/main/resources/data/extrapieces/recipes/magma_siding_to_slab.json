@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:magma_siding"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:magma_slab",
+    "count": 1
+  }
+}

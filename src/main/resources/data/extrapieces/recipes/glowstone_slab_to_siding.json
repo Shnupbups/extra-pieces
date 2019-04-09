@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:glowstone_slab"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:glowstone_siding",
+    "count": 1
+  }
+}
