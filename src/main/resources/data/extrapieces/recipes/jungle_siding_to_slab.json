@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "wooden_siding_to_slab",
   "ingredients": [
     {
       "item": "extrapieces:jungle_siding"

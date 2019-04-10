@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:prismarine_wall"
+      "item": "minecraft:brick_wall"
     }
   },
   "result": {
-    "item": "minecraft:prismarine",
+    "item": "minecraft:bricks",
     "count": 4
   }
 }

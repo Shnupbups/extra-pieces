@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:red_concrete"
+  },
+  "result": "extrapieces:red_concrete_fence",
+  "count": 1
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:emerald_block"
+  },
+  "result": "extrapieces:emerald_fence",
+  "count": 1
+}

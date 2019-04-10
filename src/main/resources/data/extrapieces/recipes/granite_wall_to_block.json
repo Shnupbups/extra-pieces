@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:prismarine_wall"
+      "item": "minecraft:granite_wall"
     }
   },
   "result": {
-    "item": "minecraft:prismarine",
+    "item": "minecraft:granite",
     "count": 4
   }
 }

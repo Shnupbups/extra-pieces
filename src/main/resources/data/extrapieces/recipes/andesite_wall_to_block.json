@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:prismarine_wall"
+      "item": "minecraft:andesite_wall"
     }
   },
   "result": {
-    "item": "minecraft:prismarine",
+    "item": "minecraft:andesite",
     "count": 4
   }
 }

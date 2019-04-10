@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:light_blue_terracotta"
+  },
+  "result": "extrapieces:light_blue_terracotta_fence",
+  "count": 1
+}

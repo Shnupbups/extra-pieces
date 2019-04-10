@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:cyan_concrete"
+  },
+  "result": "extrapieces:cyan_concrete_fence_gate",
+  "count": 1
+}

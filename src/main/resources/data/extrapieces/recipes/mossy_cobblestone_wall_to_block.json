@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:prismarine_wall"
+      "item": "minecraft:mossy_cobblestone_wall"
     }
   },
   "result": {
-    "item": "minecraft:prismarine",
+    "item": "minecraft:mossy_cobblestone",
     "count": 4
   }
 }

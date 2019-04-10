@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "extrapieces:black_terracotta_siding"
+      "item": "extrapieces:quartz_pillar_siding"
     }
   ],
   "result": {
-    "item": "extrapieces:black_terracotta_slab",
+    "item": "extrapieces:quartz_pillar_slab",
     "count": 1
   }
 }

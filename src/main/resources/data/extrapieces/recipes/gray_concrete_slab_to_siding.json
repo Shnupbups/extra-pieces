@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "extrapieces:black_terracotta_slab"
+      "item": "extrapieces:gray_concrete_slab"
     }
   ],
   "result": {
-    "item": "extrapieces:black_terracotta_siding",
+    "item": "extrapieces:gray_concrete_siding",
     "count": 1
   }
 }

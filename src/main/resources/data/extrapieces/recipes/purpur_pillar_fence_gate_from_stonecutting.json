@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:purpur_pillar"
+  },
+  "result": "extrapieces:purpur_pillar_fence_gate",
+  "count": 1
+}
