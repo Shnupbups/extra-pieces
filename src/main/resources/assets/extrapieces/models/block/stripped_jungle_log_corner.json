@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/stripped_jungle_log",
+        "top": "block/stripped_jungle_log",
+        "bottom": "block/stripped_jungle_log"
+    }
+}

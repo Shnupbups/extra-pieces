@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "extrapieces:block/cyan_wool_corner" },
+        "facing=south": { "model": "extrapieces:block/cyan_wool_corner", "y": 180, "uvlock": true },
+        "facing=east": { "model": "extrapieces:block/cyan_wool_corner", "y": 90, "uvlock": true },
+        "facing=west": { "model": "extrapieces:block/cyan_wool_corner", "y": 270, "uvlock": true }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y": { "model": "extrapieces:block/purple_wool_fence_post" },
+        "axis=x": { "model": "extrapieces:block/purple_wool_fence_post", "x": 90, "y": 90, "uvlock": true },
+        "axis=z": { "model": "extrapieces:block/purple_wool_fence_post", "x": 90, "uvlock": true }
+    }
+}

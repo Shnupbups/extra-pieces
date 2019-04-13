@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/magma",
+        "top": "block/magma",
+        "bottom": "block/magma"
+    }
+}

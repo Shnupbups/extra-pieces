@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/dead_bubble_coral_block",
+        "top": "block/dead_bubble_coral_block",
+        "bottom": "block/dead_bubble_coral_block"
+    }
+}

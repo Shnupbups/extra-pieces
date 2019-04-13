@@ -11,9 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PiecesSet {
-	public static BlockPiece[] NO_SLAB = {BlockPiece.STAIRS,BlockPiece.SIDING,BlockPiece.WALL,BlockPiece.FENCE,BlockPiece.FENCE_GATE};
-	public static BlockPiece[] NO_SLAB_OR_STAIRS = {BlockPiece.SIDING,BlockPiece.WALL,BlockPiece.FENCE,BlockPiece.FENCE_GATE};
-	public static BlockPiece[] NO_SLAB_STAIRS_OR_WALL = {BlockPiece.SIDING,BlockPiece.FENCE,BlockPiece.FENCE_GATE};
+	public static BlockPiece[] NO_SLAB = {BlockPiece.STAIRS,BlockPiece.SIDING,BlockPiece.WALL,BlockPiece.FENCE,BlockPiece.FENCE_GATE,BlockPiece.POST,/*BlockPiece.COLUMN,*/BlockPiece.CORNER};
+	public static BlockPiece[] NO_SLAB_OR_STAIRS = {BlockPiece.SIDING,BlockPiece.WALL,BlockPiece.FENCE,BlockPiece.FENCE_GATE,BlockPiece.POST,/*BlockPiece.COLUMN,*/BlockPiece.CORNER};
+	public static BlockPiece[] NO_SLAB_STAIRS_OR_WALL = {BlockPiece.SIDING,BlockPiece.FENCE,BlockPiece.FENCE_GATE,BlockPiece.POST,/*BlockPiece.COLUMN,*/BlockPiece.CORNER};
+	public static BlockPiece[] JUST_EXTRAS_AND_WALL = {BlockPiece.WALL,BlockPiece.SIDING,BlockPiece.POST,/*BlockPiece.COLUMN,*/BlockPiece.CORNER};
+	public static BlockPiece[] JUST_EXTRAS_AND_FENCE_GATE = {BlockPiece.FENCE_GATE,BlockPiece.SIDING,BlockPiece.POST,/*BlockPiece.COLUMN,*/BlockPiece.CORNER};
 
 	private static Map<Block, PiecesSet> registry = new HashMap<Block, PiecesSet>();
 
@@ -64,6 +66,18 @@ public class PiecesSet {
 		return (FenceGateBlock)getPiece(base, BlockPiece.FENCE_GATE);
 	}
 
+	public static PostBlock getPost(Block base) {
+		return (PostBlock)getPiece(base, BlockPiece.POST);
+	}
+
+	/*public static ColumnBlock getColumn(Block base) {
+		return (ColumnBlock)getPiece(base, BlockPiece.COLUMN);
+	}*/
+
+	public static CornerBlock getCorner(Block base) {
+		return (CornerBlock)getPiece(base, BlockPiece.CORNER);
+	}
+
 	public static PiecesSet createSet(Block base, String name, BlockPiece... types) {
 		if(hasSet(base)) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet in registry! Use getSet!");
 		else return new PiecesSet(base, name, types);
@@ -80,22 +94,28 @@ public class PiecesSet {
 	public PiecesSet generate() {
 		pieces.clear();
 		if(shouldHavePiece(BlockPiece.STAIRS)) {
-			pieces.put(BlockPiece.STAIRS, new StairsBlock(base.getDefaultState(),Block.Settings.copy(base)));
+			pieces.put(BlockPiece.STAIRS, new StairsBlock(base.getDefaultState(),Block.Settings.copy(getBase())));
 		}
 		if(shouldHavePiece(BlockPiece.SLAB)) {
-			pieces.put(BlockPiece.SLAB, new SlabBlock(Block.Settings.copy(base)));
+			pieces.put(BlockPiece.SLAB, new SlabBlock(Block.Settings.copy(getBase())));
 		}
 		if(shouldHavePiece(BlockPiece.SIDING)) {
-			pieces.put(BlockPiece.SIDING, new SidingBlock(Block.Settings.copy(base)));
+			pieces.put(BlockPiece.SIDING, new SidingBlock(Block.Settings.copy(getBase())));
 		}
 		if(shouldHavePiece(BlockPiece.WALL)) {
-			pieces.put(BlockPiece.WALL, new WallBlock(Block.Settings.copy(base)));
+			pieces.put(BlockPiece.WALL, new WallBlock(Block.Settings.copy(getBase())));
 		}
 		if(shouldHavePiece(BlockPiece.FENCE)) {
-			pieces.put(BlockPiece.FENCE, new FenceBlock(Block.Settings.copy(base)));
+			pieces.put(BlockPiece.FENCE, new FenceBlock(Block.Settings.copy(getBase())));
 		}
 		if(shouldHavePiece(BlockPiece.FENCE_GATE)) {
-			pieces.put(BlockPiece.FENCE_GATE, new FenceGateBlock(Block.Settings.copy(base)));
+			pieces.put(BlockPiece.FENCE_GATE, new FenceGateBlock(Block.Settings.copy(getBase())));
+		}
+		if(shouldHavePiece(BlockPiece.CORNER)) {
+			pieces.put(BlockPiece.CORNER, new CornerBlock(base.getDefaultState(),Block.Settings.copy(getBase())));
+		}
+		if(shouldHavePiece(BlockPiece.POST)) {
+			pieces.put(BlockPiece.POST, new PostBlock(Block.Settings.copy(getBase())));
 		}
 		return this;
 	}
@@ -147,6 +167,18 @@ public class PiecesSet {
 		return (FenceGateBlock)getPiece(BlockPiece.FENCE_GATE);
 	}
 
+	public PostBlock getPost() {
+		return (PostBlock)getPiece(BlockPiece.POST);
+	}
+
+	/*public ColumnBlock getColumn() {
+		return (ColumnBlock)getPiece(BlockPiece.COLUMN);
+	}*/
+
+	public CornerBlock getCorner() {
+		return (CornerBlock)getPiece(BlockPiece.CORNER);
+	}
+
 	public Block getBase() {
 		return base;
 	}
@@ -176,7 +208,10 @@ public class PiecesSet {
 		SIDING,
 		WALL,
 		FENCE,
-		FENCE_GATE;
+		FENCE_GATE,
+		POST,
+		//COLUMN,
+		CORNER;
 
 		public String getName(String baseName) {
 			return baseName+"_"+this.name().toLowerCase();

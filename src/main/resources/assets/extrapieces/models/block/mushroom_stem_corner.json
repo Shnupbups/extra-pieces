@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/mushroom_stem",
+        "top": "block/mushroom_stem",
+        "bottom": "block/mushroom_stem"
+    }
+}

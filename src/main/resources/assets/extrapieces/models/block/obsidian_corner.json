@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/obsidian",
+        "top": "block/obsidian",
+        "bottom": "block/obsidian"
+    }
+}

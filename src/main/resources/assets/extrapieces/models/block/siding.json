@@ -2,6 +2,8 @@
     "parent": "block/block",
     "textures": {
         "particle": "#side",
+        "front": "#side",
+        "back": "side",
         "top": "#side",
         "bottom": "#side"
     },

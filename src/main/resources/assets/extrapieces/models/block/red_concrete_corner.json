@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/red_concrete",
+        "top": "block/red_concrete",
+        "bottom": "block/red_concrete"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/green_glazed_terracotta",
+        "top": "block/green_glazed_terracotta",
+        "bottom": "block/green_glazed_terracotta"
+    }
+}

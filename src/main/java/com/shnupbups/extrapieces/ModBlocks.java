@@ -173,12 +173,12 @@ public class ModBlocks {
 		PRISMARINE_PIECES = PiecesSet.createSet(Blocks.PRISMARINE, "prismarine", PiecesSet.NO_SLAB_STAIRS_OR_WALL).register();
 		PRISMARINE_BRICK_PIECES = PiecesSet.createSet(Blocks.PRISMARINE_BRICKS, "prismarine_brick", PiecesSet.NO_SLAB_OR_STAIRS).register();
 		DARK_PRISMARINE_PIECES = PiecesSet.createSet(Blocks.DARK_PRISMARINE, "dark_prismarine", PiecesSet.NO_SLAB_OR_STAIRS).register();
-		OAK_PIECES = PiecesSet.createSet(Blocks.OAK_PLANKS, "oak", PiecesSet.BlockPiece.SIDING, PiecesSet.BlockPiece.WALL).register();
-		SPRUCE_PIECES = PiecesSet.createSet(Blocks.SPRUCE_PLANKS, "spruce", PiecesSet.BlockPiece.SIDING, PiecesSet.BlockPiece.WALL).register();
-		BIRCH_PIECES = PiecesSet.createSet(Blocks.BIRCH_PLANKS, "birch", PiecesSet.BlockPiece.SIDING, PiecesSet.BlockPiece.WALL).register();
-		JUNGLE_PIECES = PiecesSet.createSet(Blocks.JUNGLE_PLANKS, "jungle", PiecesSet.BlockPiece.SIDING, PiecesSet.BlockPiece.WALL).register();
-		ACACIA_PIECES = PiecesSet.createSet(Blocks.ACACIA_PLANKS, "acacia", PiecesSet.BlockPiece.SIDING, PiecesSet.BlockPiece.WALL).register();
-		DARK_OAK_PIECES = PiecesSet.createSet(Blocks.DARK_OAK_PLANKS, "dark_oak", PiecesSet.BlockPiece.SIDING, PiecesSet.BlockPiece.WALL).register();
+		OAK_PIECES = PiecesSet.createSet(Blocks.OAK_PLANKS, "oak", PiecesSet.JUST_EXTRAS_AND_WALL).register();
+		SPRUCE_PIECES = PiecesSet.createSet(Blocks.SPRUCE_PLANKS, "spruce", PiecesSet.JUST_EXTRAS_AND_WALL).register();
+		BIRCH_PIECES = PiecesSet.createSet(Blocks.BIRCH_PLANKS, "birch", PiecesSet.JUST_EXTRAS_AND_WALL).register();
+		JUNGLE_PIECES = PiecesSet.createSet(Blocks.JUNGLE_PLANKS, "jungle", PiecesSet.JUST_EXTRAS_AND_WALL).register();
+		ACACIA_PIECES = PiecesSet.createSet(Blocks.ACACIA_PLANKS, "acacia", PiecesSet.JUST_EXTRAS_AND_WALL).register();
+		DARK_OAK_PIECES = PiecesSet.createSet(Blocks.DARK_OAK_PLANKS, "dark_oak", PiecesSet.JUST_EXTRAS_AND_WALL).register();
 		STONE_PIECES = PiecesSet.createSet(Blocks.STONE, "stone", PiecesSet.NO_SLAB_OR_STAIRS).register();
 		SMOOTH_STONE_PIECES = PiecesSet.createSet(Blocks.SMOOTH_STONE, "smooth_stone", PiecesSet.NO_SLAB).register();
 		SANDSTONE_PIECES = PiecesSet.createSet(Blocks.SANDSTONE, "sandstone", PiecesSet.NO_SLAB_STAIRS_OR_WALL).register();
@@ -187,7 +187,7 @@ public class ModBlocks {
 		COBBLESTONE_PIECES = PiecesSet.createSet(Blocks.COBBLESTONE, "cobblestone", PiecesSet.NO_SLAB_STAIRS_OR_WALL).register();
 		BRICK_PIECES = PiecesSet.createSet(Blocks.BRICKS, "brick", PiecesSet.NO_SLAB_STAIRS_OR_WALL).register();
 		STONE_BRICK_PIECES = PiecesSet.createSet(Blocks.STONE_BRICKS, "stone_brick", PiecesSet.NO_SLAB_STAIRS_OR_WALL).register();
-		NETHER_BRICK_PIECES = PiecesSet.createSet(Blocks.NETHER_BRICKS, "nether_brick", PiecesSet.BlockPiece.SIDING, PiecesSet.BlockPiece.FENCE_GATE).register();
+		NETHER_BRICK_PIECES = PiecesSet.createSet(Blocks.NETHER_BRICKS, "nether_brick", PiecesSet.JUST_EXTRAS_AND_FENCE_GATE).register();
 		QUARTZ_PIECES = PiecesSet.createSet(Blocks.QUARTZ_BLOCK, "quartz", PiecesSet.NO_SLAB_OR_STAIRS).register();
 		RED_SANDSTONE_PIECES = PiecesSet.createSet(Blocks.RED_SANDSTONE, "red_sandstone", PiecesSet.NO_SLAB_STAIRS_OR_WALL).register();
 		CUT_RED_SANDSTONE_PIECES = PiecesSet.createSet(Blocks.CUT_RED_SANDSTONE, "cut_red_sandstone", PiecesSet.NO_SLAB).register();

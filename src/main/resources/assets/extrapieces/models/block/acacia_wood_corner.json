@@ -1,0 +1,8 @@
+{
+    "parent": "extrapieces:block/corner",
+    "textures": {
+        "side": "block/acacia_log",
+        "top": "block/acacia_log",
+        "bottom": "block/acacia_log"
+    }
+}
