@@ -12,6 +12,7 @@ import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -49,18 +50,33 @@ public class PostBlock extends Block implements Waterloggable {
 		else return super.getCollisionShape(blockState_1, blockView_1, blockPos_1, verticalEntityPosition_1);
 	}
 
+	public BlockState rotate(BlockState blockState_1, Rotation rotation_1) {
+		switch(rotation_1) {
+			case ROT_270:
+			case ROT_90:
+				switch(blockState_1.get(AXIS)) {
+					case X:
+						return blockState_1.with(AXIS, Direction.Axis.Z);
+					case Z:
+						return blockState_1.with(AXIS, Direction.Axis.X);
+					default:
+						return blockState_1;
+				}
+			default:
+				return blockState_1;
+		}
+	}
+
 	public BlockState getPlacementState(ItemPlacementContext itemPlacementContext_1) {
 		BlockPos blockPos_1 = itemPlacementContext_1.getBlockPos();
 		FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
-		BlockState blockState_1 = this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
-		return blockState_1;
+		return this.getDefaultState().with(AXIS, itemPlacementContext_1.getFacing().getAxis()).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
 		if (blockState_1.get(WATERLOGGED)) {
 			iWorld_1.getFluidTickScheduler().schedule(blockPos_1, Fluids.WATER, Fluids.WATER.getTickRate(iWorld_1));
 		}
-
 		return super.getStateForNeighborUpdate(blockState_1, direction_1, blockState_2, iWorld_1, blockPos_1, blockPos_2);
 	}
 
@@ -69,7 +85,7 @@ public class PostBlock extends Block implements Waterloggable {
 	}
 
 	public FluidState getFluidState(BlockState blockState_1) {
-		return (Boolean)blockState_1.get(WATERLOGGED) ? Fluids.WATER.getState(false) : super.getFluidState(blockState_1);
+		return blockState_1.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(blockState_1);
 	}
 
 	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, BlockPlacementEnvironment blockPlacementEnvironment_1) {
@@ -77,7 +93,7 @@ public class PostBlock extends Block implements Waterloggable {
 	}
 
 	static {
-		AXIS = ModProperties.AXIS;
+		AXIS = Properties.AXIS_XYZ;
 		WATERLOGGED = Properties.WATERLOGGED;
 		Y_SHAPE = Block.createCuboidShape(6f, 0f, 6f, 10f, 16f, 10f);
 		Y_COLLISION = Block.createCuboidShape(6f, 0f, 6f, 10f, 24f, 10f);
