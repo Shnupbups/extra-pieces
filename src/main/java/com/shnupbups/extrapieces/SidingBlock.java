@@ -34,7 +34,7 @@ public class SidingBlock extends Block implements Waterloggable {
 
 	public SidingBlock(Block.Settings block$Settings_1) {
 		super(block$Settings_1);
-		this.setDefaultState((BlockState)((BlockState)this.getDefaultState().with(TYPE, SidingType.SINGLE)).with(FACING_HORIZONTAL, Direction.NORTH).with(WATERLOGGED, false));
+		this.setDefaultState(this.getDefaultState().with(TYPE, SidingType.SINGLE).with(FACING_HORIZONTAL, Direction.NORTH).with(WATERLOGGED, false));
 	}
 
 	public boolean method_9526(BlockState blockState_1) {
@@ -46,8 +46,8 @@ public class SidingBlock extends Block implements Waterloggable {
 	}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, VerticalEntityPosition verticalEntityPosition_1) {
-		SidingType slabType_1 = (SidingType)blockState_1.get(TYPE);
-		Direction facing = (Direction)blockState_1.get(FACING_HORIZONTAL);
+		SidingType slabType_1 = blockState_1.get(TYPE);
+		Direction facing = blockState_1.get(FACING_HORIZONTAL);
 		switch(slabType_1) {
 			case DOUBLE:
 				return VoxelShapes.fullCube();
@@ -69,7 +69,7 @@ public class SidingBlock extends Block implements Waterloggable {
 		BlockPos blockPos_1 = itemPlacementContext_1.getBlockPos();
 		BlockState blockState_1 = itemPlacementContext_1.getWorld().getBlockState(blockPos_1);
 		if (blockState_1.getBlock() == this) {
-			return (BlockState)((BlockState)blockState_1.with(TYPE, SidingType.DOUBLE)).with(FACING_HORIZONTAL,blockState_1.get(FACING_HORIZONTAL)).with(WATERLOGGED, false);
+			return blockState_1.with(TYPE, SidingType.DOUBLE).with(FACING_HORIZONTAL,blockState_1.get(FACING_HORIZONTAL)).with(WATERLOGGED, false);
 		} else {
 			FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
 			Direction playerHorizontalFacing = itemPlacementContext_1.getPlayerHorizontalFacing();
@@ -86,7 +86,7 @@ public class SidingBlock extends Block implements Waterloggable {
 					else direction_1 = Direction.SOUTH;
 				}
 			}
-			BlockState blockState_2 = (BlockState)((BlockState)this.getDefaultState().with(TYPE, SidingType.SINGLE)).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER).with(FACING_HORIZONTAL,direction_1);
+			BlockState blockState_2 = this.getDefaultState().with(TYPE, SidingType.SINGLE).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER).with(FACING_HORIZONTAL,direction_1);
 			return blockState_2;
 		}
 	}
@@ -94,8 +94,8 @@ public class SidingBlock extends Block implements Waterloggable {
 	public boolean canReplace(BlockState blockState_1, ItemPlacementContext itemPlacementContext_1) {
 		if(itemPlacementContext_1.getPlayer().isSneaking()) return false;
 		ItemStack itemStack_1 = itemPlacementContext_1.getItemStack();
-		SidingType slabType_1 = (SidingType)blockState_1.get(TYPE);
-		Direction facing = (Direction)blockState_1.get(FACING_HORIZONTAL);
+		SidingType slabType_1 = blockState_1.get(TYPE);
+		Direction facing = blockState_1.get(FACING_HORIZONTAL);
 		if (slabType_1 != SidingType.DOUBLE && itemStack_1.getItem() == this.getItem()) {
 			if (itemPlacementContext_1.method_7717()) {
 				boolean boolean_1;
@@ -135,7 +135,7 @@ public class SidingBlock extends Block implements Waterloggable {
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
-		if ((Boolean)blockState_1.get(WATERLOGGED) && direction_1 != (Direction)blockState_1.get(FACING_HORIZONTAL).getOpposite()) {
+		if (blockState_1.get(WATERLOGGED) && direction_1 != blockState_1.get(FACING_HORIZONTAL).getOpposite()) {
 			iWorld_1.getFluidTickScheduler().schedule(blockPos_1, Fluids.WATER, Fluids.WATER.getTickRate(iWorld_1));
 		}
 

@@ -8,7 +8,7 @@ public enum SidingType implements StringRepresentable {
 
 	private final String name;
 
-	private SidingType(String name) {
+	SidingType(String name) {
 		this.name = name;
 	}
 
