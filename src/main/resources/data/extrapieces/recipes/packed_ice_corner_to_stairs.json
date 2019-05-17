@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:packed_ice_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:packed_ice_stairs",
+    "count": 1
+  }
+}

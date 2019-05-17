@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:redstone_block"
+  },
+  "result": "extrapieces:redstone_corner",
+  "count": 1
+}

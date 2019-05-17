@@ -1,5 +1,7 @@
 {
   "values": [
+    "#minecraft:wooden_fences",
+    "minecraft:nether_brick_fence",
     "extrapieces:red_nether_brick_fence",
     "extrapieces:prismarine_fence",
     "extrapieces:prismarine_brick_fence",

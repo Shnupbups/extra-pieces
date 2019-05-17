@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:pumpkin_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:pumpkin_corner",
+    "count": 1
+  }
+}

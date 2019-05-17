@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:stripped_acacia_log_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:stripped_acacia_log_corner",
+    "count": 1
+  }
+}

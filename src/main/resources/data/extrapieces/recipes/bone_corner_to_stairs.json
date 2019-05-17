@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:bone_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:bone_stairs",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:sandstone_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:sandstone",
+    "count": 4
+  }
+}

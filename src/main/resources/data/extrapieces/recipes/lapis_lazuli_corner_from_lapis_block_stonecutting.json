@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:lapis_block"
+  },
+  "result": "extrapieces:lapis_lazuli_corner",
+  "count": 1
+}

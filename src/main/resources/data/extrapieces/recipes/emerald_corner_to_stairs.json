@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:emerald_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:emerald_stairs",
+    "count": 1
+  }
+}

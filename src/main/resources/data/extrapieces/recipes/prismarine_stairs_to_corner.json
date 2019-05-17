@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:prismarine_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:prismarine_corner",
+    "count": 1
+  }
+}

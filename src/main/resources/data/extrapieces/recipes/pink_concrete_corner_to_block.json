@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:pink_concrete_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:pink_concrete",
+    "count": 4
+  }
+}

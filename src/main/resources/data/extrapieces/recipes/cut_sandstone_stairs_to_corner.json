@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:cut_sandstone_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:cut_sandstone_corner",
+    "count": 1
+  }
+}

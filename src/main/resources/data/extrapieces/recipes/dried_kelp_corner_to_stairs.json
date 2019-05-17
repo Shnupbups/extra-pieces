@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:dried_kelp_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:dried_kelp_stairs",
+    "count": 1
+  }
+}

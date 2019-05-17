@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "## ",
+    "#  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:lime_concrete"
+    }
+  },
+  "result": {
+    "item": "extrapieces:lime_concrete_corner",
+    "count": 4
+  }
+}

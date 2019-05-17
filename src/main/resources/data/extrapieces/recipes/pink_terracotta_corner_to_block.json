@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:pink_terracotta_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:pink_terracotta",
+    "count": 4
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:brick_corner"
+    }
+  ],
+  "result": {
+    "item": "minecraft:brick_stairs",
+    "count": 1
+  }
+}

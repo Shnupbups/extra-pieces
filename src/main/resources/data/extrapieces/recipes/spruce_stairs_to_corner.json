@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:spruce_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:spruce_corner",
+    "count": 1
+  }
+}

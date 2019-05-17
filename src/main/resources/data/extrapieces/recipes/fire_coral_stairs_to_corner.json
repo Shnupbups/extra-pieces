@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:fire_coral_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:fire_coral_corner",
+    "count": 1
+  }
+}

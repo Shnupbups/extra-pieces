@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:lime_concrete_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:lime_concrete_stairs",
+    "count": 1
+  }
+}

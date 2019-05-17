@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:red_nether_brick_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:red_nether_bricks",
+    "count": 4
+  }
+}

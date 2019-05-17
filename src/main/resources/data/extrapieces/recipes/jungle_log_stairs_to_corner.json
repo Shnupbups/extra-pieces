@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:jungle_log_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:jungle_log_corner",
+    "count": 1
+  }
+}

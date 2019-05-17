@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "## ",
+    "#  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:quartz_pillar"
+    }
+  },
+  "result": {
+    "item": "extrapieces:quartz_pillar_corner",
+    "count": 4
+  }
+}

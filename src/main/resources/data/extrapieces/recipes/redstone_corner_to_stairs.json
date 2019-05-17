@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:redstone_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:redstone_stairs",
+    "count": 1
+  }
+}

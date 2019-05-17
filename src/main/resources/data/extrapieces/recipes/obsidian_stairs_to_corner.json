@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:obsidian_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:obsidian_corner",
+    "count": 1
+  }
+}

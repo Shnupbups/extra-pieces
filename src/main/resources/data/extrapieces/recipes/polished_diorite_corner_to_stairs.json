@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:polished_diorite_corner"
+    }
+  ],
+  "result": {
+    "item": "minecraft:polished_diorite_stairs",
+    "count": 1
+  }
+}

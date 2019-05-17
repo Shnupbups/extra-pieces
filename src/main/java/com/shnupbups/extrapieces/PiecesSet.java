@@ -1,9 +1,8 @@
 package com.shnupbups.extrapieces;
 
-import com.sun.istack.internal.Nullable;
 import net.minecraft.block.*;
-import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -38,7 +37,6 @@ public class PiecesSet {
 	 * @param base The {@link Block} that the {@link PiecesSet} should be based upon.
 	 * @return The {@link PiecesSet} based on the {@link Block} {@code base}, or null if none exists.
 	 */
-	@Nullable
 	public static PiecesSet getSet(Block base) {
 		if(hasSet(base)) return registry.get(base);
 		else return null;
@@ -50,7 +48,6 @@ public class PiecesSet {
 	 * @param piece The {@link BlockPiece} type to get.
 	 * @return The {@link BlockPiece} based on the {@link Block} {@code base}, or null if none exists.
 	 */
-	@Nullable
 	public static Block getPiece(Block base, BlockPiece piece) {
 		if(getSet(base)!=null && getSet(base).hasPiece(piece)) return getSet(base).getPiece(piece);
 		return null;

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:mossy_stone_brick_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:mossy_stone_brick_corner",
+    "count": 1
+  }
+}

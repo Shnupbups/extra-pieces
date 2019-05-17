@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:chiseled_stone_brick_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:chiseled_stone_brick_corner",
+    "count": 1
+  }
+}

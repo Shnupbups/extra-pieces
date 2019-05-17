@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:melon_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:melon",
+    "count": 4
+  }
+}

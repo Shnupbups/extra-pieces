@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:bubble_coral_block"
+  },
+  "result": "extrapieces:bubble_coral_corner",
+  "count": 1
+}

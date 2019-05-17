@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:acacia_wood_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:acacia_wood",
+    "count": 4
+  }
+}

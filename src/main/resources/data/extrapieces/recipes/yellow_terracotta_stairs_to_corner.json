@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:yellow_terracotta_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:yellow_terracotta_corner",
+    "count": 1
+  }
+}

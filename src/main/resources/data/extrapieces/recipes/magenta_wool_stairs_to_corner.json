@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:magenta_wool_stairs"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:magenta_wool_corner",
+    "count": 1
+  }
+}

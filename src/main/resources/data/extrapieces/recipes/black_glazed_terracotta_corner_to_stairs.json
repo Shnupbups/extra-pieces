@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:black_glazed_terracotta_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:black_glazed_terracotta_stairs",
+    "count": 1
+  }
+}

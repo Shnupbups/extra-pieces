@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:red_nether_brick_corner"
+    }
+  ],
+  "result": {
+    "item": "minecraft:red_nether_brick_stairs",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:snow_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:snow_block",
+    "count": 4
+  }
+}

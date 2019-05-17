@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:purpur_pillar_corner"
+    }
+  ],
+  "result": {
+    "item": "extrapieces:purpur_pillar_stairs",
+    "count": 1
+  }
+}

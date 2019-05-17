@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "extrapieces:dark_oak_corner"
+    }
+  ],
+  "result": {
+    "item": "minecraft:dark_oak_stairs",
+    "count": 1
+  }
+}

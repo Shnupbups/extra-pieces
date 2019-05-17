@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:stripped_acacia_wood_corner"
+    }
+  },
+  "result": {
+    "item": "minecraft:stripped_acacia_wood",
+    "count": 4
+  }
+}
