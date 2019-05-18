@@ -1,5 +1,7 @@
-package com.shnupbups.extrapieces;
+package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.register.ModProperties;
+import com.shnupbups.extrapieces.SidingType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlacementEnvironment;
 import net.minecraft.block.BlockState;
@@ -23,7 +25,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 
-public class SidingBlock extends Block implements Waterloggable {
+public class SidingPieceBlock extends Block implements Waterloggable, ExtraPiece {
 	public static final EnumProperty<SidingType> TYPE;
 	public static final BooleanProperty WATERLOGGED;
 	public static final DirectionProperty FACING_HORIZONTAL;
@@ -32,9 +34,16 @@ public class SidingBlock extends Block implements Waterloggable {
 	protected static final VoxelShape SINGLE_SHAPE_EAST;
 	protected static final VoxelShape SINGLE_SHAPE_WEST;
 
-	public SidingBlock(Block.Settings block$Settings_1) {
-		super(block$Settings_1);
+	public final Block baseBlock;
+
+	public SidingPieceBlock(Block base) {
+		super(Block.Settings.copy(base));
 		this.setDefaultState(this.getDefaultState().with(TYPE, SidingType.SINGLE).with(FACING_HORIZONTAL, Direction.NORTH).with(WATERLOGGED, false));
+		this.baseBlock=base;
+	}
+
+	public Block getBase() {
+		return baseBlock;
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {

@@ -1,5 +1,6 @@
-package com.shnupbups.extrapieces;
+package com.shnupbups.extrapieces.register;
 
+import com.shnupbups.extrapieces.SidingType;
 import net.minecraft.state.property.EnumProperty;
 
 public class ModProperties {

@@ -1,4 +1,4 @@
-package com.shnupbups.extrapieces;
+package com.shnupbups.extrapieces.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlacementEnvironment;
@@ -19,17 +19,23 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 
-public class PostBlock extends Block implements Waterloggable {
+public class PostPieceBlock extends Block implements Waterloggable, ExtraPiece {
 	public static final EnumProperty<Direction.Axis> AXIS;
 	public static final BooleanProperty WATERLOGGED;
 	protected static final VoxelShape Y_SHAPE;
 	protected static final VoxelShape X_SHAPE;
 	protected static final VoxelShape Z_SHAPE;
 	protected static final VoxelShape Y_COLLISION;
+	public final Block baseBlock;
 
-	public PostBlock(Block.Settings block$Settings_1) {
-		super(block$Settings_1);
+	public PostPieceBlock(Block base) {
+		super(Block.Settings.copy(base));
 		this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, false));
+		this.baseBlock=base;
+	}
+
+	public Block getBase() {
+		return baseBlock;
 	}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {

@@ -1,9 +1,12 @@
 package com.shnupbups.extrapieces;
 
+import com.shnupbups.extrapieces.blocks.*;
 import net.minecraft.block.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public abstract class PieceType {
 	public static final PieceType BASE = new BasePiece();
@@ -71,12 +74,26 @@ public abstract class PieceType {
 		return null;
 	}
 
+	public static Optional<PieceType> getTypeOrEmpty(Identifier id) {
+		return Optional.ofNullable(getType(id));
+	}
+
 	public static PieceType getType(String id) {
 		Identifier idt = new Identifier(id);
 		return getType(idt);
 	}
 
 	public abstract Block getNew(Block base);
+
+	public static PieceType readPieceType(PacketByteBuf buf) {
+		return getType(buf.readString(buf.readInt()));
+	}
+
+	public PacketByteBuf writePieceType(PacketByteBuf buf) {
+		buf.writeInt(getId().toString().length());
+		buf.writeString(getId().toString());
+		return buf;
+	}
 
 	public static class BasePiece extends PieceType {
 		public BasePiece() {
@@ -97,8 +114,8 @@ public abstract class PieceType {
 			super("stairs");
 		}
 
-		public StairsBlock getNew(Block base) {
-			return new StairsBlock(base.getDefaultState(), Block.Settings.copy(base));
+		public StairsPieceBlock getNew(Block base) {
+			return new StairsPieceBlock(base);
 		}
 	}
 
@@ -107,8 +124,8 @@ public abstract class PieceType {
 			super("slab");
 		}
 
-		public SlabBlock getNew(Block base) {
-			return new SlabBlock(Block.Settings.copy(base));
+		public SlabPieceBlock getNew(Block base) {
+			return new SlabPieceBlock(base);
 		}
 	}
 
@@ -117,8 +134,8 @@ public abstract class PieceType {
 			super("siding");
 		}
 
-		public SidingBlock getNew(Block base) {
-			return new SidingBlock(Block.Settings.copy(base));
+		public SidingPieceBlock getNew(Block base) {
+			return new SidingPieceBlock(base);
 		}
 	}
 
@@ -127,8 +144,8 @@ public abstract class PieceType {
 			super("wall");
 		}
 
-		public WallBlock getNew(Block base) {
-			return new WallBlock(Block.Settings.copy(base));
+		public WallPieceBlock getNew(Block base) {
+			return new WallPieceBlock(base);
 		}
 	}
 
@@ -137,8 +154,8 @@ public abstract class PieceType {
 			super("fence");
 		}
 
-		public FenceBlock getNew(Block base) {
-			return new FenceBlock(Block.Settings.copy(base));
+		public FencePieceBlock getNew(Block base) {
+			return new FencePieceBlock(base);
 		}
 	}
 
@@ -147,8 +164,8 @@ public abstract class PieceType {
 			super("fence_gate");
 		}
 
-		public FenceGateBlock getNew(Block base) {
-			return new FenceGateBlock(Block.Settings.copy(base));
+		public FenceGatePieceBlock getNew(Block base) {
+			return new FenceGatePieceBlock(base);
 		}
 	}
 
@@ -157,8 +174,8 @@ public abstract class PieceType {
 			super("post");
 		}
 
-		public PostBlock getNew(Block base) {
-			return new PostBlock(Block.Settings.copy(base));
+		public PostPieceBlock getNew(Block base) {
+			return new PostPieceBlock(base);
 		}
 	}
 
@@ -167,8 +184,8 @@ public abstract class PieceType {
 			super("corner");
 		}
 
-		public CornerBlock getNew(Block base) {
-			return new CornerBlock(base.getDefaultState(), Block.Settings.copy(base));
+		public CornerPieceBlock getNew(Block base) {
+			return new CornerPieceBlock(base);
 		}
 	}
 

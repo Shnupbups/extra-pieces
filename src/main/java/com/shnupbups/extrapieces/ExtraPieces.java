@@ -1,5 +1,7 @@
 package com.shnupbups.extrapieces;
 
+import com.shnupbups.extrapieces.register.ModBlocks;
+import com.shnupbups.extrapieces.register.ModRecipes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -13,6 +15,7 @@ public class ExtraPieces implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModRecipes.init();
 		for(PieceType p : PieceType.getTypesNoBase()) {
 			groups.put(p, FabricItemGroupBuilder.create(p.getId()).icon(() -> new ItemStack(ModBlocks.TERRACOTTA_PIECES.getPiece(p))).build());
 		}

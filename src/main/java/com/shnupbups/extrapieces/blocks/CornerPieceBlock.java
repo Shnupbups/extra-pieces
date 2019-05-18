@@ -1,4 +1,4 @@
-package com.shnupbups.extrapieces;
+package com.shnupbups.extrapieces.blocks;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,7 +27,7 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Random;
 
-public class CornerBlock extends Block implements Waterloggable {
+public class CornerPieceBlock extends Block implements Waterloggable, ExtraPiece {
 	public static final DirectionProperty FACING;
 	public static final BooleanProperty WATERLOGGED;
 	protected static final VoxelShape NORTH_SIDING_SHAPE;
@@ -45,11 +45,15 @@ public class CornerBlock extends Block implements Waterloggable {
 	private final Block baseBlock;
 	private final BlockState baseBlockState;
 
-	public CornerBlock(BlockState blockState_1, Block.Settings block$Settings_1) {
-		super(block$Settings_1);
+	public CornerPieceBlock(Block base) {
+		super(Block.Settings.copy(base));
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
-		this.baseBlock = blockState_1.getBlock();
-		this.baseBlockState = blockState_1;
+		this.baseBlock = base;
+		this.baseBlockState = base.getDefaultState();
+	}
+
+	public Block getBase() {
+		return baseBlock;
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
@@ -165,10 +169,10 @@ public class CornerBlock extends Block implements Waterloggable {
 	static {
 		FACING = Properties.FACING_HORIZONTAL;
 		WATERLOGGED = Properties.WATERLOGGED;
-		NORTH_SIDING_SHAPE = SidingBlock.SINGLE_SHAPE_NORTH;
-		EAST_SIDING_SHAPE = SidingBlock.SINGLE_SHAPE_EAST;
-		SOUTH_SIDING_SHAPE = SidingBlock.SINGLE_SHAPE_SOUTH;
-		WEST_SIDING_SHAPE = SidingBlock.SINGLE_SHAPE_WEST;
+		NORTH_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_NORTH;
+		EAST_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_EAST;
+		SOUTH_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_SOUTH;
+		WEST_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_WEST;
 		NORTH_EXTRA_SHAPE = Block.createCuboidShape(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
 		EAST_EXTRA_SHAPE = Block.createCuboidShape(8.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
 		SOUTH_EXTRA_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 8.0D, 8.0D, 16.0D, 16.0D);
