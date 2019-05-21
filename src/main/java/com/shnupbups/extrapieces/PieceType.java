@@ -95,6 +95,10 @@ public abstract class PieceType {
 		return buf;
 	}
 
+	public String toString() {
+		return getId().toString();
+	}
+
 	public static class BasePiece extends PieceType {
 		public BasePiece() {
 			super("base");

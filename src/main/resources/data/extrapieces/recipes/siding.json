@@ -1,0 +1,17 @@
+{
+  "type": "extrapieces:piece_crafting",
+  "pattern": [
+    "#",
+	"#",
+	"#"
+  ],
+  "key": {
+    "#": {
+      "piece": "extrapieces:base"
+    }
+  },
+  "result": {
+    "piece": "extrapieces:siding",
+    "count": 6
+  }
+}

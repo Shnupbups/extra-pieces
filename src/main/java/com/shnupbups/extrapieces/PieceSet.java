@@ -47,8 +47,26 @@ public class PieceSet {
 	 * @return The {@link PieceType} based on the {@link Block} {@code base}, or null if none exists.
 	 */
 	public static Block getPiece(Block base, PieceType piece) {
-		if(getSet(base)!=null && getSet(base).hasPiece(piece)) return getSet(base).getPiece(piece);
+		//System.out.println("GETTING PIECE FOR PIECESET: "+base.getTranslationKey()+" piece: "+piece.toString()+" ");
+		if(hasSet(base)) {
+			if(getSet(base).hasPiece(piece)) {
+				//System.out.println("EXISTS! "+getSet(base).toString());
+				return getSet(base).getPiece(piece);
+			} else if(piece==PieceType.BASE) {
+				return getSet(base).getBase();
+			}
+		}
 		return null;
+	}
+
+	public String toString() {
+		String s = "PieceSet{ base: "+getBase()+" types: ";
+		for(PieceType p:types) {
+			s+=p.toString()+"="+pieces.get(p).getTranslationKey()+", ";
+		}
+		s=s.substring(0,s.length()-2);
+		s+="}";
+		return s;
 	}
 
 	public static PieceSet createSet(Block base, String name, List<PieceType> types) {
@@ -119,6 +137,7 @@ public class PieceSet {
 			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b)), item);
 		}
 		registered = true;
+		//System.out.println("DEBUG! PieceSet register: "+this.toString());
 		return this;
 	}
 

@@ -7,9 +7,11 @@ import com.shnupbups.extrapieces.PieceSet;
 import com.shnupbups.extrapieces.PieceType;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.DefaultedList;
@@ -35,11 +37,13 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		this.height=height;
 		this.inputs=inputs;
 		this.group=group;
+		System.out.println("EXTRA PIECES DEBUG! NEW PIECE RECIPE: "+this.toString());
+		System.out.println("ACACIA LOG EXAMPLE: "+this.toString(Blocks.ACACIA_LOG));
 	}
 
 	public boolean matches(CraftingInventory c, World world) {
 		ItemStack base = getBase(c);
-		if(base==null||base.equals(ItemStack.EMPTY)) return false;
+		if(base==null||base.equals(ItemStack.EMPTY)||base.getItem()==Items.AIR) return false;
 		else return (PieceSet.hasSet(getBaseAsBlock(c))&&PieceSet.getSet(getBaseAsBlock(c)).hasPiece(output.getType())&&properMatches(c,world));
 	}
 
@@ -131,21 +135,22 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		return components;
 	}
 
-	public static DefaultedList<PieceIngredient> getIngredients(String[] strings_1, Map<String, PieceIngredient> map_1, int int_1, int int_2) {
+	public static DefaultedList<PieceIngredient> getIngredients(String[] pattern, Map<String, PieceIngredient> key, int int_1, int int_2) {
 		DefaultedList<PieceIngredient> defaultedList_1 = DefaultedList.create(int_1 * int_2, PieceIngredient.EMPTY);
-		Set<String> set_1 = Sets.newHashSet(map_1.keySet());
+		Set<String> set_1 = Sets.newHashSet(key.keySet());
 		set_1.remove(" ");
 
-		for(int int_3 = 0; int_3 < strings_1.length; ++int_3) {
-			for(int int_4 = 0; int_4 < strings_1[int_3].length(); ++int_4) {
-				String string_1 = strings_1[int_3].substring(int_4, int_4 + 1);
-				PieceIngredient ingredient_1 = (PieceIngredient)map_1.get(string_1);
+		for(int y = 0; y < pattern.length; ++y) {
+			for(int x = 0; x < pattern[y].length(); ++x) {
+				String string_1 = pattern[y].substring(x, x + 1);
+				PieceIngredient ingredient_1 = (PieceIngredient)key.get(string_1);
 				if (ingredient_1 == null) {
-					throw new JsonSyntaxException("Pattern references symbol '" + string_1 + "' but it's not defined in the key");
+					ingredient_1 = PieceIngredient.EMPTY;
+					//throw new JsonSyntaxException("Pattern references symbol '" + string_1 + "' but it's not defined in the key");
 				}
 
 				set_1.remove(string_1);
-				defaultedList_1.set(int_4 + int_1 * int_3, ingredient_1);
+				defaultedList_1.set(x + int_1 * y, ingredient_1);
 			}
 		}
 
@@ -246,5 +251,25 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 
 	public RecipeSerializer getSerializer() {
 		return ModRecipes.PIECE_RECIPE_SERIALIZER;
+	}
+
+	public String toString() {
+		String s = "PieceRecipe{ width: "+width+" height: "+height+" group: "+group+" output: "+output.getType().getId()+"*"+output.getCount()+" inputs: ";
+		for(PieceIngredient i:inputs) {
+			s+=i.toString()+", ";
+		}
+		s=s.substring(0,s.length()-2);
+		s+="}";
+		return s;
+	}
+
+	public String toString(Block base) {
+		String s = "PieceRecipe{ width: "+width+" height: "+height+" group: "+group+" output: "+PieceSet.getPiece(base,output.getType())+"*"+output.getCount()+" inputs: ";
+		for(PieceIngredient i:inputs) {
+			s+=i.toString(base)+", ";
+		}
+		s=s.substring(0,s.length()-2);
+		s+="}";
+		return s;
 	}
 }

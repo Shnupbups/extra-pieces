@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.shnupbups.extrapieces.PieceSet;
 import com.shnupbups.extrapieces.PieceType;
 import com.shnupbups.extrapieces.blocks.ExtraPiece;
+import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -19,16 +20,27 @@ import java.util.stream.StreamSupport;
 
 public class PieceIngredient implements Predicate<PieceType> {
 	private static final Predicate<? super PieceIngredient.Entry> NON_EMPTY = (ingredient$Entry_1) -> {
-		return !(ingredient$Entry_1.getPieces()==null);
+		return !ingredient$Entry_1.getPieces().stream().allMatch(PieceStack::isEmpty);
 	};
 	public static final PieceIngredient EMPTY = new PieceIngredient(Stream.empty());
-	private PieceType[] pieceArray;
+	private PieceStack[] pieceArray;
 	private final PieceIngredient.Entry[] entries;
 
 	private PieceIngredient(Stream<? extends PieceIngredient.Entry> stream_1) {
 		this.entries = (PieceIngredient.Entry[])stream_1.filter(NON_EMPTY).toArray((int_1) -> {
 			return new PieceIngredient.Entry[int_1];
 		});
+		//System.out.println("EXTRA PIECES DEBUG! new PieceIngredient! "+this.toString());
+	}
+
+	public void write(PacketByteBuf buf) {
+		this.createPieceArray();
+		buf.writeVarInt(this.pieceArray.length);
+
+		for(int int_1 = 0; int_1 < this.pieceArray.length; ++int_1) {
+			this.pieceArray[int_1].write(buf);
+		}
+
 	}
 
 	public static PieceIngredient ofEntries(Stream<? extends PieceIngredient.Entry> stream_1) {
@@ -53,14 +65,14 @@ public class PieceIngredient implements Predicate<PieceType> {
 				throw new JsonSyntaxException("Expected piece to be object or array of objects");
 			}
 		} else {
-			throw new JsonSyntaxException("Item cannot be null");
+			throw new JsonSyntaxException("Piece cannot be null");
 		}
 	}
 
 	public static PieceIngredient fromPacket(PacketByteBuf buf) {
 		int int_1 = buf.readVarInt();
 		return ofEntries(Stream.generate(() -> {
-			return new PieceIngredient.PieceEntry(PieceType.readPieceType(buf));
+			return new PieceIngredient.Entry(PieceType.readPieceType(buf));
 		}).limit((long)int_1));
 	}
 
@@ -71,7 +83,7 @@ public class PieceIngredient implements Predicate<PieceType> {
 			PieceType pieceType = (PieceType) PieceType.getTypeOrEmpty(id).orElseThrow(() -> {
 				return new JsonSyntaxException("Unknown piece '" + id + "'");
 			});
-			return new PieceIngredient.PieceEntry(pieceType);
+			return new PieceIngredient.Entry(pieceType);
 		} else {
 			throw new JsonParseException("An ingredient entry needs a piece type");
 		}
@@ -79,17 +91,17 @@ public class PieceIngredient implements Predicate<PieceType> {
 
 	public boolean test(PieceType type) {
 		if (type == null) {
-			return false;
+			return this==PieceIngredient.EMPTY;
 		} else if (this.entries.length == 0) {
-			return false;
+			return this==PieceIngredient.EMPTY;
 		} else {
 			this.createPieceArray();
-			PieceType[] pieceArray = this.pieceArray;
+			PieceStack[] pieceArray = this.pieceArray;
 			int pieceArrayLength = pieceArray.length;
 
 			for(int i = 0; i < pieceArrayLength; ++i) {
-				PieceType type2 = pieceArray[i];
-				if (type2.equals(type)) {
+				PieceStack type2 = pieceArray[i];
+				if (type2.getType().equals(type)) {
 					return true;
 				}
 			}
@@ -109,36 +121,53 @@ public class PieceIngredient implements Predicate<PieceType> {
 
 	private void createPieceArray() {
 		if (this.pieceArray == null) {
-			this.pieceArray = (PieceType[]) Arrays.stream(this.entries).flatMap((ingredient$Entry_1) -> {
+			this.pieceArray = (PieceStack[]) Arrays.stream(this.entries).flatMap((ingredient$Entry_1) -> {
 				return ingredient$Entry_1.getPieces().stream();
 			}).distinct().toArray((int_1) -> {
-				return new PieceType[int_1];
+				return new PieceStack[int_1];
 			});
 		}
 
 	}
 
-	static class PieceEntry implements PieceIngredient.Entry {
-		private final PieceType piece;
+	static class Entry {
+		private final PieceStack piece;
 
-		private PieceEntry(PieceType piece) {
+		private Entry(PieceStack piece) {
 			this.piece = piece;
 		}
+		private Entry(PieceType piece) {this.piece = new PieceStack(piece);}
 
-		public Collection<PieceType> getPieces() {
+		public Collection<PieceStack> getPieces() {
 			return Collections.singleton(this.piece);
 		}
 
 		public JsonObject toJson() {
 			JsonObject jsonObject_1 = new JsonObject();
-			jsonObject_1.addProperty("piece", piece.getId().toString());
+			jsonObject_1.addProperty("piece", piece.getType().getId().toString());
 			return jsonObject_1;
 		}
 	}
 
-	interface Entry {
-		Collection<PieceType> getPieces();
+	public String toString() {
+		createPieceArray();
+		String s = "PieceIngredient{types: ";
+		for(PieceStack p:pieceArray) {
+			s=s+p.getType().getId()+", ";
+		}
+		s=s.substring(0,s.length()-2);
+		s+="}";
+		return s;
+	}
 
-		JsonObject toJson();
+	public String toString(Block base) {
+		createPieceArray();
+		String s = "PieceIngredient{types: ";
+		for(PieceStack p:pieceArray) {
+			s=s+p.toItemStack(base).getTranslationKey()+", ";
+		}
+		s=s.substring(0,s.length()-2);
+		s+="}";
+		return s;
 	}
 }
