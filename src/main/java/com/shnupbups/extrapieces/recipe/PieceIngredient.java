@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class PieceIngredient implements Predicate<PieceType> {
+public class PieceIngredient implements Predicate<PieceStack> {
 	private static final Predicate<? super PieceIngredient.Entry> NON_EMPTY = (ingredient$Entry_1) -> {
 		return !ingredient$Entry_1.getPieces().stream().allMatch(PieceStack::isEmpty);
 	};
@@ -89,34 +89,39 @@ public class PieceIngredient implements Predicate<PieceType> {
 		}
 	}
 
-	public boolean test(PieceType type) {
-		if (type == null) {
-			return this==PieceIngredient.EMPTY;
-		} else if (this.entries.length == 0) {
-			return this==PieceIngredient.EMPTY;
-		} else {
+	public boolean isEmpty() {
+		return this.entries.length == 0;
+	}
+
+	public boolean test(PieceStack stack) {
+		if (stack.isEmpty()) {
+			return this.isEmpty();
+		} else if (!isEmpty()) {
 			this.createPieceArray();
 			PieceStack[] pieceArray = this.pieceArray;
-			int pieceArrayLength = pieceArray.length;
 
-			for(int i = 0; i < pieceArrayLength; ++i) {
-				PieceStack type2 = pieceArray[i];
-				if (type2.getType().equals(type)) {
+			for(PieceStack p:pieceArray) {
+				if (p.typeEquals(stack)) {
 					return true;
 				}
 			}
-
-			return false;
 		}
+		return false;
 	}
 
 	public boolean test(ItemStack stack) {
+		if(stack.isEmpty()) {
+			return this.isEmpty();
+		}
 		if(stack.getItem() instanceof BlockItem) {
-			BlockItem blockItem = (BlockItem)stack.getItem();
-			if(blockItem.getBlock() instanceof ExtraPiece || PieceSet.hasSet(blockItem.getBlock())) {
-				return true;
+			PieceType type = PieceType.getType(stack);
+			if(type!=null) {
+				for(PieceStack p:pieceArray) {
+					if(p.getType().equals(type)) return true;
+				}
 			}
-		} return false;
+		}
+		return false;
 	}
 
 	private void createPieceArray() {

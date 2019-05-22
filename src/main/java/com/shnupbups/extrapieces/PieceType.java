@@ -2,6 +2,8 @@ package com.shnupbups.extrapieces;
 
 import com.shnupbups.extrapieces.blocks.*;
 import net.minecraft.block.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
@@ -69,6 +71,18 @@ public abstract class PieceType {
 		for(PieceType p:types) {
 			if(p.getId().equals(id)) {
 				return p;
+			}
+		}
+		return null;
+	}
+
+	public static PieceType getType(ItemStack stack) {
+		if(stack.getItem() instanceof BlockItem) {
+			Block block = ((BlockItem) stack.getItem()).getBlock();
+			if(block instanceof ExtraPiece) {
+				return ((ExtraPiece) block).getType();
+			} else if(PieceSet.hasSet(block)) {
+				return PieceType.BASE;
 			}
 		}
 		return null;

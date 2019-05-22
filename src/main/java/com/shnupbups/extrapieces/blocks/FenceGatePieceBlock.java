@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.FenceGateBlock;
 
@@ -14,4 +15,6 @@ public class FenceGatePieceBlock extends FenceGateBlock implements ExtraPiece {
 	public Block getBase() {
 		return baseBlock;
 	}
+
+	public PieceType getType() {return PieceType.FENCE_GATE;}
 }

@@ -1,0 +1,16 @@
+{
+  "type": "extrapieces:piece_crafting",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "extrapieces:stairs"
+    }
+  },
+  "result": {
+    "item": "extrapieces:base",
+    "count": 4
+  }
+}

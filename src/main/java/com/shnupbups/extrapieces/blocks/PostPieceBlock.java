@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlacementEnvironment;
 import net.minecraft.block.BlockState;
@@ -37,6 +38,8 @@ public class PostPieceBlock extends Block implements Waterloggable, ExtraPiece {
 	public Block getBase() {
 		return baseBlock;
 	}
+
+	public PieceType getType() {return PieceType.POST;}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
 		Direction.Axis axis = blockState_1.get(AXIS);

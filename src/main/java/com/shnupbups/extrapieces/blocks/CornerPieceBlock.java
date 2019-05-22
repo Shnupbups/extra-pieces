@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.PieceType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
@@ -55,6 +56,8 @@ public class CornerPieceBlock extends Block implements Waterloggable, ExtraPiece
 	public Block getBase() {
 		return baseBlock;
 	}
+
+	public PieceType getType() {return PieceType.CORNER;}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
 		return true;

@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.PieceType;
 import com.shnupbups.extrapieces.register.ModProperties;
 import com.shnupbups.extrapieces.SidingType;
 import net.minecraft.block.Block;
@@ -45,6 +46,8 @@ public class SidingPieceBlock extends Block implements Waterloggable, ExtraPiece
 	public Block getBase() {
 		return baseBlock;
 	}
+
+	public PieceType getType() {return PieceType.SIDING;}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
 		return blockState_1.get(TYPE) != SidingType.DOUBLE;

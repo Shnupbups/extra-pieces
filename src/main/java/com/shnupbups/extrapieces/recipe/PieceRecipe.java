@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.*;
 import com.shnupbups.extrapieces.PieceSet;
 import com.shnupbups.extrapieces.PieceType;
+import com.shnupbups.extrapieces.blocks.ExtraPiece;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -37,29 +38,36 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		this.height=height;
 		this.inputs=inputs;
 		this.group=group;
-		System.out.println("EXTRA PIECES DEBUG! NEW PIECE RECIPE: "+this.toString());
-		System.out.println("ACACIA LOG EXAMPLE: "+this.toString(Blocks.ACACIA_LOG));
 	}
 
 	public boolean matches(CraftingInventory c, World world) {
 		ItemStack base = getBase(c);
 		if(base==null||base.equals(ItemStack.EMPTY)||base.getItem()==Items.AIR) return false;
-		else return (PieceSet.hasSet(getBaseAsBlock(c))&&PieceSet.getSet(getBaseAsBlock(c)).hasPiece(output.getType())&&properMatches(c,world));
+		else {
+			if (PieceSet.hasSet(getBaseAsBlock(c))&&PieceSet.getSet(getBaseAsBlock(c)).hasPiece(output.getType())) {
+				System.out.println("match check: base "+base.getTranslationKey()+" is valid");
+				return properMatches(c,world);
+			}
+		}
+		return false;
 	}
 
 	public boolean properMatches(CraftingInventory craftingInventory_1, World world_1) {
 		for(int int_1 = 0; int_1 <= craftingInventory_1.getWidth() - this.width; ++int_1) {
 			for(int int_2 = 0; int_2 <= craftingInventory_1.getHeight() - this.height; ++int_2) {
 				if (this.matchesSmall(craftingInventory_1, int_1, int_2, true)) {
+					System.out.println("matches! YES! true");
 					return true;
 				}
-
+				System.out.println("didnt match true, trying false");
 				if (this.matchesSmall(craftingInventory_1, int_1, int_2, false)) {
+					System.out.println("matches! YES! false");
 					return true;
 				}
+				System.out.println("oof, nope");
 			}
 		}
-
+		System.out.println("big oof");
 		return false;
 	}
 
@@ -78,11 +86,12 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 				}
 
 				if (!ingredient_1.test(craftingInventory_1.getInvStack(int_3 + int_4 * craftingInventory_1.getWidth()))) {
+					System.out.println("little oof");
 					return false;
-				}
+				} else System.out.println("test true for "+int_3+" "+int_4+" "+int_5+" "+int_6);
 			}
 		}
-
+		System.out.println("matches small!");
 		return true;
 	}
 
@@ -90,14 +99,18 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		ItemStack base = ItemStack.EMPTY;
 		for(int i = 0; i<c.getInvSize(); i++) {
 			ItemStack stack = c.getInvStack(i);
-			if(base==null||base.equals(ItemStack.EMPTY)) {
-				base = stack;
-			} else {
-				if(!stack.getItem().equals(base.getItem())) {
-					return ItemStack.EMPTY;
+			if(stack!=null&&!stack.isEmpty()) {
+				if(base==null||base.equals(ItemStack.EMPTY)) {
+					base = new ItemStack(StackUtils.getBase(stack));
+				} else {
+					if(!StackUtils.getBase(stack).asItem().equals(base.getItem())) {
+						System.out.println("nope");
+						return ItemStack.EMPTY;
+					}
 				}
 			}
 		}
+		System.out.println("base is "+base.getTranslationKey());
 		return base;
 	}
 
