@@ -1,9 +1,7 @@
 package com.shnupbups.extrapieces.recipe;
 
 import com.google.gson.*;
-import com.shnupbups.extrapieces.PieceSet;
 import com.shnupbups.extrapieces.PieceType;
-import com.shnupbups.extrapieces.blocks.ExtraPiece;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -30,7 +28,6 @@ public class PieceIngredient implements Predicate<PieceStack> {
 		this.entries = (PieceIngredient.Entry[])stream_1.filter(NON_EMPTY).toArray((int_1) -> {
 			return new PieceIngredient.Entry[int_1];
 		});
-		//System.out.println("EXTRA PIECES DEBUG! new PieceIngredient! "+this.toString());
 	}
 
 	public void write(PacketByteBuf buf) {
@@ -116,6 +113,9 @@ public class PieceIngredient implements Predicate<PieceStack> {
 		if(stack.getItem() instanceof BlockItem) {
 			PieceType type = PieceType.getType(stack);
 			if(type!=null) {
+				createPieceArray();
+				PieceStack[] pieceArray = this.pieceArray;
+
 				for(PieceStack p:pieceArray) {
 					if(p.getType().equals(type)) return true;
 				}

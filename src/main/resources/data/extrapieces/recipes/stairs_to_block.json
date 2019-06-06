@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "extrapieces:stairs"
+      "piece": "extrapieces:stairs"
     }
   },
   "result": {
-    "item": "extrapieces:base",
+    "piece": "extrapieces:base",
     "count": 4
   }
 }

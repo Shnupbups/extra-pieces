@@ -2,9 +2,7 @@ package com.shnupbups.extrapieces.recipe;
 
 import com.shnupbups.extrapieces.PieceSet;
 import com.shnupbups.extrapieces.PieceType;
-import com.shnupbups.extrapieces.blocks.ExtraPiece;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.PacketByteBuf;
 
@@ -21,7 +19,6 @@ public class PieceStack {
 	public PieceStack(PieceType type, int count) {
 		this.type=type;
 		this.count=count;
-		System.out.println("EXTRA PIECES DEBUG! New PieceStack! "+this.toString());
 	}
 
 	public boolean isEmpty() {
@@ -45,14 +42,12 @@ public class PieceStack {
 	}
 
 	public ItemStack toItemStack(Block base) {
-		//System.out.println("Getting itemstack for piecestack "+this.toString()+" with base "+base.getTranslationKey());
 		ItemStack is =  new ItemStack(PieceSet.getPiece(base, type),count);
-		//System.out.println("Result: "+is.toString());
 		return is;
 	}
 
 	public static PieceStack fromItemStack(ItemStack stack) {
-		int count = stack.getAmount();
+		int count = stack.getCount();
 		PieceType type = PieceType.getType(stack);
 		return new PieceStack(type, count);
 	}

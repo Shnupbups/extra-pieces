@@ -79,7 +79,7 @@ public class PostPieceBlock extends Block implements Waterloggable, ExtraPiece {
 	public BlockState getPlacementState(ItemPlacementContext itemPlacementContext_1) {
 		BlockPos blockPos_1 = itemPlacementContext_1.getBlockPos();
 		FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
-		return this.getDefaultState().with(AXIS, itemPlacementContext_1.getFacing().getAxis()).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
+		return this.getDefaultState().with(AXIS, itemPlacementContext_1.getSide().getAxis()).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
@@ -102,7 +102,7 @@ public class PostPieceBlock extends Block implements Waterloggable, ExtraPiece {
 	}
 
 	static {
-		AXIS = Properties.AXIS_XYZ;
+		AXIS = Properties.AXIS;
 		WATERLOGGED = Properties.WATERLOGGED;
 		Y_SHAPE = Block.createCuboidShape(6f, 0f, 6f, 10f, 16f, 10f);
 		Y_COLLISION = Block.createCuboidShape(6f, 0f, 6f, 10f, 24f, 10f);

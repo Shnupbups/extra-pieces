@@ -5,10 +5,8 @@ import com.google.common.collect.Sets;
 import com.google.gson.*;
 import com.shnupbups.extrapieces.PieceSet;
 import com.shnupbups.extrapieces.PieceType;
-import com.shnupbups.extrapieces.blocks.ExtraPiece;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -29,7 +27,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 	public PieceStack output;
 	public DefaultedList<PieceIngredient> inputs;
 	public String group;
-	public int width,height = 3;
+	public int width,height;
 
 	public PieceRecipe(Identifier id, String group, int width, int height, DefaultedList<PieceIngredient> inputs, PieceStack output) {
 		super(id);
@@ -45,7 +43,6 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		if(base==null||base.equals(ItemStack.EMPTY)||base.getItem()==Items.AIR) return false;
 		else {
 			if (PieceSet.hasSet(getBaseAsBlock(c))&&PieceSet.getSet(getBaseAsBlock(c)).hasPiece(output.getType())) {
-				System.out.println("match check: base "+base.getTranslationKey()+" is valid");
 				return properMatches(c,world);
 			}
 		}
@@ -56,18 +53,13 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		for(int int_1 = 0; int_1 <= craftingInventory_1.getWidth() - this.width; ++int_1) {
 			for(int int_2 = 0; int_2 <= craftingInventory_1.getHeight() - this.height; ++int_2) {
 				if (this.matchesSmall(craftingInventory_1, int_1, int_2, true)) {
-					System.out.println("matches! YES! true");
 					return true;
 				}
-				System.out.println("didnt match true, trying false");
 				if (this.matchesSmall(craftingInventory_1, int_1, int_2, false)) {
-					System.out.println("matches! YES! false");
 					return true;
 				}
-				System.out.println("oof, nope");
 			}
 		}
-		System.out.println("big oof");
 		return false;
 	}
 
@@ -86,12 +78,10 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 				}
 
 				if (!ingredient_1.test(craftingInventory_1.getInvStack(int_3 + int_4 * craftingInventory_1.getWidth()))) {
-					System.out.println("little oof");
 					return false;
-				} else System.out.println("test true for "+int_3+" "+int_4+" "+int_5+" "+int_6);
+				}
 			}
 		}
-		System.out.println("matches small!");
 		return true;
 	}
 
@@ -104,13 +94,11 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 					base = new ItemStack(StackUtils.getBase(stack));
 				} else {
 					if(!StackUtils.getBase(stack).asItem().equals(base.getItem())) {
-						System.out.println("nope");
 						return ItemStack.EMPTY;
 					}
 				}
 			}
 		}
-		System.out.println("base is "+base.getTranslationKey());
 		return base;
 	}
 
@@ -144,26 +132,25 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 			components.put(map$Entry_1.getKey(), PieceIngredient.fromJson((JsonElement)map$Entry_1.getValue()));
 		}
 
-		components.put(" ", null);
+		components.put(" ", PieceIngredient.EMPTY);
 		return components;
 	}
 
-	public static DefaultedList<PieceIngredient> getIngredients(String[] pattern, Map<String, PieceIngredient> key, int int_1, int int_2) {
+	public static DefaultedList<PieceIngredient> getIngredients(String[] strings_1, Map<String, PieceIngredient> map_1, int int_1, int int_2) {
 		DefaultedList<PieceIngredient> defaultedList_1 = DefaultedList.create(int_1 * int_2, PieceIngredient.EMPTY);
-		Set<String> set_1 = Sets.newHashSet(key.keySet());
+		Set<String> set_1 = Sets.newHashSet(map_1.keySet());
 		set_1.remove(" ");
 
-		for(int y = 0; y < pattern.length; ++y) {
-			for(int x = 0; x < pattern[y].length(); ++x) {
-				String string_1 = pattern[y].substring(x, x + 1);
-				PieceIngredient ingredient_1 = (PieceIngredient)key.get(string_1);
+		for(int int_3 = 0; int_3 < strings_1.length; ++int_3) {
+			for(int int_4 = 0; int_4 < strings_1[int_3].length(); ++int_4) {
+				String string_1 = strings_1[int_3].substring(int_4, int_4 + 1);
+				PieceIngredient ingredient_1 = (PieceIngredient)map_1.get(string_1);
 				if (ingredient_1 == null) {
-					ingredient_1 = PieceIngredient.EMPTY;
-					//throw new JsonSyntaxException("Pattern references symbol '" + string_1 + "' but it's not defined in the key");
+					throw new JsonSyntaxException("Pattern references symbol '" + string_1 + "' but it's not defined in the key");
 				}
 
 				set_1.remove(string_1);
-				defaultedList_1.set(x + int_1 * y, ingredient_1);
+				defaultedList_1.set(int_4 + int_1 * int_3, ingredient_1);
 			}
 		}
 

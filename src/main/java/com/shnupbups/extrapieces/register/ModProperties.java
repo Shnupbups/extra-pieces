@@ -7,6 +7,6 @@ public class ModProperties {
 	public static final EnumProperty<SidingType> SIDING_TYPE;
 
 	static {
-		SIDING_TYPE = EnumProperty.create("type", SidingType.class);
+		SIDING_TYPE = EnumProperty.of("type", SidingType.class);
 	}
 }

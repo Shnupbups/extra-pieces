@@ -84,10 +84,10 @@ public class SidingPieceBlock extends Block implements Waterloggable, ExtraPiece
 			return blockState_1.with(TYPE, SidingType.DOUBLE).with(FACING_HORIZONTAL,blockState_1.get(FACING_HORIZONTAL)).with(WATERLOGGED, false);
 		} else {
 			FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
-			Direction playerHorizontalFacing = itemPlacementContext_1.getPlayerHorizontalFacing();
-			Direction facing = itemPlacementContext_1.getFacing();
-			double xPos = itemPlacementContext_1.getPos().getX() - blockPos_1.getX();
-			double zPos = itemPlacementContext_1.getPos().getZ() - blockPos_1.getZ();
+			Direction playerHorizontalFacing = itemPlacementContext_1.getPlayerFacing();
+			Direction facing = itemPlacementContext_1.getSide();
+			double xPos = itemPlacementContext_1.getBlockPos().getX() - blockPos_1.getX();
+			double zPos = itemPlacementContext_1.getBlockPos().getZ() - blockPos_1.getZ();
 			Direction direction_1 = playerHorizontalFacing.getOpposite();
 			if(facing.getAxis().isVertical()) {
 				if(direction_1==Direction.EAST||direction_1==Direction.WEST) {
@@ -105,26 +105,26 @@ public class SidingPieceBlock extends Block implements Waterloggable, ExtraPiece
 
 	public boolean canReplace(BlockState blockState_1, ItemPlacementContext itemPlacementContext_1) {
 		if(itemPlacementContext_1.getPlayer().isSneaking()) return false;
-		ItemStack itemStack_1 = itemPlacementContext_1.getItemStack();
+		ItemStack itemStack_1 = itemPlacementContext_1.getStack();
 		SidingType slabType_1 = blockState_1.get(TYPE);
 		Direction facing = blockState_1.get(FACING_HORIZONTAL);
 		if (slabType_1 != SidingType.DOUBLE && itemStack_1.getItem() == this.asItem()) {
-			if (itemPlacementContext_1.canReplaceHitBlock()) {
+			if (itemPlacementContext_1.canReplaceExisting()) {
 				boolean boolean_1;
 				switch(facing) {
 					case EAST:
-						boolean_1 = itemPlacementContext_1.getPos().x - (double)itemPlacementContext_1.getBlockPos().getX() > 0.5D;
+						boolean_1 = itemPlacementContext_1.getBlockPos().getX() - (double)itemPlacementContext_1.getBlockPos().getX() > 0.5D;
 						break;
 					case WEST:
-						boolean_1 = itemPlacementContext_1.getPos().x - (double)itemPlacementContext_1.getBlockPos().getX() < 0.5D;
+						boolean_1 = itemPlacementContext_1.getBlockPos().getX() - (double)itemPlacementContext_1.getBlockPos().getX() < 0.5D;
 						break;
 					case SOUTH:
-						boolean_1 = itemPlacementContext_1.getPos().z - (double)itemPlacementContext_1.getBlockPos().getZ() > 0.5D;
+						boolean_1 = itemPlacementContext_1.getBlockPos().getZ() - (double)itemPlacementContext_1.getBlockPos().getZ() > 0.5D;
 						break;
 					default:
-						boolean_1 = itemPlacementContext_1.getPos().z - (double)itemPlacementContext_1.getBlockPos().getZ() < 0.5D;
+						boolean_1 = itemPlacementContext_1.getBlockPos().getZ() - (double)itemPlacementContext_1.getBlockPos().getZ() < 0.5D;
 				}
-				Direction direction_1 = itemPlacementContext_1.getFacing();
+				Direction direction_1 = itemPlacementContext_1.getSide();
 				return direction_1 == facing || boolean_1 && direction_1.getAxis().isVertical();
 			} else {
 				return true;
@@ -170,7 +170,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, ExtraPiece
 	static {
 		TYPE = ModProperties.SIDING_TYPE;
 		WATERLOGGED = Properties.WATERLOGGED;
-		FACING_HORIZONTAL = Properties.FACING_HORIZONTAL;
+		FACING_HORIZONTAL = Properties.HORIZONTAL_FACING;
 		SINGLE_SHAPE_NORTH = Block.createCuboidShape(0.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
 		SINGLE_SHAPE_SOUTH = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
 		SINGLE_SHAPE_EAST = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 8.0D, 16.0D, 16.0D);

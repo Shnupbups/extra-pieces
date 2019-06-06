@@ -1,8 +1,6 @@
 package com.shnupbups.extrapieces.recipe;
 
 import com.google.gson.JsonObject;
-import net.minecraft.block.Blocks;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
@@ -22,16 +20,13 @@ public class PieceRecipeSerializer implements RecipeSerializer<PieceRecipe> {
 			int height = pattern.length;
 			DefaultedList<PieceIngredient> inputs = PieceRecipe.getIngredients(pattern, keyMap, width, height);
 			PieceStack pieceStack = PieceRecipe.getPieceStack(JsonHelper.getObject(json, "result"));
-			System.out.println("EXTRA PIECES DEBUG! Read from JSON! id: "+id.toString());
-			for(PieceIngredient pi:inputs) {
-				System.out.println(pi.toString()+" / "+pi.toString(Blocks.ACACIA_LOG));
-			}
 			return new PieceRecipe(id, group, width, height, inputs, pieceStack);
 		} catch(Exception e) {
 			System.out.println("BIG OL' EXCEPTION READING PieceRecipe FROM JSON!");
 			System.out.println("ID: "+ id.toString());
 			System.out.println("JSON: "+json.toString());
 			System.out.println("Exception: "+e.getMessage());
+			System.out.println("THIS IS AN ERROR! Report to Shnupbups!");
 			return null;
 		}
 	}
@@ -47,7 +42,6 @@ public class PieceRecipeSerializer implements RecipeSerializer<PieceRecipe> {
 		}
 
 		PieceStack pieceType = PieceStack.read(buf);
-		System.out.println("EXTRA PIECES DEBUG! Read from packet!");
 		return new PieceRecipe(id, group, width, height, inputs, pieceType);
 	}
 
@@ -59,6 +53,5 @@ public class PieceRecipeSerializer implements RecipeSerializer<PieceRecipe> {
 			recipe.inputs.get(i).write(buf);
 		}
 		recipe.output.write(buf);
-		System.out.println("EXTRA PIECES DEBUG! Write to packet!");
 	}
 }

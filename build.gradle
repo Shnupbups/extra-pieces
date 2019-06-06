@@ -13,6 +13,10 @@ group = project.maven_group
 minecraft {
 }
 
+repositories {
+    maven { url "https://minecraft.curseforge.com/api/maven"}
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -21,6 +25,10 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	
+	// stuff
+	modCompile "io.github.prospector.modmenu:ModMenu:${project.modmenu_version}"
+	modCompile "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 }
 
 processResources {

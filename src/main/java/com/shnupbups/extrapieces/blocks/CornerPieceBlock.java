@@ -133,9 +133,9 @@ public class CornerPieceBlock extends Block implements Waterloggable, ExtraPiece
 	public BlockState getPlacementState(ItemPlacementContext itemPlacementContext_1) {
 		BlockPos blockPos_1 = itemPlacementContext_1.getBlockPos();
 		FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
-		double xPos = itemPlacementContext_1.getPos().getX() - blockPos_1.getX();
-		double zPos = itemPlacementContext_1.getPos().getZ() - blockPos_1.getZ();
-		Direction direction_1 = itemPlacementContext_1.getPlayerHorizontalFacing().getOpposite();
+		double xPos = itemPlacementContext_1.getBlockPos().getX() - blockPos_1.getX();
+		double zPos = itemPlacementContext_1.getBlockPos().getZ() - blockPos_1.getZ();
+		Direction direction_1 = itemPlacementContext_1.getPlayerFacing().getOpposite();
 		if(direction_1==Direction.EAST) {
 			if (zPos<0.5) direction_1 = direction_1.rotateYClockwise();
 		} else if(direction_1==Direction.WEST) {
@@ -170,7 +170,7 @@ public class CornerPieceBlock extends Block implements Waterloggable, ExtraPiece
 	}
 
 	static {
-		FACING = Properties.FACING_HORIZONTAL;
+		FACING = Properties.HORIZONTAL_FACING;
 		WATERLOGGED = Properties.WATERLOGGED;
 		NORTH_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_NORTH;
 		EAST_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_EAST;

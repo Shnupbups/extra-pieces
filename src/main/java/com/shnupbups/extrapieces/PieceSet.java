@@ -132,8 +132,8 @@ public class PieceSet {
 		if(!isGenerated()) generate();
 		for(PieceType b : pieces.keySet()) {
 			Registry.register(Registry.BLOCK, new Identifier(b.getId().getNamespace(),b.getBlockId(getName())), pieces.get(b));
-			BlockItem item = new BlockItem(pieces.get(b), (new Item.Settings()).itemGroup(ExtraPieces.groups.get(b)));
-			item.registerBlockItemMap(Item.BLOCK_ITEM_MAP, item);
+			BlockItem item = new BlockItem(pieces.get(b), (new Item.Settings()).group(ExtraPieces.groups.get(b)));
+			item.appendBlocks(Item.BLOCK_ITEMS, item);
 			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b)), item);
 		}
 		registered = true;
