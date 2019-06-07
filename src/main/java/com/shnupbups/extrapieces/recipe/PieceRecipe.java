@@ -93,7 +93,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 				if(base==null||base.equals(ItemStack.EMPTY)) {
 					base = new ItemStack(StackUtils.getBase(stack));
 				} else {
-					if(!StackUtils.getBase(stack).asItem().equals(base.getItem())) {
+					if(StackUtils.getBase(stack)==null||!StackUtils.getBase(stack).asItem().equals(base.getItem())) {
 						return ItemStack.EMPTY;
 					}
 				}

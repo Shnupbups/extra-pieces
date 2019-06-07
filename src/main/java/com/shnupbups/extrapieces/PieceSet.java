@@ -21,6 +21,7 @@ public class PieceSet {
 	private final String name;
 	private PieceType[] types;
 	private Map<PieceType, Block> pieces = new HashMap<PieceType, Block>();
+	private ArrayList<PieceType> vanillaPieces = new ArrayList<>();
 	private boolean registered = false;
 
 	private PieceSet(Block base, String name, List<PieceType> types) {
@@ -28,6 +29,25 @@ public class PieceSet {
 		this.name = name.toLowerCase();
 		this.types = types.toArray(new PieceType[types.size()]);
 		registry.put(base, this);
+	}
+
+	/**
+	 * Adds a vanilla (or just not-generated) block as a piece to this set.
+	 * @param type The piece type of the block
+	 * @param block The block to add
+	 * @return This set
+	 */
+	public PieceSet addVanillaPiece(PieceType type, Block block) {
+		vanillaPieces.add(type);
+		pieces.put(type, block);
+		List<PieceType> newTypes = new ArrayList<>(Arrays.asList(types));
+		newTypes.add(type);
+		types = newTypes.toArray(new PieceType[newTypes.size()]);
+		return this;
+	}
+
+	public boolean isVanillaPiece(PieceType type) {
+		return vanillaPieces.contains(type);
 	}
 
 	/**
@@ -71,7 +91,10 @@ public class PieceSet {
 
 	public static PieceSet createSet(Block base, String name, List<PieceType> types) {
 		if(hasSet(base)) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet in registry! Use getSet!");
-		else return new PieceSet(base, name, types);
+		else {
+			if(types.contains(PieceType.BASE)) types.remove(PieceType.BASE);
+			return new PieceSet(base, name, types);
+		}
 	}
 
 	/**
@@ -114,7 +137,7 @@ public class PieceSet {
 	public PieceSet generate() {
 		pieces.clear();
 		for (PieceType p: PieceType.getTypes()) {
-			if(shouldHavePiece(p)) {
+			if(shouldHavePiece(p) && !isVanillaPiece(p)) {
 				pieces.put(p, p.getNew(base));
 			}
 		}
