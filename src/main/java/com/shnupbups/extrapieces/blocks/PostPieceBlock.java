@@ -20,7 +20,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 
-public class PostPieceBlock extends Block implements Waterloggable, ExtraPiece {
+public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final EnumProperty<Direction.Axis> AXIS;
 	public static final BooleanProperty WATERLOGGED;
 	protected static final VoxelShape Y_SHAPE;
@@ -34,6 +34,8 @@ public class PostPieceBlock extends Block implements Waterloggable, ExtraPiece {
 		this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, false));
 		this.baseBlock=base;
 	}
+
+	public Block getBlock() { return this; }
 
 	public Block getBase() {
 		return baseBlock;

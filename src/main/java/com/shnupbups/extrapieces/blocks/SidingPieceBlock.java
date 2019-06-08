@@ -26,7 +26,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 
-public class SidingPieceBlock extends Block implements Waterloggable, ExtraPiece {
+public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final EnumProperty<SidingType> TYPE;
 	public static final BooleanProperty WATERLOGGED;
 	public static final DirectionProperty FACING_HORIZONTAL;
@@ -42,6 +42,8 @@ public class SidingPieceBlock extends Block implements Waterloggable, ExtraPiece
 		this.setDefaultState(this.getDefaultState().with(TYPE, SidingType.SINGLE).with(FACING_HORIZONTAL, Direction.NORTH).with(WATERLOGGED, false));
 		this.baseBlock=base;
 	}
+
+	public Block getBlock() { return this; }
 
 	public Block getBase() {
 		return baseBlock;

@@ -79,8 +79,8 @@ public abstract class PieceType {
 	public static PieceType getType(ItemStack stack) {
 		if(stack.getItem() instanceof BlockItem) {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
-			if(block instanceof ExtraPiece) {
-				return ((ExtraPiece) block).getType();
+			if(block instanceof PieceBlock) {
+				return ((PieceBlock) block).getType();
 			} else if(PieceSet.hasSet(block)) {
 				return PieceType.BASE;
 			}

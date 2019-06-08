@@ -1,5 +1,7 @@
 package com.shnupbups.extrapieces;
 
+import com.shnupbups.extrapieces.blocks.PieceBlock;
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -15,19 +17,19 @@ public class PieceSet {
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_WALL;
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
 
-	private static Map<Block, PieceSet> registry = new HashMap<Block, PieceSet>();
+	private static Map<Block, PieceSet> registry = new HashMap<>();
+	private static Map<Block, FakePieceBlock> vanillaPieceRegistry = new HashMap<>();
 
 	private final Block base;
 	private final String name;
-	private PieceType[] types;
-	private Map<PieceType, Block> pieces = new HashMap<PieceType, Block>();
-	private ArrayList<PieceType> vanillaPieces = new ArrayList<>();
+	private PieceType[] genTypes;
+	private Map<PieceType, PieceBlock> pieces = new HashMap<>();
 	private boolean registered = false;
 
 	private PieceSet(Block base, String name, List<PieceType> types) {
 		this.base = base;
 		this.name = name.toLowerCase();
-		this.types = types.toArray(new PieceType[types.size()]);
+		this.genTypes = types.toArray(new PieceType[types.size()]);
 		registry.put(base, this);
 	}
 
@@ -38,26 +40,45 @@ public class PieceSet {
 	 * @return This set
 	 */
 	public PieceSet addVanillaPiece(PieceType type, Block block) {
-		vanillaPieces.add(type);
-		pieces.put(type, block);
-		List<PieceType> newTypes = new ArrayList<>(Arrays.asList(types));
-		newTypes.add(type);
-		types = newTypes.toArray(new PieceType[newTypes.size()]);
+		FakePieceBlock fpb = new FakePieceBlock(block, type, getBase());
+		vanillaPieceRegistry.put(block, fpb);
+		pieces.put(type, fpb);
 		return this;
 	}
 
-	public boolean isVanillaPiece(PieceType type) {
-		return vanillaPieces.contains(type);
+	public static boolean isVanillaPiece(Block block) { return vanillaPieceRegistry.containsKey(block); }
+
+	public boolean isVanillaPiece(PieceType type) { return pieces.get(type) instanceof FakePieceBlock && vanillaPieceRegistry.containsValue(pieces.get(type)); }
+
+	public static boolean isPiece(Block block) {
+		return (block instanceof PieceBlock || hasSet(block) || isVanillaPiece(block));
+	}
+
+	public static PieceType getType(Block block) {
+		if(isPiece(block)) {
+			if(hasSet(block)) return PieceType.BASE;
+			else if(block instanceof PieceBlock) return ((PieceBlock)block).getType();
+			else if(vanillaPieceRegistry.containsKey(block)) return vanillaPieceRegistry.get(block).getType();
+		}
+		return null;
 	}
 
 	/**
-	 * Gets a {@link PieceSet} based on the {@link Block} {@code base}, if it exists.
-	 * @param base The {@link Block} that the {@link PieceSet} should be based upon.
+	 * Gets a blcok's PieceSet
+	 * @param block The {@link Block} to find the set of.
 	 * @return The {@link PieceSet} based on the {@link Block} {@code base}, or null if none exists.
 	 */
-	public static PieceSet getSet(Block base) {
-		if(hasSet(base)) return registry.get(base);
-		else return null;
+	public static PieceSet getSet(Block block) {
+		if(hasSet(block)) return registry.get(block);
+		else if(block instanceof PieceBlock) return registry.get(((PieceBlock)block).getBase());
+		return registry.get(vanillaPieceRegistry.getOrDefault(block, null).getBase());
+	}
+
+	public static PieceBlock asPieceBlock(Block block) {
+		if(block instanceof PieceBlock) return (PieceBlock)block;
+		else if(vanillaPieceRegistry.containsKey(block)) {
+			return vanillaPieceRegistry.get(block);
+		} return null;
 	}
 
 	/**
@@ -80,13 +101,16 @@ public class PieceSet {
 	}
 
 	public String toString() {
-		String s = "PieceSet{ base: "+getBase()+" types: ";
-		for(PieceType p:types) {
-			s+=p.toString()+"="+pieces.get(p).getTranslationKey()+", ";
+		StringBuilder sb = new StringBuilder();
+		sb.append("PieceSet{ base: ").append(getBase()).append(", pieces: ");
+		for(PieceType p:pieces.keySet()) {
+			sb.append(p.toString()).append(" = ").append(pieces.get(p).getBlock());
+			if(isVanillaPiece(p)) sb.append("Vanilla Piece!");
+			sb.append(" , ");
 		}
-		s=s.substring(0,s.length()-2);
-		s+="}";
-		return s;
+		sb.delete(sb.length()-2,sb.length());
+		sb.append(" }");
+		return sb.toString();
 	}
 
 	public static PieceSet createSet(Block base, String name, List<PieceType> types) {
@@ -137,8 +161,8 @@ public class PieceSet {
 	public PieceSet generate() {
 		pieces.clear();
 		for (PieceType p: PieceType.getTypes()) {
-			if(shouldHavePiece(p) && !isVanillaPiece(p)) {
-				pieces.put(p, p.getNew(base));
+			if(shouldGenPiece(p) && !hasPiece(p)) {
+				pieces.put(p, (PieceBlock)p.getNew(base));
 			}
 		}
 		return this;
@@ -153,14 +177,14 @@ public class PieceSet {
 	public PieceSet register() {
 		if(isRegistered()) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet registered! Cannot register again!");
 		if(!isGenerated()) generate();
-		for(PieceType b : pieces.keySet()) {
-			Registry.register(Registry.BLOCK, new Identifier(b.getId().getNamespace(),b.getBlockId(getName())), pieces.get(b));
-			BlockItem item = new BlockItem(pieces.get(b), (new Item.Settings()).group(ExtraPieces.groups.get(b)));
+		for(PieceType b : genTypes) {
+			Registry.register(Registry.BLOCK, new Identifier(b.getId().getNamespace(),b.getBlockId(getName())), pieces.get(b).getBlock());
+			BlockItem item = new BlockItem(pieces.get(b).getBlock(), (new Item.Settings()).group(ExtraPieces.groups.get(b)));
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
-			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b)), item);
+			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
 		}
 		registered = true;
-		//System.out.println("DEBUG! PieceSet register: "+this.toString());
+		System.out.println("DEBUG! PieceSet register: "+this.toString());
 		return this;
 	}
 
@@ -181,7 +205,7 @@ public class PieceSet {
 	 */
 	public Block getPiece(PieceType piece) {
 		if(!isGenerated()) generate();
-		if(hasPiece(piece)) return pieces.get(piece);
+		if(hasPiece(piece)) return pieces.get(piece).getBlock();
 		return null;
 	}
 
@@ -193,8 +217,8 @@ public class PieceSet {
 		return base;
 	}
 
-	private boolean shouldHavePiece(PieceType piece) {
-		return Arrays.asList(types).contains(piece);
+	private boolean shouldGenPiece(PieceType piece) {
+		return Arrays.asList(genTypes).contains(piece);
 	}
 
 	/**
@@ -203,7 +227,15 @@ public class PieceSet {
 	 * @return Whether this {@link PieceSet} has a {@link PieceType} of type {@code piece}.
 	 */
 	public boolean hasPiece(PieceType piece) {
-		return (shouldHavePiece(piece) && pieces.containsKey(piece));
+		return (pieces.containsKey(piece));
+	}
+
+	public ArrayList<PieceType> getPieceTypes() {
+		return new ArrayList<>(pieces.keySet());
+	}
+
+	public ArrayList<PieceBlock> getPieceBlocks() {
+		return new ArrayList<>(pieces.values());
 	}
 
 	/**
@@ -212,7 +244,7 @@ public class PieceSet {
 	 * @return Whether each {@link PieceType} for this {@link PieceSet} has been generated.
 	 */
 	public boolean isGenerated() {
-		for(PieceType p : types) {
+		for(PieceType p : genTypes) {
 			if(!pieces.containsKey(p)) return false;
 		}
 		return true;

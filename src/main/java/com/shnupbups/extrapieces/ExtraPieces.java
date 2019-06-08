@@ -1,11 +1,14 @@
 package com.shnupbups.extrapieces;
 
+import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,5 +23,6 @@ public class ExtraPieces implements ModInitializer {
 			groups.put(p, FabricItemGroupBuilder.create(p.getId()).icon(() -> new ItemStack(ModBlocks.TERRACOTTA_PIECES.getPiece(p))).build());
 		}
 		ModBlocks.init();
+		Registry.register(Registry.ITEM, new Identifier("extrapieces","debug_item"), new DebugItem());
 	}
 }

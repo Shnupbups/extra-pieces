@@ -28,7 +28,7 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Random;
 
-public class CornerPieceBlock extends Block implements Waterloggable, ExtraPiece {
+public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final DirectionProperty FACING;
 	public static final BooleanProperty WATERLOGGED;
 	protected static final VoxelShape NORTH_SIDING_SHAPE;
@@ -52,6 +52,8 @@ public class CornerPieceBlock extends Block implements Waterloggable, ExtraPiece
 		this.baseBlock = base;
 		this.baseBlockState = base.getDefaultState();
 	}
+
+	public Block getBlock() { return this; }
 
 	public Block getBase() {
 		return baseBlock;

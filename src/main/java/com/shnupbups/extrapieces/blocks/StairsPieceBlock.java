@@ -4,7 +4,7 @@ import com.shnupbups.extrapieces.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.StairsBlock;
 
-public class StairsPieceBlock extends StairsBlock implements ExtraPiece {
+public class StairsPieceBlock extends StairsBlock implements PieceBlock {
 
 	public final Block baseBlock;
 
@@ -12,6 +12,8 @@ public class StairsPieceBlock extends StairsBlock implements ExtraPiece {
 		super(base.getDefaultState(), Block.Settings.copy(base));
 		this.baseBlock=base;
 	}
+
+	public Block getBlock() { return this; }
 
 	public Block getBase() {
 		return baseBlock;

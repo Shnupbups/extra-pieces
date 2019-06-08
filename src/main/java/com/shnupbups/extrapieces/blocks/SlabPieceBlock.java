@@ -4,7 +4,7 @@ import com.shnupbups.extrapieces.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 
-public class SlabPieceBlock extends SlabBlock implements ExtraPiece {
+public class SlabPieceBlock extends SlabBlock implements PieceBlock {
 
 	public final Block baseBlock;
 
@@ -12,6 +12,8 @@ public class SlabPieceBlock extends SlabBlock implements ExtraPiece {
 		super(Block.Settings.copy(base));
 		this.baseBlock=base;
 	}
+
+	public Block getBlock() { return this; }
 
 	public Block getBase() {
 		return baseBlock;
