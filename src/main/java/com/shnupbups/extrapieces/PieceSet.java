@@ -43,6 +43,7 @@ public class PieceSet {
 		FakePieceBlock fpb = new FakePieceBlock(block, type, getBase());
 		vanillaPieceRegistry.put(block, fpb);
 		pieces.put(type, fpb);
+		System.out.println("ADDING VANILLA PIECE! "+block+" as type "+type+" to set "+getName()+" with base "+getBase());
 		return this;
 	}
 
@@ -154,12 +155,10 @@ public class PieceSet {
 	}
 
 	/**
-	 * Creates the instances of each {@link PieceType} in this {@link PieceSet}.<br>
-	 * Clears any already generated.
+	 * Creates the instances of each {@link PieceType} in this {@link PieceSet}.
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
-		pieces.clear();
 		for (PieceType p: PieceType.getTypes()) {
 			if(shouldGenPiece(p) && !hasPiece(p)) {
 				pieces.put(p, (PieceBlock)p.getNew(base));
