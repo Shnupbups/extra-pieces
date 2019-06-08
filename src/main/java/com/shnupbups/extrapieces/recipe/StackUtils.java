@@ -9,10 +9,10 @@ import net.minecraft.item.ItemStack;
 public class StackUtils {
 	public static Block getBase(ItemStack stack) {
 		if(stack.getItem() instanceof BlockItem) {
-			if(((BlockItem) stack.getItem()).getBlock() instanceof PieceBlock) {
-				return ((PieceBlock) ((BlockItem) stack.getItem()).getBlock()).getBase();
-			} else if(PieceSet.hasSet(((BlockItem) stack.getItem()).getBlock())) {
-				return ((BlockItem) stack.getItem()).getBlock();
+			Block b = ((BlockItem) stack.getItem()).getBlock();
+			if(PieceSet.hasSet(b)) return b;
+			else if(PieceSet.isPiece(b)) {
+				return PieceSet.asPieceBlock(((BlockItem) stack.getItem()).getBlock()).getBase();
 			}
 		}
 		return null;

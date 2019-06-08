@@ -3,6 +3,7 @@ package com.shnupbups.extrapieces;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
+import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -25,12 +26,15 @@ public class PieceSet {
 	private PieceType[] genTypes;
 	private Map<PieceType, PieceBlock> pieces = new HashMap<>();
 	private boolean registered = false;
+	private boolean stonecuttable;
+	private ArrayList<PieceType> uncraftable = new ArrayList<>();
 
 	private PieceSet(Block base, String name, List<PieceType> types) {
 		this.base = base;
 		this.name = name.toLowerCase();
 		this.genTypes = types.toArray(new PieceType[types.size()]);
 		registry.put(base, this);
+		stonecuttable = (base.getMaterial(base.getDefaultState()).equals(Material.STONE) || base.getMaterial(base.getDefaultState()).equals(Material.METAL));
 	}
 
 	/**
@@ -43,7 +47,8 @@ public class PieceSet {
 		FakePieceBlock fpb = new FakePieceBlock(block, type, getBase());
 		vanillaPieceRegistry.put(block, fpb);
 		pieces.put(type, fpb);
-		System.out.println("ADDING VANILLA PIECE! "+block+" as type "+type+" to set "+getName()+" with base "+getBase());
+		setUncraftable(type);
+		//System.out.println("ADDING VANILLA PIECE! "+block+" as type "+type+" to set "+getName()+" with base "+getBase());
 		return this;
 	}
 
@@ -103,23 +108,42 @@ public class PieceSet {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("PieceSet{ base: ").append(getBase()).append(", pieces: ");
+		sb.append("PieceSet{ base: ").append(getBase()).append(", pieces: [");
 		for(PieceType p:pieces.keySet()) {
-			sb.append(p.toString()).append(" = ").append(pieces.get(p).getBlock());
-			if(isVanillaPiece(p)) sb.append("Vanilla Piece!");
-			sb.append(" , ");
+			sb.append("{").append(p.toString()).append(" = ").append(pieces.get(p).getBlock());
+			if(isVanillaPiece(p)) sb.append(", Vanilla Piece!");
+			else if(!isCraftable(p)) sb.append(", Uncraftable!");
+			sb.append("} , ");
 		}
 		sb.delete(sb.length()-2,sb.length());
-		sb.append(" }");
+		sb.append("] , stonecuttable: ").append(isStonecuttable()).append(" }");
 		return sb.toString();
 	}
 
 	public static PieceSet createSet(Block base, String name, List<PieceType> types) {
-		if(hasSet(base)) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet in registry! Use getSet!");
+		if(hasSet(base)) throw new IllegalStateException("Block "+base.getTranslationKey()+" already has PiecesSet in registry! Use getSet!");
 		else {
 			if(types.contains(PieceType.BASE)) types.remove(PieceType.BASE);
 			return new PieceSet(base, name, types);
 		}
+	}
+
+	public boolean isStonecuttable() {
+		return stonecuttable;
+	}
+
+	public PieceSet setStonecuttable(boolean stonecuttable) {
+		this.stonecuttable=stonecuttable;
+		return this;
+	}
+
+	public boolean isCraftable(PieceType type) {
+		return !uncraftable.contains(type);
+	}
+
+	public PieceSet setUncraftable(PieceType type) {
+		uncraftable.add(type);
+		return this;
 	}
 
 	/**
@@ -183,7 +207,7 @@ public class PieceSet {
 			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
 		}
 		registered = true;
-		System.out.println("DEBUG! PieceSet register: "+this.toString());
+		//System.out.println("DEBUG! PieceSet register: "+this.toString());
 		return this;
 	}
 

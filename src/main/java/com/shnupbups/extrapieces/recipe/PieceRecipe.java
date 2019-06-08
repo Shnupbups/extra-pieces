@@ -42,8 +42,15 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		ItemStack base = getBase(c);
 		if(base==null||base.equals(ItemStack.EMPTY)||base.getItem()==Items.AIR) return false;
 		else {
-			if (PieceSet.hasSet(getBaseAsBlock(c))&&PieceSet.getSet(getBaseAsBlock(c)).hasPiece(output.getType())) {
-				return properMatches(c,world);
+			Block cb = getBaseAsBlock(c);
+			System.out.println(cb);
+			if (PieceSet.hasSet(cb)) {
+				System.out.println("has set");
+				if(PieceSet.getSet(cb).hasPiece(output.getType())&&PieceSet.getSet(cb).isCraftable(output.getType())) {
+					System.out.println("has piece, is craftable");
+					return properMatches(c, world);
+				}
+				System.out.println("but nope");
 			}
 		}
 		return false;
@@ -91,14 +98,17 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 			ItemStack stack = c.getInvStack(i);
 			if(stack!=null&&!stack.isEmpty()) {
 				if(base==null||base.equals(ItemStack.EMPTY)) {
+					System.out.println("inventory base is "+StackUtils.getBase(stack));
 					base = new ItemStack(StackUtils.getBase(stack));
 				} else {
 					if(StackUtils.getBase(stack)==null||!StackUtils.getBase(stack).asItem().equals(base.getItem())) {
+						System.out.println("inventory base is empty :(");
 						return ItemStack.EMPTY;
 					}
 				}
 			}
 		}
+		System.out.println("returning base "+base);
 		return base;
 	}
 
