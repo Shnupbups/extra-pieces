@@ -29,9 +29,9 @@
 				"extrapieces:wall"
 			],
 			"vanilla_pieces": {
-				"extrapieces:stairs": "minecraft:sandstone_stairs",
-				"extrapieces:slab": "minecraft:sandstone_slab",
-				"extrapieces:wall": "minecraft:sandstone_wall"
+				"extrapieces:stairs": "minecraft:cobblestone_stairs",
+				"extrapieces:slab": "minecraft:cobblestone_slab",
+				"extrapieces:wall": "minecraft:cobblestone_wall"
 			},
 			"stonecuttable": true
 		},
