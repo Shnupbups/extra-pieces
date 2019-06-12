@@ -1,6 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
-import com.shnupbups.extrapieces.PieceType;
+import com.shnupbups.extrapieces.core.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 

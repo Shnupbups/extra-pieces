@@ -1,7 +1,7 @@
 package com.shnupbups.extrapieces.register;
 
-import com.shnupbups.extrapieces.PieceSet;
-import com.shnupbups.extrapieces.PieceType;
+import com.shnupbups.extrapieces.core.PieceSet;
+import com.shnupbups.extrapieces.core.PieceType;
 import net.minecraft.block.Blocks;
 
 public class ModBlocks {

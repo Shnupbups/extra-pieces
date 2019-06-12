@@ -1,8 +1,10 @@
 package com.shnupbups.extrapieces;
 
+import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.shnupbups.extrapieces.register.ModRecipes;
+import com.shnupbups.extrapieces.register.ModTags;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -24,5 +26,6 @@ public class ExtraPieces implements ModInitializer {
 		}
 		ModBlocks.init();
 		Registry.register(Registry.ITEM, new Identifier("extrapieces","debug_item"), new DebugItem());
+		ModTags.init();
 	}
 }

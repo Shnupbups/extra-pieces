@@ -1,7 +1,6 @@
 package com.shnupbups.extrapieces.recipe;
 
-import com.shnupbups.extrapieces.PieceSet;
-import com.shnupbups.extrapieces.blocks.PieceBlock;
+import com.shnupbups.extrapieces.core.PieceSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;

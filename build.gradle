@@ -15,6 +15,7 @@ minecraft {
 
 repositories {
     maven { url "https://minecraft.curseforge.com/api/maven"}
+	maven { url "http://server.bbkr.space:8081/artifactory/libs-snapshot"}
 }
 
 dependencies {
@@ -26,7 +27,11 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	// stuff
+	// Cotton API
+	modCompile "io.github.cottonmc:cotton:${project.cotton_version}"
+	include "io.github.cottonmc:cotton:${project.cotton_version}"
+	
+	// stuff for dev env
 	modCompile "io.github.prospector.modmenu:ModMenu:${project.modmenu_version}"
 	modCompile "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 }

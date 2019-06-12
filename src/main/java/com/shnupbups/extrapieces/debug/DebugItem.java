@@ -1,6 +1,6 @@
 package com.shnupbups.extrapieces.debug;
 
-import com.shnupbups.extrapieces.PieceSet;
+import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;

@@ -1,7 +1,10 @@
-package com.shnupbups.extrapieces;
+package com.shnupbups.extrapieces.core;
 
+import com.shnupbups.extrapieces.ExtraPieces;
+import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
-import net.minecraft.ChatFormat;
+import io.github.cottonmc.cotton.datapack.tags.TagEntryManager;
+import io.github.cottonmc.cotton.datapack.tags.TagType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
@@ -18,7 +21,7 @@ public class PieceSet {
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_WALL;
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
 
-	private static Map<Block, PieceSet> registry = new HashMap<>();
+	public static Map<Block, PieceSet> registry = new HashMap<>();
 	private static Map<Block, FakePieceBlock> vanillaPieceRegistry = new HashMap<>();
 
 	private final Block base;
@@ -201,7 +204,8 @@ public class PieceSet {
 		if(isRegistered()) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet registered! Cannot register again!");
 		if(!isGenerated()) generate();
 		for(PieceType b : genTypes) {
-			Registry.register(Registry.BLOCK, new Identifier(b.getId().getNamespace(),b.getBlockId(getName())), pieces.get(b).getBlock());
+			Identifier id = new Identifier(b.getId().getNamespace(),b.getBlockId(getName()));
+			Registry.register(Registry.BLOCK, id, pieces.get(b).getBlock());
 			BlockItem item = new BlockItem(pieces.get(b).getBlock(), (new Item.Settings()).group(ExtraPieces.groups.get(b)));
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
 			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
@@ -259,6 +263,10 @@ public class PieceSet {
 
 	public ArrayList<PieceBlock> getPieceBlocks() {
 		return new ArrayList<>(pieces.values());
+	}
+
+	public Map<PieceType, PieceBlock> getPieces() {
+		return pieces;
 	}
 
 	/**

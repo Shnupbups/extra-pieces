@@ -1,7 +1,7 @@
 package com.shnupbups.extrapieces.recipe;
 
 import com.google.gson.*;
-import com.shnupbups.extrapieces.PieceType;
+import com.shnupbups.extrapieces.core.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -80,6 +80,7 @@ public class PieceIngredient implements Predicate<PieceStack> {
 			PieceType pieceType = (PieceType) PieceType.getTypeOrEmpty(id).orElseThrow(() -> {
 				return new JsonSyntaxException("Unknown piece '" + id + "'");
 			});
+			System.out.println(id+" = "+pieceType);
 			return new PieceIngredient.Entry(pieceType);
 		} else {
 			throw new JsonParseException("An ingredient entry needs a piece type");

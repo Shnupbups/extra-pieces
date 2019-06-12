@@ -1,4 +1,4 @@
-package com.shnupbups.extrapieces;
+package com.shnupbups.extrapieces.core;
 
 import com.shnupbups.extrapieces.blocks.*;
 import net.minecraft.block.*;
@@ -51,6 +51,14 @@ public abstract class PieceType {
 	public Identifier getId() {
 		return this.id;
 	}
+
+	/**
+	 * Gets the id of the block and item tag of this {@link PieceType}<br>
+	 * Used for registry.<br>
+	 * Defaults to {@link #getId()} wth an 's' appended
+	 * @return The id of this {@link PieceType}'s tag
+	 */
+	public Identifier getTagId() { return new Identifier(this.id.toString()+"s");}
 
 	public static PieceType register(PieceType type) {
 		if(types.add(type))	return type;
@@ -135,6 +143,10 @@ public abstract class PieceType {
 		public StairsPieceBlock getNew(Block base) {
 			return new StairsPieceBlock(base);
 		}
+
+		public Identifier getTagId() {
+			return new Identifier("minecraft","stairs");
+		}
 	}
 
 	public static class SlabPiece extends PieceType {
@@ -144,6 +156,10 @@ public abstract class PieceType {
 
 		public SlabPieceBlock getNew(Block base) {
 			return new SlabPieceBlock(base);
+		}
+
+		public Identifier getTagId() {
+			return new Identifier("minecraft","slabs");
 		}
 	}
 
@@ -165,6 +181,10 @@ public abstract class PieceType {
 		public WallPieceBlock getNew(Block base) {
 			return new WallPieceBlock(base);
 		}
+
+		public Identifier getTagId() {
+			return new Identifier("minecraft","walls");
+		}
 	}
 
 	public static class FencePiece extends PieceType {
@@ -174,6 +194,10 @@ public abstract class PieceType {
 
 		public FencePieceBlock getNew(Block base) {
 			return new FencePieceBlock(base);
+		}
+
+		public Identifier getTagId() {
+			return new Identifier("minecraft","fences");
 		}
 	}
 
