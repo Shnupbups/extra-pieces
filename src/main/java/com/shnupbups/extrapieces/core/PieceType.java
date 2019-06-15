@@ -89,7 +89,7 @@ public abstract class PieceType {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
 			if(block instanceof PieceBlock) {
 				return ((PieceBlock) block).getType();
-			} else if(PieceSet.hasSet(block)) {
+			} else if(PieceSets.hasSet(block)) {
 				return PieceType.BASE;
 			}
 		}
@@ -105,7 +105,7 @@ public abstract class PieceType {
 		return getType(idt);
 	}
 
-	public abstract Block getNew(Block base);
+	public abstract Block getNew(PieceSet set);
 
 	public static PieceType readPieceType(PacketByteBuf buf) {
 		return getType(buf.readString(buf.readInt()));
@@ -130,8 +130,8 @@ public abstract class PieceType {
 			return baseName;
 		}
 
-		public Block getNew(Block base) {
-			return base;
+		public Block getNew(PieceSet set) {
+			return set.getBase();
 		}
 	}
 
@@ -140,8 +140,8 @@ public abstract class PieceType {
 			super("stairs");
 		}
 
-		public StairsPieceBlock getNew(Block base) {
-			return new StairsPieceBlock(base);
+		public StairsPieceBlock getNew(PieceSet set) {
+			return new StairsPieceBlock(set);
 		}
 
 		public Identifier getTagId() {
@@ -154,8 +154,8 @@ public abstract class PieceType {
 			super("slab");
 		}
 
-		public SlabPieceBlock getNew(Block base) {
-			return new SlabPieceBlock(base);
+		public SlabPieceBlock getNew(PieceSet set) {
+			return new SlabPieceBlock(set);
 		}
 
 		public Identifier getTagId() {
@@ -168,8 +168,8 @@ public abstract class PieceType {
 			super("siding");
 		}
 
-		public SidingPieceBlock getNew(Block base) {
-			return new SidingPieceBlock(base);
+		public SidingPieceBlock getNew(PieceSet set) {
+			return new SidingPieceBlock(set);
 		}
 	}
 
@@ -178,8 +178,8 @@ public abstract class PieceType {
 			super("wall");
 		}
 
-		public WallPieceBlock getNew(Block base) {
-			return new WallPieceBlock(base);
+		public WallPieceBlock getNew(PieceSet set) {
+			return new WallPieceBlock(set);
 		}
 
 		public Identifier getTagId() {
@@ -192,8 +192,8 @@ public abstract class PieceType {
 			super("fence");
 		}
 
-		public FencePieceBlock getNew(Block base) {
-			return new FencePieceBlock(base);
+		public FencePieceBlock getNew(PieceSet set) {
+			return new FencePieceBlock(set);
 		}
 
 		public Identifier getTagId() {
@@ -206,8 +206,8 @@ public abstract class PieceType {
 			super("fence_gate");
 		}
 
-		public FenceGatePieceBlock getNew(Block base) {
-			return new FenceGatePieceBlock(base);
+		public FenceGatePieceBlock getNew(PieceSet set) {
+			return new FenceGatePieceBlock(set);
 		}
 	}
 
@@ -216,8 +216,8 @@ public abstract class PieceType {
 			super("post");
 		}
 
-		public PostPieceBlock getNew(Block base) {
-			return new PostPieceBlock(base);
+		public PostPieceBlock getNew(PieceSet set) {
+			return new PostPieceBlock(set);
 		}
 	}
 
@@ -226,8 +226,8 @@ public abstract class PieceType {
 			super("corner");
 		}
 
-		public CornerPieceBlock getNew(Block base) {
-			return new CornerPieceBlock(base);
+		public CornerPieceBlock getNew(PieceSet set) {
+			return new CornerPieceBlock(set);
 		}
 	}
 

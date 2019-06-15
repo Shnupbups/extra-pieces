@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,21 +44,19 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 	protected static final VoxelShape EAST_SHAPE;
 	protected static final VoxelShape SOUTH_SHAPE;
 	protected static final VoxelShape WEST_SHAPE;
-	private final Block baseBlock;
-	private final BlockState baseBlockState;
+	private final PieceSet set;
 
-	public CornerPieceBlock(Block base) {
-		super(Block.Settings.copy(base));
+	public CornerPieceBlock(PieceSet set) {
+		super(Block.Settings.copy(set.getBase()));
+		this.set=set;
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
-		this.baseBlock = base;
-		this.baseBlockState = base.getDefaultState();
+	}
+
+	public PieceSet getSet() {
+		return set;
 	}
 
 	public Block getBlock() { return this; }
-
-	public Block getBase() {
-		return baseBlock;
-	}
 
 	public PieceType getType() {return PieceType.CORNER;}
 
@@ -80,56 +79,56 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
-		this.baseBlock.randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
+		this.set.getBase().randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
 	}
 
 	public void onBlockBreakStart(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1) {
-		this.baseBlockState.onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
+		this.set.getBase().getDefaultState().onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
 	}
 
 	public void onBroken(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1) {
-		this.baseBlock.onBroken(iWorld_1, blockPos_1, blockState_1);
+		this.set.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
 	}
 
 	public float getBlastResistance() {
-		return this.baseBlock.getBlastResistance();
+		return this.set.getBase().getBlastResistance();
 	}
 
 	public BlockRenderLayer getRenderLayer() {
-		return this.baseBlock.getRenderLayer();
+		return this.set.getBase().getRenderLayer();
 	}
 
 	public int getTickRate(ViewableWorld viewableWorld_1) {
-		return this.baseBlock.getTickRate(viewableWorld_1);
+		return this.set.getBase().getTickRate(viewableWorld_1);
 	}
 
 	public void onBlockAdded(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
 		if (blockState_1.getBlock() != blockState_1.getBlock()) {
-			this.baseBlockState.neighborUpdate(world_1, blockPos_1, Blocks.AIR, blockPos_1, false);
-			this.baseBlock.onBlockAdded(this.baseBlockState, world_1, blockPos_1, blockState_2, false);
+			this.set.getBase().getDefaultState().neighborUpdate(world_1, blockPos_1, Blocks.AIR, blockPos_1, false);
+			this.set.getBase().onBlockAdded(this.set.getBase().getDefaultState(), world_1, blockPos_1, blockState_2, false);
 		}
 	}
 
 	public void onBlockRemoved(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
 		if (blockState_1.getBlock() != blockState_2.getBlock()) {
-			this.baseBlockState.onBlockRemoved(world_1, blockPos_1, blockState_2, boolean_1);
+			this.set.getBase().getDefaultState().onBlockRemoved(world_1, blockPos_1, blockState_2, boolean_1);
 		}
 	}
 
 	public void onSteppedOn(World world_1, BlockPos blockPos_1, Entity entity_1) {
-		this.baseBlock.onSteppedOn(world_1, blockPos_1, entity_1);
+		this.set.getBase().onSteppedOn(world_1, blockPos_1, entity_1);
 	}
 
 	public void onScheduledTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
-		this.baseBlock.onScheduledTick(blockState_1, world_1, blockPos_1, random_1);
+		this.set.getBase().onScheduledTick(blockState_1, world_1, blockPos_1, random_1);
 	}
 
 	public boolean activate(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1, Hand hand_1, BlockHitResult blockHitResult_1) {
-		return this.baseBlockState.activate(world_1, playerEntity_1, hand_1, blockHitResult_1);
+		return this.set.getBase().getDefaultState().activate(world_1, playerEntity_1, hand_1, blockHitResult_1);
 	}
 
 	public void onDestroyedByExplosion(World world_1, BlockPos blockPos_1, Explosion explosion_1) {
-		this.baseBlock.onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
+		this.set.getBase().onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
 	}
 
 	public BlockState getPlacementState(ItemPlacementContext itemPlacementContext_1) {

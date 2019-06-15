@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlacementEnvironment;
@@ -27,18 +28,18 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 	protected static final VoxelShape X_SHAPE;
 	protected static final VoxelShape Z_SHAPE;
 	protected static final VoxelShape Y_COLLISION;
-	public final Block baseBlock;
+	private final PieceSet set;
 
-	public PostPieceBlock(Block base) {
-		super(Block.Settings.copy(base));
+	public PostPieceBlock(PieceSet set) {
+		super(Block.Settings.copy(set.getBase()));
+		this.set=set;
 		this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, false));
-		this.baseBlock=base;
 	}
 
 	public Block getBlock() { return this; }
 
-	public Block getBase() {
-		return baseBlock;
+	public PieceSet getSet() {
+		return set;
 	}
 
 	public PieceType getType() {return PieceType.POST;}

@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.register.ModProperties;
 import com.shnupbups.extrapieces.SidingType;
@@ -35,18 +36,18 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	protected static final VoxelShape SINGLE_SHAPE_EAST;
 	protected static final VoxelShape SINGLE_SHAPE_WEST;
 
-	public final Block baseBlock;
+	private final PieceSet set;
 
-	public SidingPieceBlock(Block base) {
-		super(Block.Settings.copy(base));
+	public SidingPieceBlock(PieceSet set) {
+		super(Block.Settings.copy(set.getBase()));
+		this.set = set;
 		this.setDefaultState(this.getDefaultState().with(TYPE, SidingType.SINGLE).with(FACING_HORIZONTAL, Direction.NORTH).with(WATERLOGGED, false));
-		this.baseBlock=base;
 	}
 
 	public Block getBlock() { return this; }
 
-	public Block getBase() {
-		return baseBlock;
+	public PieceSet getSet() {
+		return set;
 	}
 
 	public PieceType getType() {return PieceType.SIDING;}

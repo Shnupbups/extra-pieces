@@ -1,5 +1,9 @@
 package com.shnupbups.extrapieces.core;
 
+import blue.endless.jankson.JsonArray;
+import blue.endless.jankson.JsonElement;
+import blue.endless.jankson.JsonObject;
+import blue.endless.jankson.JsonPrimitive;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
@@ -21,9 +25,6 @@ public class PieceSet {
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_WALL;
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
 
-	public static Map<Block, PieceSet> registry = new HashMap<>();
-	private static Map<Block, FakePieceBlock> vanillaPieceRegistry = new HashMap<>();
-
 	private final Block base;
 	private final String name;
 	private PieceType[] genTypes;
@@ -31,13 +32,90 @@ public class PieceSet {
 	private boolean registered = false;
 	private boolean stonecuttable;
 	private ArrayList<PieceType> uncraftable = new ArrayList<>();
+	private Identifier mainTexture;
+	private Identifier topTexture;
+	private Identifier bottomTexture;
+	private boolean opaque;
 
-	private PieceSet(Block base, String name, List<PieceType> types) {
+	PieceSet(Block base, String name, List<PieceType> types) {
 		this.base = base;
 		this.name = name.toLowerCase();
+		this.mainTexture = Registry.BLOCK.getId(base);
+		this.topTexture = mainTexture;
+		this.bottomTexture = topTexture;
+		this.opaque = base.isOpaque(base.getDefaultState());
 		this.genTypes = types.toArray(new PieceType[types.size()]);
-		registry.put(base, this);
-		stonecuttable = (base.getMaterial(base.getDefaultState()).equals(Material.STONE) || base.getMaterial(base.getDefaultState()).equals(Material.METAL));
+		PieceSets.registerSet(base, this);
+		this.stonecuttable = (base.getDefaultState().getMaterial().equals(Material.STONE) || base.getDefaultState().getMaterial().equals(Material.METAL));
+	}
+
+	public PieceSet setOpaque() {
+		this.opaque = true;
+		return this;
+	}
+
+	public PieceSet setOpaque(boolean opaque) {
+		this.opaque = opaque;
+		return this;
+	}
+
+	public PieceSet setTransparent() {
+		this.opaque = false;
+		return this;
+	}
+
+	public PieceSet setTexture(Identifier id) {
+		this.mainTexture = id;
+		this.topTexture = id;
+		this.bottomTexture = id;
+		return this;
+	}
+
+	public PieceSet setTopTexture(Identifier id) {
+		this.topTexture = id;
+		this.bottomTexture = id;
+		return this;
+	}
+
+	public PieceSet setBottomTexture(Identifier id) {
+		this.bottomTexture = id;
+		return this;
+	}
+
+	public boolean isOpaque() {
+		return opaque;
+	}
+
+	public boolean isTransparent() {
+		return !isOpaque();
+	}
+
+	public Identifier getMainTexture() {
+		return mainTexture;
+	}
+
+	public Identifier getTopTexture() {
+		return topTexture;
+	}
+
+	public Identifier getBottomTexture() {
+		return bottomTexture;
+	}
+
+	public boolean hasCustomTexture() {
+		return hasBottomTexture()||hasTopTexture()||hasMainTexture();
+	}
+
+	public boolean hasMainTexture() {
+		return !getMainTexture().equals(Registry.BLOCK.getId(this.getBase()));
+	}
+
+	public boolean hasTopTexture() {
+		return !getTopTexture().equals(getMainTexture());
+	}
+
+	public boolean hasBottomTexture() {
+		return !getBottomTexture().equals(getTopTexture());
 	}
 
 	/**
@@ -47,67 +125,16 @@ public class PieceSet {
 	 * @return This set
 	 */
 	public PieceSet addVanillaPiece(PieceType type, Block block) {
-		FakePieceBlock fpb = new FakePieceBlock(block, type, getBase());
-		vanillaPieceRegistry.put(block, fpb);
+		FakePieceBlock fpb = new FakePieceBlock(block, type, this);
+		PieceSets.registerVanillaPiece(block, fpb);
+		this.excludePiece(type);
 		pieces.put(type, fpb);
 		setUncraftable(type);
 		//System.out.println("ADDING VANILLA PIECE! "+block+" as type "+type+" to set "+getName()+" with base "+getBase());
 		return this;
 	}
 
-	public static boolean isVanillaPiece(Block block) { return vanillaPieceRegistry.containsKey(block); }
-
-	public boolean isVanillaPiece(PieceType type) { return pieces.get(type) instanceof FakePieceBlock && vanillaPieceRegistry.containsValue(pieces.get(type)); }
-
-	public static boolean isPiece(Block block) {
-		return (block instanceof PieceBlock || hasSet(block) || isVanillaPiece(block));
-	}
-
-	public static PieceType getType(Block block) {
-		if(isPiece(block)) {
-			if(hasSet(block)) return PieceType.BASE;
-			else if(block instanceof PieceBlock) return ((PieceBlock)block).getType();
-			else if(vanillaPieceRegistry.containsKey(block)) return vanillaPieceRegistry.get(block).getType();
-		}
-		return null;
-	}
-
-	/**
-	 * Gets a blcok's PieceSet
-	 * @param block The {@link Block} to find the set of.
-	 * @return The {@link PieceSet} based on the {@link Block} {@code base}, or null if none exists.
-	 */
-	public static PieceSet getSet(Block block) {
-		if(hasSet(block)) return registry.get(block);
-		else if(block instanceof PieceBlock) return registry.get(((PieceBlock)block).getBase());
-		return registry.get(vanillaPieceRegistry.getOrDefault(block, null).getBase());
-	}
-
-	public static PieceBlock asPieceBlock(Block block) {
-		if(block instanceof PieceBlock) return (PieceBlock)block;
-		else if(vanillaPieceRegistry.containsKey(block)) {
-			return vanillaPieceRegistry.get(block);
-		} return null;
-	}
-
-	/**
-	 * Gets a {@link PieceType} based on the {@link Block} {@code base}, if it exists.
-	 * @param base The {@link Block} that the {@link PieceType} should be based upon.
-	 * @param piece The {@link PieceType} to get.
-	 * @return The {@link PieceType} based on the {@link Block} {@code base}, or null if none exists.
-	 */
-	public static Block getPiece(Block base, PieceType piece) {
-		//System.out.println("GETTING PIECE FOR PIECESET: "+base.getTranslationKey()+" piece: "+piece.toString()+" ");
-		if(hasSet(base)) {
-			if(getSet(base).hasPiece(piece)) {
-				//System.out.println("EXISTS! "+getSet(base).toString());
-				return getSet(base).getPiece(piece);
-			} else if(piece==PieceType.BASE) {
-				return getSet(base).getBase();
-			}
-		}
-		return null;
-	}
+	public boolean isVanillaPiece(PieceType type) { return pieces.get(type) instanceof FakePieceBlock && PieceSets.isVanillaPiece(pieces.get(type).getBlock()); }
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -121,14 +148,6 @@ public class PieceSet {
 		sb.delete(sb.length()-2,sb.length());
 		sb.append("] , stonecuttable: ").append(isStonecuttable()).append(" }");
 		return sb.toString();
-	}
-
-	public static PieceSet createSet(Block base, String name, List<PieceType> types) {
-		if(hasSet(base)) throw new IllegalStateException("Block "+base.getTranslationKey()+" already has PiecesSet in registry! Use getSet!");
-		else {
-			if(types.contains(PieceType.BASE)) types.remove(PieceType.BASE);
-			return new PieceSet(base, name, types);
-		}
 	}
 
 	public boolean isStonecuttable() {
@@ -150,45 +169,13 @@ public class PieceSet {
 	}
 
 	/**
-	 * Creates a new {@link PieceSet} based on {@code base} with each of the {@link PieceType}s specified.
-	 * @throws IllegalStateException If a {@link PieceSet} already exists with an identical base {@link Block}
-	 * @param base The {@link Block} on which the {@link PieceType}s will be based upon.
-	 * @param name A string used to identify this {@link PieceSet}. Used in registry names.
-	 * @param types A list of {@link PieceType}s that this {@link PieceSet} will have.
-	 * @return A new {@link PieceSet}
-	 */
-	public static PieceSet createSet(Block base, String name, PieceType... types) {
-		return createSet(base, name, Arrays.asList(types));
-	}
-
-	/**
-	 * Creates a new {@link PieceSet} based on {@code base} with every {@link PieceType}.
-	 * @throws IllegalStateException If a {@link PieceSet} already exists with an identical base {@link Block}
-	 * @param base The {@link Block} on which the {@link PieceType}s will be based upon.
-	 * @param name A string used to identify this {@link PieceSet}. Used in registry names.
-	 * @return A new {@link PieceSet}
-	 */
-	public static PieceSet createSet(Block base, String name) {
-		return createSet(base, name, PieceType.getTypesNoBase());
-	}
-
-	/**
-	 * Gets whether a {@link PieceSet} exists based upon the {@link Block} {@code base}.
-	 * @param base The {@link Block} that the {@link PieceSet} should be based upon.
-	 * @return Whether such a {@link PieceSet} exists.
-	 */
-	public static boolean hasSet(Block base) {
-		return registry.containsKey(base);
-	}
-
-	/**
 	 * Creates the instances of each {@link PieceType} in this {@link PieceSet}.
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
 		for (PieceType p: PieceType.getTypes()) {
 			if(shouldGenPiece(p) && !hasPiece(p)) {
-				pieces.put(p, (PieceBlock)p.getNew(base));
+				pieces.put(p, (PieceBlock)p.getNew(this));
 			}
 		}
 		return this;
@@ -290,6 +277,41 @@ public class PieceSet {
 		return registered;
 	}
 
+	public List<PieceType> getGenTypes() {
+		return Arrays.asList(genTypes);
+	}
+
+	public List<PieceType> getVanillaTypes() {
+		ArrayList<PieceType> vt = new ArrayList<>();
+		List gt = Arrays.asList(genTypes);
+		for(PieceType p:this.getPieces().keySet()) {
+			if (!gt.contains(p)) {
+				vt.add(p);
+			}
+		}
+		return vt;
+	}
+
+	public List<PieceType> getExcludedTypes() {
+		ArrayList et = (ArrayList<PieceType>)PieceType.getTypesNoBase().clone();
+		et.removeAll(this.getPieceTypes());
+		return et;
+	}
+
+	public List<PieceType> getUncraftableTypes() {
+		ArrayList uc = ((ArrayList<PieceType>)uncraftable.clone());
+		uc.removeAll(this.getVanillaTypes());
+		return uc;
+	}
+
+	public PieceSet excludePiece(PieceType type) {
+		List<PieceType> types = Arrays.asList(this.genTypes);
+		ArrayList<PieceType> newTypes = new ArrayList<>(types);
+		newTypes.remove(type);
+		this.genTypes = newTypes.toArray(new PieceType[newTypes.size()]);
+		return this;
+	}
+
 	static {
 		NO_SLAB = new ArrayList<>(PieceType.getTypesNoBase());
 		NO_SLAB.remove(PieceType.SLAB);
@@ -306,5 +328,100 @@ public class PieceSet {
 
 		JUST_EXTRAS_AND_FENCE_GATE = new ArrayList<>(NO_SLAB_STAIRS_OR_WALL);
 		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceType.FENCE);
+	}
+
+	public JsonObject toJson() {
+		JsonObject ob = new JsonObject();
+		ob.put("base", new JsonPrimitive(Registry.BLOCK.getId(this.getBase())));
+		if(this.isStonecuttable()!=(base.getDefaultState().getMaterial().equals(Material.STONE) || base.getDefaultState().getMaterial().equals(Material.METAL))) {
+			ob.put("stonecuttable", new JsonPrimitive(this.isStonecuttable()));
+		}
+		if(this.isOpaque()!=this.getBase().getDefaultState().isOpaque()) {
+			ob.put("opaque", new JsonPrimitive(this.isOpaque()));
+		}
+		if(this.hasCustomTexture()) {
+			JsonObject tx = new JsonObject();
+			if(hasMainTexture()) {
+				tx.put("main", new JsonPrimitive(this.getMainTexture()));
+			}
+			if(hasTopTexture()) {
+				tx.put("top", new JsonPrimitive(this.getTopTexture()));
+			}
+			if(hasBottomTexture()) {
+				tx.put("bottom", new JsonPrimitive(this.getBottomTexture()));
+			}
+			ob.put("textures", tx);
+		}
+		if(!this.getVanillaTypes().isEmpty()) {
+			JsonObject vp = new JsonObject();
+			for(PieceType p:this.getVanillaTypes()) {
+				vp.put(p.toString(), new JsonPrimitive(Registry.BLOCK.getId(this.getPiece(p))));
+			}
+			ob.put("vanilla_pieces", vp);
+		}
+		if(!this.getUncraftableTypes().isEmpty()) {
+			JsonArray uc = new JsonArray();
+			for(PieceType p:this.getUncraftableTypes()) {
+				uc.add(new JsonPrimitive(p));
+			}
+			ob.put("uncraftable", uc);
+		}
+		if(!this.getExcludedTypes().isEmpty()) {
+			JsonArray ex = new JsonArray();
+			for(PieceType p:this.getExcludedTypes()) {
+				ex.add(new JsonPrimitive(p));
+			}
+			ob.put("exclude", ex);
+		}
+		return ob;
+	}
+
+	public static PieceSet fromJson(String name, JsonObject ob) {
+		Block base = Registry.BLOCK.get(new Identifier(ob.get(String.class, "base")));
+		PieceSet set = PieceSets.createSet(base, name);
+		if(ob.containsKey("stonecuttable")) {
+			set.setStonecuttable(Boolean.getBoolean(((JsonPrimitive)ob.get("stonecuttable")).asString()));
+		}
+		if(ob.containsKey("opaque")) {
+			set.setOpaque(Boolean.getBoolean(((JsonPrimitive)ob.get("opaque")).asString()));
+		}
+		if(ob.containsKey("textures")) {
+			JsonObject tx = ob.getObject("textures");
+			if(tx.containsKey("main")) {
+				set.setTexture(new Identifier(tx.get(String.class, "main")));
+			}
+			if(tx.containsKey("top")) {
+				set.setTopTexture(new Identifier(tx.get(String.class, "top")));
+			}
+			if(tx.containsKey("bottom")) {
+				set.setBottomTexture(new Identifier(tx.get(String.class, "bottom")));
+			}
+		}
+		if(ob.containsKey("vanilla_pieces")) {
+			JsonObject vp = ob.getObject("vanilla_pieces");
+			for(String s:vp.keySet()) {
+				PieceType pt = PieceType.getType(s);
+				set.addVanillaPiece(pt, Registry.BLOCK.get(new Identifier(vp.get(String.class, s))));
+			}
+		}
+		if(ob.containsKey("exclude")) {
+			JsonArray ex = ob.get(JsonArray.class, "exclude");
+			for(JsonElement je:ex) {
+				JsonPrimitive jp = (JsonPrimitive)je;
+				String s = jp.asString();
+				PieceType pt = PieceType.getType(s);
+				set.excludePiece(pt);
+			}
+		}
+		if(ob.containsKey("uncraftable")) {
+			JsonArray uc = ob.get(JsonArray.class, "uncraftable");
+			for(JsonElement je:uc) {
+				JsonPrimitive jp = (JsonPrimitive)je;
+				String s = jp.asString();
+				PieceType pt = PieceType.getType(s);
+				set.setUncraftable(pt);
+			}
+		}
+		return set;
 	}
 }

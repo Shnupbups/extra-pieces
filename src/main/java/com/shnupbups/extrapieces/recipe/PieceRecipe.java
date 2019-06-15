@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
 import com.shnupbups.extrapieces.core.PieceSet;
+import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import net.minecraft.block.Block;
@@ -44,9 +45,9 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		else {
 			Block cb = getBaseAsBlock(c);
 			System.out.println(cb);
-			if (PieceSet.hasSet(cb)) {
+			if (PieceSets.hasSet(cb)) {
 				System.out.println("has set");
-				if(PieceSet.getSet(cb).hasPiece(output.getType())&&PieceSet.getSet(cb).isCraftable(output.getType())) {
+				if(PieceSets.getSet(cb).hasPiece(output.getType())&&PieceSets.getSet(cb).isCraftable(output.getType())) {
 					System.out.println("has piece, is craftable");
 					return properMatches(c, world);
 				}
@@ -98,10 +99,10 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 			ItemStack stack = c.getInvStack(i);
 			if(stack!=null&&!stack.isEmpty()) {
 				if(base==null||base.equals(ItemStack.EMPTY)) {
-					System.out.println("inventory base is "+StackUtils.getBase(stack));
-					base = new ItemStack(StackUtils.getBase(stack));
+					System.out.println("inventory base is "+PieceSets.getBase(stack));
+					base = new ItemStack(PieceSets.getBase(stack));
 				} else {
-					if(StackUtils.getBase(stack)==null||!StackUtils.getBase(stack).asItem().equals(base.getItem())) {
+					if(PieceSets.getBase(stack)==null||!PieceSets.getBase(stack).asItem().equals(base.getItem())) {
 						System.out.println("inventory base is empty :(");
 						return ItemStack.EMPTY;
 					}
@@ -274,7 +275,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 	}
 
 	public String toString(Block base) {
-		String s = "PieceRecipe{ width: "+width+" height: "+height+" group: "+group+" output: "+PieceSet.getPiece(base,output.getType())+"*"+output.getCount()+" inputs: ";
+		String s = "PieceRecipe{ width: "+width+" height: "+height+" group: "+group+" output: "+PieceSets.getPiece(base,output.getType())+"*"+output.getCount()+" inputs: ";
 		for(PieceIngredient i:inputs) {
 			s+=i.toString(base)+", ";
 		}

@@ -2,6 +2,7 @@ package com.shnupbups.extrapieces.debug;
 
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
+import com.shnupbups.extrapieces.core.PieceSets;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
@@ -22,14 +23,14 @@ public class DebugItem extends Item {
 			context.getPlayer().getItemCooldownManager().set(this, 20);
 			if (state.getBlock() instanceof PieceBlock) {
 				PieceBlock pb = (PieceBlock) state.getBlock();
-				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is piece! Type: " + pb.getType() + " Base: " + pb.getBase()), false);
+				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is piece! Type: " + pb.getType() + " Base: " + pb.getSet().getBase()), false);
 				return ActionResult.SUCCESS;
-			} else if (PieceSet.hasSet(state.getBlock())) {
-				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is base! " + PieceSet.getSet(state.getBlock())), false);
+			} else if (PieceSets.hasSet(state.getBlock())) {
+				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is base! " + PieceSets.getSet(state.getBlock())), false);
 				return ActionResult.SUCCESS;
-			} else if (PieceSet.isPiece(state.getBlock())) {
-				PieceBlock pb = PieceSet.asPieceBlock(state.getBlock());
-				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is vanilla piece! Type: " + pb.getType() + " Base: " + pb.getBase()), false);
+			} else if (PieceSets.isPiece(state.getBlock())) {
+				PieceBlock pb = PieceSets.asPieceBlock(state.getBlock());
+				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is vanilla piece! Type: " + pb.getType() + " Base: " + pb.getSet().getBase()), false);
 				return ActionResult.SUCCESS;
 			} else {
 				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " s not part of a PieceSet."), false);

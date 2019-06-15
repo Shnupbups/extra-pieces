@@ -1,21 +1,22 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallBlock;
 
 public class WallPieceBlock extends WallBlock implements PieceBlock {
-	public final Block baseBlock;
+	private final PieceSet set;
 
-	public WallPieceBlock(Block base) {
-		super(Block.Settings.copy(base));
-		this.baseBlock = base;
+	public WallPieceBlock(PieceSet set) {
+		super(Settings.copy(set.getBase()));
+		this.set = set;
 	}
 
 	public Block getBlock() { return this; }
 
-	public Block getBase() {
-		return baseBlock;
+	public PieceSet getSet() {
+		return set;
 	}
 
 	public PieceType getType() {return PieceType.WALL;}

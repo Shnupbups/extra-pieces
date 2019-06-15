@@ -1,6 +1,7 @@
 package com.shnupbups.extrapieces.recipe;
 
 import com.shnupbups.extrapieces.core.PieceSet;
+import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -42,7 +43,7 @@ public class PieceStack {
 	}
 
 	public ItemStack toItemStack(Block base) {
-		ItemStack is =  new ItemStack(PieceSet.getPiece(base, type),count);
+		ItemStack is =  new ItemStack(PieceSets.getPiece(base, type),count);
 		return is;
 	}
 

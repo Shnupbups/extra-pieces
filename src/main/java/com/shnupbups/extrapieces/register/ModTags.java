@@ -2,6 +2,7 @@ package com.shnupbups.extrapieces.register;
 
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
+import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import io.github.cottonmc.cotton.datapack.tags.TagEntryManager;
 import io.github.cottonmc.cotton.datapack.tags.TagType;
@@ -14,7 +15,7 @@ public class ModTags {
 
 	public static void init() {
 		HashMap<PieceType, ArrayList<String>> map = new HashMap<>();
-		for(PieceSet ps:PieceSet.registry.values()) {
+		for(PieceSet ps: PieceSets.registry.values()) {
 			for(PieceBlock pb:ps.getPieceBlocks()) {
 				if(!map.containsKey(pb.getType())) map.put(pb.getType(),new ArrayList<>());
 				map.get(pb.getType()).add(Registry.BLOCK.getId(pb.getBlock()).toString());
