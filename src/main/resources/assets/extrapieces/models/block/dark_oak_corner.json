@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/corner",
-    "textures": {
-        "side": "block/dark_oak_planks",
-        "top": "block/dark_oak_planks",
-        "bottom": "block/dark_oak_planks"
-    }
-}

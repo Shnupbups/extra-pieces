@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "axis=y": { "model": "extrapieces:block/mossy_stone_brick_fence_post" },
-        "axis=x": { "model": "extrapieces:block/mossy_stone_brick_fence_post", "x": 90, "y": 90, "uvlock": true },
-        "axis=z": { "model": "extrapieces:block/mossy_stone_brick_fence_post", "x": 90, "uvlock": true }
-    }
-}

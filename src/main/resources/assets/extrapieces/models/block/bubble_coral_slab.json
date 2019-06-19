@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "block/bubble_coral_block",
-        "top": "block/bubble_coral_block",
-        "side": "block/bubble_coral_block"
-    }
-}

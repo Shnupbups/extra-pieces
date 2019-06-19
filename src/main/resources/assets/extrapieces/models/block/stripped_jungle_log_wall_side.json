@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_side",
-  "textures": {
-    "wall": "block/stripped_jungle_log",
-    "top": "block/stripped_jungle_log_top"
-  }
-}

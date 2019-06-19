@@ -40,7 +40,8 @@ public class PieceSet {
 	PieceSet(Block base, String name, List<PieceType> types) {
 		this.base = base;
 		this.name = name.toLowerCase();
-		this.mainTexture = Registry.BLOCK.getId(base);
+		Identifier id = Registry.BLOCK.getId(base);
+		this.mainTexture = new Identifier(id.getNamespace(), "block/"+id.getPath());
 		this.topTexture = mainTexture;
 		this.bottomTexture = topTexture;
 		this.opaque = base.isOpaque(base.getDefaultState());
@@ -65,21 +66,36 @@ public class PieceSet {
 	}
 
 	public PieceSet setTexture(Identifier id) {
-		this.mainTexture = id;
-		this.topTexture = id;
-		this.bottomTexture = id;
+		Identifier newId = new Identifier(id.getNamespace(),(id.getPath().contains("block/")?id.getPath():"block/"+id.getPath()));
+		this.mainTexture = newId;
+		this.topTexture = newId;
+		this.bottomTexture = newId;
 		return this;
 	}
 
 	public PieceSet setTopTexture(Identifier id) {
-		this.topTexture = id;
-		this.bottomTexture = id;
+		Identifier newId = new Identifier(id.getNamespace(),(id.getPath().contains("block/")?id.getPath():"block/"+id.getPath()));
+		this.topTexture = newId;
+		this.bottomTexture = newId;
 		return this;
 	}
 
 	public PieceSet setBottomTexture(Identifier id) {
-		this.bottomTexture = id;
+		Identifier newId = new Identifier(id.getNamespace(),(id.getPath().contains("block/")?id.getPath():"block/"+id.getPath()));
+		this.bottomTexture = newId;
 		return this;
+	}
+
+	public PieceSet setTexture(String id) {
+		return setTexture(new Identifier(id));
+	}
+
+	public PieceSet setTopTexture(String id) {
+		return setTopTexture(new Identifier(id));
+	}
+
+	public PieceSet setBottomTexture(String id) {
+		return setBottomTexture(new Identifier(id));
 	}
 
 	public boolean isOpaque() {
@@ -107,7 +123,9 @@ public class PieceSet {
 	}
 
 	public boolean hasMainTexture() {
-		return !getMainTexture().equals(Registry.BLOCK.getId(this.getBase()));
+		Identifier id = Registry.BLOCK.getId(base);
+		Identifier def = new Identifier(id.getNamespace(), "block/"+id.getPath());
+		return !getMainTexture().equals(def);
 	}
 
 	public boolean hasTopTexture() {
@@ -146,7 +164,13 @@ public class PieceSet {
 			sb.append("} , ");
 		}
 		sb.delete(sb.length()-2,sb.length());
-		sb.append("] , stonecuttable: ").append(isStonecuttable()).append(" }");
+		sb.append("] ");
+		if(isStonecuttable()) sb.append(", Stonecuttable! ");
+		if(isTransparent()) sb.append(", Transparent! ");
+		if(hasMainTexture()) sb.append(", Main Texture = ").append(getMainTexture()).append(" ");
+		if(hasTopTexture()) sb.append(", Top Texture = ").append(getTopTexture()).append(" ");
+		if(hasBottomTexture()) sb.append(", Bottom Texture = ").append(getBottomTexture()).append(" ");
+		sb.append("}");
 		return sb.toString();
 	}
 

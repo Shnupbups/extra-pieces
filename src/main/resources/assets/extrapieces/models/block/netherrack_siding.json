@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/siding",
-    "textures": {
-        "front": "block/netherrack",
-        "back": "block/netherrack",
-        "side": "block/netherrack"
-    }
-}

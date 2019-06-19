@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_gate_wall",
-    "textures": {
-        "texture": "block/jungle_log",
-      "top": "block/jungle_log_top",
-      "bottom": "block/jungle_log_top"
-    }
-}

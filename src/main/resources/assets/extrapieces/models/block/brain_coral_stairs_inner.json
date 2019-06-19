@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "block/brain_coral_block",
-        "top": "block/brain_coral_block",
-        "side": "block/brain_coral_block"
-    }
-}

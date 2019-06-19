@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_inventory",
-  "textures": {
-    "wall": "block/stripped_oak_log",
-    "top": "block/stripped_oak_log_top"
-  }
-}

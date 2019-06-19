@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/corner",
-    "textures": {
-        "side": "block/snow",
-        "top": "block/snow",
-        "bottom": "block/snow"
-    }
-}

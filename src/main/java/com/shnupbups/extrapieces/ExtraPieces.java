@@ -26,8 +26,8 @@ public class ExtraPieces implements ModInitializer {
 		for(PieceType p : PieceType.getTypesNoBase()) {
 			groups.put(p, FabricItemGroupBuilder.create(p.getId()).icon(() -> new ItemStack(Blocks.OAK_SLAB)).build());
 		}
-		EPConfig.init(); //temporary position, will be moved above ModBlocks when the time comes
-		//ModBlocks.init();
+		ModBlocks.init();
+		EPConfig.init();
 		Registry.register(Registry.ITEM, new Identifier("extrapieces","debug_item"), new DebugItem());
 		ModTags.init();
 	}

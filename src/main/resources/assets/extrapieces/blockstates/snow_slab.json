@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/snow_slab" },
-        "type=top": { "model": "extrapieces:block/snow_slab_top" },
-        "type=double": { "model": "block/snow_block" }
-    }
-}

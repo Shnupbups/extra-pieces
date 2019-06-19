@@ -1,6 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_inventory",
-    "textures": {
-        "texture": "block/black_glazed_terracotta"
-    }
-}

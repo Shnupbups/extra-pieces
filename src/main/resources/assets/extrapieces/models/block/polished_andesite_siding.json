@@ -1,8 +1,0 @@
-{
-  "parent": "extrapieces:block/siding",
-  "textures": {
-    "front": "block/polished_andesite",
-    "back": "block/polished_andesite",
-    "side": "block/polished_andesite"
-  }
-}

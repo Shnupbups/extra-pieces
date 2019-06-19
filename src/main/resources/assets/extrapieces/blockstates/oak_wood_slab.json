@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/oak_wood_slab" },
-        "type=top": { "model": "extrapieces:block/oak_wood_slab_top" },
-        "type=double": { "model": "block/oak_wood" }
-    }
-}

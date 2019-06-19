@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/cracked_stone_brick_slab" },
-        "type=top": { "model": "extrapieces:block/cracked_stone_brick_slab_top" },
-        "type=double": { "model": "block/cracked_stone_bricks" }
-    }
-}

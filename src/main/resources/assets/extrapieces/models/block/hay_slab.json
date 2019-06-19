@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "block/hay_block_top",
-        "top": "block/hay_block_top",
-        "side": "block/hay_block_side"
-    }
-}

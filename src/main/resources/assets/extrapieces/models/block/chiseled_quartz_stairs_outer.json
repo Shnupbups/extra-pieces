@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "block/chiseled_quartz_block_top",
-        "top": "block/chiseled_quartz_block_top",
-        "side": "block/chiseled_quartz_block"
-    }
-}

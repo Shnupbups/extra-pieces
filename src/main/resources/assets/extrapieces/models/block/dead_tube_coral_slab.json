@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "block/dead_tube_coral_block",
-        "top": "block/dead_tube_coral_block",
-        "side": "block/dead_tube_coral_block"
-    }
-}

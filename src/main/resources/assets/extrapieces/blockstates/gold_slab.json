@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/gold_slab" },
-        "type=top": { "model": "extrapieces:block/gold_slab_top" },
-        "type=double": { "model": "block/gold_block" }
-    }
-}

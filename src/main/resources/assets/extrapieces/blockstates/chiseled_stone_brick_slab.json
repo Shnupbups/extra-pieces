@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/chiseled_stone_brick_slab" },
-        "type=top": { "model": "extrapieces:block/chiseled_stone_brick_slab_top" },
-        "type=double": { "model": "block/chiseled_stone_bricks" }
-    }
-}

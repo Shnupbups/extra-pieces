@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_inventory",
-    "textures": {
-        "texture": "block/purpur_pillar",
-      "top": "block/purpur_pillar_top",
-      "bottom": "block/purpur_pillar_top"
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "block/birch_log_top",
-        "top": "block/birch_log_top",
-        "side": "block/birch_log"
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_post",
-    "textures": {
-        "texture": "block/chiseled_red_sandstone",
-      "top": "block/red_sandstone_top",
-      "bottom": "block/red_sandstone_top"
-    }
-}

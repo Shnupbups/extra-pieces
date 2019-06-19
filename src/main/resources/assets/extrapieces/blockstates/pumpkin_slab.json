@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/pumpkin_slab" },
-        "type=top": { "model": "extrapieces:block/pumpkin_slab_top" },
-        "type=double": { "model": "block/pumpkin" }
-    }
-}

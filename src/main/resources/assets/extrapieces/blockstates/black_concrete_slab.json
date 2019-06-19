@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/black_concrete_slab" },
-        "type=top": { "model": "extrapieces:block/black_concrete_slab_top" },
-        "type=double": { "model": "block/black_concrete" }
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/corner",
-    "textures": {
-        "side": "block/dried_kelp_side",
-        "top": "block/dried_kelp_side",
-        "bottom": "block/dried_kelp_side"
-    }
-}

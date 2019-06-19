@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "block/nether_wart_block",
-        "top": "block/nether_wart_block",
-        "side": "block/nether_wart_block"
-    }
-}

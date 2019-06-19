@@ -1,6 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_gate",
-    "textures": {
-        "texture": "block/horn_coral_block"
-    }
-}

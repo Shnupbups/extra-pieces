@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_side",
-    "textures": {
-        "texture": "block/stripped_dark_oak_log",
-      "top": "block/stripped_dark_oak_log_top",
-      "bottom": "block/stripped_dark_oak_log_top"
-    }
-}

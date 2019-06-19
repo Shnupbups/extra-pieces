@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/corner",
-    "textures": {
-        "side": "block/mossy_cobblestone",
-        "top": "block/mossy_cobblestone",
-        "bottom": "block/mossy_cobblestone"
-    }
-}

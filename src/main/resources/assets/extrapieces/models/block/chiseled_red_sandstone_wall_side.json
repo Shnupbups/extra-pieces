@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_side",
-  "textures": {
-    "wall": "block/chiseled_red_sandstone",
-    "top": "block/red_sandstone_top"
-  }
-}

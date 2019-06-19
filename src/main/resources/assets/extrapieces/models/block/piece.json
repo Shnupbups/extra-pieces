@@ -1,0 +1,9 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "particle": "extrapieces:block/dummy_main",
+        "main": "extrapieces:block/dummy_main",
+        "top": "extrapieces:block/dummy_top",
+        "bottom": "extrapieces:block/dummy_bottom"
+    }
+}

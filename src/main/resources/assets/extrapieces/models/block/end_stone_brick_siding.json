@@ -1,8 +1,0 @@
-{
-  "parent": "extrapieces:block/siding",
-  "textures": {
-    "front": "block/end_stone_bricks",
-    "back": "block/end_stone_bricks",
-    "side": "block/end_stone_bricks"
-  }
-}

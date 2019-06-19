@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "block/dead_brain_coral_block",
-        "top": "block/dead_brain_coral_block",
-        "side": "block/dead_brain_coral_block"
-    }
-}

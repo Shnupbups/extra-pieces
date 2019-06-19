@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_side",
-  "textures": {
-    "wall": "block/pumpkin_side",
-    "top": "block/pumpkin_top"
-  }
-}

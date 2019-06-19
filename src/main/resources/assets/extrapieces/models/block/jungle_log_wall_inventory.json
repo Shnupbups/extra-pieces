@@ -1,7 +1,0 @@
-{
-    "parent": "extrapieces:block/wall_inventory",
-    "textures": {
-        "wall": "block/jungle_log",
-        "top": "block/jungle_log_top"
-    }
-}

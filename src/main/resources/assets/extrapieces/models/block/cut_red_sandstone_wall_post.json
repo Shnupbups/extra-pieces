@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_post",
-  "textures": {
-    "wall": "block/cut_red_sandstone",
-    "top": "block/red_sandstone_top"
-  }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "block/purple_glazed_terracotta",
-        "top": "block/purple_glazed_terracotta",
-        "side": "block/purple_glazed_terracotta"
-    }
-}

@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "axis=y": { "model": "minecraft:block/acacia_fence_post" },
-        "axis=x": { "model": "minecraft:block/acacia_fence_post", "x": 90, "y": 90, "uvlock": true },
-        "axis=z": { "model": "minecraft:block/acacia_fence_post", "x": 90, "uvlock": true }
-    }
-}

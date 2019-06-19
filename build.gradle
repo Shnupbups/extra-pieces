@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.2-SNAPSHOT'
+	id 'fabric-loom' version '0.2.4-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -16,6 +16,16 @@ minecraft {
 repositories {
     maven { url "https://minecraft.curseforge.com/api/maven"}
 	maven { url "http://server.bbkr.space:8081/artifactory/libs-snapshot"}
+	maven { url "http://server.bbkr.space:8081/artifactory/libs-release"}
+	maven { url "https://maven.jamieswhiteshirt.com/libs-release/"}
+	maven {
+    	name = "grondag"
+    	url = "https://grondag-repo.appspot.com"
+    	credentials {
+            username "guest"
+            password ""
+		}
+    }
 }
 
 dependencies {
@@ -28,8 +38,15 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 	// Cotton API
-	modCompile "io.github.cottonmc:cotton:${project.cotton_version}"
+	modCompile ("io.github.cottonmc:cotton:${project.cotton_version}") { transitive = false }
 	include "io.github.cottonmc:cotton:${project.cotton_version}"
+	
+	// LibCD
+	modCompile ("io.github.cottonmc:LibCD:${project.libcd_version}") { transitive = false }
+	
+	// JSON Model Extensions (jmx)
+	modCompile "grondag:jmx:${project.jmx_version}"
+	include "grondag:jmx:{project.jmx_version}"
 	
 	// stuff for dev env
 	modCompile "io.github.prospector.modmenu:ModMenu:${project.modmenu_version}"

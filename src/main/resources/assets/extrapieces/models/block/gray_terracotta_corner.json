@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/corner",
-    "textures": {
-        "side": "block/gray_terracotta",
-        "top": "block/gray_terracotta",
-        "bottom": "block/gray_terracotta"
-    }
-}

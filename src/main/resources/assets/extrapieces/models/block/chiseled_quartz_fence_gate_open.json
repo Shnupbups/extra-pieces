@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_gate_open",
-    "textures": {
-        "texture": "block/chiseled_quartz_block",
-      "top": "block/chiseled_quartz_block_top",
-      "bottom": "block/chiseled_quartz_block_top"
-    }
-}

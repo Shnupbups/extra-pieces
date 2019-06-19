@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/mushroom_stem_slab" },
-        "type=top": { "model": "extrapieces:block/mushroom_stem_slab_top" },
-        "type=double": { "model": "block/mushroom_stem" }
-    }
-}

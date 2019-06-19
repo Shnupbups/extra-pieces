@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/corner",
-    "textures": {
-        "side": "block/cut_sandstone",
-        "top": "block/cut_sandstone",
-        "bottom": "block/cut_sandstone"
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "block/glowstone",
-        "top": "block/glowstone",
-        "side": "block/glowstone"
-    }
-}

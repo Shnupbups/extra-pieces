@@ -7,6 +7,8 @@ import net.minecraft.block.Blocks;
 
 public class ModBlocks {
 
+	public static PieceSet DUMMY_PIECES;
+
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
 	public static PieceSet DARK_PRISMARINE_PIECES;
@@ -173,6 +175,10 @@ public class ModBlocks {
 	public static PieceSet STRIPPED_DARK_OAK_WOOD_PIECES;
 
 	public static void init() {
+		DUMMY_PIECES = PieceSets.createSet(Blocks.AIR, "dummy").register();
+	}
+
+	public static void generateDefaultSets() {
 		PRISMARINE_PIECES = PieceSets.createSet(Blocks.PRISMARINE, "prismarine", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.PRISMARINE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.PRISMARINE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.PRISMARINE_WALL).register();
 		PRISMARINE_BRICK_PIECES = PieceSets.createSet(Blocks.PRISMARINE_BRICKS, "prismarine_brick", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.PRISMARINE_BRICK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.PRISMARINE_BRICK_STAIRS).register();
 		DARK_PRISMARINE_PIECES = PieceSets.createSet(Blocks.DARK_PRISMARINE, "dark_prismarine", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.DARK_PRISMARINE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.DARK_PRISMARINE_STAIRS).register();
@@ -184,25 +190,25 @@ public class ModBlocks {
 		DARK_OAK_PIECES = PieceSets.createSet(Blocks.DARK_OAK_PLANKS, "dark_oak", PieceSet.JUST_EXTRAS_AND_WALL).setUncraftable(PieceType.WALL).addVanillaPiece(PieceType.SLAB, Blocks.DARK_OAK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.DARK_OAK_STAIRS).addVanillaPiece(PieceType.FENCE, Blocks.DARK_OAK_FENCE).addVanillaPiece(PieceType.FENCE_GATE, Blocks.DARK_OAK_FENCE_GATE).register();
 		STONE_PIECES = PieceSets.createSet(Blocks.STONE, "stone", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.STONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.STONE_STAIRS).register();
 		SMOOTH_STONE_PIECES = PieceSets.createSet(Blocks.SMOOTH_STONE, "smooth_stone", PieceSet.NO_SLAB).addVanillaPiece(PieceType.SLAB, Blocks.SMOOTH_STONE_SLAB).register();
-		SANDSTONE_PIECES = PieceSets.createSet(Blocks.SANDSTONE, "sandstone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SANDSTONE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.SANDSTONE_WALL).register();
-		CUT_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CUT_SANDSTONE, "cut_sandstone", PieceSet.NO_SLAB).addVanillaPiece(PieceType.SLAB, Blocks.CUT_SANDSTONE_SLAB).register();
+		SANDSTONE_PIECES = PieceSets.createSet(Blocks.SANDSTONE, "sandstone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SANDSTONE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.SANDSTONE_WALL).setTopTexture("sandstone_top").register();
+		CUT_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CUT_SANDSTONE, "cut_sandstone", PieceSet.NO_SLAB).addVanillaPiece(PieceType.SLAB, Blocks.CUT_SANDSTONE_SLAB).setTopTexture("sandstone_top").register();
 		PETRIFIED_OAK_PIECES = PieceSets.createSet(Blocks.PETRIFIED_OAK_SLAB, "petrified_oak", PieceType.SIDING).addVanillaPiece(PieceType.SLAB, Blocks.PETRIFIED_OAK_SLAB).register();
 		COBBLESTONE_PIECES = PieceSets.createSet(Blocks.COBBLESTONE, "cobblestone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.COBBLESTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.COBBLESTONE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.COBBLESTONE_WALL).register();
 		BRICK_PIECES = PieceSets.createSet(Blocks.BRICKS, "brick", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.BRICK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.BRICK_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.BRICK_WALL).register();
 		STONE_BRICK_PIECES = PieceSets.createSet(Blocks.STONE_BRICKS, "stone_brick", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.STONE_BRICK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.STONE_BRICK_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.STONE_BRICK_WALL).register();
 		NETHER_BRICK_PIECES = PieceSets.createSet(Blocks.NETHER_BRICKS, "nether_brick", PieceSet.JUST_EXTRAS_AND_FENCE_GATE).addVanillaPiece(PieceType.SLAB, Blocks.NETHER_BRICK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.NETHER_BRICK_STAIRS).addVanillaPiece(PieceType.FENCE, Blocks.NETHER_BRICK_FENCE).addVanillaPiece(PieceType.WALL, Blocks.NETHER_BRICK_WALL).register();
-		QUARTZ_PIECES = PieceSets.createSet(Blocks.QUARTZ_BLOCK, "quartz", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.QUARTZ_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.QUARTZ_STAIRS).register();
-		RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.RED_SANDSTONE, "red_sandstone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.RED_SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.RED_SANDSTONE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.RED_SANDSTONE_WALL).register();
-		CUT_RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CUT_RED_SANDSTONE, "cut_red_sandstone", PieceSet.NO_SLAB).addVanillaPiece(PieceType.SLAB, Blocks.CUT_RED_SANDSTONE_SLAB).register();
+		QUARTZ_PIECES = PieceSets.createSet(Blocks.QUARTZ_BLOCK, "quartz", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.QUARTZ_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.QUARTZ_STAIRS).setTexture("quartz_block_side").setTopTexture("quartz_block_top").register();
+		RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.RED_SANDSTONE, "red_sandstone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.RED_SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.RED_SANDSTONE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.RED_SANDSTONE_WALL).setTopTexture("red_sandstone_top").register();
+		CUT_RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CUT_RED_SANDSTONE, "cut_red_sandstone", PieceSet.NO_SLAB).addVanillaPiece(PieceType.SLAB, Blocks.CUT_RED_SANDSTONE_SLAB).setTopTexture("red_sandstone_top").register();
 		PURPUR_PIECES = PieceSets.createSet(Blocks.PURPUR_BLOCK, "purpur", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.PURPUR_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.PURPUR_STAIRS).register();
 		POLISHED_GRANITE_PIECES = PieceSets.createSet(Blocks.POLISHED_GRANITE, "polished_granite", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.POLISHED_GRANITE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.POLISHED_GRANITE_STAIRS).register();
-		SMOOTH_RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.SMOOTH_RED_SANDSTONE, "smooth_red_sandstone", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.SMOOTH_RED_SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SMOOTH_RED_SANDSTONE_STAIRS).register();
+		SMOOTH_RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.SMOOTH_RED_SANDSTONE, "smooth_red_sandstone", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.SMOOTH_RED_SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SMOOTH_RED_SANDSTONE_STAIRS).setTexture("red_sandstone_top").register();
 		MOSSY_STONE_BRICK_PIECES = PieceSets.createSet(Blocks.MOSSY_STONE_BRICKS, "mossy_stone_brick", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.MOSSY_STONE_BRICK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.MOSSY_STONE_BRICK_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.MOSSY_STONE_BRICK_WALL).register();
 		POLISHED_DIORITE_PIECES = PieceSets.createSet(Blocks.POLISHED_DIORITE, "polished_diorite", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.POLISHED_DIORITE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.POLISHED_DIORITE_STAIRS).register();
 		MOSSY_COBBLESTONE_PIECES = PieceSets.createSet(Blocks.MOSSY_COBBLESTONE, "mossy_cobblestone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.MOSSY_COBBLESTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.MOSSY_COBBLESTONE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.MOSSY_COBBLESTONE_WALL).register();
 		END_STONE_BRICK_PIECES = PieceSets.createSet(Blocks.END_STONE_BRICKS, "end_stone_brick", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.END_STONE_BRICK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.END_STONE_BRICK_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.END_STONE_BRICK_WALL).register();
-		SMOOTH_SANDSTONE_PIECES = PieceSets.createSet(Blocks.SMOOTH_SANDSTONE, "smooth_sandstone", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.SMOOTH_SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SMOOTH_SANDSTONE_STAIRS).register();
-		SMOOTH_QUARTZ_PIECES = PieceSets.createSet(Blocks.SMOOTH_QUARTZ, "smooth_quartz", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.SMOOTH_QUARTZ_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS).register();
+		SMOOTH_SANDSTONE_PIECES = PieceSets.createSet(Blocks.SMOOTH_SANDSTONE, "smooth_sandstone", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.SMOOTH_SANDSTONE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SMOOTH_SANDSTONE_STAIRS).setTexture("sandstone_top").register();
+		SMOOTH_QUARTZ_PIECES = PieceSets.createSet(Blocks.SMOOTH_QUARTZ, "smooth_quartz", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceType.SLAB, Blocks.SMOOTH_QUARTZ_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS).setTexture("quartz_block_bottom").register();
 		GRANITE_PIECES = PieceSets.createSet(Blocks.GRANITE, "granite", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.GRANITE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.GRANITE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.GRANITE_WALL).register();
 		ANDESITE_PIECES = PieceSets.createSet(Blocks.ANDESITE, "andesite", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.ANDESITE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.ANDESITE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.ANDESITE_WALL).register();
 		RED_NETHER_BRICK_PIECES = PieceSets.createSet(Blocks.RED_NETHER_BRICKS, "red_nether_brick", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.RED_NETHER_BRICK_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.RED_NETHER_BRICK_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.RED_NETHER_BRICK_WALL).register();
@@ -210,13 +216,13 @@ public class ModBlocks {
 		DIORITE_PIECES = PieceSets.createSet(Blocks.DIORITE, "diorite", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceType.SLAB, Blocks.DIORITE_SLAB).addVanillaPiece(PieceType.STAIRS, Blocks.DIORITE_STAIRS).addVanillaPiece(PieceType.WALL, Blocks.DIORITE_WALL).register();
 		NETHERRACK_PIECES = PieceSets.createSet(Blocks.NETHERRACK, "netherrack").register();
 		END_STONE_PIECES = PieceSets.createSet(Blocks.END_STONE, "end_stone").register();
-		QUARTZ_PILLAR_PIECES = PieceSets.createSet(Blocks.QUARTZ_PILLAR, "quartz_pillar").register();
-		CHISELED_QUARTZ_PIECES = PieceSets.createSet(Blocks.CHISELED_QUARTZ_BLOCK, "chiseled_quartz").register();
-		CHISELED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CHISELED_SANDSTONE, "chiseled_sandstone").register();
-		CHISELED_RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CHISELED_RED_SANDSTONE, "chiseled_red_sandstone").register();
+		QUARTZ_PILLAR_PIECES = PieceSets.createSet(Blocks.QUARTZ_PILLAR, "quartz_pillar").setTopTexture("quartz_pillar_top").register();
+		CHISELED_QUARTZ_PIECES = PieceSets.createSet(Blocks.CHISELED_QUARTZ_BLOCK, "chiseled_quartz").setTopTexture("chiseled_quartz_block_top").register();
+		CHISELED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CHISELED_SANDSTONE, "chiseled_sandstone").setTopTexture("sandstone_top").register();
+		CHISELED_RED_SANDSTONE_PIECES = PieceSets.createSet(Blocks.CHISELED_RED_SANDSTONE, "chiseled_red_sandstone").setTopTexture("red_sandstone_top").register();
 		CRACKED_STONE_BRICK_PIECES = PieceSets.createSet(Blocks.CRACKED_STONE_BRICKS, "cracked_stone_brick").register();
 		CHISELED_STONE_BRICK_PIECES = PieceSets.createSet(Blocks.CHISELED_STONE_BRICKS, "chiseled_stone_brick").register();
-		PURPUR_PILLAR_PIECES = PieceSets.createSet(Blocks.PURPUR_PILLAR, "purpur_pillar").register();
+		PURPUR_PILLAR_PIECES = PieceSets.createSet(Blocks.PURPUR_PILLAR, "purpur_pillar").setTopTexture("purpur_pillar_top").register();
 		TERRACOTTA_PIECES = PieceSets.createSet(Blocks.TERRACOTTA, "terracotta").register();
 		WHITE_TERRACOTTA_PIECES = PieceSets.createSet(Blocks.WHITE_TERRACOTTA, "white_terracotta").register();
 		ORANGE_TERRACOTTA_PIECES = PieceSets.createSet(Blocks.ORANGE_TERRACOTTA, "orange_terracotta").register();
@@ -291,18 +297,18 @@ public class ModBlocks {
 		RED_GLAZED_TERRACOTTA_PIECES = PieceSets.createSet(Blocks.RED_GLAZED_TERRACOTTA, "red_glazed_terracotta").register();
 		BLACK_GLAZED_TERRACOTTA_PIECES = PieceSets.createSet(Blocks.BLACK_GLAZED_TERRACOTTA, "black_glazed_terracotta").register();
 		OBSIDIAN_PIECES = PieceSets.createSet(Blocks.OBSIDIAN, "obsidian").register();
-		BONE_PIECES = PieceSets.createSet(Blocks.BONE_BLOCK, "bone").register();
-		HAY_PIECES = PieceSets.createSet(Blocks.HAY_BLOCK, "hay").register();
-		PUMPKIN_PIECES = PieceSets.createSet(Blocks.PUMPKIN, "pumpkin").register();
-		MELON_PIECES = PieceSets.createSet(Blocks.MELON, "melon").register();
+		BONE_PIECES = PieceSets.createSet(Blocks.BONE_BLOCK, "bone").setTexture("bone_block_side").setTopTexture("bone_block_top").register();
+		HAY_PIECES = PieceSets.createSet(Blocks.HAY_BLOCK, "hay").setTexture("hay_block_side").setTopTexture("hay_block_top").register();
+		PUMPKIN_PIECES = PieceSets.createSet(Blocks.PUMPKIN, "pumpkin").setTexture("pumpkin_side").setTopTexture("pumpkin_top").register();
+		MELON_PIECES = PieceSets.createSet(Blocks.MELON, "melon").setTexture("melon_side").setTopTexture("melon_top").register();
 		SNOW_PIECES = PieceSets.createSet(Blocks.SNOW_BLOCK, "snow").register();
-		MAGMA_PIECES = PieceSets.createSet(Blocks.MAGMA_BLOCK, "magma").register();
+		MAGMA_PIECES = PieceSets.createSet(Blocks.MAGMA_BLOCK, "magma").setTexture("magma_block").register();
 		GLOWSTONE_PIECES = PieceSets.createSet(Blocks.GLOWSTONE, "glowstone").register();
 		NETHER_WART_PIECES = PieceSets.createSet(Blocks.NETHER_WART_BLOCK, "nether_wart").register();
 		BROWN_MUSHROOM_PIECES = PieceSets.createSet(Blocks.BROWN_MUSHROOM_BLOCK, "brown_mushroom").register();
 		RED_MUSHROOM_PIECES = PieceSets.createSet(Blocks.RED_MUSHROOM_BLOCK, "red_mushroom").register();
 		MUSHROOM_STEM_PIECES = PieceSets.createSet(Blocks.MUSHROOM_STEM, "mushroom_stem").register();
-		DRIED_KELP_PIECES = PieceSets.createSet(Blocks.DRIED_KELP_BLOCK, "dried_kelp").register();
+		DRIED_KELP_PIECES = PieceSets.createSet(Blocks.DRIED_KELP_BLOCK, "dried_kelp").setTexture("dried_kelp_side").setTopTexture("dried_kelp_top").setBottomTexture("dried_kelp_bottom").register();
 		TUBE_CORAL_PIECES = PieceSets.createSet(Blocks.TUBE_CORAL_BLOCK, "tube_coral").register();
 		BRAIN_CORAL_PIECES = PieceSets.createSet(Blocks.BRAIN_CORAL_BLOCK, "brain_coral").register();
 		BUBBLE_CORAL_PIECES = PieceSets.createSet(Blocks.BUBBLE_CORAL_BLOCK, "bubble_coral").register();
@@ -310,32 +316,32 @@ public class ModBlocks {
 		HORN_CORAL_PIECES = PieceSets.createSet(Blocks.HORN_CORAL_BLOCK, "horn_coral").register();
 		DEAD_TUBE_CORAL_PIECES = PieceSets.createSet(Blocks.DEAD_TUBE_CORAL_BLOCK, "dead_tube_coral").register();
 		DEAD_BRAIN_CORAL_PIECES = PieceSets.createSet(Blocks.DEAD_BRAIN_CORAL_BLOCK, "dead_brain_coral").register();
-		DEAD_BUBBLE_CORAL_PIECES = PieceSets.createSet(Blocks.DEAD_BUBBLE_CORAL, "dead_bubble_coral").register();
+		DEAD_BUBBLE_CORAL_PIECES = PieceSets.createSet(Blocks.DEAD_BUBBLE_CORAL_BLOCK, "dead_bubble_coral").register();
 		DEAD_FIRE_CORAL_PIECES = PieceSets.createSet(Blocks.DEAD_FIRE_CORAL_BLOCK, "dead_fire_coral").register();
 		DEAD_HORN_CORAL_PIECES = PieceSets.createSet(Blocks.DEAD_HORN_CORAL_BLOCK, "dead_horn_coral").register();
-		OAK_LOG_PIECES = PieceSets.createSet(Blocks.OAK_LOG, "oak_log").register();
-		SPRUCE_LOG_PIECES = PieceSets.createSet(Blocks.SPRUCE_LOG, "spruce_log").register();
-		BIRCH_LOG_PIECES = PieceSets.createSet(Blocks.BIRCH_LOG, "birch_log").register();
-		JUNGLE_LOG_PIECES = PieceSets.createSet(Blocks.JUNGLE_LOG, "jungle_log").register();
-		ACACIA_LOG_PIECES = PieceSets.createSet(Blocks.ACACIA_LOG, "acacia_log").register();
-		DARK_OAK_LOG_PIECES = PieceSets.createSet(Blocks.DARK_OAK_LOG, "dark_oak_log").register();
-		STRIPPED_OAK_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_OAK_LOG, "stripped_oak_log").register();
-		STRIPPED_SPRUCE_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_SPRUCE_LOG, "stripped_spruce_log").register();
-		STRIPPED_BIRCH_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_BIRCH_LOG, "stripped_birch_log").register();
-		STRIPPED_JUNGLE_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_JUNGLE_LOG, "stripped_jungle_log").register();
-		STRIPPED_ACACIA_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_ACACIA_LOG, "stripped_acacia_log").register();
-		STRIPPED_DARK_OAK_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_DARK_OAK_LOG, "stripped_dark_oak_log").register();
-		OAK_WOOD_PIECES = PieceSets.createSet(Blocks.OAK_WOOD, "oak_wood").register();
-		SPRUCE_WOOD_PIECES = PieceSets.createSet(Blocks.SPRUCE_WOOD, "spruce_wood").register();
-		BIRCH_WOOD_PIECES = PieceSets.createSet(Blocks.BIRCH_WOOD, "birch_wood").register();
-		JUNGLE_WOOD_PIECES = PieceSets.createSet(Blocks.JUNGLE_WOOD, "jungle_wood").register();
-		ACACIA_WOOD_PIECES = PieceSets.createSet(Blocks.ACACIA_WOOD, "acacia_wood").register();
-		DARK_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.DARK_OAK_WOOD, "dark_oak_wood").register();
-		STRIPPED_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_OAK_WOOD, "stripped_oak_wood").register();
-		STRIPPED_SPRUCE_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_SPRUCE_WOOD, "stripped_spruce_wood").register();
-		STRIPPED_BIRCH_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_BIRCH_WOOD, "stripped_birch_wood").register();
-		STRIPPED_JUNGLE_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").register();
-		STRIPPED_ACACIA_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").register();
-		STRIPPED_DARK_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").register();
+		OAK_LOG_PIECES = PieceSets.createSet(Blocks.OAK_LOG, "oak_log").setTopTexture("oak_log_top").register();
+		SPRUCE_LOG_PIECES = PieceSets.createSet(Blocks.SPRUCE_LOG, "spruce_log").setTopTexture("spruce_log_top").register();
+		BIRCH_LOG_PIECES = PieceSets.createSet(Blocks.BIRCH_LOG, "birch_log").setTopTexture("birch_log_top").register();
+		JUNGLE_LOG_PIECES = PieceSets.createSet(Blocks.JUNGLE_LOG, "jungle_log").setTopTexture("jungle_log_top").register();
+		ACACIA_LOG_PIECES = PieceSets.createSet(Blocks.ACACIA_LOG, "acacia_log").setTopTexture("acacia_log_top").register();
+		DARK_OAK_LOG_PIECES = PieceSets.createSet(Blocks.DARK_OAK_LOG, "dark_oak_log").setTopTexture("dark_oak_log_top").register();
+		STRIPPED_OAK_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_OAK_LOG, "stripped_oak_log").setTopTexture("stripped_oak_log_top").register();
+		STRIPPED_SPRUCE_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_SPRUCE_LOG, "stripped_spruce_log").setTopTexture("stripped_spruce_log_top").register();
+		STRIPPED_BIRCH_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_BIRCH_LOG, "stripped_birch_log").setTopTexture("stripped_birch_log_top").register();
+		STRIPPED_JUNGLE_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_JUNGLE_LOG, "stripped_jungle_log").setTopTexture("stripped_jungle_log_top").register();
+		STRIPPED_ACACIA_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_ACACIA_LOG, "stripped_acacia_log").setTopTexture("stripped_acacia_log_top").register();
+		STRIPPED_DARK_OAK_LOG_PIECES = PieceSets.createSet(Blocks.STRIPPED_DARK_OAK_LOG, "stripped_dark_oak_log").setTopTexture("stripped_dark_oak_log_top").register();
+		OAK_WOOD_PIECES = PieceSets.createSet(Blocks.OAK_WOOD, "oak_wood").setTexture("oak_log").register();
+		SPRUCE_WOOD_PIECES = PieceSets.createSet(Blocks.SPRUCE_WOOD, "spruce_wood").setTexture("spruce_log").register();
+		BIRCH_WOOD_PIECES = PieceSets.createSet(Blocks.BIRCH_WOOD, "birch_wood").setTexture("birch_log").register();
+		JUNGLE_WOOD_PIECES = PieceSets.createSet(Blocks.JUNGLE_WOOD, "jungle_wood").setTexture("jungle_log").register();
+		ACACIA_WOOD_PIECES = PieceSets.createSet(Blocks.ACACIA_WOOD, "acacia_wood").setTexture("acacia_log").register();
+		DARK_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.DARK_OAK_WOOD, "dark_oak_wood").setTexture("dark_oak_log").register();
+		STRIPPED_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_OAK_WOOD, "stripped_oak_wood").setTexture("stripped_oak_log").register();
+		STRIPPED_SPRUCE_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_SPRUCE_WOOD, "stripped_spruce_wood").setTexture("stripped_spruce_log").register();
+		STRIPPED_BIRCH_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_BIRCH_WOOD, "stripped_birch_wood").setTexture("stripped_birch_log").register();
+		STRIPPED_JUNGLE_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").setTexture("stripped_jungle_log").register();
+		STRIPPED_ACACIA_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").setTexture("stripped_acacia_log").register();
+		STRIPPED_DARK_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").setTexture("stripped_dark_oak_log").register();
 	}
 }

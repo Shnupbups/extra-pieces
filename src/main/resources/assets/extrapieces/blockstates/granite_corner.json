@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "extrapieces:block/granite_corner" },
-        "facing=south": { "model": "extrapieces:block/granite_corner", "y": 180, "uvlock": true },
-        "facing=east": { "model": "extrapieces:block/granite_corner", "y": 90, "uvlock": true },
-        "facing=west": { "model": "extrapieces:block/granite_corner", "y": 270, "uvlock": true }
-    }
-}

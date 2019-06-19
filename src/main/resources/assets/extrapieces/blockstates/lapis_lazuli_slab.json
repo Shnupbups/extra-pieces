@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/lapis_lazuli_slab" },
-        "type=top": { "model": "extrapieces:block/lapis_lazuli_slab_top" },
-        "type=double": { "model": "block/lapis_block" }
-    }
-}

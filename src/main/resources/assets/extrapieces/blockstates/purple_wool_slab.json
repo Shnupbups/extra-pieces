@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/purple_wool_slab" },
-        "type=top": { "model": "extrapieces:block/purple_wool_slab_top" },
-        "type=double": { "model": "block/purple_wool" }
-    }
-}

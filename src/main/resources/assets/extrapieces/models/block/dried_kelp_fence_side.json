@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/fence_side",
-    "textures": {
-        "texture": "block/dried_kelp_side",
-      "top": "block/dried_kelp_top",
-      "bottom": "block/dried_kelp_bottom"
-    }
-}

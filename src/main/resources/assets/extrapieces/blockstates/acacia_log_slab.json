@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/acacia_log_slab" },
-        "type=top": { "model": "extrapieces:block/acacia_log_slab_top" },
-        "type=double": { "model": "block/acacia_log" }
-    }
-}

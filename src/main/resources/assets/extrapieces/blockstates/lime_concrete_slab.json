@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/lime_concrete_slab" },
-        "type=top": { "model": "extrapieces:block/lime_concrete_slab_top" },
-        "type=double": { "model": "block/lime_concrete" }
-    }
-}

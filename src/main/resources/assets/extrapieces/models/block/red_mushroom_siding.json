@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/siding",
-    "textures": {
-        "front": "block/red_mushroom_block",
-        "back": "block/red_mushroom_block",
-        "side": "block/red_mushroom_block"
-    }
-}

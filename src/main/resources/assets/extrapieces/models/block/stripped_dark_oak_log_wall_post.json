@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_post",
-  "textures": {
-    "wall": "block/stripped_dark_oak_log",
-    "top": "block/stripped_dark_oak_log_top"
-  }
-}

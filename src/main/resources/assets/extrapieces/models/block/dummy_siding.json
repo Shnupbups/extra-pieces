@@ -1,0 +1,17 @@
+{
+    "parent": "extrapieces:block/piece",
+    "elements": [
+        {
+            "from": [ 0, 0, 8 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "north": { "texture": "#main", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#main", "uv": [ 0, 0, 8, 16 ], "cullface": "east" },
+                "south": { "texture": "#main", "uv": [ 0, 0, 16, 16 ], "cullface": "south" },
+                "west": { "texture": "#main", "uv": [ 8, 0, 16, 16 ], "cullface": "west" },
+                "up": { "texture": "#top", "uv": [ 0, 8, 16, 16 ], "cullface": "up" },
+                "down": { "texture": "#bottom", "uv": [ 0, 0, 16, 8 ], "cullface": "down" }
+            }
+        }
+    ]
+}

@@ -41,11 +41,12 @@ public class EPConfig {
 	}
 
 	public static void generate(File config) {
-		ModBlocks.init();
+		ModBlocks.generateDefaultSets();
 		try (FileWriter writer = new FileWriter(config)) {
 			JsonObject cfg = new JsonObject();
 			JsonObject sets = new JsonObject();
 			for(PieceSet set:PieceSets.registry.values()) {
+				if(set!=ModBlocks.DUMMY_PIECES)
 				sets.put(set.getName(), set.toJson());
 			}
 			cfg.put("sets", sets);

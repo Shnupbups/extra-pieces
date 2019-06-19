@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/packed_ice_slab" },
-        "type=top": { "model": "extrapieces:block/packed_ice_slab_top" },
-        "type=double": { "model": "block/packed_ice" }
-    }
-}

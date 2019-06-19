@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/siding",
-    "textures": {
-        "front": "block/stripped_spruce_log",
-        "back": "block/stripped_spruce_log",
-        "side": "block/stripped_spruce_log"
-    }
-}

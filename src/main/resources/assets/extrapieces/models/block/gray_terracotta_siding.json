@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/siding",
-    "textures": {
-        "front": "block/gray_terracotta",
-        "back": "block/gray_terracotta",
-        "side": "block/gray_terracotta"
-    }
-}

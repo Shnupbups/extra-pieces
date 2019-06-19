@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "extrapieces:block/black_glazed_terracotta_corner" },
-        "facing=south": { "model": "extrapieces:block/black_glazed_terracotta_corner", "y": 180, "uvlock": true },
-        "facing=east": { "model": "extrapieces:block/black_glazed_terracotta_corner", "y": 90, "uvlock": true },
-        "facing=west": { "model": "extrapieces:block/black_glazed_terracotta_corner", "y": 270, "uvlock": true }
-    }
-}

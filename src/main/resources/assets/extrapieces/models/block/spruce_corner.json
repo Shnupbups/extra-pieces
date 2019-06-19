@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/corner",
-    "textures": {
-        "side": "block/spruce_planks",
-        "top": "block/spruce_planks",
-        "bottom": "block/spruce_planks"
-    }
-}

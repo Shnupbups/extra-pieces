@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_post",
-  "textures": {
-    "wall": "block/melon_side",
-    "top": "block/melon_top"
-  }
-}

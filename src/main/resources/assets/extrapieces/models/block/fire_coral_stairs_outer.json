@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "block/fire_coral_block",
-        "top": "block/fire_coral_block",
-        "side": "block/fire_coral_block"
-    }
-}

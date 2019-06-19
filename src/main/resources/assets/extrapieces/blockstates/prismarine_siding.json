@@ -1,9 +1,0 @@
-{
-    "variants": {
-        "type=single,facing=north": { "model": "extrapieces:block/prismarine_siding" },
-        "type=single,facing=south": { "model": "extrapieces:block/prismarine_siding", "y": 180, "uvlock": true },
-        "type=single,facing=east": { "model": "extrapieces:block/prismarine_siding", "y": 90, "uvlock": true },
-        "type=single,facing=west": { "model": "extrapieces:block/prismarine_siding", "y": 270, "uvlock": true },
-        "type=double": { "model": "block/prismarine" }
-    }
-}

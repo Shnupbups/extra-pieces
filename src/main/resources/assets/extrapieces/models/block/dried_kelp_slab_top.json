@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "block/dried_kelp_bottom",
-        "top": "block/dried_kelp_top",
-        "side": "block/dried_kelp_side"
-    }
-}

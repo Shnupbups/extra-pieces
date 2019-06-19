@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "block/green_wool",
-        "top": "block/green_wool",
-        "side": "block/green_wool"
-    }
-}

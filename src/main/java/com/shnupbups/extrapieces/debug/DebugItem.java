@@ -23,7 +23,7 @@ public class DebugItem extends Item {
 			context.getPlayer().getItemCooldownManager().set(this, 20);
 			if (state.getBlock() instanceof PieceBlock) {
 				PieceBlock pb = (PieceBlock) state.getBlock();
-				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is piece! Type: " + pb.getType() + " Base: " + pb.getSet().getBase()), false);
+				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is piece! Type: " + pb.getType() + " Set: " + pb.getSet()), false);
 				return ActionResult.SUCCESS;
 			} else if (PieceSets.hasSet(state.getBlock())) {
 				context.getPlayer().addChatMessage(new TextComponent(state.getBlock() + " is base! " + PieceSets.getSet(state.getBlock())), false);

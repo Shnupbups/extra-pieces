@@ -80,7 +80,7 @@ public class PieceIngredient implements Predicate<PieceStack> {
 			PieceType pieceType = (PieceType) PieceType.getTypeOrEmpty(id).orElseThrow(() -> {
 				return new JsonSyntaxException("Unknown piece '" + id + "'");
 			});
-			System.out.println(id+" = "+pieceType);
+			//System.out.println(id+" = "+pieceType);
 			return new PieceIngredient.Entry(pieceType);
 		} else {
 			throw new JsonParseException("An ingredient entry needs a piece type");

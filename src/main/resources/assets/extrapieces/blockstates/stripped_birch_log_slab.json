@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/stripped_birch_log_slab" },
-        "type=top": { "model": "extrapieces:block/stripped_birch_log_slab_top" },
-        "type=double": { "model": "block/stripped_birch_log" }
-    }
-}

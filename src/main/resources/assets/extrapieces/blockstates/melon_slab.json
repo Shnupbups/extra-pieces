@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/melon_slab" },
-        "type=top": { "model": "extrapieces:block/melon_slab_top" },
-        "type=double": { "model": "block/melon" }
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "block/dead_fire_coral_block",
-        "top": "block/dead_fire_coral_block",
-        "side": "block/dead_fire_coral_block"
-    }
-}

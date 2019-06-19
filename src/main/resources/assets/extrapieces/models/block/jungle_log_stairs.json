@@ -1,8 +1,0 @@
-{
-    "parent": "block/stairs",
-    "textures": {
-        "bottom": "block/jungle_log_top",
-        "top": "block/jungle_log_top",
-        "side": "block/jungle_log"
-    }
-}

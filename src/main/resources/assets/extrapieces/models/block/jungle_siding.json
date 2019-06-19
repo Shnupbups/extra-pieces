@@ -1,8 +1,0 @@
-{
-  "parent": "extrapieces:block/siding",
-  "textures": {
-    "front": "block/jungle_planks",
-    "back": "block/jungle_planks",
-    "side": "block/jungle_planks"
-  }
-}

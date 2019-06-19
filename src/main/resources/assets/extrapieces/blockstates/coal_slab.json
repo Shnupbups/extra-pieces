@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "extrapieces:block/coal_slab" },
-        "type=top": { "model": "extrapieces:block/coal_slab_top" },
-        "type=double": { "model": "block/coal_block" }
-    }
-}

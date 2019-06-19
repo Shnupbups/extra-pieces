@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "block/magenta_terracotta",
-        "top": "block/magenta_terracotta",
-        "side": "block/magenta_terracotta"
-    }
-}

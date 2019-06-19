@@ -1,9 +1,0 @@
-{
-    "variants": {
-        "type=single,facing=north": { "model": "extrapieces:block/chiseled_quartz_siding" },
-        "type=single,facing=south": { "model": "extrapieces:block/chiseled_quartz_siding", "y": 180, "uvlock": true },
-        "type=single,facing=east": { "model": "extrapieces:block/chiseled_quartz_siding", "y": 90, "uvlock": true },
-        "type=single,facing=west": { "model": "extrapieces:block/chiseled_quartz_siding", "y": 270, "uvlock": true },
-        "type=double": { "model": "block/chiseled_quartz_block" }
-    }
-}

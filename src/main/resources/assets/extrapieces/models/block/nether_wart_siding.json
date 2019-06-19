@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/siding",
-    "textures": {
-        "front": "block/nether_wart_block",
-        "back": "block/nether_wart_block",
-        "side": "block/nether_wart_block"
-    }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "extrapieces:block/wall_inventory",
-  "textures": {
-    "wall": "block/quartz_pillar",
-    "top": "block/quartz_pillar_top"
-  }
-}

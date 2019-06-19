@@ -1,8 +1,0 @@
-{
-    "parent": "extrapieces:block/siding",
-    "textures": {
-        "front": "block/dead_fire_coral_block",
-        "back": "block/dead_fire_coral_block",
-        "side": "block/dead_fire_coral_block"
-    }
-}
