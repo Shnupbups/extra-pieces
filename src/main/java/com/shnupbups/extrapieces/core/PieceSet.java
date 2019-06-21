@@ -7,9 +7,9 @@ import blue.endless.jankson.JsonPrimitive;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
-import io.github.cottonmc.cotton.datapack.tags.TagEntryManager;
-import io.github.cottonmc.cotton.datapack.tags.TagType;
+import com.shnupbups.extrapieces.blocks.PieceBlockItem;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -25,6 +25,24 @@ public class PieceSet {
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_WALL;
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
 
+	static {
+		NO_SLAB = new ArrayList<>(PieceType.getTypesNoBase());
+		NO_SLAB.remove(PieceType.SLAB);
+
+		NO_SLAB_OR_STAIRS = new ArrayList<>(NO_SLAB);
+		NO_SLAB_OR_STAIRS.remove(PieceType.STAIRS);
+
+		NO_SLAB_STAIRS_OR_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
+		NO_SLAB_STAIRS_OR_WALL.remove(PieceType.WALL);
+
+		JUST_EXTRAS_AND_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
+		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE);
+		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE_GATE);
+
+		JUST_EXTRAS_AND_FENCE_GATE = new ArrayList<>(NO_SLAB_STAIRS_OR_WALL);
+		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceType.FENCE);
+	}
+
 	private final Block base;
 	private final String name;
 	private PieceType[] genTypes;
@@ -35,28 +53,77 @@ public class PieceSet {
 	private Identifier mainTexture;
 	private Identifier topTexture;
 	private Identifier bottomTexture;
+	private boolean hasCustomTranslation;
 	private boolean opaque;
 
 	PieceSet(Block base, String name, List<PieceType> types) {
 		this.base = base;
 		this.name = name.toLowerCase();
 		Identifier id = Registry.BLOCK.getId(base);
-		this.mainTexture = new Identifier(id.getNamespace(), "block/"+id.getPath());
+		this.mainTexture = new Identifier(id.getNamespace(), "block/" + id.getPath());
 		this.topTexture = mainTexture;
 		this.bottomTexture = topTexture;
 		this.opaque = base.isOpaque(base.getDefaultState());
 		this.genTypes = types.toArray(new PieceType[types.size()]);
 		PieceSets.registerSet(base, this);
 		this.stonecuttable = (base.getDefaultState().getMaterial().equals(Material.STONE) || base.getDefaultState().getMaterial().equals(Material.METAL));
+		this.hasCustomTranslation = false;
+	}
+
+	public static PieceSet fromJson(String name, JsonObject ob) {
+		Block base = Registry.BLOCK.get(new Identifier(ob.get(String.class, "base")));
+		PieceSet set = PieceSets.createSet(base, name);
+		if (ob.containsKey("stonecuttable")) {
+			set.setStonecuttable(ob.get("stonecuttable").equals(JsonPrimitive.TRUE));
+		}
+		if (ob.containsKey("opaque")) {
+			set.setOpaque(ob.get("opaque").equals(JsonPrimitive.TRUE));
+		}
+		if (ob.containsKey("custom_translation")) {
+			set.setHasCustomTranslation(ob.get("custom_translation").equals(JsonPrimitive.TRUE));
+		}
+		if (ob.containsKey("textures")) {
+			JsonObject tx = ob.getObject("textures");
+			if (tx.containsKey("main")) {
+				set.setTexture(new Identifier(tx.get(String.class, "main")));
+			}
+			if (tx.containsKey("top")) {
+				set.setTopTexture(new Identifier(tx.get(String.class, "top")));
+			}
+			if (tx.containsKey("bottom")) {
+				set.setBottomTexture(new Identifier(tx.get(String.class, "bottom")));
+			}
+		}
+		if (ob.containsKey("vanilla_pieces")) {
+			JsonObject vp = ob.getObject("vanilla_pieces");
+			for (String s : vp.keySet()) {
+				PieceType pt = PieceType.getType(s);
+				set.addVanillaPiece(pt, Registry.BLOCK.get(new Identifier(vp.get(String.class, s))));
+			}
+		}
+		if (ob.containsKey("exclude")) {
+			JsonArray ex = ob.get(JsonArray.class, "exclude");
+			for (JsonElement je : ex) {
+				JsonPrimitive jp = (JsonPrimitive) je;
+				String s = jp.asString();
+				PieceType pt = PieceType.getType(s);
+				set.excludePiece(pt);
+			}
+		}
+		if (ob.containsKey("uncraftable")) {
+			JsonArray uc = ob.get(JsonArray.class, "uncraftable");
+			for (JsonElement je : uc) {
+				JsonPrimitive jp = (JsonPrimitive) je;
+				String s = jp.asString();
+				PieceType pt = PieceType.getType(s);
+				set.setUncraftable(pt);
+			}
+		}
+		return set;
 	}
 
 	public PieceSet setOpaque() {
 		this.opaque = true;
-		return this;
-	}
-
-	public PieceSet setOpaque(boolean opaque) {
-		this.opaque = opaque;
 		return this;
 	}
 
@@ -66,7 +133,7 @@ public class PieceSet {
 	}
 
 	public PieceSet setTexture(Identifier id) {
-		Identifier newId = new Identifier(id.getNamespace(),(id.getPath().contains("block/")?id.getPath():"block/"+id.getPath()));
+		Identifier newId = new Identifier(id.getNamespace(), (id.getPath().contains("block/") ? id.getPath() : "block/" + id.getPath()));
 		this.mainTexture = newId;
 		this.topTexture = newId;
 		this.bottomTexture = newId;
@@ -74,14 +141,14 @@ public class PieceSet {
 	}
 
 	public PieceSet setTopTexture(Identifier id) {
-		Identifier newId = new Identifier(id.getNamespace(),(id.getPath().contains("block/")?id.getPath():"block/"+id.getPath()));
+		Identifier newId = new Identifier(id.getNamespace(), (id.getPath().contains("block/") ? id.getPath() : "block/" + id.getPath()));
 		this.topTexture = newId;
 		this.bottomTexture = newId;
 		return this;
 	}
 
 	public PieceSet setBottomTexture(Identifier id) {
-		Identifier newId = new Identifier(id.getNamespace(),(id.getPath().contains("block/")?id.getPath():"block/"+id.getPath()));
+		Identifier newId = new Identifier(id.getNamespace(), (id.getPath().contains("block/") ? id.getPath() : "block/" + id.getPath()));
 		this.bottomTexture = newId;
 		return this;
 	}
@@ -90,16 +157,13 @@ public class PieceSet {
 		return setTexture(new Identifier(id));
 	}
 
-	public PieceSet setTopTexture(String id) {
-		return setTopTexture(new Identifier(id));
-	}
-
-	public PieceSet setBottomTexture(String id) {
-		return setBottomTexture(new Identifier(id));
-	}
-
 	public boolean isOpaque() {
 		return opaque;
+	}
+
+	public PieceSet setOpaque(boolean opaque) {
+		this.opaque = opaque;
+		return this;
 	}
 
 	public boolean isTransparent() {
@@ -114,17 +178,25 @@ public class PieceSet {
 		return topTexture;
 	}
 
+	public PieceSet setTopTexture(String id) {
+		return setTopTexture(new Identifier(id));
+	}
+
 	public Identifier getBottomTexture() {
 		return bottomTexture;
 	}
 
+	public PieceSet setBottomTexture(String id) {
+		return setBottomTexture(new Identifier(id));
+	}
+
 	public boolean hasCustomTexture() {
-		return hasBottomTexture()||hasTopTexture()||hasMainTexture();
+		return hasBottomTexture() || hasTopTexture() || hasMainTexture();
 	}
 
 	public boolean hasMainTexture() {
 		Identifier id = Registry.BLOCK.getId(base);
-		Identifier def = new Identifier(id.getNamespace(), "block/"+id.getPath());
+		Identifier def = new Identifier(id.getNamespace(), "block/" + id.getPath());
 		return !getMainTexture().equals(def);
 	}
 
@@ -138,7 +210,8 @@ public class PieceSet {
 
 	/**
 	 * Adds a vanilla (or just not-generated) block as a piece to this set.
-	 * @param type The piece type of the block
+	 *
+	 * @param type  The piece type of the block
 	 * @param block The block to add
 	 * @return This set
 	 */
@@ -152,24 +225,27 @@ public class PieceSet {
 		return this;
 	}
 
-	public boolean isVanillaPiece(PieceType type) { return pieces.get(type) instanceof FakePieceBlock && PieceSets.isVanillaPiece(pieces.get(type).getBlock()); }
+	public boolean isVanillaPiece(PieceType type) {
+		return pieces.get(type) instanceof FakePieceBlock && PieceSets.isVanillaPiece(pieces.get(type).getBlock());
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("PieceSet{ base: ").append(getBase()).append(", pieces: [");
-		for(PieceType p:pieces.keySet()) {
+		for (PieceType p : pieces.keySet()) {
 			sb.append("{").append(p.toString()).append(" = ").append(pieces.get(p).getBlock());
-			if(isVanillaPiece(p)) sb.append(", Vanilla Piece!");
-			else if(!isCraftable(p)) sb.append(", Uncraftable!");
+			if (isVanillaPiece(p)) sb.append(", Vanilla Piece!");
+			else if (!isCraftable(p)) sb.append(", Uncraftable!");
 			sb.append("} , ");
 		}
-		sb.delete(sb.length()-2,sb.length());
+		sb.delete(sb.length() - 2, sb.length());
 		sb.append("] ");
-		if(isStonecuttable()) sb.append(", Stonecuttable! ");
-		if(isTransparent()) sb.append(", Transparent! ");
-		if(hasMainTexture()) sb.append(", Main Texture = ").append(getMainTexture()).append(" ");
-		if(hasTopTexture()) sb.append(", Top Texture = ").append(getTopTexture()).append(" ");
-		if(hasBottomTexture()) sb.append(", Bottom Texture = ").append(getBottomTexture()).append(" ");
+		if (isStonecuttable()) sb.append(", Stonecuttable! ");
+		if (isTransparent()) sb.append(", Transparent! ");
+		if (hasMainTexture()) sb.append(", Main Texture = ").append(getMainTexture()).append(" ");
+		if (hasTopTexture()) sb.append(", Top Texture = ").append(getTopTexture()).append(" ");
+		if (hasBottomTexture()) sb.append(", Bottom Texture = ").append(getBottomTexture()).append(" ");
+		if (hasCustomTranslation()) sb.append(", Translation Key = ").append(getTranslationKey()).append(" ");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -179,7 +255,7 @@ public class PieceSet {
 	}
 
 	public PieceSet setStonecuttable(boolean stonecuttable) {
-		this.stonecuttable=stonecuttable;
+		this.stonecuttable = stonecuttable;
 		return this;
 	}
 
@@ -194,12 +270,13 @@ public class PieceSet {
 
 	/**
 	 * Creates the instances of each {@link PieceType} in this {@link PieceSet}.
+	 *
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
-		for (PieceType p: PieceType.getTypes()) {
-			if(shouldGenPiece(p) && !hasPiece(p)) {
-				pieces.put(p, (PieceBlock)p.getNew(this));
+		for (PieceType p : PieceType.getTypes()) {
+			if (shouldGenPiece(p) && !hasPiece(p)) {
+				pieces.put(p, (PieceBlock) p.getNew(this));
 			}
 		}
 		return this;
@@ -208,16 +285,18 @@ public class PieceSet {
 	/**
 	 * Registers each {@link PieceType} in this {@link PieceSet} to the {@link Registry}.<br>
 	 * If {@link #isGenerated()} returns {@code false}, runs {@link #generate()}.
-	 * @throws IllegalStateException If a {@link PieceSet} has already been registered with the same base {@link Block}
+	 *
 	 * @return This {@link PieceSet}
+	 * @throws IllegalStateException If a {@link PieceSet} has already been registered with the same base {@link Block}
 	 */
 	public PieceSet register() {
-		if(isRegistered()) throw new IllegalStateException("Base block "+base.getTranslationKey()+" already has PiecesSet registered! Cannot register again!");
-		if(!isGenerated()) generate();
-		for(PieceType b : genTypes) {
-			Identifier id = new Identifier(b.getId().getNamespace(),b.getBlockId(getName()));
+		if (isRegistered())
+			throw new IllegalStateException("Base block " + base.getTranslationKey() + " already has PiecesSet registered! Cannot register again!");
+		if (!isGenerated()) generate();
+		for (PieceType b : genTypes) {
+			Identifier id = new Identifier(b.getId().getNamespace(), b.getBlockId(getName()));
 			Registry.register(Registry.BLOCK, id, pieces.get(b).getBlock());
-			BlockItem item = new BlockItem(pieces.get(b).getBlock(), (new Item.Settings()).group(ExtraPieces.groups.get(b)));
+			BlockItem item = new PieceBlockItem(pieces.get(b), (this.getBase() != Blocks.AIR ? (new Item.Settings()).group(ExtraPieces.groups.get(b)) : new Item.Settings()));
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
 			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
 		}
@@ -229,6 +308,7 @@ public class PieceSet {
 	/**
 	 * Gets the name of this {@link PieceSet}.<br>
 	 * Used for registry.
+	 *
 	 * @return The name of this {@link PieceSet}.
 	 */
 	public String getName() {
@@ -238,17 +318,19 @@ public class PieceSet {
 	/**
 	 * Gets a {@link PieceType} from this {@link PieceSet}, if it exists.<br>
 	 * If {@link #isGenerated()} returns {@code false}, runs {@link #generate()} first.
+	 *
 	 * @param piece The {@link PieceType} to get.
 	 * @return The {@link PieceType} from this {@link PieceSet}, or null if no such PieceType exists.
 	 */
 	public Block getPiece(PieceType piece) {
-		if(!isGenerated()) generate();
-		if(hasPiece(piece)) return pieces.get(piece).getBlock();
+		if (!isGenerated()) generate();
+		if (hasPiece(piece)) return pieces.get(piece).getBlock();
 		return null;
 	}
 
 	/**
 	 * Gets the {@link Block} which this {@link PieceSet} is based upon.
+	 *
 	 * @return The {@link Block} which this {@link PieceSet} is based upon.
 	 */
 	public Block getBase() {
@@ -261,6 +343,7 @@ public class PieceSet {
 
 	/**
 	 * Gets whether this {@link PieceSet} has a {@link PieceType} of type {@code piece}.
+	 *
 	 * @param piece The {@link PieceType} to query for.
 	 * @return Whether this {@link PieceSet} has a {@link PieceType} of type {@code piece}.
 	 */
@@ -283,11 +366,12 @@ public class PieceSet {
 	/**
 	 * Gets whether each {@link PieceType} for this {@link PieceSet} has been generated.<br>
 	 * Generation is done with {@link #generate()}.
+	 *
 	 * @return Whether each {@link PieceType} for this {@link PieceSet} has been generated.
 	 */
 	public boolean isGenerated() {
-		for(PieceType p : genTypes) {
-			if(!pieces.containsKey(p)) return false;
+		for (PieceType p : genTypes) {
+			if (!pieces.containsKey(p)) return false;
 		}
 		return true;
 	}
@@ -295,6 +379,7 @@ public class PieceSet {
 	/**
 	 * Gets whether this {@link PieceSet}'s {@link PieceType}s have been added to the {@link Registry}.<br>
 	 * Registration is done with {@link #register()}.
+	 *
 	 * @return Whether this {@link PieceSet}'s {@link PieceType}s have been added to the {@link Registry}.
 	 */
 	public boolean isRegistered() {
@@ -308,7 +393,7 @@ public class PieceSet {
 	public List<PieceType> getVanillaTypes() {
 		ArrayList<PieceType> vt = new ArrayList<>();
 		List gt = Arrays.asList(genTypes);
-		for(PieceType p:this.getPieces().keySet()) {
+		for (PieceType p : this.getPieces().keySet()) {
 			if (!gt.contains(p)) {
 				vt.add(p);
 			}
@@ -317,13 +402,13 @@ public class PieceSet {
 	}
 
 	public List<PieceType> getExcludedTypes() {
-		ArrayList et = (ArrayList<PieceType>)PieceType.getTypesNoBase().clone();
+		ArrayList et = (ArrayList<PieceType>) PieceType.getTypesNoBase().clone();
 		et.removeAll(this.getPieceTypes());
 		return et;
 	}
 
 	public List<PieceType> getUncraftableTypes() {
-		ArrayList uc = ((ArrayList<PieceType>)uncraftable.clone());
+		ArrayList uc = ((ArrayList<PieceType>) uncraftable.clone());
 		uc.removeAll(this.getVanillaTypes());
 		return uc;
 	}
@@ -336,116 +421,70 @@ public class PieceSet {
 		return this;
 	}
 
-	static {
-		NO_SLAB = new ArrayList<>(PieceType.getTypesNoBase());
-		NO_SLAB.remove(PieceType.SLAB);
+	public boolean hasCustomTranslation() {
+		return hasCustomTranslation;
+	}
 
-		NO_SLAB_OR_STAIRS = new ArrayList<>(NO_SLAB);
-		NO_SLAB_OR_STAIRS.remove(PieceType.STAIRS);
+	public PieceSet setHasCustomTranslation(boolean hasCustomTranslation) {
+		this.hasCustomTranslation = hasCustomTranslation;
+		return this;
+	}
 
-		NO_SLAB_STAIRS_OR_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
-		NO_SLAB_STAIRS_OR_WALL.remove(PieceType.WALL);
+	public PieceSet setHasCustomTranslation() {
+		return setHasCustomTranslation(true);
+	}
 
-		JUST_EXTRAS_AND_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
-		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE);
-		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE_GATE);
-
-		JUST_EXTRAS_AND_FENCE_GATE = new ArrayList<>(NO_SLAB_STAIRS_OR_WALL);
-		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceType.FENCE);
+	public String getTranslationKey() {
+		if (!hasCustomTranslation()) return this.getBase().getTranslationKey();
+		else return "pieceSet." + this.getName();
 	}
 
 	public JsonObject toJson() {
 		JsonObject ob = new JsonObject();
 		ob.put("base", new JsonPrimitive(Registry.BLOCK.getId(this.getBase())));
-		if(this.isStonecuttable()!=(base.getDefaultState().getMaterial().equals(Material.STONE) || base.getDefaultState().getMaterial().equals(Material.METAL))) {
+		if (this.isStonecuttable() != (base.getDefaultState().getMaterial().equals(Material.STONE) || base.getDefaultState().getMaterial().equals(Material.METAL))) {
 			ob.put("stonecuttable", new JsonPrimitive(this.isStonecuttable()));
 		}
-		if(this.isOpaque()!=this.getBase().getDefaultState().isOpaque()) {
+		if (this.isOpaque() != this.getBase().getDefaultState().isOpaque()) {
 			ob.put("opaque", new JsonPrimitive(this.isOpaque()));
 		}
-		if(this.hasCustomTexture()) {
+		if (this.hasCustomTranslation()) {
+			ob.put("custom_translation", new JsonPrimitive(this.hasCustomTranslation()));
+		}
+		if (this.hasCustomTexture()) {
 			JsonObject tx = new JsonObject();
-			if(hasMainTexture()) {
+			if (hasMainTexture()) {
 				tx.put("main", new JsonPrimitive(this.getMainTexture()));
 			}
-			if(hasTopTexture()) {
+			if (hasTopTexture()) {
 				tx.put("top", new JsonPrimitive(this.getTopTexture()));
 			}
-			if(hasBottomTexture()) {
+			if (hasBottomTexture()) {
 				tx.put("bottom", new JsonPrimitive(this.getBottomTexture()));
 			}
 			ob.put("textures", tx);
 		}
-		if(!this.getVanillaTypes().isEmpty()) {
+		if (!this.getVanillaTypes().isEmpty()) {
 			JsonObject vp = new JsonObject();
-			for(PieceType p:this.getVanillaTypes()) {
+			for (PieceType p : this.getVanillaTypes()) {
 				vp.put(p.toString(), new JsonPrimitive(Registry.BLOCK.getId(this.getPiece(p))));
 			}
 			ob.put("vanilla_pieces", vp);
 		}
-		if(!this.getUncraftableTypes().isEmpty()) {
+		if (!this.getUncraftableTypes().isEmpty()) {
 			JsonArray uc = new JsonArray();
-			for(PieceType p:this.getUncraftableTypes()) {
+			for (PieceType p : this.getUncraftableTypes()) {
 				uc.add(new JsonPrimitive(p));
 			}
 			ob.put("uncraftable", uc);
 		}
-		if(!this.getExcludedTypes().isEmpty()) {
+		if (!this.getExcludedTypes().isEmpty()) {
 			JsonArray ex = new JsonArray();
-			for(PieceType p:this.getExcludedTypes()) {
+			for (PieceType p : this.getExcludedTypes()) {
 				ex.add(new JsonPrimitive(p));
 			}
 			ob.put("exclude", ex);
 		}
 		return ob;
-	}
-
-	public static PieceSet fromJson(String name, JsonObject ob) {
-		Block base = Registry.BLOCK.get(new Identifier(ob.get(String.class, "base")));
-		PieceSet set = PieceSets.createSet(base, name);
-		if(ob.containsKey("stonecuttable")) {
-			set.setStonecuttable(Boolean.getBoolean(((JsonPrimitive)ob.get("stonecuttable")).asString()));
-		}
-		if(ob.containsKey("opaque")) {
-			set.setOpaque(Boolean.getBoolean(((JsonPrimitive)ob.get("opaque")).asString()));
-		}
-		if(ob.containsKey("textures")) {
-			JsonObject tx = ob.getObject("textures");
-			if(tx.containsKey("main")) {
-				set.setTexture(new Identifier(tx.get(String.class, "main")));
-			}
-			if(tx.containsKey("top")) {
-				set.setTopTexture(new Identifier(tx.get(String.class, "top")));
-			}
-			if(tx.containsKey("bottom")) {
-				set.setBottomTexture(new Identifier(tx.get(String.class, "bottom")));
-			}
-		}
-		if(ob.containsKey("vanilla_pieces")) {
-			JsonObject vp = ob.getObject("vanilla_pieces");
-			for(String s:vp.keySet()) {
-				PieceType pt = PieceType.getType(s);
-				set.addVanillaPiece(pt, Registry.BLOCK.get(new Identifier(vp.get(String.class, s))));
-			}
-		}
-		if(ob.containsKey("exclude")) {
-			JsonArray ex = ob.get(JsonArray.class, "exclude");
-			for(JsonElement je:ex) {
-				JsonPrimitive jp = (JsonPrimitive)je;
-				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
-				set.excludePiece(pt);
-			}
-		}
-		if(ob.containsKey("uncraftable")) {
-			JsonArray uc = ob.get(JsonArray.class, "uncraftable");
-			for(JsonElement je:uc) {
-				JsonPrimitive jp = (JsonPrimitive)je;
-				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
-				set.setUncraftable(pt);
-			}
-		}
-		return set;
 	}
 }

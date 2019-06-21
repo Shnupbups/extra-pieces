@@ -21,11 +21,11 @@ public class PieceRecipeSerializer implements RecipeSerializer<PieceRecipe> {
 			DefaultedList<PieceIngredient> inputs = PieceRecipe.getIngredients(pattern, keyMap, width, height);
 			PieceStack pieceStack = PieceRecipe.getPieceStack(JsonHelper.getObject(json, "result"));
 			return new PieceRecipe(id, group, width, height, inputs, pieceStack);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("BIG OL' EXCEPTION READING PieceRecipe FROM JSON!");
-			System.out.println("ID: "+ id.toString());
-			System.out.println("JSON: "+json.toString());
-			System.out.println("Exception: "+e.getMessage());
+			System.out.println("ID: " + id.toString());
+			System.out.println("JSON: " + json.toString());
+			System.out.println("Exception: " + e.getMessage());
 			System.out.println("THIS IS AN ERROR! Report to Shnupbups!");
 			return null;
 		}
@@ -37,7 +37,7 @@ public class PieceRecipeSerializer implements RecipeSerializer<PieceRecipe> {
 		String group = buf.readString(32767);
 		DefaultedList<PieceIngredient> inputs = DefaultedList.create(width * height, PieceIngredient.EMPTY);
 
-		for(int i = 0; i < inputs.size(); ++i) {
+		for (int i = 0; i < inputs.size(); ++i) {
 			inputs.set(i, PieceIngredient.fromPacket(buf));
 		}
 
@@ -49,7 +49,7 @@ public class PieceRecipeSerializer implements RecipeSerializer<PieceRecipe> {
 		buf.writeVarInt(recipe.width);
 		buf.writeVarInt(recipe.height);
 		buf.writeString(recipe.group);
-		for(int i = 0; i < recipe.inputs.size(); ++i) {
+		for (int i = 0; i < recipe.inputs.size(); ++i) {
 			recipe.inputs.get(i).write(buf);
 		}
 		recipe.output.write(buf);

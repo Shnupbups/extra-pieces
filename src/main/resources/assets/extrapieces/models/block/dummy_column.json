@@ -1,0 +1,17 @@
+{
+	"parent": "extrapieces:block/piece",
+  "elements": [
+    {   "from": [ 4, 0, 4 ],
+      "to": [ 12, 16, 12 ],
+      "faces": {
+        "down":  { "texture": "#bottom", "cullface": "down" },
+        "up":    { "texture": "#top", "cullface": "up" },
+        "north": { "texture": "#main" },
+        "south": { "texture": "#main" },
+        "west":  { "texture": "#main" },
+        "east":  { "texture": "#main" }
+      },
+      "__comment": "Center post"
+    }
+  ]
+}

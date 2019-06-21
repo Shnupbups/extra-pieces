@@ -12,11 +12,11 @@ public class ModRecipes {
 	public static RecipeSerializer<PieceRecipe> PIECE_RECIPE_SERIALIZER;
 
 	public static void init() {
-		PIECE_RECIPE = Registry.register(Registry.RECIPE_TYPE, new Identifier("extrapieces","piece_crafting"), new RecipeType<PieceRecipe>() {
+		PIECE_RECIPE = Registry.register(Registry.RECIPE_TYPE, new Identifier("extrapieces", "piece_crafting"), new RecipeType<PieceRecipe>() {
 			public String toString() {
 				return "piece_crafting";
 			}
 		});
-		PIECE_RECIPE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier("extrapieces","piece_crafting"), new PieceRecipeSerializer());
+		PIECE_RECIPE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier("extrapieces", "piece_crafting"), new PieceRecipeSerializer());
 	}
 }

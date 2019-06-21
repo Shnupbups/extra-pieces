@@ -44,11 +44,29 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 	protected static final VoxelShape EAST_SHAPE;
 	protected static final VoxelShape SOUTH_SHAPE;
 	protected static final VoxelShape WEST_SHAPE;
+
+	static {
+		FACING = Properties.HORIZONTAL_FACING;
+		WATERLOGGED = Properties.WATERLOGGED;
+		NORTH_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_NORTH;
+		EAST_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_EAST;
+		SOUTH_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_SOUTH;
+		WEST_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_WEST;
+		NORTH_EXTRA_SHAPE = Block.createCuboidShape(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
+		EAST_EXTRA_SHAPE = Block.createCuboidShape(8.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
+		SOUTH_EXTRA_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 8.0D, 8.0D, 16.0D, 16.0D);
+		WEST_EXTRA_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 8.0D, 16.0D, 8.0D);
+		NORTH_SHAPE = VoxelShapes.union(NORTH_SIDING_SHAPE, NORTH_EXTRA_SHAPE);
+		EAST_SHAPE = VoxelShapes.union(EAST_SIDING_SHAPE, EAST_EXTRA_SHAPE);
+		SOUTH_SHAPE = VoxelShapes.union(SOUTH_SIDING_SHAPE, SOUTH_EXTRA_SHAPE);
+		WEST_SHAPE = VoxelShapes.union(WEST_SIDING_SHAPE, WEST_EXTRA_SHAPE);
+	}
+
 	private final PieceSet set;
 
 	public CornerPieceBlock(PieceSet set) {
 		super(Block.Settings.copy(set.getBase()));
-		this.set=set;
+		this.set = set;
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
 	}
 
@@ -56,16 +74,20 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 		return set;
 	}
 
-	public Block getBlock() { return this; }
+	public Block getBlock() {
+		return this;
+	}
 
-	public PieceType getType() {return PieceType.CORNER;}
+	public PieceType getType() {
+		return PieceType.CORNER;
+	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
 		return true;
 	}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
-		switch(blockState_1.get(FACING)) {
+		switch (blockState_1.get(FACING)) {
 			case EAST:
 				return EAST_SHAPE;
 			case SOUTH:
@@ -137,14 +159,14 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 		double xPos = itemPlacementContext_1.getBlockPos().getX() - blockPos_1.getX();
 		double zPos = itemPlacementContext_1.getBlockPos().getZ() - blockPos_1.getZ();
 		Direction direction_1 = itemPlacementContext_1.getPlayerFacing().getOpposite();
-		if(direction_1==Direction.EAST) {
-			if (zPos<0.5) direction_1 = direction_1.rotateYClockwise();
-		} else if(direction_1==Direction.WEST) {
-			if (zPos>0.5) direction_1 = direction_1.rotateYClockwise();
-		} else if(direction_1==Direction.SOUTH) {
-			if (xPos>0.5) direction_1 = direction_1.rotateYClockwise();
+		if (direction_1 == Direction.EAST) {
+			if (zPos < 0.5) direction_1 = direction_1.rotateYClockwise();
+		} else if (direction_1 == Direction.WEST) {
+			if (zPos > 0.5) direction_1 = direction_1.rotateYClockwise();
+		} else if (direction_1 == Direction.SOUTH) {
+			if (xPos > 0.5) direction_1 = direction_1.rotateYClockwise();
 		} else {
-			if (xPos<0.5) direction_1 = direction_1.rotateYClockwise();
+			if (xPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		}
 		BlockState blockState_1 = this.getDefaultState().with(FACING, direction_1).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 		return blockState_1;
@@ -168,22 +190,5 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 
 	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, BlockPlacementEnvironment blockPlacementEnvironment_1) {
 		return false;
-	}
-
-	static {
-		FACING = Properties.HORIZONTAL_FACING;
-		WATERLOGGED = Properties.WATERLOGGED;
-		NORTH_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_NORTH;
-		EAST_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_EAST;
-		SOUTH_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_SOUTH;
-		WEST_SIDING_SHAPE = SidingPieceBlock.SINGLE_SHAPE_WEST;
-		NORTH_EXTRA_SHAPE = Block.createCuboidShape(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
-		EAST_EXTRA_SHAPE = Block.createCuboidShape(8.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
-		SOUTH_EXTRA_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 8.0D, 8.0D, 16.0D, 16.0D);
-		WEST_EXTRA_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 8.0D, 16.0D, 8.0D);
-		NORTH_SHAPE = VoxelShapes.union(NORTH_SIDING_SHAPE,NORTH_EXTRA_SHAPE);
-		EAST_SHAPE = VoxelShapes.union(EAST_SIDING_SHAPE,EAST_EXTRA_SHAPE);
-		SOUTH_SHAPE = VoxelShapes.union(SOUTH_SIDING_SHAPE,SOUTH_EXTRA_SHAPE);
-		WEST_SHAPE = VoxelShapes.union(WEST_SIDING_SHAPE,WEST_EXTRA_SHAPE);
 	}
 }

@@ -17,27 +17,17 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class PieceIngredient implements Predicate<PieceStack> {
+	public static final PieceIngredient EMPTY = new PieceIngredient(Stream.empty());
 	private static final Predicate<? super PieceIngredient.Entry> NON_EMPTY = (ingredient$Entry_1) -> {
 		return !ingredient$Entry_1.getPieces().stream().allMatch(PieceStack::isEmpty);
 	};
-	public static final PieceIngredient EMPTY = new PieceIngredient(Stream.empty());
-	private PieceStack[] pieceArray;
 	private final PieceIngredient.Entry[] entries;
+	private PieceStack[] pieceArray;
 
 	private PieceIngredient(Stream<? extends PieceIngredient.Entry> stream_1) {
-		this.entries = (PieceIngredient.Entry[])stream_1.filter(NON_EMPTY).toArray((int_1) -> {
+		this.entries = (PieceIngredient.Entry[]) stream_1.filter(NON_EMPTY).toArray((int_1) -> {
 			return new PieceIngredient.Entry[int_1];
 		});
-	}
-
-	public void write(PacketByteBuf buf) {
-		this.createPieceArray();
-		buf.writeVarInt(this.pieceArray.length);
-
-		for(int int_1 = 0; int_1 < this.pieceArray.length; ++int_1) {
-			this.pieceArray[int_1].write(buf);
-		}
-
 	}
 
 	public static PieceIngredient ofEntries(Stream<? extends PieceIngredient.Entry> stream_1) {
@@ -70,7 +60,7 @@ public class PieceIngredient implements Predicate<PieceStack> {
 		int int_1 = buf.readVarInt();
 		return ofEntries(Stream.generate(() -> {
 			return new PieceIngredient.Entry(PieceType.readPieceType(buf));
-		}).limit((long)int_1));
+		}).limit((long) int_1));
 	}
 
 	public static PieceIngredient.Entry entryFromJson(JsonObject jsonObject_1) {
@@ -87,6 +77,16 @@ public class PieceIngredient implements Predicate<PieceStack> {
 		}
 	}
 
+	public void write(PacketByteBuf buf) {
+		this.createPieceArray();
+		buf.writeVarInt(this.pieceArray.length);
+
+		for (int int_1 = 0; int_1 < this.pieceArray.length; ++int_1) {
+			this.pieceArray[int_1].write(buf);
+		}
+
+	}
+
 	public boolean isEmpty() {
 		return this.entries.length == 0;
 	}
@@ -98,7 +98,7 @@ public class PieceIngredient implements Predicate<PieceStack> {
 			this.createPieceArray();
 			PieceStack[] pieceArray = this.pieceArray;
 
-			for(PieceStack p:pieceArray) {
+			for (PieceStack p : pieceArray) {
 				if (p.typeEquals(stack)) {
 					return true;
 				}
@@ -108,17 +108,17 @@ public class PieceIngredient implements Predicate<PieceStack> {
 	}
 
 	public boolean test(ItemStack stack) {
-		if(stack.isEmpty()) {
+		if (stack.isEmpty()) {
 			return this.isEmpty();
 		}
-		if(stack.getItem() instanceof BlockItem) {
+		if (stack.getItem() instanceof BlockItem) {
 			PieceType type = PieceType.getType(stack);
-			if(type!=null) {
+			if (type != null) {
 				createPieceArray();
 				PieceStack[] pieceArray = this.pieceArray;
 
-				for(PieceStack p:pieceArray) {
-					if(p.getType().equals(type)) return true;
+				for (PieceStack p : pieceArray) {
+					if (p.getType().equals(type)) return true;
 				}
 			}
 		}
@@ -136,13 +136,38 @@ public class PieceIngredient implements Predicate<PieceStack> {
 
 	}
 
+	public String toString() {
+		createPieceArray();
+		String s = "PieceIngredient{types: ";
+		for (PieceStack p : pieceArray) {
+			s = s + p.getType().getId() + ", ";
+		}
+		s = s.substring(0, s.length() - 2);
+		s += "}";
+		return s;
+	}
+
+	public String toString(Block base) {
+		createPieceArray();
+		String s = "PieceIngredient{types: ";
+		for (PieceStack p : pieceArray) {
+			s = s + p.toItemStack(base).getTranslationKey() + ", ";
+		}
+		s = s.substring(0, s.length() - 2);
+		s += "}";
+		return s;
+	}
+
 	static class Entry {
 		private final PieceStack piece;
 
 		private Entry(PieceStack piece) {
 			this.piece = piece;
 		}
-		private Entry(PieceType piece) {this.piece = new PieceStack(piece);}
+
+		private Entry(PieceType piece) {
+			this.piece = new PieceStack(piece);
+		}
 
 		public Collection<PieceStack> getPieces() {
 			return Collections.singleton(this.piece);
@@ -153,27 +178,5 @@ public class PieceIngredient implements Predicate<PieceStack> {
 			jsonObject_1.addProperty("piece", piece.getType().getId().toString());
 			return jsonObject_1;
 		}
-	}
-
-	public String toString() {
-		createPieceArray();
-		String s = "PieceIngredient{types: ";
-		for(PieceStack p:pieceArray) {
-			s=s+p.getType().getId()+", ";
-		}
-		s=s.substring(0,s.length()-2);
-		s+="}";
-		return s;
-	}
-
-	public String toString(Block base) {
-		createPieceArray();
-		String s = "PieceIngredient{types: ";
-		for(PieceStack p:pieceArray) {
-			s=s+p.toItemStack(base).getTranslationKey()+", ";
-		}
-		s=s.substring(0,s.length()-2);
-		s+="}";
-		return s;
 	}
 }

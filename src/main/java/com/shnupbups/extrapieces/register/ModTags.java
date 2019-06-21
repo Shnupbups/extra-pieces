@@ -15,15 +15,15 @@ public class ModTags {
 
 	public static void init() {
 		HashMap<PieceType, ArrayList<String>> map = new HashMap<>();
-		for(PieceSet ps: PieceSets.registry.values()) {
-			for(PieceBlock pb:ps.getPieceBlocks()) {
-				if(!map.containsKey(pb.getType())) map.put(pb.getType(),new ArrayList<>());
+		for (PieceSet ps : PieceSets.registry.values()) {
+			for (PieceBlock pb : ps.getPieceBlocks()) {
+				if (!map.containsKey(pb.getType())) map.put(pb.getType(), new ArrayList<>());
 				map.get(pb.getType()).add(Registry.BLOCK.getId(pb.getBlock()).toString());
 			}
 		}
-		for(PieceType pt:map.keySet()) {
-			TagEntryManager.registerToTag(TagType.BLOCK,pt.getTagId(),map.get(pt).toArray(new String[map.get(pt).size()]));
-			TagEntryManager.registerToTag(TagType.ITEM,pt.getTagId(),map.get(pt).toArray(new String[map.get(pt).size()]));
+		for (PieceType pt : map.keySet()) {
+			TagEntryManager.registerToTag(TagType.BLOCK, pt.getTagId(), map.get(pt).toArray(new String[map.get(pt).size()]));
+			TagEntryManager.registerToTag(TagType.ITEM, pt.getTagId(), map.get(pt).toArray(new String[map.get(pt).size()]));
 		}
 	}
 }

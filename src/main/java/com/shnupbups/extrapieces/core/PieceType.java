@@ -1,7 +1,7 @@
 package com.shnupbups.extrapieces.core;
 
 import com.shnupbups.extrapieces.blocks.*;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -24,44 +24,30 @@ public abstract class PieceType {
 
 	private static ArrayList<PieceType> types = new ArrayList<PieceType>();
 
+	static {
+		register(PieceType.BASE);
+		register(PieceType.STAIRS);
+		register(PieceType.SLAB);
+		register(PieceType.SIDING);
+		register(PieceType.WALL);
+		register(PieceType.FENCE);
+		register(PieceType.FENCE_GATE);
+		register(PieceType.POST);
+		register(PieceType.CORNER);
+	}
+
 	private final Identifier id;
 
 	public PieceType(String id) {
-		this(new Identifier("extrapieces",id));
+		this(new Identifier("extrapieces", id));
 	}
 
 	public PieceType(Identifier id) {
 		this.id = id;
 	}
 
-	/**
-	 * Gets the name of this {@link PieceType} with {@code baseName_} appended to the front, in all lowercase.<br>
-	 * Used for registry.
-	 * @return The name of this {@link PieceType}, in all lowercase.
-	 */
-	public String getBlockId(String baseName) {
-		return baseName.toLowerCase()+"_"+getId().getPath();
-	}
-
-	/**
-	 * Gets the id of this {@link PieceType}<br>
-	 * Used for registry.
-	 * @return The id of this {@link PieceType}
-	 */
-	public Identifier getId() {
-		return this.id;
-	}
-
-	/**
-	 * Gets the id of the block and item tag of this {@link PieceType}<br>
-	 * Used for registry.<br>
-	 * Defaults to {@link #getId()} wth an 's' appended
-	 * @return The id of this {@link PieceType}'s tag
-	 */
-	public Identifier getTagId() { return new Identifier(this.id.toString()+"s");}
-
 	public static PieceType register(PieceType type) {
-		if(types.add(type))	return type;
+		if (types.add(type)) return type;
 		return null;
 	}
 
@@ -76,8 +62,8 @@ public abstract class PieceType {
 	}
 
 	public static PieceType getType(Identifier id) {
-		for(PieceType p:types) {
-			if(p.getId().equals(id)) {
+		for (PieceType p : types) {
+			if (p.getId().equals(id)) {
 				return p;
 			}
 		}
@@ -85,11 +71,11 @@ public abstract class PieceType {
 	}
 
 	public static PieceType getType(ItemStack stack) {
-		if(stack.getItem() instanceof BlockItem) {
+		if (stack.getItem() instanceof BlockItem) {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
-			if(block instanceof PieceBlock) {
+			if (block instanceof PieceBlock) {
 				return ((PieceBlock) block).getType();
-			} else if(PieceSets.hasSet(block)) {
+			} else if (PieceSets.hasSet(block)) {
 				return PieceType.BASE;
 			}
 		}
@@ -105,11 +91,46 @@ public abstract class PieceType {
 		return getType(idt);
 	}
 
-	public abstract Block getNew(PieceSet set);
-
 	public static PieceType readPieceType(PacketByteBuf buf) {
 		return getType(buf.readString(buf.readInt()));
 	}
+
+	/**
+	 * Gets the name of this {@link PieceType} with {@code baseName_} appended to the front, in all lowercase.<br>
+	 * Used for registry.
+	 *
+	 * @return The name of this {@link PieceType}, in all lowercase.
+	 */
+	public String getBlockId(String baseName) {
+		return baseName.toLowerCase() + "_" + getId().getPath();
+	}
+
+	/**
+	 * Gets the id of this {@link PieceType}<br>
+	 * Used for registry.
+	 *
+	 * @return The id of this {@link PieceType}
+	 */
+	public Identifier getId() {
+		return this.id;
+	}
+
+	public String getTranslationKey() {
+		return "piece." + id.getNamespace() + "." + id.getPath();
+	}
+
+	/**
+	 * Gets the id of the block and item tag of this {@link PieceType}<br>
+	 * Used for registry.<br>
+	 * Defaults to {@link #getId()} wth an 's' appended
+	 *
+	 * @return The id of this {@link PieceType}'s tag
+	 */
+	public Identifier getTagId() {
+		return new Identifier(this.id.toString() + "s");
+	}
+
+	public abstract Block getNew(PieceSet set);
 
 	public PacketByteBuf writePieceType(PacketByteBuf buf) {
 		buf.writeInt(getId().toString().length());
@@ -145,7 +166,7 @@ public abstract class PieceType {
 		}
 
 		public Identifier getTagId() {
-			return new Identifier("minecraft","stairs");
+			return new Identifier("minecraft", "stairs");
 		}
 	}
 
@@ -159,7 +180,7 @@ public abstract class PieceType {
 		}
 
 		public Identifier getTagId() {
-			return new Identifier("minecraft","slabs");
+			return new Identifier("minecraft", "slabs");
 		}
 	}
 
@@ -183,7 +204,7 @@ public abstract class PieceType {
 		}
 
 		public Identifier getTagId() {
-			return new Identifier("minecraft","walls");
+			return new Identifier("minecraft", "walls");
 		}
 	}
 
@@ -197,7 +218,7 @@ public abstract class PieceType {
 		}
 
 		public Identifier getTagId() {
-			return new Identifier("minecraft","fences");
+			return new Identifier("minecraft", "fences");
 		}
 	}
 
@@ -229,17 +250,5 @@ public abstract class PieceType {
 		public CornerPieceBlock getNew(PieceSet set) {
 			return new CornerPieceBlock(set);
 		}
-	}
-
-	static {
-		register(PieceType.BASE);
-		register(PieceType.STAIRS);
-		register(PieceType.SLAB);
-		register(PieceType.SIDING);
-		register(PieceType.WALL);
-		register(PieceType.FENCE);
-		register(PieceType.FENCE_GATE);
-		register(PieceType.POST);
-		register(PieceType.CORNER);
 	}
 }

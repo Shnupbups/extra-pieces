@@ -1,0 +1,16 @@
+{
+  "parent": "extrapieces:block/piece",
+  "elements": [
+    {   "from": [ 5, 0, 0 ],
+      "to": [ 11, 14, 8 ],
+      "faces": {
+        "down":  { "texture": "#bottom", "cullface": "down" },
+        "up":    { "texture": "#top" },
+        "north": { "texture": "#main", "cullface": "north" },
+        "west":  { "texture": "#main" },
+        "east":  { "texture": "#main" }
+      },
+      "__comment": "wall"
+    }
+  ]
+}

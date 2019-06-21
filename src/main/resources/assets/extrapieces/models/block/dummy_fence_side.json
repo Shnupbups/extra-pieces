@@ -1,0 +1,27 @@
+{
+  "parent": "extrapieces:block/piece",
+  "elements": [
+    {   "from": [ 7, 12, 0 ],
+      "to": [ 9, 15, 9 ],
+      "faces": {
+        "down":  { "uv": [ 7, 0, 9, 9 ], "texture": "#bottom" },
+        "up":    { "uv": [ 7, 0, 9, 9 ], "texture": "#top" },
+        "north": { "uv": [ 7, 1, 9, 4 ], "texture": "#main", "cullface": "north" },
+        "west":  { "uv": [ 0, 1, 9, 4 ], "texture": "#main" },
+        "east":  { "uv": [ 0, 1, 9, 4 ], "texture": "#main" }
+      },
+      "__comment": "top bar"
+    },
+    {   "from": [ 7, 6, 0 ],
+      "to": [ 9, 9, 9 ],
+      "faces": {
+        "down":  { "uv": [ 7, 0, 9,  9 ], "texture": "#bottom" },
+        "up":    { "uv": [ 7, 0, 9,  9 ], "texture": "#top" },
+        "north": { "uv": [ 7, 7, 9, 10 ], "texture": "#main", "cullface": "north" },
+        "west":  { "uv": [ 0, 7, 9, 10 ], "texture": "#main" },
+        "east":  { "uv": [ 0, 7, 9, 10 ], "texture": "#main" }
+      },
+      "__comment": "lower bar"
+    }
+  ]
+}

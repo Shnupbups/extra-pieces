@@ -3,7 +3,6 @@ package com.shnupbups.extrapieces.recipe;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.register.ModRecipes;
@@ -28,119 +27,32 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 	public PieceStack output;
 	public DefaultedList<PieceIngredient> inputs;
 	public String group;
-	public int width,height;
+	public int width, height;
 
 	public PieceRecipe(Identifier id, String group, int width, int height, DefaultedList<PieceIngredient> inputs, PieceStack output) {
 		super(id);
-		this.output=output;
-		this.width=width;
-		this.height=height;
-		this.inputs=inputs;
-		this.group=group;
-	}
-
-	public boolean matches(CraftingInventory c, World world) {
-		ItemStack base = getBase(c);
-		if(base==null||base.equals(ItemStack.EMPTY)||base.getItem()==Items.AIR) return false;
-		else {
-			Block cb = getBaseAsBlock(c);
-			//System.out.println(cb);
-			if (PieceSets.hasSet(cb)) {
-				//System.out.println("has set");
-				if(PieceSets.getSet(cb).hasPiece(output.getType())&&PieceSets.getSet(cb).isCraftable(output.getType())) {
-					//System.out.println("has piece, is craftable");
-					return properMatches(c, world);
-				}
-				//System.out.println("but nope");
-			}
-		}
-		return false;
-	}
-
-	public boolean properMatches(CraftingInventory craftingInventory_1, World world_1) {
-		for(int int_1 = 0; int_1 <= craftingInventory_1.getWidth() - this.width; ++int_1) {
-			for(int int_2 = 0; int_2 <= craftingInventory_1.getHeight() - this.height; ++int_2) {
-				if (this.matchesSmall(craftingInventory_1, int_1, int_2, true)) {
-					return true;
-				}
-				if (this.matchesSmall(craftingInventory_1, int_1, int_2, false)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	private boolean matchesSmall(CraftingInventory craftingInventory_1, int int_1, int int_2, boolean boolean_1) {
-		for(int int_3 = 0; int_3 < craftingInventory_1.getWidth(); ++int_3) {
-			for(int int_4 = 0; int_4 < craftingInventory_1.getHeight(); ++int_4) {
-				int int_5 = int_3 - int_1;
-				int int_6 = int_4 - int_2;
-				PieceIngredient ingredient_1 = PieceIngredient.EMPTY;
-				if (int_5 >= 0 && int_6 >= 0 && int_5 < this.width && int_6 < this.height) {
-					if (boolean_1) {
-						ingredient_1 = (PieceIngredient)this.inputs.get(this.width - int_5 - 1 + int_6 * this.width);
-					} else {
-						ingredient_1 = (PieceIngredient)this.inputs.get(int_5 + int_6 * this.width);
-					}
-				}
-
-				if (!ingredient_1.test(craftingInventory_1.getInvStack(int_3 + int_4 * craftingInventory_1.getWidth()))) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	public ItemStack getBase(CraftingInventory c) {
-		ItemStack base = ItemStack.EMPTY;
-		for(int i = 0; i<c.getInvSize(); i++) {
-			ItemStack stack = c.getInvStack(i);
-			if(stack!=null&&!stack.isEmpty()) {
-				if(base==null||base.equals(ItemStack.EMPTY)) {
-					//System.out.println("inventory base is "+PieceSets.getBase(stack));
-					base = new ItemStack(PieceSets.getBase(stack));
-				} else {
-					if(PieceSets.getBase(stack)==null||!PieceSets.getBase(stack).asItem().equals(base.getItem())) {
-						//System.out.println("inventory base is empty :(");
-						return ItemStack.EMPTY;
-					}
-				}
-			}
-		}
-		//System.out.println("returning base "+base);
-		return base;
-	}
-
-	public Block getBaseAsBlock(CraftingInventory c) {
-		ItemStack stack = getBase(c);
-		return ((BlockItem)stack.getItem()).getBlock();
-	}
-
-	public ItemStack craft(CraftingInventory c) {
-		return output.toItemStack(getBaseAsBlock(c));
-	}
-
-	public boolean fits(int width, int height) {
-		return this.width<=width&&this.height<=height;
+		this.output = output;
+		this.width = width;
+		this.height = height;
+		this.inputs = inputs;
+		this.group = group;
 	}
 
 	public static Map<String, PieceIngredient> getComponents(JsonObject json) {
 		Map<String, PieceIngredient> components = Maps.newHashMap();
 		Iterator var2 = json.entrySet().iterator();
 
-		while(var2.hasNext()) {
-			Map.Entry<String, JsonElement> map$Entry_1 = (Map.Entry)var2.next();
-			if (((String)map$Entry_1.getKey()).length() != 1) {
-				throw new JsonSyntaxException("Invalid key entry: '" + (String)map$Entry_1.getKey() + "' is an invalid symbol (must be 1 character only).");
+		while (var2.hasNext()) {
+			Map.Entry<String, JsonElement> map$Entry_1 = (Map.Entry) var2.next();
+			if (((String) map$Entry_1.getKey()).length() != 1) {
+				throw new JsonSyntaxException("Invalid key entry: '" + (String) map$Entry_1.getKey() + "' is an invalid symbol (must be 1 character only).");
 			}
 
 			if (" ".equals(map$Entry_1.getKey())) {
 				throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
 			}
 
-			components.put(map$Entry_1.getKey(), PieceIngredient.fromJson((JsonElement)map$Entry_1.getValue()));
+			components.put(map$Entry_1.getKey(), PieceIngredient.fromJson((JsonElement) map$Entry_1.getValue()));
 		}
 
 		components.put(" ", PieceIngredient.EMPTY);
@@ -152,10 +64,10 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		Set<String> set_1 = Sets.newHashSet(map_1.keySet());
 		set_1.remove(" ");
 
-		for(int int_3 = 0; int_3 < strings_1.length; ++int_3) {
-			for(int int_4 = 0; int_4 < strings_1[int_3].length(); ++int_4) {
+		for (int int_3 = 0; int_3 < strings_1.length; ++int_3) {
+			for (int int_4 = 0; int_4 < strings_1[int_3].length(); ++int_4) {
 				String string_1 = strings_1[int_3].substring(int_4, int_4 + 1);
-				PieceIngredient ingredient_1 = (PieceIngredient)map_1.get(string_1);
+				PieceIngredient ingredient_1 = (PieceIngredient) map_1.get(string_1);
 				if (ingredient_1 == null) {
 					throw new JsonSyntaxException("Pattern references symbol '" + string_1 + "' but it's not defined in the key");
 				}
@@ -178,7 +90,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		int int_3 = 0;
 		int int_4 = 0;
 
-		for(int int_5 = 0; int_5 < strings_1.length; ++int_5) {
+		for (int int_5 = 0; int_5 < strings_1.length; ++int_5) {
 			String string_1 = strings_1[int_5];
 			int_1 = Math.min(int_1, findNextIngredient(string_1));
 			int int_6 = findNextIngredientReverse(string_1);
@@ -199,7 +111,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		} else {
 			String[] strings_2 = new String[strings_1.length - int_4 - int_3];
 
-			for(int int_7 = 0; int_7 < strings_2.length; ++int_7) {
+			for (int int_7 = 0; int_7 < strings_2.length; ++int_7) {
 				strings_2[int_7] = strings_1[int_7 + int_3].substring(int_1, int_2 + 1);
 			}
 
@@ -209,7 +121,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 
 	private static int findNextIngredient(String string_1) {
 		int int_1;
-		for(int_1 = 0; int_1 < string_1.length() && string_1.charAt(int_1) == ' '; ++int_1) {
+		for (int_1 = 0; int_1 < string_1.length() && string_1.charAt(int_1) == ' '; ++int_1) {
 		}
 
 		return int_1;
@@ -217,7 +129,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 
 	private static int findNextIngredientReverse(String string_1) {
 		int int_1;
-		for(int_1 = string_1.length() - 1; int_1 >= 0 && string_1.charAt(int_1) == ' '; --int_1) {
+		for (int_1 = string_1.length() - 1; int_1 >= 0 && string_1.charAt(int_1) == ' '; --int_1) {
 		}
 
 		return int_1;
@@ -230,7 +142,7 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 		} else if (strings_1.length == 0) {
 			throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
 		} else {
-			for(int int_1 = 0; int_1 < strings_1.length; ++int_1) {
+			for (int int_1 = 0; int_1 < strings_1.length; ++int_1) {
 				String string_1 = JsonHelper.asString(jsonArray_1.get(int_1), "pattern[" + int_1 + "]");
 				if (string_1.length() > 3) {
 					throw new JsonSyntaxException("Invalid pattern: too many columns, 3 is maximum");
@@ -256,8 +168,95 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 			throw new JsonParseException("Disallowed data tag found");
 		} else {
 			int count = JsonHelper.getInt(jsonObject_1, "count", 1);
-			return new PieceStack(pieceType,count);
+			return new PieceStack(pieceType, count);
 		}
+	}
+
+	public boolean matches(CraftingInventory c, World world) {
+		ItemStack base = getBase(c);
+		if (base == null || base.equals(ItemStack.EMPTY) || base.getItem() == Items.AIR) return false;
+		else {
+			Block cb = getBaseAsBlock(c);
+			//System.out.println(cb);
+			if (PieceSets.hasSet(cb)) {
+				//System.out.println("has set");
+				if (PieceSets.getSet(cb).hasPiece(output.getType()) && PieceSets.getSet(cb).isCraftable(output.getType())) {
+					//System.out.println("has piece, is craftable");
+					return properMatches(c, world);
+				}
+				//System.out.println("but nope");
+			}
+		}
+		return false;
+	}
+
+	public boolean properMatches(CraftingInventory craftingInventory_1, World world_1) {
+		for (int int_1 = 0; int_1 <= craftingInventory_1.getWidth() - this.width; ++int_1) {
+			for (int int_2 = 0; int_2 <= craftingInventory_1.getHeight() - this.height; ++int_2) {
+				if (this.matchesSmall(craftingInventory_1, int_1, int_2, true)) {
+					return true;
+				}
+				if (this.matchesSmall(craftingInventory_1, int_1, int_2, false)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean matchesSmall(CraftingInventory craftingInventory_1, int int_1, int int_2, boolean boolean_1) {
+		for (int int_3 = 0; int_3 < craftingInventory_1.getWidth(); ++int_3) {
+			for (int int_4 = 0; int_4 < craftingInventory_1.getHeight(); ++int_4) {
+				int int_5 = int_3 - int_1;
+				int int_6 = int_4 - int_2;
+				PieceIngredient ingredient_1 = PieceIngredient.EMPTY;
+				if (int_5 >= 0 && int_6 >= 0 && int_5 < this.width && int_6 < this.height) {
+					if (boolean_1) {
+						ingredient_1 = (PieceIngredient) this.inputs.get(this.width - int_5 - 1 + int_6 * this.width);
+					} else {
+						ingredient_1 = (PieceIngredient) this.inputs.get(int_5 + int_6 * this.width);
+					}
+				}
+
+				if (!ingredient_1.test(craftingInventory_1.getInvStack(int_3 + int_4 * craftingInventory_1.getWidth()))) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public ItemStack getBase(CraftingInventory c) {
+		ItemStack base = ItemStack.EMPTY;
+		for (int i = 0; i < c.getInvSize(); i++) {
+			ItemStack stack = c.getInvStack(i);
+			if (stack != null && !stack.isEmpty()) {
+				if (base == null || base.equals(ItemStack.EMPTY)) {
+					//System.out.println("inventory base is "+PieceSets.getBase(stack));
+					base = new ItemStack(PieceSets.getBase(stack));
+				} else {
+					if (PieceSets.getBase(stack) == null || !PieceSets.getBase(stack).asItem().equals(base.getItem())) {
+						//System.out.println("inventory base is empty :(");
+						return ItemStack.EMPTY;
+					}
+				}
+			}
+		}
+		//System.out.println("returning base "+base);
+		return base;
+	}
+
+	public Block getBaseAsBlock(CraftingInventory c) {
+		ItemStack stack = getBase(c);
+		return ((BlockItem) stack.getItem()).getBlock();
+	}
+
+	public ItemStack craft(CraftingInventory c) {
+		return output.toItemStack(getBaseAsBlock(c));
+	}
+
+	public boolean fits(int width, int height) {
+		return this.width <= width && this.height <= height;
 	}
 
 	public RecipeSerializer getSerializer() {
@@ -265,22 +264,22 @@ public class PieceRecipe extends SpecialCraftingRecipe {
 	}
 
 	public String toString() {
-		String s = "PieceRecipe{ width: "+width+" height: "+height+" group: "+group+" output: "+output.getType().getId()+"*"+output.getCount()+" inputs: ";
-		for(PieceIngredient i:inputs) {
-			s+=i.toString()+", ";
+		String s = "PieceRecipe{ width: " + width + " height: " + height + " group: " + group + " output: " + output.getType().getId() + "*" + output.getCount() + " inputs: ";
+		for (PieceIngredient i : inputs) {
+			s += i.toString() + ", ";
 		}
-		s=s.substring(0,s.length()-2);
-		s+="}";
+		s = s.substring(0, s.length() - 2);
+		s += "}";
 		return s;
 	}
 
 	public String toString(Block base) {
-		String s = "PieceRecipe{ width: "+width+" height: "+height+" group: "+group+" output: "+PieceSets.getPiece(base,output.getType())+"*"+output.getCount()+" inputs: ";
-		for(PieceIngredient i:inputs) {
-			s+=i.toString(base)+", ";
+		String s = "PieceRecipe{ width: " + width + " height: " + height + " group: " + group + " output: " + PieceSets.getPiece(base, output.getType()) + "*" + output.getCount() + " inputs: ";
+		for (PieceIngredient i : inputs) {
+			s += i.toString(base) + ", ";
 		}
-		s=s.substring(0,s.length()-2);
-		s+="}";
+		s = s.substring(0, s.length() - 2);
+		s += "}";
 		return s;
 	}
 }

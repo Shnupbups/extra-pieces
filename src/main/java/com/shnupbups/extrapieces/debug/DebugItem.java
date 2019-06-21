@@ -1,6 +1,5 @@
 package com.shnupbups.extrapieces.debug;
 
-import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSets;
 import net.minecraft.block.BlockState;
@@ -17,7 +16,7 @@ public class DebugItem extends Item {
 
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
-		if(!context.getWorld().isClient()) {
+		if (!context.getWorld().isClient()) {
 			BlockPos pos = context.getBlockPos();
 			BlockState state = context.getWorld().getBlockState(pos);
 			context.getPlayer().getItemCooldownManager().set(this, 20);

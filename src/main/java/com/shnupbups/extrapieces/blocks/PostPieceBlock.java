@@ -28,25 +28,39 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 	protected static final VoxelShape X_SHAPE;
 	protected static final VoxelShape Z_SHAPE;
 	protected static final VoxelShape Y_COLLISION;
+
+	static {
+		AXIS = Properties.AXIS;
+		WATERLOGGED = Properties.WATERLOGGED;
+		Y_SHAPE = Block.createCuboidShape(6f, 0f, 6f, 10f, 16f, 10f);
+		Y_COLLISION = Block.createCuboidShape(6f, 0f, 6f, 10f, 24f, 10f);
+		X_SHAPE = Block.createCuboidShape(0f, 6f, 6f, 16f, 10f, 10f);
+		Z_SHAPE = Block.createCuboidShape(6f, 6f, 0f, 10f, 10f, 16f);
+	}
+
 	private final PieceSet set;
 
 	public PostPieceBlock(PieceSet set) {
 		super(Block.Settings.copy(set.getBase()));
-		this.set=set;
+		this.set = set;
 		this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, false));
 	}
 
-	public Block getBlock() { return this; }
+	public Block getBlock() {
+		return this;
+	}
 
 	public PieceSet getSet() {
 		return set;
 	}
 
-	public PieceType getType() {return PieceType.POST;}
+	public PieceType getType() {
+		return PieceType.POST;
+	}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
 		Direction.Axis axis = blockState_1.get(AXIS);
-		switch(axis) {
+		switch (axis) {
 			case X:
 				return X_SHAPE;
 			case Z:
@@ -58,15 +72,15 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 
 	public VoxelShape getCollisionShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
 		Direction.Axis axis = blockState_1.get(AXIS);
-		if(axis == Direction.Axis.Y) return Y_COLLISION;
+		if (axis == Direction.Axis.Y) return Y_COLLISION;
 		else return super.getCollisionShape(blockState_1, blockView_1, blockPos_1, verticalEntityPosition_1);
 	}
 
 	public BlockState rotate(BlockState blockState_1, BlockRotation rotation_1) {
-		switch(rotation_1) {
+		switch (rotation_1) {
 			case COUNTERCLOCKWISE_90:
 			case CLOCKWISE_90:
-				switch(blockState_1.get(AXIS)) {
+				switch (blockState_1.get(AXIS)) {
 					case X:
 						return blockState_1.with(AXIS, Direction.Axis.Z);
 					case Z:
@@ -102,14 +116,5 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 
 	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, BlockPlacementEnvironment blockPlacementEnvironment_1) {
 		return false;
-	}
-
-	static {
-		AXIS = Properties.AXIS;
-		WATERLOGGED = Properties.WATERLOGGED;
-		Y_SHAPE = Block.createCuboidShape(6f, 0f, 6f, 10f, 16f, 10f);
-		Y_COLLISION = Block.createCuboidShape(6f, 0f, 6f, 10f, 24f, 10f);
-		X_SHAPE = Block.createCuboidShape(0f, 6f, 6f, 16f, 10f, 10f);
-		Z_SHAPE = Block.createCuboidShape(6f, 6f, 0f, 10f, 10f, 16f);
 	}
 }

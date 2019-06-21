@@ -13,11 +13,15 @@ public class SlabPieceBlock extends SlabBlock implements PieceBlock {
 		this.set = set;
 	}
 
-	public Block getBlock() { return this; }
+	public Block getBlock() {
+		return this;
+	}
 
 	public PieceSet getSet() {
 		return set;
 	}
 
-	public PieceType getType() {return PieceType.SLAB;}
+	public PieceType getType() {
+		return PieceType.SLAB;
+	}
 }

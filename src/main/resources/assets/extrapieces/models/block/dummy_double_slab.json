@@ -1,0 +1,16 @@
+{
+    "parent": "extrapieces:block/piece",
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#bottom", "cullface": "down" },
+                "up":    { "texture": "#top", "cullface": "up" },
+                "north": { "texture": "#main", "cullface": "north" },
+                "south": { "texture": "#main", "cullface": "south" },
+                "west":  { "texture": "#main", "cullface": "west" },
+                "east":  { "texture": "#main", "cullface": "east" }
+            }
+        }
+    ]
+}
