@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:prismarine"
-  },
-  "result": "extrapieces:prismarine_fence",
-  "count": 1
-}

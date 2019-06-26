@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:light_gray_concrete"
-  },
-  "result": "extrapieces:light_gray_concrete_fence",
-  "count": 1
-}

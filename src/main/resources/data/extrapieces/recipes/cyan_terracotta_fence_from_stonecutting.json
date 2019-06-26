@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:cyan_terracotta"
-  },
-  "result": "extrapieces:cyan_terracotta_fence",
-  "count": 1
-}

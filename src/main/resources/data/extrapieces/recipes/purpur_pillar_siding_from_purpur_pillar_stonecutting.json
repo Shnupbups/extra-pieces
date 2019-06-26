@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:purpur_pillar"
-  },
-  "result": "extrapieces:purpur_pillar_siding",
-  "count": 2
-}

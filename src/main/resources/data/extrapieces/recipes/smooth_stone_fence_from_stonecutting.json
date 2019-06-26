@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:smooth_stone"
-  },
-  "result": "extrapieces:smooth_stone_fence",
-  "count": 1
-}

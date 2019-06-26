@@ -22,6 +22,7 @@ public class ModTags {
 			}
 		}
 		for (PieceType pt : map.keySet()) {
+			TagEntryManager.getTagLocation(pt.getTagId()).delete();
 			TagEntryManager.registerToTag(TagType.BLOCK, pt.getTagId(), map.get(pt).toArray(new String[map.get(pt).size()]));
 			TagEntryManager.registerToTag(TagType.ITEM, pt.getTagId(), map.get(pt).toArray(new String[map.get(pt).size()]));
 		}

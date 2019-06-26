@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:dead_brain_coral_block"
-  },
-  "result": "extrapieces:dead_brain_coral_corner",
-  "count": 1
-}

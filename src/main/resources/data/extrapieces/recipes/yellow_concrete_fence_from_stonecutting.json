@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:yellow_concrete"
-  },
-  "result": "extrapieces:yellow_concrete_fence",
-  "count": 1
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:pink_terracotta"
-  },
-  "result": "extrapieces:pink_terracotta_corner",
-  "count": 1
-}

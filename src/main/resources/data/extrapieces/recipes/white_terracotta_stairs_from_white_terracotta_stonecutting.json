@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:white_terracotta"
-  },
-  "result": "extrapieces:white_terracotta_stairs",
-  "count": 1
-}

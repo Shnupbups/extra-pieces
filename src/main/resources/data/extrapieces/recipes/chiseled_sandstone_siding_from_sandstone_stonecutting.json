@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:sandstone"
-  },
-  "result": "extrapieces:chiseled_sandstone_siding",
-  "count": 2
-}

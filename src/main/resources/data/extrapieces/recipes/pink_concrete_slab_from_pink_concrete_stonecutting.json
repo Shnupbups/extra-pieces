@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:pink_concrete"
-  },
-  "result": "extrapieces:pink_concrete_slab",
-  "count": 2
-}

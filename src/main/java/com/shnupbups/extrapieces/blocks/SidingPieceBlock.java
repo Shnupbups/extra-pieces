@@ -1,6 +1,5 @@
 package com.shnupbups.extrapieces.blocks;
 
-import com.shnupbups.extrapieces.SidingType;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.register.ModProperties;
@@ -28,7 +27,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 
 public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock {
-	public static final EnumProperty<SidingType> TYPE;
+	public static final EnumProperty<ModProperties.SidingType> TYPE;
 	public static final BooleanProperty WATERLOGGED;
 	public static final DirectionProperty FACING_HORIZONTAL;
 	protected static final VoxelShape SINGLE_SHAPE_SOUTH;
@@ -51,7 +50,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	public SidingPieceBlock(PieceSet set) {
 		super(Block.Settings.copy(set.getBase()));
 		this.set = set;
-		this.setDefaultState(this.getDefaultState().with(TYPE, SidingType.SINGLE).with(FACING_HORIZONTAL, Direction.NORTH).with(WATERLOGGED, false));
+		this.setDefaultState(this.getDefaultState().with(TYPE, ModProperties.SidingType.SINGLE).with(FACING_HORIZONTAL, Direction.NORTH).with(WATERLOGGED, false));
 	}
 
 	public Block getBlock() {
@@ -67,7 +66,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
-		return blockState_1.get(TYPE) != SidingType.DOUBLE;
+		return blockState_1.get(TYPE) != ModProperties.SidingType.DOUBLE;
 	}
 
 	protected void appendProperties(StateFactory.Builder<Block, BlockState> stateFactory$Builder_1) {
@@ -75,7 +74,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
-		SidingType slabType_1 = blockState_1.get(TYPE);
+		ModProperties.SidingType slabType_1 = blockState_1.get(TYPE);
 		Direction facing = blockState_1.get(FACING_HORIZONTAL);
 		switch (slabType_1) {
 			case DOUBLE:
@@ -98,7 +97,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 		BlockPos blockPos_1 = itemPlacementContext_1.getBlockPos();
 		BlockState blockState_1 = itemPlacementContext_1.getWorld().getBlockState(blockPos_1);
 		if (blockState_1.getBlock() == this) {
-			return blockState_1.with(TYPE, SidingType.DOUBLE).with(FACING_HORIZONTAL, blockState_1.get(FACING_HORIZONTAL)).with(WATERLOGGED, false);
+			return blockState_1.with(TYPE, ModProperties.SidingType.DOUBLE).with(FACING_HORIZONTAL, blockState_1.get(FACING_HORIZONTAL)).with(WATERLOGGED, false);
 		} else {
 			FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
 			Direction playerHorizontalFacing = itemPlacementContext_1.getPlayerFacing();
@@ -115,7 +114,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 					else direction_1 = Direction.SOUTH;
 				}
 			}
-			BlockState blockState_2 = this.getDefaultState().with(TYPE, SidingType.SINGLE).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER).with(FACING_HORIZONTAL, direction_1);
+			BlockState blockState_2 = this.getDefaultState().with(TYPE, ModProperties.SidingType.SINGLE).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER).with(FACING_HORIZONTAL, direction_1);
 			return blockState_2;
 		}
 	}
@@ -123,9 +122,9 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	public boolean canReplace(BlockState blockState_1, ItemPlacementContext itemPlacementContext_1) {
 		if (itemPlacementContext_1.getPlayer().isSneaking()) return false;
 		ItemStack itemStack_1 = itemPlacementContext_1.getStack();
-		SidingType slabType_1 = blockState_1.get(TYPE);
+		ModProperties.SidingType slabType_1 = blockState_1.get(TYPE);
 		Direction facing = blockState_1.get(FACING_HORIZONTAL);
-		if (slabType_1 != SidingType.DOUBLE && itemStack_1.getItem() == this.asItem()) {
+		if (slabType_1 != ModProperties.SidingType.DOUBLE && itemStack_1.getItem() == this.asItem()) {
 			if (itemPlacementContext_1.canReplaceExisting()) {
 				boolean boolean_1;
 				switch (facing) {
@@ -156,11 +155,11 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 
 	public boolean tryFillWithFluid(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1, FluidState fluidState_1) {
-		return blockState_1.get(TYPE) != SidingType.DOUBLE ? Waterloggable.super.tryFillWithFluid(iWorld_1, blockPos_1, blockState_1, fluidState_1) : false;
+		return blockState_1.get(TYPE) != ModProperties.SidingType.DOUBLE && Waterloggable.super.tryFillWithFluid(iWorld_1, blockPos_1, blockState_1, fluidState_1);
 	}
 
 	public boolean canFillWithFluid(BlockView blockView_1, BlockPos blockPos_1, BlockState blockState_1, Fluid fluid_1) {
-		return blockState_1.get(TYPE) != SidingType.DOUBLE ? Waterloggable.super.canFillWithFluid(blockView_1, blockPos_1, blockState_1, fluid_1) : false;
+		return blockState_1.get(TYPE) != ModProperties.SidingType.DOUBLE && Waterloggable.super.canFillWithFluid(blockView_1, blockPos_1, blockState_1, fluid_1);
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
@@ -174,7 +173,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, BlockPlacementEnvironment blockPlacementEnvironment_1) {
 		switch (blockPlacementEnvironment_1) {
 			case LAND:
-				return blockState_1.get(TYPE) == SidingType.SINGLE;
+				return blockState_1.get(TYPE) == ModProperties.SidingType.SINGLE;
 			case WATER:
 				return blockView_1.getFluidState(blockPos_1).matches(FluidTags.WATER);
 			case AIR:

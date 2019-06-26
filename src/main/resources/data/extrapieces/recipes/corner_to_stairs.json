@@ -1,0 +1,12 @@
+{
+  "type": "extrapieces:piece_crafting_shapeless",
+  "ingredients": [
+    {
+      "piece": "extrapieces:corner"
+    }
+  ],
+  "result": {
+    "piece": "extrapieces:stairs",
+    "count": 1
+  }
+}

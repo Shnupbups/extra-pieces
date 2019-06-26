@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:sandstone"
-  },
-  "result": "extrapieces:sandstone_fence_gate",
-  "count": 1
-}

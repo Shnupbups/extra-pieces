@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:quartz_pillar"
-  },
-  "result": "extrapieces:quartz_pillar_wall",
-  "count": 1
-}

@@ -16,6 +16,7 @@ import java.io.IOException;
 public class EPConfig {
 
 	public static EPConfig config;
+	private static int setsNum = 0;
 
 	public static void init() {
 		File configFile = new File(FabricLoader.getInstance().getConfigDirectory(), "extrapieces.json");
@@ -27,8 +28,9 @@ public class EPConfig {
 				JsonObject jsonSet = (JsonObject) sets.get(s);
 				PieceSet setPieceSet = PieceSet.fromJson(s, jsonSet);
 				setPieceSet.register();
-				System.out.println("[Extra Pieces] Registered set " + s);
+				setsNum++;
 			}
+			System.out.println("[Extra Pieces] Registered "+setsNum+" PieceSets!");
 		} catch (IOException e) {
 			System.out.println("[Extra Pieces] No config found, generating!");
 			generate(configFile);

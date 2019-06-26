@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:yellow_terracotta"
-  },
-  "result": "extrapieces:yellow_terracotta_corner",
-  "count": 1
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:polished_diorite"
-  },
-  "result": "extrapieces:polished_diorite_wall",
-  "count": 1
-}

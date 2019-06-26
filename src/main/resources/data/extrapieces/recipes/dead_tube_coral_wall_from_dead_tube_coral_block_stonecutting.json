@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:dead_tube_coral_block"
-  },
-  "result": "extrapieces:dead_tube_coral_wall",
-  "count": 1
-}

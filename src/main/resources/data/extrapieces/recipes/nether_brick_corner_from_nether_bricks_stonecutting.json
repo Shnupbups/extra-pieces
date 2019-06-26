@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:nether_bricks"
-  },
-  "result": "extrapieces:nether_brick_corner",
-  "count": 1
-}

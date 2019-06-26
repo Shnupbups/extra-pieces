@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:iron_block"
-  },
-  "result": "extrapieces:iron_fence",
-  "count": 1
-}
