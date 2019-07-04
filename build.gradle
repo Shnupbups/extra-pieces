@@ -23,6 +23,7 @@ repositories {
             password ""
 		}
     }
+	maven { url "https://jitpack.io" }
 }
 
 dependencies {
