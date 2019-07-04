@@ -37,7 +37,7 @@ dependencies {
 	
 	// JSON Model Extensions (jmx)
 	modImplementation "grondag:jmx:${project.jmx_version}"
-	include "grondag:jmx:{project.jmx_version}"
+	include "grondag:jmx:${project.jmx_version}"
 	
 	// Artifice
 	modImplementation "com.github.swordglowsblue:artifice:${project.artifice_version}"
