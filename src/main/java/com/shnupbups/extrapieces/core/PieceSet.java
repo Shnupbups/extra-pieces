@@ -323,6 +323,7 @@ public class PieceSet {
 	 * @return The {@link PieceType} from this {@link PieceSet}, or null if no such PieceType exists.
 	 */
 	public Block getPiece(PieceType piece) {
+		if (piece.equals(PieceType.BASE)) return getBase();
 		if (!isGenerated()) generate();
 		if (hasPiece(piece)) return pieces.get(piece).getBlock();
 		return null;
@@ -402,13 +403,13 @@ public class PieceSet {
 	}
 
 	public List<PieceType> getExcludedTypes() {
-		ArrayList et = (ArrayList<PieceType>) PieceType.getTypesNoBase().clone();
+		ArrayList<PieceType> et = new ArrayList<>(PieceType.getTypesNoBase());
 		et.removeAll(this.getPieceTypes());
 		return et;
 	}
 
 	public List<PieceType> getUncraftableTypes() {
-		ArrayList uc = ((ArrayList<PieceType>) uncraftable.clone());
+		ArrayList<PieceType> uc = new ArrayList<>(uncraftable);
 		uc.removeAll(this.getVanillaTypes());
 		return uc;
 	}

@@ -15,9 +15,6 @@ minecraft {
 
 repositories {
     maven { url "https://minecraft.curseforge.com/api/maven"}
-	maven { url "http://server.bbkr.space:8081/artifactory/libs-snapshot"}
-	maven { url "http://server.bbkr.space:8081/artifactory/libs-release"}
-	maven { url "https://maven.jamieswhiteshirt.com/libs-release/"}
 	maven {
     	name = "grondag"
     	url = "https://grondag-repo.appspot.com"
@@ -37,16 +34,13 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	// Cotton API
-	modCompile ("io.github.cottonmc:cotton:${project.cotton_version}") { transitive = false }
-	include "io.github.cottonmc:cotton:${project.cotton_version}"
-	
-	// LibCD
-	modCompile ("io.github.cottonmc:LibCD:${project.libcd_version}") { transitive = false }
-	
 	// JSON Model Extensions (jmx)
-	modCompile "grondag:jmx:${project.jmx_version}"
+	modImplementation "grondag:jmx:${project.jmx_version}"
 	include "grondag:jmx:{project.jmx_version}"
+	
+	// Artifice
+	modImplementation "com.github.swordglowsblue:artifice:${project.artifice_version}"
+	include "com.github.swordglowsblue:artifice:${project.artifice_version}"
 	
 	// stuff for dev env
 	modCompile "io.github.prospector.modmenu:ModMenu:${project.modmenu_version}"

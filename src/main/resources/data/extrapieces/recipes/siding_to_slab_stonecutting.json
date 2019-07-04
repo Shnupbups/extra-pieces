@@ -1,8 +1,0 @@
-{
-  "type": "extrapieces:piece_stonecutting",
-  "ingredient": {
-    "piece": "extrapieces:siding"
-  },
-  "result": "extrapieces:slab",
-  "count": 1
-}

@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.core;
 
+import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -39,7 +40,7 @@ public abstract class PieceType {
 	private final Identifier id;
 
 	public PieceType(String id) {
-		this(new Identifier("extrapieces", id));
+		this(ExtraPieces.getID(id));
 	}
 
 	public PieceType(Identifier id) {
@@ -142,7 +143,19 @@ public abstract class PieceType {
 		return getId().toString();
 	}
 
-	public static class BasePiece extends PieceType {
+	public ArrayList<ShapedPieceRecipe> getRecipes() {
+		return new ArrayList<>();
+	}
+
+	public StonecuttingPieceRecipe getStonecuttingRecipe() {
+		return new StonecuttingPieceRecipe(this,getStonecuttingCount(),PieceType.BASE);
+	}
+
+	public int getStonecuttingCount() {
+		return 1;
+	}
+
+	public static final class BasePiece extends PieceType {
 		public BasePiece() {
 			super("base");
 		}
@@ -168,6 +181,12 @@ public abstract class PieceType {
 		public Identifier getTagId() {
 			return new Identifier("minecraft", "stairs");
 		}
+
+		public ArrayList<ShapedPieceRecipe> getRecipes() {
+			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
+			recipes.add(new ShapedPieceRecipe(this,4,"b  ", "bb ", "bbb").addToKey('b',BASE));
+			return recipes;
+		}
 	}
 
 	public static class SlabPiece extends PieceType {
@@ -182,6 +201,16 @@ public abstract class PieceType {
 		public Identifier getTagId() {
 			return new Identifier("minecraft", "slabs");
 		}
+
+		public ArrayList<ShapedPieceRecipe> getRecipes() {
+			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
+			recipes.add(new ShapedPieceRecipe(this,6,"bbb").addToKey('b',BASE));
+			return recipes;
+		}
+
+		public int getStonecuttingCount() {
+			return 2;
+		}
 	}
 
 	public static class SidingPiece extends PieceType {
@@ -191,6 +220,16 @@ public abstract class PieceType {
 
 		public SidingPieceBlock getNew(PieceSet set) {
 			return new SidingPieceBlock(set);
+		}
+
+		public ArrayList<ShapedPieceRecipe> getRecipes() {
+			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
+			recipes.add(new ShapedPieceRecipe(this,6,"b", "b", "b").addToKey('b',BASE));
+			return recipes;
+		}
+
+		public int getStonecuttingCount() {
+			return 2;
 		}
 	}
 
@@ -205,6 +244,12 @@ public abstract class PieceType {
 
 		public Identifier getTagId() {
 			return new Identifier("minecraft", "walls");
+		}
+
+		public ArrayList<ShapedPieceRecipe> getRecipes() {
+			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
+			recipes.add(new ShapedPieceRecipe(this,6,"bbb", "bbb").addToKey('b',BASE));
+			return recipes;
 		}
 	}
 
@@ -249,6 +294,12 @@ public abstract class PieceType {
 
 		public CornerPieceBlock getNew(PieceSet set) {
 			return new CornerPieceBlock(set);
+		}
+
+		public ArrayList<ShapedPieceRecipe> getRecipes() {
+			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
+			recipes.add(new ShapedPieceRecipe(this,4,"bbb", "bb ", "b  ").addToKey('b',BASE));
+			return recipes;
 		}
 	}
 }

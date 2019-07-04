@@ -3,6 +3,8 @@ package com.shnupbups.extrapieces.blocks;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 
 public class FakePieceBlock implements PieceBlock {
 	public final PieceType type;
@@ -25,5 +27,9 @@ public class FakePieceBlock implements PieceBlock {
 
 	public Block getBlock() {
 		return block;
+	}
+
+	public Item asItem() {
+		return getBlock().asItem();
 	}
 }

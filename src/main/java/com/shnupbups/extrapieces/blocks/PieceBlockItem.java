@@ -5,8 +5,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 public class PieceBlockItem extends BlockItem {
 
@@ -23,7 +23,7 @@ public class PieceBlockItem extends BlockItem {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public Component getName(ItemStack stack) {
-		return new TranslatableComponent(getPieceBlock().getType().getTranslationKey(), new TranslatableComponent(getPieceBlock().getSet().getTranslationKey()));
+	public Text getName(ItemStack stack) {
+		return new TranslatableText(getPieceBlock().getType().getTranslationKey(), new TranslatableText(getPieceBlock().getSet().getTranslationKey()));
 	}
 }

@@ -1,8 +1,0 @@
-{
-  "type": "extrapieces:piece_stonecutting",
-  "ingredient": {
-    "piece": "extrapieces:base"
-  },
-  "result": "extrapieces:stairs",
-  "count": 1
-}

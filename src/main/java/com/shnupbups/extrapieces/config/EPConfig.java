@@ -3,6 +3,7 @@ package com.shnupbups.extrapieces.config;
 import blue.endless.jankson.Jankson;
 import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.impl.SyntaxError;
+import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.register.ModBlocks;
@@ -21,7 +22,7 @@ public class EPConfig {
 	public static void init() {
 		File configFile = new File(FabricLoader.getInstance().getConfigDirectory(), "extrapieces.json");
 		try (FileReader reader = new FileReader(configFile)) {
-			System.out.println("[Extra Pieces] Loading config!");
+			ExtraPieces.log("Loading config!");
 			JsonObject cfg = Jankson.builder().build().load(configFile);
 			JsonObject sets = cfg.getObject("sets");
 			for (String s : sets.keySet()) {
@@ -30,12 +31,12 @@ public class EPConfig {
 				setPieceSet.register();
 				setsNum++;
 			}
-			System.out.println("[Extra Pieces] Registered "+setsNum+" PieceSets!");
+			ExtraPieces.log("Registered "+setsNum+" PieceSets!");
 		} catch (IOException e) {
-			System.out.println("[Extra Pieces] No config found, generating!");
+			ExtraPieces.log("No config found, generating!");
 			generate(configFile);
 		} catch (SyntaxError e) {
-			System.out.println("[Extra Pieces] Config has invalid syntax!");
+			ExtraPieces.log("Config has invalid syntax!");
 		}
 	}
 
@@ -51,7 +52,7 @@ public class EPConfig {
 			cfg.put("sets", sets);
 			writer.write(cfg.toJson(false, true));
 		} catch (IOException e2) {
-			System.out.println("[Extra Pieces] Failed to write to config file!");
+			ExtraPieces.log("Failed to write to config file!");
 		}
 	}
 
