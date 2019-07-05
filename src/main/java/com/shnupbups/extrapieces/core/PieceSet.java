@@ -63,7 +63,7 @@ public class PieceSet {
 		this.mainTexture = new Identifier(id.getNamespace(), "block/" + id.getPath());
 		this.topTexture = mainTexture;
 		this.bottomTexture = topTexture;
-		this.opaque = base.isOpaque(base.getDefaultState());
+		this.opaque = base.getDefaultState().isOpaque();
 		this.genTypes = types.toArray(new PieceType[types.size()]);
 		PieceSets.registerSet(base, this);
 		this.stonecuttable = (base.getDefaultState().getMaterial().equals(Material.STONE) || base.getDefaultState().getMaterial().equals(Material.METAL));

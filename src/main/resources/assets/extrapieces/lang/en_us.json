@@ -73,7 +73,7 @@
   "pieceSet.jungle_leaf": "Jungle Leaf",
   "pieceSet.acacia_leaf": "Acacia Leaf",
   "pieceSet.dark_oak_leaf": "Dark Oak Leaf",
-  "pieceSet.dummy": "Debug",
+  "pieceSet.dummy": "Dummy",
 
   "item.extrapieces.debug_item": "Extra Pieces Debug Item"
 }

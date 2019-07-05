@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityContext;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -190,5 +191,10 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 
 	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, BlockPlacementEnvironment blockPlacementEnvironment_1) {
 		return false;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public boolean isSideInvisible(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
+		return getSet().isTransparent() ? (blockState_2.getBlock() == this ? true : super.isSideInvisible(blockState_1, blockState_2, direction_1)) : super.isSideInvisible(blockState_1, blockState_2, direction_1);
 	}
 }

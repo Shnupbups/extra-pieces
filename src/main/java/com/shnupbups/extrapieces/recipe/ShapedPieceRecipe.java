@@ -1,5 +1,7 @@
-package com.shnupbups.extrapieces.core;
+package com.shnupbups.extrapieces.recipe;
 
+import com.shnupbups.extrapieces.core.PieceSet;
+import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
@@ -7,15 +9,12 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 
-public class ShapedPieceRecipe {
-	public PieceType output;
-	public int count;
-	public HashMap<Character,PieceType> key = new HashMap<>();
-	public String[] pattern;
+public class ShapedPieceRecipe extends PieceRecipe {
+	private HashMap<Character,PieceType> key = new HashMap<>();
+	private String[] pattern;
 
 	public ShapedPieceRecipe(PieceType output, int count, String... pattern) {
-		this.output=output;
-		this.count=count;
+		super(output, count);
 		this.pattern=pattern;
 	}
 
@@ -32,20 +31,8 @@ public class ShapedPieceRecipe {
 		return pattern;
 	}
 
-	public PieceType getOutput() {
-		return output;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
 	public PieceType getFromKey(char c) {
 		return key.get(c);
-	}
-
-	public Block getOutput(PieceSet set) {
-		return set.getPiece(getOutput());
 	}
 
 	public HashMap<Character,Block> getKey(PieceSet set) {
@@ -60,7 +47,7 @@ public class ShapedPieceRecipe {
 		return set.getPiece(getFromKey(c));
 	}
 
-	public ShapedPieceRecipe add(ArtificeResourcePack.ServerResourcePackBuilder data, Identifier id, PieceSet set) {
+	public void add(ArtificeResourcePack.ServerResourcePackBuilder data, Identifier id, PieceSet set) {
 		data.addShapedRecipe(id, recipe -> {
 			recipe.result(Registry.BLOCK.getId(this.getOutput(set)), this.getCount());
 			recipe.pattern(this.getPattern());
@@ -68,6 +55,5 @@ public class ShapedPieceRecipe {
 				recipe.ingredientItem(c, Registry.BLOCK.getId(this.getFromKey(set, c)));
 			}
 		});
-		return this;
 	}
 }

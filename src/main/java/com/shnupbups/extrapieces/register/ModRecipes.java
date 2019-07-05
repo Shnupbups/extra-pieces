@@ -3,6 +3,8 @@ package com.shnupbups.extrapieces.register;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.*;
+import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
+import com.shnupbups.extrapieces.recipe.ShapelessPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
