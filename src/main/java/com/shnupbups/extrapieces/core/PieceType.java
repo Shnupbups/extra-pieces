@@ -4,6 +4,7 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.*;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
+import com.shnupbups.extrapieces.register.ModLootTables;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,7 @@ public abstract class PieceType {
 	public static final PieceType FENCE = new FencePiece();
 	public static final PieceType FENCE_GATE = new FenceGatePiece();
 	public static final PieceType POST = new PostPiece();
-	//public static final PieceType COLUMN = new ColumnPiece();
+	public static final PieceType COLUMN = new ColumnPiece();
 	public static final PieceType CORNER = new CornerPiece();
 
 	private static ArrayList<PieceType> types = new ArrayList<PieceType>();
@@ -36,6 +37,7 @@ public abstract class PieceType {
 		register(PieceType.FENCE);
 		register(PieceType.FENCE_GATE);
 		register(PieceType.POST);
+		register(PieceType.COLUMN);
 		register(PieceType.CORNER);
 	}
 
@@ -157,6 +159,10 @@ public abstract class PieceType {
 		return 1;
 	}
 
+	public ModLootTables.LootTableType getLootTableType() {
+		return ModLootTables.LootTableType.STANDARD;
+	}
+
 	public static final class BasePiece extends PieceType {
 		public BasePiece() {
 			super("base");
@@ -213,6 +219,11 @@ public abstract class PieceType {
 		public int getStonecuttingCount() {
 			return 2;
 		}
+
+		@Override
+		public ModLootTables.LootTableType getLootTableType() {
+			return ModLootTables.LootTableType.SLAB_OR_SIDING;
+		}
 	}
 
 	public static class SidingPiece extends PieceType {
@@ -232,6 +243,11 @@ public abstract class PieceType {
 
 		public int getStonecuttingCount() {
 			return 2;
+		}
+
+		@Override
+		public ModLootTables.LootTableType getLootTableType() {
+			return ModLootTables.LootTableType.SLAB_OR_SIDING;
 		}
 	}
 
@@ -286,6 +302,16 @@ public abstract class PieceType {
 
 		public PostPieceBlock getNew(PieceSet set) {
 			return new PostPieceBlock(set);
+		}
+	}
+
+	public static class ColumnPiece extends PieceType {
+		public ColumnPiece() {
+			super("column");
+		}
+
+		public ColumnPieceBlock getNew(PieceSet set) {
+			return new ColumnPieceBlock(set);
 		}
 	}
 

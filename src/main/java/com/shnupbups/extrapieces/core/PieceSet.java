@@ -55,6 +55,7 @@ public class PieceSet {
 	private Identifier bottomTexture;
 	private boolean hasCustomTranslation;
 	private boolean opaque;
+	private boolean includeMode = false;
 
 	PieceSet(Block base, String name, List<PieceType> types) {
 		this.base = base;
@@ -108,6 +109,21 @@ public class PieceSet {
 				String s = jp.asString();
 				PieceType pt = PieceType.getType(s);
 				set.excludePiece(pt);
+			}
+		} else if(ob.containsKey("include")) {
+			set.setInclude();
+			JsonArray in = ob.get(JsonArray.class, "include");
+			List<PieceType> types = new ArrayList<>();
+			for (JsonElement je : in) {
+				JsonPrimitive jp = (JsonPrimitive) je;
+				String s = jp.asString();
+				PieceType pt = PieceType.getType(s);
+				types.add(pt);
+			}
+			for (PieceType pt : PieceType.getTypesNoBase()) {
+				if(!types.contains(pt)) {
+					set.excludePiece(pt);
+				}
 			}
 		}
 		if (ob.containsKey("uncraftable")) {
@@ -440,6 +456,11 @@ public class PieceSet {
 		else return "pieceSet." + this.getName();
 	}
 
+	public PieceSet setInclude() {
+		this.includeMode = true;
+		return this;
+	}
+
 	public JsonObject toJson() {
 		JsonObject ob = new JsonObject();
 		ob.put("base", new JsonPrimitive(Registry.BLOCK.getId(this.getBase())));
@@ -479,12 +500,19 @@ public class PieceSet {
 			}
 			ob.put("uncraftable", uc);
 		}
-		if (!this.getExcludedTypes().isEmpty()) {
+		if (!this.getExcludedTypes().isEmpty() && !includeMode) {
 			JsonArray ex = new JsonArray();
 			for (PieceType p : this.getExcludedTypes()) {
 				ex.add(new JsonPrimitive(p));
 			}
 			ob.put("exclude", ex);
+		}
+		if (includeMode) {
+			JsonArray in = new JsonArray();
+			for (PieceType p : this.getGenTypes()) {
+				in.add(new JsonPrimitive(p));
+			}
+			ob.put("include", in);
 		}
 		return ob;
 	}

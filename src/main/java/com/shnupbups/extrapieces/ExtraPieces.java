@@ -38,11 +38,15 @@ public class ExtraPieces implements ModInitializer {
 		ModBlocks.init();
 		EPConfig.init();
 		Registry.register(Registry.ITEM, getID("debug_item"), new DebugItem());
-		Artifice.registerData(getID("ep_data"), data -> {
-			ModTags.init(data);
-			ModRecipes.init(data);
-			ModLootTables.init(data);
-		});
+		try {
+			Artifice.registerData(getID("ep_data"), data -> {
+				ModTags.init(data);
+				ModRecipes.init(data);
+				ModLootTables.init(data);
+			}).dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent());
+		} catch(Exception e) {
+			log(e.getMessage());
+		}
 	}
 
 	public static Identifier getID(String path) {
