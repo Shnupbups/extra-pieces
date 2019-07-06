@@ -26,21 +26,21 @@ public class PieceSet {
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
 
 	static {
-		NO_SLAB = new ArrayList<>(PieceType.getTypesNoBase());
-		NO_SLAB.remove(PieceType.SLAB);
+		NO_SLAB = new ArrayList<>(PieceTypes.getTypesNoBase());
+		NO_SLAB.remove(PieceTypes.SLAB);
 
 		NO_SLAB_OR_STAIRS = new ArrayList<>(NO_SLAB);
-		NO_SLAB_OR_STAIRS.remove(PieceType.STAIRS);
+		NO_SLAB_OR_STAIRS.remove(PieceTypes.STAIRS);
 
 		NO_SLAB_STAIRS_OR_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
-		NO_SLAB_STAIRS_OR_WALL.remove(PieceType.WALL);
+		NO_SLAB_STAIRS_OR_WALL.remove(PieceTypes.WALL);
 
 		JUST_EXTRAS_AND_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
-		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE);
-		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE_GATE);
+		JUST_EXTRAS_AND_WALL.remove(PieceTypes.FENCE);
+		JUST_EXTRAS_AND_WALL.remove(PieceTypes.FENCE_GATE);
 
 		JUST_EXTRAS_AND_FENCE_GATE = new ArrayList<>(NO_SLAB_STAIRS_OR_WALL);
-		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceType.FENCE);
+		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceTypes.FENCE);
 	}
 
 	private final Block base;
@@ -98,7 +98,7 @@ public class PieceSet {
 		if (ob.containsKey("vanilla_pieces")) {
 			JsonObject vp = ob.getObject("vanilla_pieces");
 			for (String s : vp.keySet()) {
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				set.addVanillaPiece(pt, Registry.BLOCK.get(new Identifier(vp.get(String.class, s))));
 			}
 		}
@@ -107,7 +107,7 @@ public class PieceSet {
 			for (JsonElement je : ex) {
 				JsonPrimitive jp = (JsonPrimitive) je;
 				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				set.excludePiece(pt);
 			}
 		} else if(ob.containsKey("include")) {
@@ -117,10 +117,10 @@ public class PieceSet {
 			for (JsonElement je : in) {
 				JsonPrimitive jp = (JsonPrimitive) je;
 				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				types.add(pt);
 			}
-			for (PieceType pt : PieceType.getTypesNoBase()) {
+			for (PieceType pt : PieceTypes.getTypesNoBase()) {
 				if(!types.contains(pt)) {
 					set.excludePiece(pt);
 				}
@@ -131,7 +131,7 @@ public class PieceSet {
 			for (JsonElement je : uc) {
 				JsonPrimitive jp = (JsonPrimitive) je;
 				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				set.setUncraftable(pt);
 			}
 		}
@@ -290,7 +290,7 @@ public class PieceSet {
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
-		for (PieceType p : PieceType.getTypes()) {
+		for (PieceType p : PieceTypes.getTypes()) {
 			if (shouldGenPiece(p) && !hasPiece(p)) {
 				pieces.put(p, (PieceBlock) p.getNew(this));
 			}
@@ -339,7 +339,7 @@ public class PieceSet {
 	 * @return The {@link PieceType} from this {@link PieceSet}, or null if no such PieceType exists.
 	 */
 	public Block getPiece(PieceType piece) {
-		if (piece.equals(PieceType.BASE)) return getBase();
+		if (piece.equals(PieceTypes.BASE)) return getBase();
 		if (!isGenerated()) generate();
 		if (hasPiece(piece)) return pieces.get(piece).getBlock();
 		return null;
@@ -419,7 +419,7 @@ public class PieceSet {
 	}
 
 	public List<PieceType> getExcludedTypes() {
-		ArrayList<PieceType> et = new ArrayList<>(PieceType.getTypesNoBase());
+		ArrayList<PieceType> et = new ArrayList<>(PieceTypes.getTypesNoBase());
 		et.removeAll(this.getPieceTypes());
 		return et;
 	}

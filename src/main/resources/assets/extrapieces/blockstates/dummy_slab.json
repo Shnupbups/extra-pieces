@@ -2,6 +2,6 @@
     "variants": {
         "type=bottom": { "model": "extrapieces:block/dummy_slab" },
         "type=top": { "model": "extrapieces:block/dummy_slab_top" },
-        "type=double": { "model": "extrapieces:block/dummy_double_slab" }
+        "type=double": { "model": "extrapieces:block/dummy_slab_double" }
     }
 }

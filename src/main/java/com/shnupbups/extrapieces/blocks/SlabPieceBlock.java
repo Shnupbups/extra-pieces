@@ -26,7 +26,7 @@ public class SlabPieceBlock extends SlabBlock implements PieceBlock {
 	}
 
 	public PieceType getType() {
-		return PieceType.SLAB;
+		return PieceTypes.SLAB;
 	}
 
 	@Environment(EnvType.CLIENT)

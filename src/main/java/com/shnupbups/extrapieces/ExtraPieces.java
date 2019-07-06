@@ -52,4 +52,12 @@ public class ExtraPieces implements ModInitializer {
 	public static void log(String out) {
 		logger.info("["+mod_name+"] "+out);
 	}
+
+	public static Identifier prependToPath(Identifier id, String prep) {
+		return new Identifier(id.getNamespace(), prep+id.getPath());
+	}
+
+	public static Identifier appendToPath(Identifier id, String app) {
+		return new Identifier(id.getNamespace(), id.getPath()+app);
+	}
 }

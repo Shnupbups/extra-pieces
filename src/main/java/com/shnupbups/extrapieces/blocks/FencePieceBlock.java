@@ -34,7 +34,7 @@ public class FencePieceBlock extends FenceBlock implements PieceBlock {
 	}
 
 	public PieceType getType() {
-		return PieceType.FENCE;
+		return PieceTypes.FENCE;
 	}
 
 	@Environment(EnvType.CLIENT)

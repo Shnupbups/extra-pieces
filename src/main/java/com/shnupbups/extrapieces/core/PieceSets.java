@@ -35,7 +35,7 @@ public class PieceSets {
 
 	public static PieceType getType(Block block) {
 		if (isPiece(block)) {
-			if (hasSet(block)) return PieceType.BASE;
+			if (hasSet(block)) return PieceTypes.BASE;
 			else if (block instanceof PieceBlock) return ((PieceBlock) block).getType();
 			else if (vanillaPieceRegistry.containsKey(block)) return vanillaPieceRegistry.get(block).getType();
 		}
@@ -75,7 +75,7 @@ public class PieceSets {
 			if (getSet(base).hasPiece(piece)) {
 				//System.out.println("EXISTS! "+getSet(base).toString());
 				return getSet(base).getPiece(piece);
-			} else if (piece == PieceType.BASE) {
+			} else if (piece == PieceTypes.BASE) {
 				return getSet(base).getBase();
 			}
 		}
@@ -86,7 +86,7 @@ public class PieceSets {
 		if (hasSet(base))
 			throw new IllegalStateException("Block " + base.getTranslationKey() + " already has PieceSet in registry! Use getSet!");
 		else {
-			if (types.contains(PieceType.BASE)) types.remove(PieceType.BASE);
+			if (types.contains(PieceTypes.BASE)) types.remove(PieceTypes.BASE);
 			return new PieceSet(base, name, types);
 		}
 	}

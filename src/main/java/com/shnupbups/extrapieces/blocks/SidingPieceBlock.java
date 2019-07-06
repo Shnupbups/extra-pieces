@@ -64,7 +64,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 
 	public PieceType getType() {
-		return PieceType.SIDING;
+		return PieceTypes.SIDING;
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {

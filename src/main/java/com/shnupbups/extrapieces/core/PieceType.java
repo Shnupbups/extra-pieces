@@ -4,42 +4,18 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.*;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
-import com.shnupbups.extrapieces.register.ModLootTables;
+import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
+import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public abstract class PieceType {
-	public static final PieceType BASE = new BasePiece();
-	public static final PieceType STAIRS = new StairsPiece();
-	public static final PieceType SLAB = new SlabPiece();
-	public static final PieceType SIDING = new SidingPiece();
-	public static final PieceType WALL = new WallPiece();
-	public static final PieceType FENCE = new FencePiece();
-	public static final PieceType FENCE_GATE = new FenceGatePiece();
-	public static final PieceType POST = new PostPiece();
-	public static final PieceType COLUMN = new ColumnPiece();
-	public static final PieceType CORNER = new CornerPiece();
 
-	private static ArrayList<PieceType> types = new ArrayList<PieceType>();
 
-	static {
-		register(PieceType.BASE);
-		register(PieceType.STAIRS);
-		register(PieceType.SLAB);
-		register(PieceType.SIDING);
-		register(PieceType.WALL);
-		register(PieceType.FENCE);
-		register(PieceType.FENCE_GATE);
-		register(PieceType.POST);
-		register(PieceType.COLUMN);
-		register(PieceType.CORNER);
-	}
+
 
 	private final Identifier id;
 
@@ -49,55 +25,6 @@ public abstract class PieceType {
 
 	public PieceType(Identifier id) {
 		this.id = id;
-	}
-
-	public static PieceType register(PieceType type) {
-		if (types.add(type)) return type;
-		return null;
-	}
-
-	public static ArrayList<PieceType> getTypes() {
-		return types;
-	}
-
-	public static ArrayList<PieceType> getTypesNoBase() {
-		ArrayList<PieceType> nobase = new ArrayList<>(getTypes());
-		nobase.remove(PieceType.BASE);
-		return nobase;
-	}
-
-	public static PieceType getType(Identifier id) {
-		for (PieceType p : types) {
-			if (p.getId().equals(id)) {
-				return p;
-			}
-		}
-		return null;
-	}
-
-	public static PieceType getType(ItemStack stack) {
-		if (stack.getItem() instanceof BlockItem) {
-			Block block = ((BlockItem) stack.getItem()).getBlock();
-			if (block instanceof PieceBlock) {
-				return ((PieceBlock) block).getType();
-			} else if (PieceSets.hasSet(block)) {
-				return PieceType.BASE;
-			}
-		}
-		return null;
-	}
-
-	public static Optional<PieceType> getTypeOrEmpty(Identifier id) {
-		return Optional.ofNullable(getType(id));
-	}
-
-	public static PieceType getType(String id) {
-		Identifier idt = new Identifier(id);
-		return getType(idt);
-	}
-
-	public static PieceType readPieceType(PacketByteBuf buf) {
-		return getType(buf.readString(buf.readInt()));
 	}
 
 	/**
@@ -152,182 +79,57 @@ public abstract class PieceType {
 	}
 
 	public StonecuttingPieceRecipe getStonecuttingRecipe() {
-		return new StonecuttingPieceRecipe(this,getStonecuttingCount(),PieceType.BASE);
+		return new StonecuttingPieceRecipe(this,getStonecuttingCount(),PieceTypes.BASE);
 	}
 
 	public int getStonecuttingCount() {
 		return 1;
 	}
 
-	public ModLootTables.LootTableType getLootTableType() {
-		return ModLootTables.LootTableType.STANDARD;
+	public void addLootTable(ArtificeResourcePack.ServerResourcePackBuilder data, PieceBlock pb) {
+		data.addLootTable(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"blocks/"), loot -> {
+			loot.type(new Identifier("block"));
+			loot.pool(pool -> {
+				pool.rolls(1);
+				pool.entry(entry -> {
+					entry.type(new Identifier("item"));
+					entry.name(Registry.BLOCK.getId(pb.getBlock()));
+				});
+				pool.condition(new Identifier("survives_explosion"), cond -> {});
+			});
+		});
 	}
 
-	public static final class BasePiece extends PieceType {
-		public BasePiece() {
-			super("base");
-		}
-
-		public String getBlockId(String baseName) {
-			return baseName;
-		}
-
-		public Block getNew(PieceSet set) {
-			return set.getBase();
-		}
+	public void addModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
+		addBlockModels(pack, pb);
+		addItemModel(pack, pb);
 	}
 
-	public static class StairsPiece extends PieceType {
-		public StairsPiece() {
-			super("stairs");
-		}
-
-		public StairsPieceBlock getNew(PieceSet set) {
-			return new StairsPieceBlock(set);
-		}
-
-		public Identifier getTagId() {
-			return new Identifier("minecraft", "stairs");
-		}
-
-		public ArrayList<ShapedPieceRecipe> getRecipes() {
-			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-			recipes.add(new ShapedPieceRecipe(this,4,"b  ", "bb ", "bbb").addToKey('b',BASE));
-			return recipes;
-		}
+	public void addBlockModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
+		pack.addBlockModel(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"), model -> {
+			model.parent(ExtraPieces.prependToPath(this.getId(),"block/dummy_"));
+			model.texture("particle",pb.getSet().getMainTexture());
+			model.texture("main",pb.getSet().getMainTexture());
+			model.texture("top",pb.getSet().getTopTexture());
+			model.texture("bottom",pb.getSet().getBottomTexture());
+		});
 	}
 
-	public static class SlabPiece extends PieceType {
-		public SlabPiece() {
-			super("slab");
-		}
-
-		public SlabPieceBlock getNew(PieceSet set) {
-			return new SlabPieceBlock(set);
-		}
-
-		public Identifier getTagId() {
-			return new Identifier("minecraft", "slabs");
-		}
-
-		public ArrayList<ShapedPieceRecipe> getRecipes() {
-			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-			recipes.add(new ShapedPieceRecipe(this,6,"bbb").addToKey('b',BASE));
-			return recipes;
-		}
-
-		public int getStonecuttingCount() {
-			return 2;
-		}
-
-		@Override
-		public ModLootTables.LootTableType getLootTableType() {
-			return ModLootTables.LootTableType.SLAB_OR_SIDING;
-		}
+	public void addItemModel(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
+		pack.addItemModel(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"item/"), model -> {
+			model.parent(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
+		});
 	}
 
-	public static class SidingPiece extends PieceType {
-		public SidingPiece() {
-			super("siding");
-		}
-
-		public SidingPieceBlock getNew(PieceSet set) {
-			return new SidingPieceBlock(set);
-		}
-
-		public ArrayList<ShapedPieceRecipe> getRecipes() {
-			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-			recipes.add(new ShapedPieceRecipe(this,6,"b", "b", "b").addToKey('b',BASE));
-			return recipes;
-		}
-
-		public int getStonecuttingCount() {
-			return 2;
-		}
-
-		@Override
-		public ModLootTables.LootTableType getLootTableType() {
-			return ModLootTables.LootTableType.SLAB_OR_SIDING;
-		}
+	public void addBlockModel(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb, String append) {
+		pack.addBlockModel(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_"+append),"block/"), model -> {
+			model.parent(ExtraPieces.prependToPath(ExtraPieces.appendToPath(this.getId(),"_"+append),"block/dummy_"));
+			model.texture("particle",pb.getSet().getMainTexture());
+			model.texture("main",pb.getSet().getMainTexture());
+			model.texture("top",pb.getSet().getTopTexture());
+			model.texture("bottom",pb.getSet().getBottomTexture());
+		});
 	}
 
-	public static class WallPiece extends PieceType {
-		public WallPiece() {
-			super("wall");
-		}
-
-		public WallPieceBlock getNew(PieceSet set) {
-			return new WallPieceBlock(set);
-		}
-
-		public Identifier getTagId() {
-			return new Identifier("minecraft", "walls");
-		}
-
-		public ArrayList<ShapedPieceRecipe> getRecipes() {
-			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-			recipes.add(new ShapedPieceRecipe(this,6,"bbb", "bbb").addToKey('b',BASE));
-			return recipes;
-		}
-	}
-
-	public static class FencePiece extends PieceType {
-		public FencePiece() {
-			super("fence");
-		}
-
-		public FencePieceBlock getNew(PieceSet set) {
-			return new FencePieceBlock(set);
-		}
-
-		public Identifier getTagId() {
-			return new Identifier("minecraft", "fences");
-		}
-	}
-
-	public static class FenceGatePiece extends PieceType {
-		public FenceGatePiece() {
-			super("fence_gate");
-		}
-
-		public FenceGatePieceBlock getNew(PieceSet set) {
-			return new FenceGatePieceBlock(set);
-		}
-	}
-
-	public static class PostPiece extends PieceType {
-		public PostPiece() {
-			super("post");
-		}
-
-		public PostPieceBlock getNew(PieceSet set) {
-			return new PostPieceBlock(set);
-		}
-	}
-
-	public static class ColumnPiece extends PieceType {
-		public ColumnPiece() {
-			super("column");
-		}
-
-		public ColumnPieceBlock getNew(PieceSet set) {
-			return new ColumnPieceBlock(set);
-		}
-	}
-
-	public static class CornerPiece extends PieceType {
-		public CornerPiece() {
-			super("corner");
-		}
-
-		public CornerPieceBlock getNew(PieceSet set) {
-			return new CornerPieceBlock(set);
-		}
-
-		public ArrayList<ShapedPieceRecipe> getRecipes() {
-			ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-			recipes.add(new ShapedPieceRecipe(this,4,"bbb", "bb ", "b  ").addToKey('b',BASE));
-			return recipes;
-		}
-	}
+	public abstract void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb);
 }
