@@ -1,6 +1,6 @@
 {
     "multipart": [
-        {   "apply": { "model": "extrapieces:block/dummy_fence_post" }},
+        {   "apply": { "model": "extrapieces:block/dummy_fence" }},
         {   "when": { "north": true },
             "apply": { "model": "extrapieces:block/dummy_fence_side", "uvlock": true }
         },

@@ -106,7 +106,7 @@ public abstract class PieceType {
 	}
 
 	public void addBlockModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
-		pack.addBlockModel(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"), model -> {
+		pack.addBlockModel(Registry.BLOCK.getId(pb.getBlock()), model -> {
 			model.parent(ExtraPieces.prependToPath(this.getId(),"block/dummy_"));
 			model.texture("particle",pb.getSet().getMainTexture());
 			model.texture("main",pb.getSet().getMainTexture());
@@ -116,13 +116,13 @@ public abstract class PieceType {
 	}
 
 	public void addItemModel(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
-		pack.addItemModel(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"item/"), model -> {
+		pack.addItemModel(Registry.BLOCK.getId(pb.getBlock()), model -> {
 			model.parent(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
 		});
 	}
 
 	public void addBlockModel(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb, String append) {
-		pack.addBlockModel(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_"+append),"block/"), model -> {
+		pack.addBlockModel(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_"+append), model -> {
 			model.parent(ExtraPieces.prependToPath(ExtraPieces.appendToPath(this.getId(),"_"+append),"block/dummy_"));
 			model.texture("particle",pb.getSet().getMainTexture());
 			model.texture("main",pb.getSet().getMainTexture());
@@ -131,5 +131,11 @@ public abstract class PieceType {
 		});
 	}
 
-	public abstract void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb);
+	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
+		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
+			state.variant("", var -> {
+				var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
+			});
+		});
+	}
 }

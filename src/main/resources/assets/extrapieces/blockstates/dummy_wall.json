@@ -1,7 +1,7 @@
 {
     "multipart": [
         {   "when": { "up": "true" },
-            "apply": { "model": "extrapieces:block/dummy_wall_post" }
+            "apply": { "model": "extrapieces:block/dummy_wall" }
         },
         {   "when": { "north": "true" },
             "apply": { "model": "extrapieces:block/dummy_wall_side", "uvlock": true }

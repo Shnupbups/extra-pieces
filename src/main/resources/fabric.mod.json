@@ -22,8 +22,8 @@
     "main": [
       "com.shnupbups.extrapieces.ExtraPieces"
     ],
-    "jmx": [
-      "com.shnupbups.extrapieces.register.ModModels"
+    "client": [
+      "com.shnupbups.extrapieces.ExtraPiecesClient"
     ]
   },
   "mixins": [

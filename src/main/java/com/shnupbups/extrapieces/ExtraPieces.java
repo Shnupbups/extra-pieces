@@ -3,6 +3,7 @@ package com.shnupbups.extrapieces;
 import com.shnupbups.extrapieces.config.EPConfig;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
+import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.shnupbups.extrapieces.register.ModLootTables;
@@ -32,17 +33,21 @@ public class ExtraPieces implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		for (PieceType p : PieceType.getTypesNoBase()) {
+		for (PieceType p : PieceTypes.getTypesNoBase()) {
 			groups.put(p, FabricItemGroupBuilder.create(p.getId()).icon(() -> new ItemStack(PieceSets.registry.getOrDefault(Blocks.TERRACOTTA, ModBlocks.DUMMY_PIECES).getPiece(p))).build());
 		}
 		ModBlocks.init();
 		EPConfig.init();
 		Registry.register(Registry.ITEM, getID("debug_item"), new DebugItem());
+		//try {
 		Artifice.registerData(getID("ep_data"), data -> {
 			ModTags.init(data);
 			ModRecipes.init(data);
 			ModLootTables.init(data);
-		});
+		})/*.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent()+"/dump")*/;
+		/*} catch(Exception e) {
+			ExtraPieces.log("BIG OOF: "+e.getMessage());
+		}*/
 	}
 
 	public static Identifier getID(String path) {

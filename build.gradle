@@ -15,14 +15,6 @@ minecraft {
 
 repositories {
     maven { url "https://minecraft.curseforge.com/api/maven"}
-	maven {
-    	name = "grondag"
-    	url = "https://grondag-repo.appspot.com"
-    	credentials {
-            username "guest"
-            password ""
-		}
-    }
 	maven { url "https://jitpack.io" }
 }
 
@@ -34,26 +26,14 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
-	// JSON Model Extensions (jmx)
-	modImplementation "grondag:jmx:${project.jmx_version}"
-	include "grondag:jmx:${project.jmx_version}"
-	
+
 	// Artifice
 	modImplementation "com.github.swordglowsblue:artifice:${project.artifice_version}"
 	include "com.github.swordglowsblue:artifice:${project.artifice_version}"
 	
-	// Cloth Config
-	modImplementation "cloth-config:ClothConfig2:${project.cloth_config_version}"
-    include "cloth-config:ClothConfig2:${project.cloth_config_version}"
-	
 	// stuff for dev env
 	modCompile "io.github.prospector.modmenu:ModMenu:${project.modmenu_version}"
 	modCompile "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
-	
-	// Jankson
-	modApi ("blue.endless:jankson:1.1.2")
-	include ("blue.endless:jankson:1.1.2")
 }
 
 processResources {

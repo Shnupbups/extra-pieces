@@ -2,6 +2,7 @@ package com.shnupbups.extrapieces.blocks;
 
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
+import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.register.ModProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

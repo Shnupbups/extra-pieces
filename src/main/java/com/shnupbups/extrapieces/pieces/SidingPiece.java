@@ -7,8 +7,11 @@ import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
+import com.shnupbups.extrapieces.register.ModProperties;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
@@ -53,6 +56,47 @@ public class SidingPiece extends PieceType {
 					entry.function(new Identifier("explosion_decay"), cond -> {});
 				});
 			});
+		});
+	}
+
+	public void addBlockModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
+		super.addBlockModels(pack, pb);
+		addBlockModel(pack, pb, "double");
+	}
+
+	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
+		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
+			for(ModProperties.SidingType t: ModProperties.SidingType.values()) {
+				switch(t) {
+					case SINGLE:
+						for(Direction d: Direction.values()) {
+							if (!(d.equals(Direction.DOWN) || d.equals(Direction.UP))) {
+								state.variant("type="+t.asString()+",facing="+d.asString(), var -> {
+									var.uvlock(true);
+									var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
+									switch(d) {
+										case EAST:
+											var.rotationY(90);
+											break;
+										case WEST:
+											var.rotationY(270);
+											break;
+										case SOUTH:
+											var.rotationY(180);
+											break;
+									}
+								});
+							}
+						}
+						break;
+					case DOUBLE:
+						state.variant("type="+t.asString(), var -> {
+							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_double"),"block/"));
+						});
+						break;
+				}
+
+			}
 		});
 	}
 }

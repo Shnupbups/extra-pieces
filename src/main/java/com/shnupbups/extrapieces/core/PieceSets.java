@@ -113,7 +113,7 @@ public class PieceSets {
 	 * @throws IllegalStateException If a {@link PieceSet} already exists with an identical base {@link Block}
 	 */
 	public static PieceSet createSet(Block base, String name) {
-		return createSet(base, name, PieceType.getTypesNoBase());
+		return createSet(base, name, PieceTypes.getTypesNoBase());
 	}
 
 	/**
