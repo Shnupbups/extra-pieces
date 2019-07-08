@@ -1,14 +1,21 @@
 package com.shnupbups.extrapieces.register;
 
+import com.shnupbups.extrapieces.ExtraPieces;
+import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModBlocks {
 
-	public static PieceSet DUMMY_PIECES;
+	public static Map<PieceType, ArrayList<Block>> blocks = new HashMap<>();
 
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
@@ -175,10 +182,6 @@ public class ModBlocks {
 	public static PieceSet STRIPPED_ACACIA_WOOD_PIECES;
 	public static PieceSet STRIPPED_DARK_OAK_WOOD_PIECES;
 
-	public static void init() {
-		DUMMY_PIECES = PieceSets.createSet(Blocks.AIR, "dummy").setHasCustomTranslation().register();
-	}
-
 	public static void generateDefaultSets() {
 		PRISMARINE_PIECES = PieceSets.createSet(Blocks.PRISMARINE, "prismarine", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.PRISMARINE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.PRISMARINE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.PRISMARINE_WALL).register();
 		PRISMARINE_BRICK_PIECES = PieceSets.createSet(Blocks.PRISMARINE_BRICKS, "prismarine_brick", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceTypes.SLAB, Blocks.PRISMARINE_BRICK_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.PRISMARINE_BRICK_STAIRS).setHasCustomTranslation().register();
@@ -302,7 +305,7 @@ public class ModBlocks {
 		HAY_PIECES = PieceSets.createSet(Blocks.HAY_BLOCK, "hay").setTexture("hay_block_side").setTopTexture("hay_block_top").setHasCustomTranslation().register();
 		PUMPKIN_PIECES = PieceSets.createSet(Blocks.PUMPKIN, "pumpkin").setTexture("pumpkin_side").setTopTexture("pumpkin_top").register();
 		MELON_PIECES = PieceSets.createSet(Blocks.MELON, "melon").setTexture("melon_side").setTopTexture("melon_top").register();
-		SNOW_PIECES = PieceSets.createSet(Blocks.SNOW_BLOCK, "snow").setTexture("snow").setHasCustomTranslation().register();
+		SNOW_PIECES = PieceSets.createSet(Blocks.SNOW_BLOCK, "snow").setTexture("snow").setUncraftable(PieceTypes.SLAB).setHasCustomTranslation().register();
 		MAGMA_PIECES = PieceSets.createSet(Blocks.MAGMA_BLOCK, "magma").setTexture("magma").setHasCustomTranslation().register();
 		GLOWSTONE_PIECES = PieceSets.createSet(Blocks.GLOWSTONE, "glowstone").register();
 		NETHER_WART_PIECES = PieceSets.createSet(Blocks.NETHER_WART_BLOCK, "nether_wart").setHasCustomTranslation().register();
@@ -344,5 +347,19 @@ public class ModBlocks {
 		STRIPPED_JUNGLE_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").setTexture("stripped_jungle_log").register();
 		STRIPPED_ACACIA_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").setTexture("stripped_acacia_log").register();
 		STRIPPED_DARK_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").setTexture("stripped_dark_oak_log").register();
+	}
+
+	public static void registerPiece(PieceBlock pb) {
+		if (!blocks.containsKey(pb.getType())) {
+			blocks.put(pb.getType(), new ArrayList<>());
+		}
+		blocks.get(pb.getType()).add(pb.getBlock());
+	}
+
+	public static void init() {
+		for (PieceSet ps : PieceSets.registry.values()) {
+			ps.register();
+		}
+		ExtraPieces.log("Registered all PieceSets!");
 	}
 }

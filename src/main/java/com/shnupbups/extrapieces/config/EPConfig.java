@@ -28,10 +28,10 @@ public class EPConfig {
 			for (String s : sets.keySet()) {
 				JsonObject jsonSet = (JsonObject) sets.get(s);
 				PieceSet setPieceSet = PieceSet.fromJson(s, jsonSet);
-				setPieceSet.register();
+				setPieceSet.generate();
 				setsNum++;
 			}
-			ExtraPieces.log("Registered "+setsNum+" PieceSets!");
+			ExtraPieces.log("Generated " + setsNum + " PieceSets!");
 		} catch (IOException e) {
 			ExtraPieces.log("No config found, generating!");
 			generate(configFile);
@@ -46,8 +46,7 @@ public class EPConfig {
 			JsonObject cfg = new JsonObject();
 			JsonObject sets = new JsonObject();
 			for (PieceSet set : PieceSets.registry.values()) {
-				if (set != ModBlocks.DUMMY_PIECES)
-					sets.put(set.getName(), set.toJson());
+				sets.put(set.getName(), set.toJson());
 			}
 			cfg.put("sets", sets);
 			writer.write(cfg.toJson(false, true));

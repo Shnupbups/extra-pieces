@@ -9,7 +9,6 @@ import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.register.ModProperties;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
-import net.minecraft.block.enums.SlabType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
@@ -27,7 +26,7 @@ public class SidingPiece extends PieceType {
 
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-		recipes.add(new ShapedPieceRecipe(this,6,"b", "b", "b").addToKey('b', PieceTypes.BASE));
+		recipes.add(new ShapedPieceRecipe(this, 6, "b", "b", "b").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}
 
@@ -37,7 +36,7 @@ public class SidingPiece extends PieceType {
 
 	@Override
 	public void addLootTable(ArtificeResourcePack.ServerResourcePackBuilder data, PieceBlock pb) {
-		data.addLootTable(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"blocks/"), loot -> {
+		data.addLootTable(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "blocks/"), loot -> {
 			loot.type(new Identifier("block"));
 			loot.pool(pool -> {
 				pool.rolls(1);
@@ -53,7 +52,8 @@ public class SidingPiece extends PieceType {
 							});
 						});
 					});
-					entry.function(new Identifier("explosion_decay"), cond -> {});
+					entry.function(new Identifier("explosion_decay"), cond -> {
+					});
 				});
 			});
 		});
@@ -66,15 +66,15 @@ public class SidingPiece extends PieceType {
 
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
-			for(ModProperties.SidingType t: ModProperties.SidingType.values()) {
-				switch(t) {
+			for (ModProperties.SidingType t : ModProperties.SidingType.values()) {
+				switch (t) {
 					case SINGLE:
-						for(Direction d: Direction.values()) {
+						for (Direction d : Direction.values()) {
 							if (!(d.equals(Direction.DOWN) || d.equals(Direction.UP))) {
-								state.variant("type="+t.asString()+",facing="+d.asString(), var -> {
+								state.variant("type=" + t.asString() + ",facing=" + d.asString(), var -> {
 									var.uvlock(true);
-									var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
-									switch(d) {
+									var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+									switch (d) {
 										case EAST:
 											var.rotationY(90);
 											break;
@@ -90,8 +90,8 @@ public class SidingPiece extends PieceType {
 						}
 						break;
 					case DOUBLE:
-						state.variant("type="+t.asString(), var -> {
-							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_double"),"block/"));
+						state.variant("type=" + t.asString(), var -> {
+							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_double"), "block/"));
 						});
 						break;
 				}

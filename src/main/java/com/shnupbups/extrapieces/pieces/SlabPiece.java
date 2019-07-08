@@ -7,7 +7,6 @@ import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
-import com.shnupbups.extrapieces.register.ModProperties;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.util.Identifier;
@@ -30,7 +29,7 @@ public class SlabPiece extends PieceType {
 
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-		recipes.add(new ShapedPieceRecipe(this,6,"bbb").addToKey('b', PieceTypes.BASE));
+		recipes.add(new ShapedPieceRecipe(this, 6, "bbb").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}
 
@@ -40,7 +39,7 @@ public class SlabPiece extends PieceType {
 
 	@Override
 	public void addLootTable(ArtificeResourcePack.ServerResourcePackBuilder data, PieceBlock pb) {
-		data.addLootTable(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"blocks/"), loot -> {
+		data.addLootTable(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "blocks/"), loot -> {
 			loot.type(new Identifier("block"));
 			loot.pool(pool -> {
 				pool.rolls(1);
@@ -56,7 +55,8 @@ public class SlabPiece extends PieceType {
 							});
 						});
 					});
-					entry.function(new Identifier("explosion_decay"), cond -> {});
+					entry.function(new Identifier("explosion_decay"), cond -> {
+					});
 				});
 			});
 		});
@@ -70,17 +70,17 @@ public class SlabPiece extends PieceType {
 
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
-			for(SlabType t: SlabType.values()) {
-				state.variant("type="+t.asString(), var -> {
-					switch(t) {
+			for (SlabType t : SlabType.values()) {
+				state.variant("type=" + t.asString(), var -> {
+					switch (t) {
 						case BOTTOM:
-							var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
+							var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
 							break;
 						case TOP:
-							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_top"),"block/"));
+							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_top"), "block/"));
 							break;
 						case DOUBLE:
-							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_double"),"block/"));
+							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_double"), "block/"));
 							break;
 					}
 				});

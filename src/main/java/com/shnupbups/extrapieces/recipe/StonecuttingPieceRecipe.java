@@ -12,7 +12,7 @@ public class StonecuttingPieceRecipe extends PieceRecipe {
 
 	public StonecuttingPieceRecipe(PieceType output, int count, PieceType input) {
 		super(output, count);
-		this.input=input;
+		this.input = input;
 	}
 
 	public PieceType getInput() {

@@ -11,15 +11,14 @@ public class ModModels {
 	public static void init(ArtificeResourcePack.ClientResourcePackBuilder pack) {
 		int m = 0;
 		for (PieceSet set : PieceSets.registry.values()) {
-			if (set != ModBlocks.DUMMY_PIECES)
-				for (PieceBlock pb : set.getPieceBlocks()) {
-					if (!set.isVanillaPiece(pb.getType())) {
-						pb.getType().addModels(pack, pb);
-						pb.getType().addBlockstate(pack, pb);
-						m++;
-					}
+			for (PieceBlock pb : set.getPieceBlocks()) {
+				if (!set.isVanillaPiece(pb.getType())) {
+					pb.getType().addModels(pack, pb);
+					pb.getType().addBlockstate(pack, pb);
+					m++;
 				}
+			}
 		}
-		ExtraPieces.log("Added models and blockstates for "+m+" blocks!");
+		ExtraPieces.log("Added models and blockstates for " + m + " blocks!");
 	}
 }

@@ -4,10 +4,11 @@ import blue.endless.jankson.JsonArray;
 import blue.endless.jankson.JsonElement;
 import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.JsonPrimitive;
-import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
+import com.shnupbups.extrapieces.register.ModBlocks;
+import com.shnupbups.extrapieces.register.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -110,7 +111,7 @@ public class PieceSet {
 				PieceType pt = PieceTypes.getType(s);
 				set.excludePiece(pt);
 			}
-		} else if(ob.containsKey("include")) {
+		} else if (ob.containsKey("include")) {
 			set.setInclude();
 			JsonArray in = ob.get(JsonArray.class, "include");
 			List<PieceType> types = new ArrayList<>();
@@ -121,7 +122,7 @@ public class PieceSet {
 				types.add(pt);
 			}
 			for (PieceType pt : PieceTypes.getTypesNoBase()) {
-				if(!types.contains(pt)) {
+				if (!types.contains(pt)) {
 					set.excludePiece(pt);
 				}
 			}
@@ -292,7 +293,9 @@ public class PieceSet {
 	public PieceSet generate() {
 		for (PieceType p : PieceTypes.getTypes()) {
 			if (shouldGenPiece(p) && !hasPiece(p)) {
-				pieces.put(p, (PieceBlock) p.getNew(this));
+				PieceBlock pb = (PieceBlock) p.getNew(this);
+				pieces.put(p, pb);
+				ModBlocks.registerPiece(pb);
 			}
 		}
 		return this;
@@ -312,7 +315,7 @@ public class PieceSet {
 		for (PieceType b : genTypes) {
 			Identifier id = new Identifier(b.getId().getNamespace(), b.getBlockId(getName()));
 			Registry.register(Registry.BLOCK, id, pieces.get(b).getBlock());
-			BlockItem item = new PieceBlockItem(pieces.get(b), (this.getBase() != Blocks.AIR ? (new Item.Settings()).group(ExtraPieces.groups.get(b)) : new Item.Settings()));
+			BlockItem item = new PieceBlockItem(pieces.get(b), (this.getBase() != Blocks.AIR ? (new Item.Settings()).group(ModItemGroups.groups.get(b)) : new Item.Settings()));
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
 			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
 		}

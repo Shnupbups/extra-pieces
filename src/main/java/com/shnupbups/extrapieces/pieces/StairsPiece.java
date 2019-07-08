@@ -31,7 +31,7 @@ public class StairsPiece extends PieceType {
 
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-		recipes.add(new ShapedPieceRecipe(this,4,"b  ", "bb ", "bbb").addToKey('b', PieceTypes.BASE));
+		recipes.add(new ShapedPieceRecipe(this, 4, "b  ", "bb ", "bbb").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}
 
@@ -43,18 +43,18 @@ public class StairsPiece extends PieceType {
 
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
-			for(Direction d: Direction.values()) {
-				if(!(d.equals(Direction.DOWN)||d.equals(Direction.UP))) {
-					for(BlockHalf h: BlockHalf.values()) {
-						for(StairShape s: StairShape.values()) {
-							String varname = "facing="+d.asString()+",half="+h.asString()+",shape="+s.asString();
+			for (Direction d : Direction.values()) {
+				if (!(d.equals(Direction.DOWN) || d.equals(Direction.UP))) {
+					for (BlockHalf h : BlockHalf.values()) {
+						for (StairShape s : StairShape.values()) {
+							String varname = "facing=" + d.asString() + ",half=" + h.asString() + ",shape=" + s.asString();
 							state.variant(varname, var -> {
 								var.uvlock(true);
-								int y=0;
-								switch(s) {
+								int y = 0;
+								switch (s) {
 									case STRAIGHT:
-										var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
-										switch(d) {
+										var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+										switch (d) {
 											case EAST:
 												y = 0;
 												break;
@@ -70,10 +70,10 @@ public class StairsPiece extends PieceType {
 										}
 										break;
 									case OUTER_RIGHT:
-										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_outer"),"block/"));
-										switch(h) {
+										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_outer"), "block/"));
+										switch (h) {
 											case BOTTOM:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 0;
 														break;
@@ -89,7 +89,7 @@ public class StairsPiece extends PieceType {
 												}
 												break;
 											case TOP:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 90;
 														break;
@@ -107,10 +107,10 @@ public class StairsPiece extends PieceType {
 										}
 										break;
 									case OUTER_LEFT:
-										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_outer"),"block/"));
-										switch(h) {
+										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_outer"), "block/"));
+										switch (h) {
 											case BOTTOM:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 270;
 														break;
@@ -126,7 +126,7 @@ public class StairsPiece extends PieceType {
 												}
 												break;
 											case TOP:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 0;
 														break;
@@ -144,10 +144,10 @@ public class StairsPiece extends PieceType {
 										}
 										break;
 									case INNER_RIGHT:
-										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_inner"),"block/"));
-										switch(h) {
+										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_inner"), "block/"));
+										switch (h) {
 											case BOTTOM:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 0;
 														break;
@@ -163,7 +163,7 @@ public class StairsPiece extends PieceType {
 												}
 												break;
 											case TOP:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 90;
 														break;
@@ -181,10 +181,10 @@ public class StairsPiece extends PieceType {
 										}
 										break;
 									case INNER_LEFT:
-										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()),"_inner"),"block/"));
-										switch(h) {
+										var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_inner"), "block/"));
+										switch (h) {
 											case BOTTOM:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 270;
 														break;
@@ -200,7 +200,7 @@ public class StairsPiece extends PieceType {
 												}
 												break;
 											case TOP:
-												switch(d) {
+												switch (d) {
 													case EAST:
 														y = 0;
 														break;
@@ -218,7 +218,7 @@ public class StairsPiece extends PieceType {
 										}
 										break;
 								}
-								if(h.equals(BlockHalf.TOP)) var.rotationX(180);
+								if (h.equals(BlockHalf.TOP)) var.rotationX(180);
 								var.rotationY(y);
 							});
 						}
@@ -226,10 +226,10 @@ public class StairsPiece extends PieceType {
 				}
 			}
 			state.variant("facing=east,half=bottom,shape=straight", var -> {
-				var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
+				var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
 			});
 			state.variant("facing=west,half=bottom,shape=straight", var -> {
-				var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()),"block/"));
+				var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
 				var.rotationY(180);
 				var.uvlock(true);
 			});

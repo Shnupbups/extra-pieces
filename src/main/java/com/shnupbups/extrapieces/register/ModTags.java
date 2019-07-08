@@ -19,7 +19,7 @@ public class ModTags {
 		for (PieceSet ps : PieceSets.registry.values()) {
 			for (PieceBlock pb : ps.getPieceBlocks()) {
 				if (!map.containsKey(pb.getType())) map.put(pb.getType(), new ArrayList<>());
-				if(pb.getBlock() instanceof PieceBlock) map.get(pb.getType()).add(Registry.BLOCK.getId(pb.getBlock()));
+				if (pb.getBlock() instanceof PieceBlock) map.get(pb.getType()).add(Registry.BLOCK.getId(pb.getBlock()));
 			}
 		}
 		for (PieceType pt : map.keySet()) {
@@ -31,7 +31,7 @@ public class ModTags {
 				tag.replace(false);
 				tag.values(map.get(pt).toArray(new Identifier[map.get(pt).size()]));
 			});
-			ExtraPieces.log("Added block and item tags for "+pt.toString()+", "+map.get(pt).size()+" entries.");
+			ExtraPieces.log("Added block and item tags for " + pt.toString() + ", " + map.get(pt).size() + " entries.");
 		}
 	}
 }
