@@ -172,8 +172,7 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 			if (xPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		}
 		ExtraPieces.log(direction_1.asString());
-		BlockState blockState_1 = this.getDefaultState().with(FACING, direction_1).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
-		return blockState_1;
+		return this.getDefaultState().with(FACING, direction_1).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
@@ -198,6 +197,6 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 
 	@Environment(EnvType.CLIENT)
 	public boolean isSideInvisible(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
-		return getSet().isTransparent() ? (blockState_2.getBlock() == this ? true : super.isSideInvisible(blockState_1, blockState_2, direction_1)) : super.isSideInvisible(blockState_1, blockState_2, direction_1);
+		return getSet().isTransparent() ? (blockState_2.getBlock() == this || super.isSideInvisible(blockState_1, blockState_2, direction_1)) : super.isSideInvisible(blockState_1, blockState_2, direction_1);
 	}
 }

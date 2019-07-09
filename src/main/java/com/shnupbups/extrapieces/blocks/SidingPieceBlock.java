@@ -117,8 +117,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 					else direction_1 = Direction.SOUTH;
 				}
 			}
-			BlockState blockState_2 = this.getDefaultState().with(TYPE, ModProperties.SidingType.SINGLE).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER).with(FACING_HORIZONTAL, direction_1);
-			return blockState_2;
+			return this.getDefaultState().with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER).with(FACING_HORIZONTAL, direction_1);
 		}
 	}
 
@@ -154,7 +153,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 
 	public FluidState getFluidState(BlockState blockState_1) {
-		return (Boolean) blockState_1.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(blockState_1);
+		return blockState_1.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(blockState_1);
 	}
 
 	public boolean tryFillWithFluid(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1, FluidState fluidState_1) {
@@ -188,6 +187,6 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 
 	@Environment(EnvType.CLIENT)
 	public boolean isSideInvisible(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
-		return getSet().isTransparent() ? (blockState_2.getBlock() == this ? true : super.isSideInvisible(blockState_1, blockState_2, direction_1)) : super.isSideInvisible(blockState_1, blockState_2, direction_1);
+		return getSet().isTransparent() ? (blockState_2.getBlock() == this || super.isSideInvisible(blockState_1, blockState_2, direction_1)) : super.isSideInvisible(blockState_1, blockState_2, direction_1);
 	}
 }
