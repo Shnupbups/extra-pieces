@@ -4,10 +4,11 @@ import blue.endless.jankson.JsonArray;
 import blue.endless.jankson.JsonElement;
 import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.JsonPrimitive;
-import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
+import com.shnupbups.extrapieces.register.ModBlocks;
+import com.shnupbups.extrapieces.register.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -26,21 +27,21 @@ public class PieceSet {
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
 
 	static {
-		NO_SLAB = new ArrayList<>(PieceType.getTypesNoBase());
-		NO_SLAB.remove(PieceType.SLAB);
+		NO_SLAB = new ArrayList<>(PieceTypes.getTypesNoBase());
+		NO_SLAB.remove(PieceTypes.SLAB);
 
 		NO_SLAB_OR_STAIRS = new ArrayList<>(NO_SLAB);
-		NO_SLAB_OR_STAIRS.remove(PieceType.STAIRS);
+		NO_SLAB_OR_STAIRS.remove(PieceTypes.STAIRS);
 
 		NO_SLAB_STAIRS_OR_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
-		NO_SLAB_STAIRS_OR_WALL.remove(PieceType.WALL);
+		NO_SLAB_STAIRS_OR_WALL.remove(PieceTypes.WALL);
 
 		JUST_EXTRAS_AND_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
-		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE);
-		JUST_EXTRAS_AND_WALL.remove(PieceType.FENCE_GATE);
+		JUST_EXTRAS_AND_WALL.remove(PieceTypes.FENCE);
+		JUST_EXTRAS_AND_WALL.remove(PieceTypes.FENCE_GATE);
 
 		JUST_EXTRAS_AND_FENCE_GATE = new ArrayList<>(NO_SLAB_STAIRS_OR_WALL);
-		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceType.FENCE);
+		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceTypes.FENCE);
 	}
 
 	private final Block base;
@@ -98,7 +99,7 @@ public class PieceSet {
 		if (ob.containsKey("vanilla_pieces")) {
 			JsonObject vp = ob.getObject("vanilla_pieces");
 			for (String s : vp.keySet()) {
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				set.addVanillaPiece(pt, Registry.BLOCK.get(new Identifier(vp.get(String.class, s))));
 			}
 		}
@@ -107,21 +108,21 @@ public class PieceSet {
 			for (JsonElement je : ex) {
 				JsonPrimitive jp = (JsonPrimitive) je;
 				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				set.excludePiece(pt);
 			}
-		} else if(ob.containsKey("include")) {
+		} else if (ob.containsKey("include")) {
 			set.setInclude();
 			JsonArray in = ob.get(JsonArray.class, "include");
 			List<PieceType> types = new ArrayList<>();
 			for (JsonElement je : in) {
 				JsonPrimitive jp = (JsonPrimitive) je;
 				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				types.add(pt);
 			}
-			for (PieceType pt : PieceType.getTypesNoBase()) {
-				if(!types.contains(pt)) {
+			for (PieceType pt : PieceTypes.getTypesNoBase()) {
+				if (!types.contains(pt)) {
 					set.excludePiece(pt);
 				}
 			}
@@ -131,7 +132,7 @@ public class PieceSet {
 			for (JsonElement je : uc) {
 				JsonPrimitive jp = (JsonPrimitive) je;
 				String s = jp.asString();
-				PieceType pt = PieceType.getType(s);
+				PieceType pt = PieceTypes.getType(s);
 				set.setUncraftable(pt);
 			}
 		}
@@ -290,9 +291,11 @@ public class PieceSet {
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
-		for (PieceType p : PieceType.getTypes()) {
+		for (PieceType p : PieceTypes.getTypes()) {
 			if (shouldGenPiece(p) && !hasPiece(p)) {
-				pieces.put(p, (PieceBlock) p.getNew(this));
+				PieceBlock pb = (PieceBlock) p.getNew(this);
+				pieces.put(p, pb);
+				ModBlocks.registerPiece(pb);
 			}
 		}
 		return this;
@@ -312,7 +315,7 @@ public class PieceSet {
 		for (PieceType b : genTypes) {
 			Identifier id = new Identifier(b.getId().getNamespace(), b.getBlockId(getName()));
 			Registry.register(Registry.BLOCK, id, pieces.get(b).getBlock());
-			BlockItem item = new PieceBlockItem(pieces.get(b), (this.getBase() != Blocks.AIR ? (new Item.Settings()).group(ExtraPieces.groups.get(b)) : new Item.Settings()));
+			BlockItem item = new PieceBlockItem(pieces.get(b), (this.getBase() != Blocks.AIR ? (new Item.Settings()).group(ModItemGroups.groups.get(b)) : new Item.Settings()));
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
 			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
 		}
@@ -339,7 +342,7 @@ public class PieceSet {
 	 * @return The {@link PieceType} from this {@link PieceSet}, or null if no such PieceType exists.
 	 */
 	public Block getPiece(PieceType piece) {
-		if (piece.equals(PieceType.BASE)) return getBase();
+		if (piece.equals(PieceTypes.BASE)) return getBase();
 		if (!isGenerated()) generate();
 		if (hasPiece(piece)) return pieces.get(piece).getBlock();
 		return null;
@@ -419,7 +422,7 @@ public class PieceSet {
 	}
 
 	public List<PieceType> getExcludedTypes() {
-		ArrayList<PieceType> et = new ArrayList<>(PieceType.getTypesNoBase());
+		ArrayList<PieceType> et = new ArrayList<>(PieceTypes.getTypesNoBase());
 		et.removeAll(this.getPieceTypes());
 		return et;
 	}

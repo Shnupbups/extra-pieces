@@ -10,20 +10,20 @@ import net.minecraft.util.registry.Registry;
 import java.util.HashMap;
 
 public class ShapedPieceRecipe extends PieceRecipe {
-	private HashMap<Character,PieceType> key = new HashMap<>();
+	private HashMap<Character, PieceType> key = new HashMap<>();
 	private String[] pattern;
 
 	public ShapedPieceRecipe(PieceType output, int count, String... pattern) {
 		super(output, count);
-		this.pattern=pattern;
+		this.pattern = pattern;
 	}
 
 	public ShapedPieceRecipe addToKey(char c, PieceType type) {
-		key.put(c,type);
+		key.put(c, type);
 		return this;
 	}
 
-	public HashMap<Character,PieceType> getKey() {
+	public HashMap<Character, PieceType> getKey() {
 		return key;
 	}
 
@@ -35,10 +35,10 @@ public class ShapedPieceRecipe extends PieceRecipe {
 		return key.get(c);
 	}
 
-	public HashMap<Character,Block> getKey(PieceSet set) {
-		HashMap<Character,Block> setKey = new HashMap<>();
-		for(char c:getKey().keySet()) {
-			setKey.put(c,set.getPiece(getKey().get(c)));
+	public HashMap<Character, Block> getKey(PieceSet set) {
+		HashMap<Character, Block> setKey = new HashMap<>();
+		for (char c : getKey().keySet()) {
+			setKey.put(c, set.getPiece(getKey().get(c)));
 		}
 		return setKey;
 	}

@@ -1,13 +1,14 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
+import com.shnupbups.extrapieces.core.PieceTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityContext;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -80,7 +81,7 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 
 	public PieceType getType() {
-		return PieceType.CORNER;
+		return PieceTypes.CORNER;
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
@@ -157,9 +158,10 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 	public BlockState getPlacementState(ItemPlacementContext itemPlacementContext_1) {
 		BlockPos blockPos_1 = itemPlacementContext_1.getBlockPos();
 		FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
-		double xPos = itemPlacementContext_1.getBlockPos().getX() - blockPos_1.getX();
-		double zPos = itemPlacementContext_1.getBlockPos().getZ() - blockPos_1.getZ();
+		double xPos = itemPlacementContext_1.getHitPos().getX() - blockPos_1.getX();
+		double zPos = itemPlacementContext_1.getHitPos().getZ() - blockPos_1.getZ();
 		Direction direction_1 = itemPlacementContext_1.getPlayerFacing().getOpposite();
+		ExtraPieces.log(direction_1.asString()+" x:"+xPos+" z:"+zPos);
 		if (direction_1 == Direction.EAST) {
 			if (zPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		} else if (direction_1 == Direction.WEST) {
@@ -169,8 +171,8 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 		} else {
 			if (xPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		}
-		BlockState blockState_1 = this.getDefaultState().with(FACING, direction_1).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
-		return blockState_1;
+		ExtraPieces.log(direction_1.asString());
+		return this.getDefaultState().with(FACING, direction_1).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
@@ -195,6 +197,6 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 
 	@Environment(EnvType.CLIENT)
 	public boolean isSideInvisible(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
-		return getSet().isTransparent() ? (blockState_2.getBlock() == this ? true : super.isSideInvisible(blockState_1, blockState_2, direction_1)) : super.isSideInvisible(blockState_1, blockState_2, direction_1);
+		return getSet().isTransparent() ? (blockState_2.getBlock() == this || super.isSideInvisible(blockState_1, blockState_2, direction_1)) : super.isSideInvisible(blockState_1, blockState_2, direction_1);
 	}
 }
