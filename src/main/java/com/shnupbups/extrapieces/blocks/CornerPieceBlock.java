@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
@@ -157,9 +158,10 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 	public BlockState getPlacementState(ItemPlacementContext itemPlacementContext_1) {
 		BlockPos blockPos_1 = itemPlacementContext_1.getBlockPos();
 		FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
-		double xPos = itemPlacementContext_1.getBlockPos().getX() - blockPos_1.getX();
-		double zPos = itemPlacementContext_1.getBlockPos().getZ() - blockPos_1.getZ();
+		double xPos = itemPlacementContext_1.getHitPos().getX() - blockPos_1.getX();
+		double zPos = itemPlacementContext_1.getHitPos().getZ() - blockPos_1.getZ();
 		Direction direction_1 = itemPlacementContext_1.getPlayerFacing().getOpposite();
+		ExtraPieces.log(direction_1.asString()+" x:"+xPos+" z:"+zPos);
 		if (direction_1 == Direction.EAST) {
 			if (zPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		} else if (direction_1 == Direction.WEST) {
@@ -169,6 +171,7 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 		} else {
 			if (xPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		}
+		ExtraPieces.log(direction_1.asString());
 		BlockState blockState_1 = this.getDefaultState().with(FACING, direction_1).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 		return blockState_1;
 	}

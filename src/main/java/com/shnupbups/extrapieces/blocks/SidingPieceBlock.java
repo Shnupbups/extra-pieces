@@ -105,8 +105,8 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 			FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
 			Direction playerHorizontalFacing = itemPlacementContext_1.getPlayerFacing();
 			Direction facing = itemPlacementContext_1.getSide();
-			double xPos = itemPlacementContext_1.getBlockPos().getX() - blockPos_1.getX();
-			double zPos = itemPlacementContext_1.getBlockPos().getZ() - blockPos_1.getZ();
+			double xPos = itemPlacementContext_1.getHitPos().getX() - blockPos_1.getX();
+			double zPos = itemPlacementContext_1.getHitPos().getZ() - blockPos_1.getZ();
 			Direction direction_1 = playerHorizontalFacing.getOpposite();
 			if (facing.getAxis().isVertical()) {
 				if (direction_1 == Direction.EAST || direction_1 == Direction.WEST) {
