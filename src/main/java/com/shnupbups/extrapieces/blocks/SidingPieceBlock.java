@@ -122,7 +122,6 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 
 	public boolean canReplace(BlockState blockState_1, ItemPlacementContext itemPlacementContext_1) {
-		if (itemPlacementContext_1.getPlayer().isSneaking()) return false;
 		ItemStack itemStack_1 = itemPlacementContext_1.getStack();
 		ModProperties.SidingType slabType_1 = blockState_1.get(TYPE);
 		Direction facing = blockState_1.get(FACING_HORIZONTAL);
@@ -131,16 +130,16 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 				boolean boolean_1;
 				switch (facing) {
 					case EAST:
-						boolean_1 = itemPlacementContext_1.getBlockPos().getX() - (double) itemPlacementContext_1.getBlockPos().getX() > 0.5D;
+						boolean_1 = itemPlacementContext_1.getHitPos().getX() - (double) itemPlacementContext_1.getBlockPos().getX() > 0.5D;
 						break;
 					case WEST:
-						boolean_1 = itemPlacementContext_1.getBlockPos().getX() - (double) itemPlacementContext_1.getBlockPos().getX() < 0.5D;
+						boolean_1 = itemPlacementContext_1.getHitPos().getX() - (double) itemPlacementContext_1.getBlockPos().getX() < 0.5D;
 						break;
 					case SOUTH:
-						boolean_1 = itemPlacementContext_1.getBlockPos().getZ() - (double) itemPlacementContext_1.getBlockPos().getZ() > 0.5D;
+						boolean_1 = itemPlacementContext_1.getHitPos().getZ() - (double) itemPlacementContext_1.getBlockPos().getZ() > 0.5D;
 						break;
 					default:
-						boolean_1 = itemPlacementContext_1.getBlockPos().getZ() - (double) itemPlacementContext_1.getBlockPos().getZ() < 0.5D;
+						boolean_1 = itemPlacementContext_1.getHitPos().getZ() - (double) itemPlacementContext_1.getBlockPos().getZ() < 0.5D;
 				}
 				Direction direction_1 = itemPlacementContext_1.getSide();
 				return direction_1 == facing || boolean_1 && direction_1.getAxis().isVertical();

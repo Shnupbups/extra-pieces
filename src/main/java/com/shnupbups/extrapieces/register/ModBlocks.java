@@ -347,6 +347,7 @@ public class ModBlocks {
 		STRIPPED_JUNGLE_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").setTexture("stripped_jungle_log").register();
 		STRIPPED_ACACIA_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").setTexture("stripped_acacia_log").register();
 		STRIPPED_DARK_OAK_WOOD_PIECES = PieceSets.createSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").setTexture("stripped_dark_oak_log").register();
+		ExtraPieces.log("Generated Default Sets");
 	}
 
 	public static void registerPiece(PieceBlock pb) {

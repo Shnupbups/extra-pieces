@@ -161,7 +161,6 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 		double xPos = itemPlacementContext_1.getHitPos().getX() - blockPos_1.getX();
 		double zPos = itemPlacementContext_1.getHitPos().getZ() - blockPos_1.getZ();
 		Direction direction_1 = itemPlacementContext_1.getPlayerFacing().getOpposite();
-		ExtraPieces.log(direction_1.asString()+" x:"+xPos+" z:"+zPos);
 		if (direction_1 == Direction.EAST) {
 			if (zPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		} else if (direction_1 == Direction.WEST) {
@@ -171,7 +170,6 @@ public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock
 		} else {
 			if (xPos < 0.5) direction_1 = direction_1.rotateYClockwise();
 		}
-		ExtraPieces.log(direction_1.asString());
 		return this.getDefaultState().with(FACING, direction_1).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 	}
 

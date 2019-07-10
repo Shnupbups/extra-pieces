@@ -310,7 +310,7 @@ public class PieceSet {
 	 */
 	public PieceSet register() {
 		if (isRegistered())
-			throw new IllegalStateException("Base block " + base.getTranslationKey() + " already has PiecesSet registered! Cannot register again!");
+			return this;
 		if (!isGenerated()) generate();
 		for (PieceType b : genTypes) {
 			Identifier id = new Identifier(b.getId().getNamespace(), b.getBlockId(getName()));
