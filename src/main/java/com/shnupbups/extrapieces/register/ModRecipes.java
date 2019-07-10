@@ -13,20 +13,23 @@ import net.minecraft.util.registry.Registry;
 
 public class ModRecipes {
 
-	public static final ShapedPieceRecipe STAIRS_TO_BASE = new ShapedPieceRecipe(PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.STAIRS);
-	public static final ShapedPieceRecipe CORNERS_TO_BASE = new ShapedPieceRecipe(PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.CORNER);
-	public static final ShapedPieceRecipe WALL_TO_BASE = new ShapedPieceRecipe(PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.WALL);
+	public static final ShapedPieceRecipe STAIRS_TO_BASE = new ShapedPieceRecipe("stairs_to_base", PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.STAIRS);
+	public static final ShapedPieceRecipe CORNERS_TO_BASE = new ShapedPieceRecipe("corners_to_base", PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.CORNER);
+	public static final ShapedPieceRecipe WALLS_TO_BASE = new ShapedPieceRecipe("walls_to_base", PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.WALL);
+	public static final ShapedPieceRecipe FENCES_TO_BASE = new ShapedPieceRecipe("fences_to_base", PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.FENCE);
+	public static final ShapedPieceRecipe POSTS_TO_BASE = new ShapedPieceRecipe("posts_to_base", PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.POST);
+	public static final ShapedPieceRecipe COLUMNS_TO_BASE = new ShapedPieceRecipe("columns_to_base", PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.COLUMN);
 
-	public static final ShapelessPieceRecipe STAIRS_TO_CORNER = new ShapelessPieceRecipe(PieceTypes.CORNER, 1, PieceTypes.STAIRS);
-	public static final ShapelessPieceRecipe CORNER_TO_STAIRS = new ShapelessPieceRecipe(PieceTypes.STAIRS, 1, PieceTypes.CORNER);
-	public static final ShapelessPieceRecipe SLAB_TO_SIDING = new ShapelessPieceRecipe(PieceTypes.SIDING, 1, PieceTypes.SLAB);
-	public static final ShapelessPieceRecipe SIDING_TO_SLAB = new ShapelessPieceRecipe(PieceTypes.SLAB, 1, PieceTypes.SIDING);
-	public static final ShapelessPieceRecipe SLABS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, PieceTypes.SLAB, PieceTypes.SLAB);
-	public static final ShapelessPieceRecipe SIDINGS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, PieceTypes.SIDING, PieceTypes.SIDING);
-	public static final ShapelessPieceRecipe FENCE_TO_POST = new ShapelessPieceRecipe(PieceTypes.POST, 1, PieceTypes.FENCE);
-	public static final ShapelessPieceRecipe POST_TO_FENCE = new ShapelessPieceRecipe(PieceTypes.FENCE, 1, PieceTypes.POST);
-	public static final ShapelessPieceRecipe WALL_TO_COLUMN = new ShapelessPieceRecipe(PieceTypes.COLUMN, 1, PieceTypes.WALL);
-	public static final ShapelessPieceRecipe COLUMN_TO_WALL = new ShapelessPieceRecipe(PieceTypes.WALL, 1, PieceTypes.COLUMN);
+	public static final ShapelessPieceRecipe STAIRS_TO_CORNER = new ShapelessPieceRecipe("stairs_to_corner", PieceTypes.CORNER, 1, PieceTypes.STAIRS);
+	public static final ShapelessPieceRecipe CORNER_TO_STAIRS = new ShapelessPieceRecipe("corner_to_stairs", PieceTypes.STAIRS, 1, PieceTypes.CORNER);
+	public static final ShapelessPieceRecipe SLAB_TO_SIDING = new ShapelessPieceRecipe("slab_to_siding", PieceTypes.SIDING, 1, PieceTypes.SLAB);
+	public static final ShapelessPieceRecipe SIDING_TO_SLAB = new ShapelessPieceRecipe("siding_to_slab", PieceTypes.SLAB, 1, PieceTypes.SIDING);
+	public static final ShapelessPieceRecipe SLABS_TO_BASE = new ShapelessPieceRecipe("slabs_to_base", PieceTypes.BASE, 1, PieceTypes.SLAB, PieceTypes.SLAB);
+	public static final ShapelessPieceRecipe SIDINGS_TO_BASE = new ShapelessPieceRecipe("sidings_to_base", PieceTypes.BASE, 1, PieceTypes.SIDING, PieceTypes.SIDING);
+	public static final ShapelessPieceRecipe FENCE_TO_POST = new ShapelessPieceRecipe("fence_to_post", PieceTypes.POST, 1, PieceTypes.FENCE);
+	public static final ShapelessPieceRecipe POST_TO_FENCE = new ShapelessPieceRecipe("post_to_fence", PieceTypes.FENCE, 1, PieceTypes.POST);
+	public static final ShapelessPieceRecipe WALL_TO_COLUMN = new ShapelessPieceRecipe("wall_to_column", PieceTypes.COLUMN, 1, PieceTypes.WALL);
+	public static final ShapelessPieceRecipe COLUMN_TO_WALL = new ShapelessPieceRecipe("column_to_wall", PieceTypes.WALL, 1, PieceTypes.COLUMN);
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		int r = 0;
@@ -74,7 +77,25 @@ public class ModRecipes {
 			if (ps.hasPiece(PieceTypes.WALL)) {
 				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.WALL));
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
-				WALL_TO_BASE.add(data, id, ps);
+				WALLS_TO_BASE.add(data, id, ps);
+				r++;
+			}
+			if (ps.hasPiece(PieceTypes.FENCE)) {
+				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.FENCE));
+				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
+				FENCES_TO_BASE.add(data, id, ps);
+				r++;
+			}
+			if (ps.hasPiece(PieceTypes.COLUMN)) {
+				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.COLUMN));
+				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
+				COLUMNS_TO_BASE.add(data, id, ps);
+				r++;
+			}
+			if (ps.hasPiece(PieceTypes.POST)) {
+				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.POST));
+				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
+				POSTS_TO_BASE.add(data, id, ps);
 				r++;
 			}
 			if (ps.hasPiece(PieceTypes.SLAB)) {
@@ -87,6 +108,12 @@ public class ModRecipes {
 				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.SIDING));
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
 				SIDINGS_TO_BASE.add(data, id, ps);
+				r++;
+			}
+			if (ps.hasPiece(PieceTypes.WALL)) {
+				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.WALL));
+				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
+				WALLS_TO_BASE.add(data, id, ps);
 				r++;
 			}
 			if (ps.hasPiece(PieceTypes.SLAB) && ps.hasPiece(PieceTypes.SIDING)) {

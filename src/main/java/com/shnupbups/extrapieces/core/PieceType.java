@@ -77,7 +77,7 @@ public abstract class PieceType {
 	}
 
 	public StonecuttingPieceRecipe getStonecuttingRecipe() {
-		return new StonecuttingPieceRecipe(this, getStonecuttingCount(), PieceTypes.BASE);
+		return new StonecuttingPieceRecipe(getId(),this, getStonecuttingCount(), PieceTypes.BASE);
 	}
 
 	public int getStonecuttingCount() {

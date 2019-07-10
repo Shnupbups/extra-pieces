@@ -29,7 +29,7 @@ public class WallPiece extends PieceType {
 
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-		recipes.add(new ShapedPieceRecipe(this, 6, "bbb", "bbb").addToKey('b', PieceTypes.BASE));
+		recipes.add(new ShapedPieceRecipe(getId(),this, 6, "bbb", "bbb").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}
 
