@@ -97,10 +97,10 @@ public class StairsPiece extends PieceType {
 														y = 270;
 														break;
 													case NORTH:
-														y = 180;
+														y = 0;
 														break;
 													case SOUTH:
-														y = 0;
+														y = 180;
 														break;
 												}
 												break;
@@ -118,10 +118,10 @@ public class StairsPiece extends PieceType {
 														y = 90;
 														break;
 													case NORTH:
-														y = 0;
+														y = 180;
 														break;
 													case SOUTH:
-														y = 180;
+														y = 0;
 														break;
 												}
 												break;
@@ -134,10 +134,10 @@ public class StairsPiece extends PieceType {
 														y = 180;
 														break;
 													case NORTH:
-														y = 90;
+														y = 270;
 														break;
 													case SOUTH:
-														y = 270;
+														y = 90;
 														break;
 												}
 												break;
@@ -154,10 +154,10 @@ public class StairsPiece extends PieceType {
 													case WEST:
 														y = 180;
 														break;
-													case NORTH:
+													case SOUTH:
 														y = 90;
 														break;
-													case SOUTH:
+													case NORTH:
 														y = 270;
 														break;
 												}
@@ -171,10 +171,10 @@ public class StairsPiece extends PieceType {
 														y = 270;
 														break;
 													case NORTH:
-														y = 180;
+														y = 0;
 														break;
 													case SOUTH:
-														y = 0;
+														y = 180;
 														break;
 												}
 												break;
@@ -192,10 +192,10 @@ public class StairsPiece extends PieceType {
 														y = 90;
 														break;
 													case NORTH:
-														y = 0;
+														y = 180;
 														break;
 													case SOUTH:
-														y = 180;
+														y = 0;
 														break;
 												}
 												break;
@@ -208,10 +208,10 @@ public class StairsPiece extends PieceType {
 														y = 180;
 														break;
 													case NORTH:
-														y = 90;
+														y = 270;
 														break;
 													case SOUTH:
-														y = 270;
+														y = 90;
 														break;
 												}
 												break;
