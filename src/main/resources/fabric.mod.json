@@ -29,9 +29,9 @@
   "mixins": [
   ],
 
-  "requires": {
+  "depends": {
     "fabricloader": ">=0.4.0",
     "fabric": "*",
-	"cotton": "*"
+    "cotton": "*"
   }
 }
