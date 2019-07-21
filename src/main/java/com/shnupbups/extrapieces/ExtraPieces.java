@@ -5,15 +5,21 @@ import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.*;
 import com.swordglowsblue.artifice.api.Artifice;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+
 public class ExtraPieces implements ModInitializer {
 	public static final String mod_id = "extrapieces";
 	public static final String mod_name = "Extra Pieces";
 	public static final Logger logger = LogManager.getFormatterLogger(mod_name);
+
+	public static File configDir;
+	public static File ppDir;
 
 	public static Identifier getID(String path) {
 		return new Identifier(mod_id, path);
@@ -46,5 +52,21 @@ public class ExtraPieces implements ModInitializer {
 		/*} catch(Exception e) {
 			ExtraPieces.log("BIG OOF: "+e.getMessage());
 		}*/
+	}
+
+	public static File getConfigDirectory() {
+		if(configDir==null) {
+			configDir = new File(FabricLoader.getInstance().getConfigDirectory(),mod_id);
+			configDir.mkdirs();
+		}
+		return configDir;
+	}
+
+	public static File getPiecePackDirectory() {
+		if(ppDir==null) {
+			ppDir = new File(getConfigDirectory(),"piecepacks");
+			ppDir.mkdirs();
+		}
+		return ppDir;
 	}
 }

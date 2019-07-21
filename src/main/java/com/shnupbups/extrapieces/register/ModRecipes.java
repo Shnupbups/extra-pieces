@@ -2,6 +2,7 @@ package com.shnupbups.extrapieces.register;
 
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
+import com.shnupbups.extrapieces.config.EPConfig;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceTypes;
@@ -44,12 +45,13 @@ public class ModRecipes {
 						pr.add(data, id, ps);
 						r++;
 					}
-					if (pb.getType() != PieceTypes.BASE && ps.isStonecuttable()) {
-						Identifier bid = Registry.BLOCK.getId(pb.getBlock());
-						Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
-						pb.getType().getStonecuttingRecipe().add(data, id, ps);
-						s++;
-					}
+
+				}
+				if (!ps.isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && (ps.isStonecuttable() || EPConfig.everythingStonecuttable)) {
+					Identifier bid = Registry.BLOCK.getId(pb.getBlock());
+					Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
+					pb.getType().getStonecuttingRecipe().add(data, id, ps);
+					s++;
 				}
 			}
 			if (ps.hasPiece(PieceTypes.STAIRS)) {

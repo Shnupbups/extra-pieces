@@ -7,6 +7,7 @@ import blue.endless.jankson.JsonPrimitive;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
+import com.shnupbups.extrapieces.config.EPConfig;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.shnupbups.extrapieces.register.ModItemGroups;
 import net.minecraft.block.Block;
@@ -15,6 +16,7 @@ import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Language;
 import net.minecraft.util.registry.Registry;
 
 import java.util.*;
@@ -54,11 +56,22 @@ public class PieceSet {
 	private Identifier mainTexture;
 	private Identifier topTexture;
 	private Identifier bottomTexture;
-	private boolean hasCustomTranslation;
 	private boolean opaque;
 	private boolean includeMode = false;
 
 	PieceSet(Block base, String name, List<PieceType> types) {
+		this(base,name,types,false);
+	}
+
+	PieceSet(Block base, String name) {
+		this(base,name,false);
+	}
+
+	PieceSet(Block base, String name, boolean isDefault) {
+		this(base,name,PieceTypes.getTypesNoBase(),isDefault);
+	}
+
+	PieceSet(Block base, String name, List<PieceType> types, boolean isDefault) {
 		this.base = base;
 		this.name = name.toLowerCase();
 		Identifier id = Registry.BLOCK.getId(base);
@@ -67,9 +80,9 @@ public class PieceSet {
 		this.bottomTexture = topTexture;
 		this.opaque = base.getDefaultState().isOpaque();
 		this.genTypes = types.toArray(new PieceType[types.size()]);
-		PieceSets.registerSet(base, this);
 		this.stonecuttable = (base.getDefaultState().getMaterial().equals(Material.STONE) || base.getDefaultState().getMaterial().equals(Material.METAL));
-		this.hasCustomTranslation = false;
+		if(isDefault)PieceSets.registerDefaultSet(this);
+		else PieceSets.registerSet(this);
 	}
 
 	public static PieceSet fromJson(String name, JsonObject ob) {
@@ -80,9 +93,6 @@ public class PieceSet {
 		}
 		if (ob.containsKey("opaque")) {
 			set.setOpaque(ob.get("opaque").equals(JsonPrimitive.TRUE));
-		}
-		if (ob.containsKey("custom_translation")) {
-			set.setHasCustomTranslation(ob.get("custom_translation").equals(JsonPrimitive.TRUE));
 		}
 		if (ob.containsKey("textures")) {
 			JsonObject tx = ob.getObject("textures");
@@ -262,7 +272,6 @@ public class PieceSet {
 		if (hasMainTexture()) sb.append(", Main Texture = ").append(getMainTexture()).append(" ");
 		if (hasTopTexture()) sb.append(", Top Texture = ").append(getTopTexture()).append(" ");
 		if (hasBottomTexture()) sb.append(", Bottom Texture = ").append(getBottomTexture()).append(" ");
-		if (hasCustomTranslation()) sb.append(", Translation Key = ").append(getTranslationKey()).append(" ");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -291,7 +300,7 @@ public class PieceSet {
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
-		for (PieceType p : PieceTypes.getTypes()) {
+		for (PieceType p : getGenTypes()) {
 			if (shouldGenPiece(p) && !hasPiece(p)) {
 				PieceBlock pb = (PieceBlock) p.getNew(this);
 				pieces.put(p, pb);
@@ -423,7 +432,7 @@ public class PieceSet {
 
 	public List<PieceType> getExcludedTypes() {
 		ArrayList<PieceType> et = new ArrayList<>(PieceTypes.getTypesNoBase());
-		et.removeAll(this.getPieceTypes());
+		et.removeAll(this.getGenTypes());
 		return et;
 	}
 
@@ -441,21 +450,8 @@ public class PieceSet {
 		return this;
 	}
 
-	public boolean hasCustomTranslation() {
-		return hasCustomTranslation;
-	}
-
-	public PieceSet setHasCustomTranslation(boolean hasCustomTranslation) {
-		this.hasCustomTranslation = hasCustomTranslation;
-		return this;
-	}
-
-	public PieceSet setHasCustomTranslation() {
-		return setHasCustomTranslation(true);
-	}
-
 	public String getTranslationKey() {
-		if (!hasCustomTranslation()) return this.getBase().getTranslationKey();
+		if (!Language.getInstance().hasTranslation("pieceSet." + this.getName())) return this.getBase().getTranslationKey();
 		else return "pieceSet." + this.getName();
 	}
 
@@ -472,9 +468,6 @@ public class PieceSet {
 		}
 		if (this.isOpaque() != this.getBase().getDefaultState().isOpaque()) {
 			ob.put("opaque", new JsonPrimitive(this.isOpaque()));
-		}
-		if (this.hasCustomTranslation()) {
-			ob.put("custom_translation", new JsonPrimitive(this.hasCustomTranslation()));
 		}
 		if (this.hasCustomTexture()) {
 			JsonObject tx = new JsonObject();

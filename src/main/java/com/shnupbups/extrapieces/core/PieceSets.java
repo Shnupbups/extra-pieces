@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PieceSets {
+	public static Map<Block, PieceSet> defaults = new HashMap<>();
 	public static Map<Block, PieceSet> registry = new HashMap<>();
 	public static Map<Block, FakePieceBlock> vanillaPieceRegistry = new HashMap<>();
 
@@ -24,8 +25,13 @@ public class PieceSets {
 		return fpb;
 	}
 
-	static PieceSet registerSet(Block base, PieceSet ps) {
-		registry.put(base, ps);
+	static PieceSet registerSet(PieceSet ps) {
+		registry.put(ps.getBase(), ps);
+		return ps;
+	}
+
+	static PieceSet registerDefaultSet(PieceSet ps) {
+		defaults.put(ps.getBase(), ps);
 		return ps;
 	}
 
@@ -43,7 +49,7 @@ public class PieceSets {
 	}
 
 	/**
-	 * Gets a blcok's {@link PieceSet}
+	 * Gets a block's {@link PieceSet}
 	 *
 	 * @param block The {@link Block} to find the set of.
 	 * @return The {@link PieceSet} based on the {@link Block} {@code base}, or null if none exists.
@@ -91,6 +97,11 @@ public class PieceSets {
 		}
 	}
 
+	public static PieceSet createDefaultSet(Block base, String name, List<PieceType> types) {
+		if (types.contains(PieceTypes.BASE)) types.remove(PieceTypes.BASE);
+		return new PieceSet(base, name, types, true);
+	}
+
 	/**
 	 * Creates a new {@link PieceSet} based on {@code base} with each of the {@link PieceType}s specified.
 	 *
@@ -104,6 +115,10 @@ public class PieceSets {
 		return createSet(base, name, Arrays.asList(types));
 	}
 
+	public static PieceSet createDefaultSet(Block base, String name, PieceType... types) {
+		return createDefaultSet(base, name, Arrays.asList(types));
+	}
+
 	/**
 	 * Creates a new {@link PieceSet} based on {@code base} with every {@link PieceType}.
 	 *
@@ -114,6 +129,10 @@ public class PieceSets {
 	 */
 	public static PieceSet createSet(Block base, String name) {
 		return createSet(base, name, PieceTypes.getTypesNoBase());
+	}
+
+	public static PieceSet createDefaultSet(Block base, String name) {
+		return createDefaultSet(base, name, PieceTypes.getTypesNoBase());
 	}
 
 	/**

@@ -8,7 +8,7 @@
   "itemGroup.extrapieces.corner": "Extra Pieces: Corners",
   "itemGroup.extrapieces.post": "Extra Pieces: Posts",
   "itemGroup.extrapieces.column": "Extra Pieces: Columns",
-  "itemGroup.extrapieces.quarter": "Extra Pieces: Quarters",
+  "itemGroup.extrapieces.trim": "Extra Pieces: Trim",
   "itemGroup.extrapieces.layer": "Extra Pieces: Layers",
 
   "piece.extrapieces.stairs": "%s Stairs",
@@ -20,7 +20,7 @@
   "piece.extrapieces.corner": "%s Corner",
   "piece.extrapieces.post": "%s Post",
   "piece.extrapieces.column": "%s Column",
-  "piece.extrapieces.quarter": "%s Quarter",
+  "piece.extrapieces.trim": "%s Trim",
   "piece.extrapieces.layer": "%s Layer",
 
   "pieceSet.oak": "Oak",
