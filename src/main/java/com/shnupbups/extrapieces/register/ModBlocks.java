@@ -258,7 +258,7 @@ public class ModBlocks {
 		BLACK_WOOL_PIECES = PieceSets.createDefaultSet(Blocks.BLACK_WOOL, "black_wool");
 		OBSIDIAN_PIECES = PieceSets.createDefaultSet(Blocks.OBSIDIAN, "obsidian");
 		BONE_PIECES = PieceSets.createDefaultSet(Blocks.BONE_BLOCK, "bone").setTexture("bone_block_side").setTopTexture("bone_block_top");
-		SNOW_PIECES = PieceSets.createDefaultSet(Blocks.SNOW_BLOCK, "snow").setTexture("snow").setUncraftable(PieceTypes.SLAB);
+		SNOW_PIECES = PieceSets.createDefaultSet(Blocks.SNOW_BLOCK, "snow", PieceSet.NO_LAYER).setTexture("snow").setUncraftable(PieceTypes.SLAB).addVanillaPiece(PieceTypes.LAYER,Blocks.SNOW);
 		MAGMA_PIECES = PieceSets.createDefaultSet(Blocks.MAGMA_BLOCK, "magma").setTexture("magma");
 		GLOWSTONE_PIECES = PieceSets.createDefaultSet(Blocks.GLOWSTONE, "glowstone");
 		NETHER_WART_PIECES = PieceSets.createDefaultSet(Blocks.NETHER_WART_BLOCK, "nether_wart");
@@ -299,6 +299,12 @@ public class ModBlocks {
 			blocks.put(pb.getType(), new ArrayList<>());
 		}
 		blocks.get(pb.getType()).add(pb.getBlock());
+	}
+
+	public static void registerSet(PieceSet ps) {
+		for(PieceBlock pb:ps.getPieceBlocks()) {
+			registerPiece(pb);
+		}
 	}
 
 	public static void init() {

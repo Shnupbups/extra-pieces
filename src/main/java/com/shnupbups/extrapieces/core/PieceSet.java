@@ -27,6 +27,7 @@ public class PieceSet {
 	public static final ArrayList<PieceType> NO_SLAB_STAIRS_OR_WALL;
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_WALL;
 	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
+	public static final ArrayList<PieceType> NO_LAYER;
 
 	static {
 		NO_SLAB = new ArrayList<>(PieceTypes.getTypesNoBase());
@@ -44,6 +45,9 @@ public class PieceSet {
 
 		JUST_EXTRAS_AND_FENCE_GATE = new ArrayList<>(NO_SLAB_STAIRS_OR_WALL);
 		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceTypes.FENCE);
+
+		NO_LAYER = new ArrayList<>(PieceTypes.getTypesNoBase());
+		NO_LAYER.remove(PieceTypes.LAYER);
 	}
 
 	private final Block base;
@@ -304,7 +308,6 @@ public class PieceSet {
 			if (shouldGenPiece(p) && !hasPiece(p)) {
 				PieceBlock pb = (PieceBlock) p.getNew(this);
 				pieces.put(p, pb);
-				ModBlocks.registerPiece(pb);
 			}
 		}
 		return this;

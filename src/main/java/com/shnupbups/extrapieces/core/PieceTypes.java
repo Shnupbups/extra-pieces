@@ -22,6 +22,7 @@ public class PieceTypes {
 	public static final PieceType POST = new PostPiece();
 	public static final PieceType COLUMN = new ColumnPiece();
 	public static final PieceType CORNER = new CornerPiece();
+	public static final PieceType LAYER = new LayerPiece();
 
 	private static ArrayList<PieceType> types = new ArrayList<PieceType>();
 
@@ -36,6 +37,7 @@ public class PieceTypes {
 		register(PieceTypes.POST);
 		register(PieceTypes.COLUMN);
 		register(PieceTypes.CORNER);
+		register(PieceTypes.LAYER);
 	}
 
 	public static PieceType register(PieceType type) {

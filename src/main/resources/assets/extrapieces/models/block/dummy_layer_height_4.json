@@ -1,0 +1,15 @@
+{   "parent": "extrapieces:block/dummy_layer",
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 4, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#bottom", "cullface": "down" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#top" },
+                "north": { "uv": [ 0, 12, 16, 16 ], "texture": "#main", "cullface": "north" },
+                "south": { "uv": [ 0, 12, 16, 16 ], "texture": "#main", "cullface": "south" },
+                "west":  { "uv": [ 0, 12, 16, 16 ], "texture": "#main", "cullface": "west" },
+                "east":  { "uv": [ 0, 12, 16, 16 ], "texture": "#main", "cullface": "east" }
+            }
+        }
+    ]
+}

@@ -31,6 +31,8 @@ public class ModRecipes {
 	public static final ShapelessPieceRecipe POST_TO_FENCE = new ShapelessPieceRecipe("post_to_fence", PieceTypes.FENCE, 1, PieceTypes.POST);
 	public static final ShapelessPieceRecipe WALL_TO_COLUMN = new ShapelessPieceRecipe("wall_to_column", PieceTypes.COLUMN, 1, PieceTypes.WALL);
 	public static final ShapelessPieceRecipe COLUMN_TO_WALL = new ShapelessPieceRecipe("column_to_wall", PieceTypes.WALL, 1, PieceTypes.COLUMN);
+	public static final ShapelessPieceRecipe LAYERS_TO_BASE = new ShapelessPieceRecipe("layers_to_base", PieceTypes.BASE, 1, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER);
+	public static final ShapelessPieceRecipe LAYERS_TO_SLAB = new ShapelessPieceRecipe("layers_to_slab", PieceTypes.SLAB, 1, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER);
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		int r = 0;
@@ -116,6 +118,18 @@ public class ModRecipes {
 				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.WALL));
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
 				WALLS_TO_BASE.add(data, id, ps);
+				r++;
+			}
+			if (ps.hasPiece(PieceTypes.LAYER)) {
+				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.LAYER));
+				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
+				LAYERS_TO_BASE.add(data, id, ps);
+				r++;
+			}
+			if (ps.hasPiece(PieceTypes.LAYER) && ps.hasPiece(PieceTypes.SLAB)) {
+				Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.LAYER));
+				Identifier id = ExtraPieces.getID(bid.getPath() + "_to_slab");
+				LAYERS_TO_SLAB.add(data, id, ps);
 				r++;
 			}
 			if (ps.hasPiece(PieceTypes.SLAB) && ps.hasPiece(PieceTypes.SIDING)) {

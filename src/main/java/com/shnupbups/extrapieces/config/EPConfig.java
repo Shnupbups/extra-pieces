@@ -65,6 +65,7 @@ public class EPConfig {
 						setPieceSet.generate();
 						setsNum++;
 						ppSetsNum++;
+						ModBlocks.registerSet(setPieceSet);
 					}
 					ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack "+f.getName());
 				} catch (IOException e) {
