@@ -51,32 +51,34 @@ public class EPConfig {
 				ExtraPieces.log("No piece packs found, generating default!");
 				generateDefaultPack(new File(ppDir, "default.json"));
 			} else ExtraPieces.log("No piece packs found! Why bother having Extra Pieces installed then?");
-		}else {
+		} else {
 			if(generateDefaultPack&&(!defaultPack.exists()||forceUpdateDefaultPack)) {
 				generateDefaultPack(defaultPack);
 			}
-			for(File f:ppDir.listFiles()) {
-				try (FileReader reader = new FileReader(f)) {
-					ExtraPieces.log("Loading piece pack "+f.getName());
-					JsonObject pp = Jankson.builder().build().load(f);
-					for (String s : pp.keySet()) {
-						JsonObject jsonSet = (JsonObject) pp.get(s);
-						PieceSet setPieceSet = PieceSet.fromJson(s, jsonSet);
-						setPieceSet.generate();
-						setsNum++;
-						ppSetsNum++;
-						ModBlocks.registerSet(setPieceSet);
-					}
-					ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack "+f.getName());
-				} catch (IOException e) {
-					ExtraPieces.log("IOException loading piece pack "+f.getName());
-				} catch (SyntaxError e) {
-					ExtraPieces.log("SyntaxError loading piece pack "+f.getName());
-				}
-				ppSetsNum = 0;
-			}
-			ExtraPieces.log("Generated " + setsNum + " PieceSets!");
 		}
+		for(File f:ppDir.listFiles()) {
+			try (FileReader reader = new FileReader(f)) {
+				ExtraPieces.log("Loading piece pack "+f.getName());
+				JsonObject pp = Jankson.builder().build().load(f);
+				for (String s : pp.keySet()) {
+					JsonObject jsonSet = (JsonObject) pp.get(s);
+					PieceSet setPieceSet = PieceSet.fromJson(s, jsonSet);
+					setPieceSet.generate();
+					setsNum++;
+					ppSetsNum++;
+					ModBlocks.registerSet(setPieceSet);
+				}
+				ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack "+f.getName());
+			} catch (IOException e) {
+				ExtraPieces.log("IOException loading piece pack "+f.getName());
+				ExtraPieces.log(e.getMessage());
+			} catch (SyntaxError e) {
+				ExtraPieces.log("SyntaxError loading piece pack "+f.getName());
+				ExtraPieces.log(e.getCompleteMessage());
+			}
+			ppSetsNum = 0;
+		}
+		ExtraPieces.log("Generated " + setsNum + " PieceSets!");
 	}
 
 	public static void generateConfig(File config) {
@@ -94,6 +96,7 @@ public class EPConfig {
 			writer.write(pp.toJson(false, true));
 		} catch (IOException e) {
 			ExtraPieces.log("Failed to write to default piece pack!");
+			ExtraPieces.log(e.getMessage());
 		}
 	}
 
@@ -113,6 +116,7 @@ public class EPConfig {
 			writer.write(cfg.toJson(false, true));
 		} catch (IOException e) {
 			ExtraPieces.log("Failed to write to config!");
+			ExtraPieces.log(e.getMessage());
 		}
 	}
 
