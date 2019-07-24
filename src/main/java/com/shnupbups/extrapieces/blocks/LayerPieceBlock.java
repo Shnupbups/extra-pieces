@@ -18,10 +18,16 @@ import net.minecraft.world.*;
 
 import java.util.Random;
 
-public class LayerPieceBlock extends Block implements Waterloggable,PieceBlock {
+public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final IntProperty LAYERS;
 	public static final BooleanProperty WATERLOGGED;
 	protected static final VoxelShape[] LAYERS_TO_SHAPE;
+
+	static {
+		LAYERS = Properties.LAYERS;
+		WATERLOGGED = Properties.WATERLOGGED;
+		LAYERS_TO_SHAPE = new VoxelShape[]{VoxelShapes.empty(), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
+	}
 
 	private final PieceSet set;
 
@@ -44,9 +50,9 @@ public class LayerPieceBlock extends Block implements Waterloggable,PieceBlock {
 	}
 
 	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, BlockPlacementEnvironment blockPlacementEnvironment_1) {
-		switch(blockPlacementEnvironment_1) {
+		switch (blockPlacementEnvironment_1) {
 			case LAND:
-				return (Integer)blockState_1.get(LAYERS) < 5;
+				return (Integer) blockState_1.get(LAYERS) < 5;
 			case WATER:
 				return false;
 			case AIR:
@@ -57,7 +63,7 @@ public class LayerPieceBlock extends Block implements Waterloggable,PieceBlock {
 	}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext entityContext_1) {
-		return LAYERS_TO_SHAPE[(Integer)blockState_1.get(LAYERS)];
+		return LAYERS_TO_SHAPE[(Integer) blockState_1.get(LAYERS)];
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
@@ -67,7 +73,7 @@ public class LayerPieceBlock extends Block implements Waterloggable,PieceBlock {
 	public boolean canPlaceAt(BlockState blockState_1, ViewableWorld viewableWorld_1, BlockPos blockPos_1) {
 		BlockState blockState_2 = viewableWorld_1.getBlockState(blockPos_1.down());
 		Block block_1 = blockState_2.getBlock();
-		return Block.isFaceFullSquare(blockState_2.getCollisionShape(viewableWorld_1, blockPos_1.down()), Direction.UP) || block_1 == this && (Integer)blockState_2.get(LAYERS) == 8;
+		return Block.isFaceFullSquare(blockState_2.getCollisionShape(viewableWorld_1, blockPos_1.down()), Direction.UP) || block_1 == this && (Integer) blockState_2.get(LAYERS) == 8;
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
@@ -107,11 +113,5 @@ public class LayerPieceBlock extends Block implements Waterloggable,PieceBlock {
 	protected void appendProperties(StateFactory.Builder<Block, BlockState> stateFactory$Builder_1) {
 		stateFactory$Builder_1.add(LAYERS);
 		stateFactory$Builder_1.add(WATERLOGGED);
-	}
-
-	static {
-		LAYERS = Properties.LAYERS;
-		WATERLOGGED = Properties.WATERLOGGED;
-		LAYERS_TO_SHAPE = new VoxelShape[]{VoxelShapes.empty(), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 	}
 }

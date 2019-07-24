@@ -2,7 +2,10 @@ package com.shnupbups.extrapieces;
 
 import com.shnupbups.extrapieces.config.EPConfig;
 import com.shnupbups.extrapieces.debug.DebugItem;
-import com.shnupbups.extrapieces.register.*;
+import com.shnupbups.extrapieces.register.ModBlocks;
+import com.shnupbups.extrapieces.register.ModLootTables;
+import com.shnupbups.extrapieces.register.ModRecipes;
+import com.shnupbups.extrapieces.register.ModTags;
 import com.swordglowsblue.artifice.api.Artifice;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -37,10 +40,25 @@ public class ExtraPieces implements ModInitializer {
 		return new Identifier(id.getNamespace(), id.getPath() + app);
 	}
 
+	public static File getConfigDirectory() {
+		if (configDir == null) {
+			configDir = new File(FabricLoader.getInstance().getConfigDirectory(), mod_id);
+			configDir.mkdirs();
+		}
+		return configDir;
+	}
+
+	public static File getPiecePackDirectory() {
+		if (ppDir == null) {
+			ppDir = new File(getConfigDirectory(), "piecepacks");
+			ppDir.mkdirs();
+		}
+		return ppDir;
+	}
+
 	@Override
 	public void onInitialize() {
 		EPConfig.init();
-		ModItemGroups.init();
 		ModBlocks.init();
 		Registry.register(Registry.ITEM, getID("debug_item"), new DebugItem());
 		//try {
@@ -52,21 +70,5 @@ public class ExtraPieces implements ModInitializer {
 		/*} catch(Exception e) {
 			ExtraPieces.log("BIG OOF: "+e.getMessage());
 		}*/
-	}
-
-	public static File getConfigDirectory() {
-		if(configDir==null) {
-			configDir = new File(FabricLoader.getInstance().getConfigDirectory(),mod_id);
-			configDir.mkdirs();
-		}
-		return configDir;
-	}
-
-	public static File getPiecePackDirectory() {
-		if(ppDir==null) {
-			ppDir = new File(getConfigDirectory(),"piecepacks");
-			ppDir.mkdirs();
-		}
-		return ppDir;
 	}
 }

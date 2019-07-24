@@ -1,11 +1,11 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.register.ModItemGroups;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.resource.language.TranslationStorage;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -27,7 +27,12 @@ public class PieceBlockItem extends BlockItem {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public Text getName(ItemStack stack) {
-		if(Language.getInstance().hasTranslation(this.getTranslationKey(stack))) return super.getName(stack);
+		if (Language.getInstance().hasTranslation(this.getTranslationKey(stack))) return super.getName(stack);
 		return new TranslatableText(getPieceBlock().getType().getTranslationKey(), new TranslatableText(getPieceBlock().getSet().getTranslationKey()));
+	}
+
+	@Override
+	protected boolean isIn(ItemGroup group) {
+		return group.equals(ModItemGroups.getItemGroup(this.getPieceBlock().getType())) || super.isIn(group);
 	}
 }

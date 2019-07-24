@@ -26,7 +26,7 @@ public class SidingPiece extends PieceType {
 
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-		recipes.add(new ShapedPieceRecipe(getId(),this, 6, "b", "b", "b").addToKey('b', PieceTypes.BASE));
+		recipes.add(new ShapedPieceRecipe(getId(), this, 6, "b", "b", "b").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}
 

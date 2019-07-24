@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public abstract class PieceType {
 
-
 	private final Identifier id;
 
 	public PieceType(String id) {
@@ -77,7 +76,7 @@ public abstract class PieceType {
 	}
 
 	public StonecuttingPieceRecipe getStonecuttingRecipe() {
-		return new StonecuttingPieceRecipe(getId(),this, getStonecuttingCount(), PieceTypes.BASE);
+		return new StonecuttingPieceRecipe(getId(), this, getStonecuttingCount(), PieceTypes.BASE);
 	}
 
 	public int getStonecuttingCount() {

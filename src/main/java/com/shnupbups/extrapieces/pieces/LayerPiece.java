@@ -37,10 +37,10 @@ public class LayerPiece extends PieceType {
 
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
-			for (int i=1;i<=8;i++) {
-				final int j = i*2;
-				state.variant("layers="+i, var -> {
-					var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_height_"+j), "block/"));
+			for (int i = 1; i <= 8; i++) {
+				final int j = i * 2;
+				state.variant("layers=" + i, var -> {
+					var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_height_" + j), "block/"));
 				});
 			}
 		});
@@ -59,7 +59,7 @@ public class LayerPiece extends PieceType {
 				pool.entry(entry -> {
 					entry.type(new Identifier("item"));
 					entry.name(Registry.BLOCK.getId(pb.getBlock()));
-					for(int i=1;i<=8;i++) {
+					for (int i = 1; i <= 8; i++) {
 						final int j = i;
 						entry.function(new Identifier("set_count"), func -> {
 							func.add("count", j);

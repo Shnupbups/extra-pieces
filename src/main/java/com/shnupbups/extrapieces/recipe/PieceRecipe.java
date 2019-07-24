@@ -19,7 +19,7 @@ public abstract class PieceRecipe {
 	}
 
 	public PieceRecipe(String id, PieceType output, int count) {
-		this(ExtraPieces.getID(id),output,count);
+		this(ExtraPieces.getID(id), output, count);
 	}
 
 	public Identifier getID() {

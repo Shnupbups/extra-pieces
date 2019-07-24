@@ -16,7 +16,7 @@ public class ShapelessPieceRecipe extends PieceRecipe {
 	}
 
 	public ShapelessPieceRecipe(String id, PieceType output, int count, PieceType... inputs) {
-		this(ExtraPieces.getID(id),output,count,inputs);
+		this(ExtraPieces.getID(id), output, count, inputs);
 	}
 
 	public PieceType[] getInputs() {

@@ -3,6 +3,7 @@ package com.shnupbups.extrapieces.core;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
@@ -26,6 +27,7 @@ public class PieceSets {
 	}
 
 	static PieceSet registerSet(PieceSet ps) {
+		if(ps.getBase().equals(Blocks.AIR)) throw new IllegalStateException("Piece Set "+ps.getName()+" attempted to register with base as Air!");
 		registry.put(ps.getBase(), ps);
 		return ps;
 	}
@@ -155,5 +157,4 @@ public class PieceSets {
 		}
 		return null;
 	}
-
 }

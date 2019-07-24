@@ -20,7 +20,7 @@ public class ShapedPieceRecipe extends PieceRecipe {
 	}
 
 	public ShapedPieceRecipe(String id, PieceType output, int count, String... pattern) {
-		this(ExtraPieces.getID(id),output,count,pattern);
+		this(ExtraPieces.getID(id), output, count, pattern);
 	}
 
 	public ShapedPieceRecipe addToKey(char c, PieceType type) {

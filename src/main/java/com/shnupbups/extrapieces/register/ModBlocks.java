@@ -6,16 +6,20 @@ import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class ModBlocks {
 
-	public static Map<PieceType, ArrayList<Block>> blocks = new HashMap<>();
+	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
 
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
@@ -258,7 +262,7 @@ public class ModBlocks {
 		BLACK_WOOL_PIECES = PieceSets.createDefaultSet(Blocks.BLACK_WOOL, "black_wool");
 		OBSIDIAN_PIECES = PieceSets.createDefaultSet(Blocks.OBSIDIAN, "obsidian");
 		BONE_PIECES = PieceSets.createDefaultSet(Blocks.BONE_BLOCK, "bone").setTexture("bone_block_side").setTopTexture("bone_block_top");
-		SNOW_PIECES = PieceSets.createDefaultSet(Blocks.SNOW_BLOCK, "snow", PieceSet.NO_LAYER).setTexture("snow").setUncraftable(PieceTypes.SLAB).addVanillaPiece(PieceTypes.LAYER,Blocks.SNOW);
+		SNOW_PIECES = PieceSets.createDefaultSet(Blocks.SNOW_BLOCK, "snow", PieceSet.NO_LAYER).setTexture("snow").setUncraftable(PieceTypes.SLAB).addVanillaPiece(PieceTypes.LAYER, Blocks.SNOW);
 		MAGMA_PIECES = PieceSets.createDefaultSet(Blocks.MAGMA_BLOCK, "magma").setTexture("magma");
 		GLOWSTONE_PIECES = PieceSets.createDefaultSet(Blocks.GLOWSTONE, "glowstone");
 		NETHER_WART_PIECES = PieceSets.createDefaultSet(Blocks.NETHER_WART_BLOCK, "nether_wart");
@@ -294,23 +298,21 @@ public class ModBlocks {
 		ExtraPieces.log("Generated Default Sets");
 	}
 
-	public static void registerPiece(PieceBlock pb) {
-		if (!blocks.containsKey(pb.getType())) {
-			blocks.put(pb.getType(), new ArrayList<>());
-		}
-		blocks.get(pb.getType()).add(pb.getBlock());
-	}
-
-	public static void registerSet(PieceSet ps) {
-		for(PieceBlock pb:ps.getPieceBlocks()) {
-			registerPiece(pb);
-		}
+	public static void registerSet(PieceSet.Builder psb) {
+		setBuilders.put(psb.getBaseID(), psb);
 	}
 
 	public static void init() {
-		for (PieceSet ps : PieceSets.registry.values()) {
-			ps.register();
-		}
+		visitRegistry(Registry.BLOCK, (id, block) -> {
+			if (setBuilders.containsKey(id)) {
+				setBuilders.get(id).build().register();
+			}
+		});
 		ExtraPieces.log("Registered all PieceSets!");
+	}
+
+	public static <T> void visitRegistry(Registry<T> registry, BiConsumer<Identifier, T> visitor) {
+		registry.getIds().forEach(id -> visitor.accept(id, registry.get(id)));
+		RegistryEntryAddedCallback.event(registry).register((index, identifier, entry) -> visitor.accept(identifier, entry));
 	}
 }

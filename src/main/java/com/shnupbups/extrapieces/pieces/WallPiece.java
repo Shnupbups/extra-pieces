@@ -29,7 +29,7 @@ public class WallPiece extends PieceType {
 
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-		recipes.add(new ShapedPieceRecipe(getId(),this, 6, "bbb", "bbb").addToKey('b', PieceTypes.BASE));
+		recipes.add(new ShapedPieceRecipe(getId(), this, 6, "bbb", "bbb").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}
 
@@ -48,6 +48,7 @@ public class WallPiece extends PieceType {
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
 			state.multipartCase(caze -> {
+				caze.when(Direction.UP.asString(),"true");
 				caze.apply(var -> {
 					var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
 				});
