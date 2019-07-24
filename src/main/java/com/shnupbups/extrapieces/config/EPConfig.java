@@ -60,10 +60,10 @@ public class EPConfig {
 				JsonObject pp = Jankson.builder().build().load(f);
 				for (String s : pp.keySet()) {
 					JsonObject jsonSet = (JsonObject) pp.get(s);
-					PieceSet.Builder pieceSet = new PieceSet.Builder(s, jsonSet);
+					PieceSet.Builder psb = new PieceSet.Builder(s, jsonSet);
 					setsNum++;
 					ppSetsNum++;
-					ModBlocks.registerSet(pieceSet);
+					ModBlocks.registerSet(psb);
 				}
 				ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack " + f.getName());
 			} catch (IOException e) {

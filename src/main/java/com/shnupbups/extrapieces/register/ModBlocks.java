@@ -6,6 +6,7 @@ import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
+import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -302,10 +303,19 @@ public class ModBlocks {
 		setBuilders.put(psb.getBaseID(), psb);
 	}
 
-	public static void init() {
+	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
 			if (setBuilders.containsKey(id)) {
-				setBuilders.get(id).build().register();
+				setBuilders.get(id).build().register(data);
+				boolean done = true;
+				for(PieceSet.Builder psb:setBuilders.values()) {
+					if(!psb.isBuilt()) done = false;
+				}
+				if(done) {
+					ModRecipes.init(data);
+					ModLootTables.init(data);
+					ModTags.init(data);
+				}
 			}
 		});
 		ExtraPieces.log("Registered all PieceSets!");

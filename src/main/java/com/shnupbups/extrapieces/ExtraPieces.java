@@ -3,10 +3,8 @@ package com.shnupbups.extrapieces;
 import com.shnupbups.extrapieces.config.EPConfig;
 import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
-import com.shnupbups.extrapieces.register.ModLootTables;
-import com.shnupbups.extrapieces.register.ModRecipes;
-import com.shnupbups.extrapieces.register.ModTags;
 import com.swordglowsblue.artifice.api.Artifice;
+import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
@@ -20,6 +18,8 @@ public class ExtraPieces implements ModInitializer {
 	public static final String mod_id = "extrapieces";
 	public static final String mod_name = "Extra Pieces";
 	public static final Logger logger = LogManager.getFormatterLogger(mod_name);
+
+	public static final boolean DUMP = false;
 
 	public static File configDir;
 	public static File ppDir;
@@ -59,16 +59,16 @@ public class ExtraPieces implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		EPConfig.init();
-		ModBlocks.init();
+		ArtificeResourcePack datapack = Artifice.registerData(getID("ep_data"), data -> {
+			ModBlocks.init(data);
+		});
+		if(DUMP) {
+			try {
+				datapack.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent()+"/dump");
+			} catch(Exception e) {
+				ExtraPieces.log("BIG OOF: "+e.getMessage());
+			}
+		}
 		Registry.register(Registry.ITEM, getID("debug_item"), new DebugItem());
-		//try {
-		Artifice.registerData(getID("ep_data"), data -> {
-			ModTags.init(data);
-			ModRecipes.init(data);
-			ModLootTables.init(data);
-		})/*.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent()+"/dump")*/;
-		/*} catch(Exception e) {
-			ExtraPieces.log("BIG OOF: "+e.getMessage());
-		}*/
 	}
 }

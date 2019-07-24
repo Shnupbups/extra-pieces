@@ -4,10 +4,14 @@ import blue.endless.jankson.JsonArray;
 import blue.endless.jankson.JsonElement;
 import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.JsonPrimitive;
+import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
-import com.shnupbups.extrapieces.register.ModItemGroups;
+import com.shnupbups.extrapieces.config.EPConfig;
+import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
+import com.shnupbups.extrapieces.register.*;
+import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -319,7 +323,7 @@ public class PieceSet {
 	 * @return This {@link PieceSet}
 	 * @throws IllegalStateException If a {@link PieceSet} has already been registered with the same base {@link Block}
 	 */
-	public PieceSet register() {
+	public PieceSet register(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		if (isRegistered())
 			return this;
 		if (!isGenerated()) generate();
@@ -410,7 +414,7 @@ public class PieceSet {
 
 	/**
 	 * Gets whether this {@link PieceSet}'s {@link PieceType}s have been added to the {@link Registry}.<br>
-	 * Registration is done with {@link #register()}.
+	 * Registration is done with register.
 	 *
 	 * @return Whether this {@link PieceSet}'s {@link PieceType}s have been added to the {@link Registry}.
 	 */
@@ -515,6 +519,37 @@ public class PieceSet {
 			ob.put("include", in);
 		}
 		return ob;
+	}
+
+	public void addRecipes(ArtificeResourcePack.ServerResourcePackBuilder data) {
+		for (PieceBlock pb : this.getPieceBlocks()) {
+			if (isCraftable(pb.getType())) {
+				int i = 0;
+				for (ShapedPieceRecipe pr : pb.getType().getRecipes()) {
+					Identifier bid = Registry.BLOCK.getId(pb.getBlock());
+					Identifier id = ExtraPieces.getID(bid.getPath() + "_" + (i++));
+					pr.add(data, id, this);
+					ModRecipes.incrementRecipes();
+				}
+
+			}
+			if (!isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && (isStonecuttable() || EPConfig.everythingStonecuttable)) {
+				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
+				Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
+				pb.getType().getStonecuttingRecipe().add(data, id, this);
+				ModRecipes.incrementStonecuttingRecipes();
+			}
+		}
+		ModRecipes.addMiscRecipes(data, this);
+	}
+
+	public void addLootTables(ArtificeResourcePack.ServerResourcePackBuilder data) {
+		for (PieceBlock pb : this.getPieceBlocks()) {
+			if (!isVanillaPiece(pb.getType())) {
+				pb.getType().addLootTable(data, pb);
+				ModLootTables.incrementLootTables();
+			}
+		}
 	}
 
 	public static class Builder {
