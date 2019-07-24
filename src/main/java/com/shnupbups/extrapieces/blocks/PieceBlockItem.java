@@ -33,6 +33,6 @@ public class PieceBlockItem extends BlockItem {
 
 	@Override
 	protected boolean isIn(ItemGroup group) {
-		return group.equals(ModItemGroups.getItemGroup(this.getPieceBlock().getType())) || super.isIn(group);
+		return group.equals(ModItemGroups.getItemGroup(this.getPieceBlock().getType())) || group.equals(ItemGroup.SEARCH) || super.isIn(group);
 	}
 }
