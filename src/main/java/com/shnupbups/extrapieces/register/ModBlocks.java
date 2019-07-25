@@ -10,12 +10,15 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
 
 public class ModBlocks {
 
 	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
+	public static ArrayList<PieceSet.Builder> primedBuilders = new ArrayList<>();
+	public static boolean done = false;
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
 	public static PieceSet DARK_PRISMARINE_PIECES;
@@ -300,28 +303,54 @@ public class ModBlocks {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
+			for(PieceSet.Builder psb:new ArrayList<>(primedBuilders)) {
+				if(psb.isReady()&&!psb.isBuilt()) {
+					psb.build().register(data);
+					primedBuilders.remove(psb);
+					if (isDone()) {
+						finish(data);
+					}
+				}
+			}
 			if (setBuilders.containsKey(id)) {
 				//ExtraPieces.log(setBuilders.get(id).name);
-				setBuilders.get(id).build().register(data);
-				boolean done = true;
-				int built = 0;
-				for (PieceSet.Builder psb : setBuilders.values()) {
-					if (!psb.isBuilt()) done = false;
-					else built++;
-				}
-				if (built != ModBlocks.built) {
-					//ExtraPieces.log(built+"/"+setBuilders.size());
-					ModBlocks.built = built;
-				}
-				if (done) {
-					ExtraPieces.log("Done! All sets built!");
-					ModRecipes.init(data);
-					ModLootTables.init(data);
-					ModTags.init(data);
+				PieceSet.Builder current = setBuilders.get(id);
+				if(current.isReady()&&!current.isBuilt()) {
+					current.build().register(data);
+					if (isDone()) {
+						finish(data);
+					}
+				} else {
+					primedBuilders.add(setBuilders.get(id));
 				}
 			}
 		});
 		ExtraPieces.log("Registered all PieceSets!");
+	}
+
+	public static void finish(ArtificeResourcePack.ServerResourcePackBuilder data) {
+		ExtraPieces.log("Done! All sets built!");
+		ModRecipes.init(data);
+		ModLootTables.init(data);
+		ModTags.init(data);
+	}
+
+	public static boolean isDone() {
+		if(ModBlocks.done) return true;
+		boolean done = primedBuilders.isEmpty();
+		if (done) {
+			int built = 0;
+			for (PieceSet.Builder psb : setBuilders.values()) {
+				if (!psb.isBuilt()) done = false;
+				else built++;
+			}
+			if (built != ModBlocks.built) {
+				//ExtraPieces.log(built+"/"+setBuilders.size());
+				ModBlocks.built = built;
+			}
+		}
+		ModBlocks.done = done;
+		return done;
 	}
 
 	public static <T> void visitRegistry(Registry<T> registry, BiConsumer<Identifier, T> visitor) {

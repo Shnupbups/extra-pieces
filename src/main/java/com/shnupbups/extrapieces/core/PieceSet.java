@@ -627,7 +627,14 @@ public class PieceSet {
 			return packName;
 		}
 
-		;
+		public boolean isReady() {
+			boolean ready = Registry.BLOCK.containsId(base);
+			if(ready)
+			for(Identifier id:vanillaPieces.values()) {
+				if(!Registry.BLOCK.containsId(id)) ready = false;
+			}
+			return ready;
+		}
 
 		public String toString() {
 			return "PieceSet.Builder{ pack: " + getPackName() + " , base: " + getBaseID().toString() + " }";
