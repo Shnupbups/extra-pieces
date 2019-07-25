@@ -1,13 +1,20 @@
 package com.shnupbups.extrapieces.debug;
 
 import com.shnupbups.extrapieces.blocks.PieceBlock;
+import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
+import com.shnupbups.extrapieces.register.ModBlocks;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class DebugItem extends Item {
 	public DebugItem() {
@@ -36,5 +43,17 @@ public class DebugItem extends Item {
 			}
 		}
 		return ActionResult.PASS;
+	}
+
+	@Override
+	public TypedActionResult<ItemStack> use(World world_1, PlayerEntity player, Hand hand) {
+		if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
+			for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
+				if (!psb.isBuilt())
+					player.addChatMessage(new LiteralText("Errored PieceSet: " + psb.toString() + " Make sure the base actually exists!"), false);
+			}
+			return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
+		}
+		return super.use(world_1, player, hand);
 	}
 }

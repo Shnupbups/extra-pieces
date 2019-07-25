@@ -60,7 +60,7 @@ public class EPConfig {
 				JsonObject pp = Jankson.builder().build().load(f);
 				for (String s : pp.keySet()) {
 					JsonObject jsonSet = (JsonObject) pp.get(s);
-					PieceSet.Builder psb = new PieceSet.Builder(s, jsonSet);
+					PieceSet.Builder psb = new PieceSet.Builder(s, jsonSet, f.getName());
 					setsNum++;
 					ppSetsNum++;
 					ModBlocks.registerSet(psb);

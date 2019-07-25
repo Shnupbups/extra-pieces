@@ -27,7 +27,8 @@ public class PieceSets {
 	}
 
 	static PieceSet registerSet(PieceSet ps) {
-		if(ps.getBase().equals(Blocks.AIR)) throw new IllegalStateException("Piece Set "+ps.getName()+" attempted to register with base as Air!");
+		if (ps.getBase().equals(Blocks.AIR))
+			throw new IllegalStateException("Piece Set " + ps.getName() + " attempted to register with base as Air!");
 		registry.put(ps.getBase(), ps);
 		return ps;
 	}

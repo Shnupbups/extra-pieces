@@ -13,7 +13,7 @@ public class ModLootTables {
 		for (PieceSet ps : PieceSets.registry.values()) {
 			ps.addLootTables(data);
 		}
-		ExtraPieces.log("Registered "+l+" loot tables!");
+		ExtraPieces.log("Registered " + l + " loot tables!");
 	}
 
 	public static void incrementLootTables() {

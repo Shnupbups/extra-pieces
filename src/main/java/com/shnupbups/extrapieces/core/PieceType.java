@@ -4,6 +4,7 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
+import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
@@ -76,7 +77,11 @@ public abstract class PieceType {
 	}
 
 	public StonecuttingPieceRecipe getStonecuttingRecipe() {
-		return new StonecuttingPieceRecipe(getId(), this, getStonecuttingCount(), PieceTypes.BASE);
+		return new StonecuttingPieceRecipe(this, getStonecuttingCount(), PieceTypes.BASE);
+	}
+
+	public WoodmillingPieceRecipe getWoodmillingRecipe() {
+		return new WoodmillingPieceRecipe(this, getStonecuttingCount(), PieceTypes.BASE);
 	}
 
 	public int getStonecuttingCount() {

@@ -1,6 +1,5 @@
 package com.shnupbups.extrapieces.recipe;
 
-import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
@@ -14,13 +13,9 @@ public class ShapedPieceRecipe extends PieceRecipe {
 	private HashMap<Character, PieceType> key = new HashMap<>();
 	private String[] pattern;
 
-	public ShapedPieceRecipe(Identifier id, PieceType output, int count, String... pattern) {
-		super(id, output, count);
+	public ShapedPieceRecipe(PieceType output, int count, String... pattern) {
+		super(output, count);
 		this.pattern = pattern;
-	}
-
-	public ShapedPieceRecipe(String id, PieceType output, int count, String... pattern) {
-		this(ExtraPieces.getID(id), output, count, pattern);
 	}
 
 	public ShapedPieceRecipe addToKey(char c, PieceType type) {
@@ -55,7 +50,7 @@ public class ShapedPieceRecipe extends PieceRecipe {
 	public void add(ArtificeResourcePack.ServerResourcePackBuilder data, Identifier id, PieceSet set) {
 		data.addShapedRecipe(id, recipe -> {
 			recipe.result(Registry.BLOCK.getId(this.getOutput(set)), this.getCount());
-			recipe.group(getID());
+			recipe.group(Registry.BLOCK.getId(getOutput(set)));
 			recipe.pattern(this.getPattern());
 			for (char c : this.getKey(set).keySet()) {
 				recipe.ingredientItem(c, Registry.BLOCK.getId(this.getFromKey(set, c)));

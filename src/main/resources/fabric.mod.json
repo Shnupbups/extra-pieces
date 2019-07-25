@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "extrapieces",
-  "version": "2.2.4",
+  "version": "2.2.5",
 
   "name": "Extra Pieces",
   "description": "Adds more block shapes to Minecraft!",
@@ -32,5 +32,11 @@
   "depends": {
     "fabricloader": ">=0.4.0",
     "fabric": "*"
+  },
+  "breaks": {
+    "tweed": "*"
+  },
+  "suggests": {
+    "woodmill": "*"
   }
 }

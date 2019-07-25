@@ -24,7 +24,7 @@ public class CornerPiece extends PieceType {
 
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
-		recipes.add(new ShapedPieceRecipe(getId(), this, 4, "bbb", "bb ", "b  ").addToKey('b', PieceTypes.BASE));
+		recipes.add(new ShapedPieceRecipe(this, 4, "bbb", "bb ", "b  ").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}
 

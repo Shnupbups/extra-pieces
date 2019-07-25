@@ -1,27 +1,21 @@
 package com.shnupbups.extrapieces.register;
 
 import com.shnupbups.extrapieces.ExtraPieces;
-import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
-import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class ModBlocks {
 
 	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
-
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
 	public static PieceSet DARK_PRISMARINE_PIECES;
@@ -158,6 +152,7 @@ public class ModBlocks {
 	public static PieceSet STRIPPED_JUNGLE_WOOD_PIECES;
 	public static PieceSet STRIPPED_ACACIA_WOOD_PIECES;
 	public static PieceSet STRIPPED_DARK_OAK_WOOD_PIECES;
+	static int built = 0;
 
 	public static void generateDefaultSets() {
 		PRISMARINE_PIECES = PieceSets.createDefaultSet(Blocks.PRISMARINE, "prismarine", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.PRISMARINE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.PRISMARINE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.PRISMARINE_WALL);
@@ -306,12 +301,20 @@ public class ModBlocks {
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
 			if (setBuilders.containsKey(id)) {
+				//ExtraPieces.log(setBuilders.get(id).name);
 				setBuilders.get(id).build().register(data);
 				boolean done = true;
-				for(PieceSet.Builder psb:setBuilders.values()) {
-					if(!psb.isBuilt()) done = false;
+				int built = 0;
+				for (PieceSet.Builder psb : setBuilders.values()) {
+					if (!psb.isBuilt()) done = false;
+					else built++;
 				}
-				if(done) {
+				if (built != ModBlocks.built) {
+					//ExtraPieces.log(built+"/"+setBuilders.size());
+					ModBlocks.built = built;
+				}
+				if (done) {
+					ExtraPieces.log("Done! All sets built!");
 					ModRecipes.init(data);
 					ModLootTables.init(data);
 					ModTags.init(data);

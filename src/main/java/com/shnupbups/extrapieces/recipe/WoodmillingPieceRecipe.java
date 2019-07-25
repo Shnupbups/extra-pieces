@@ -7,10 +7,10 @@ import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class StonecuttingPieceRecipe extends PieceRecipe {
+public class WoodmillingPieceRecipe extends PieceRecipe {
 	private PieceType input;
 
-	public StonecuttingPieceRecipe(PieceType output, int count, PieceType input) {
+	public WoodmillingPieceRecipe(PieceType output, int count, PieceType input) {
 		super(output, count);
 		this.input = input;
 	}
@@ -25,6 +25,7 @@ public class StonecuttingPieceRecipe extends PieceRecipe {
 
 	public void add(ArtificeResourcePack.ServerResourcePackBuilder data, Identifier id, PieceSet set) {
 		data.addStonecuttingRecipe(id, recipe -> {
+			recipe.type(new Identifier("woodmill", "woodmilling"));
 			recipe.result(Registry.BLOCK.getId(getOutput(set)));
 			recipe.group(Registry.BLOCK.getId(getOutput(set)));
 			recipe.count(getCount());
