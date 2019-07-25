@@ -1,0 +1,35 @@
+{
+	"fir_log": {
+		"base": "traverse:fir_log",
+		"textures": {
+			"top": "traverse:block/fir_log_top"
+		}
+	},
+	"fir": {
+		"base": "traverse:fir_planks",
+		"vanilla_pieces": {
+			"extrapieces:stairs": "traverse:fir_stairs",
+			"extrapieces:slab": "traverse:fir_slab",
+			"extrapieces:fence": "traverse:fir_fence",
+			"extrapieces:fence_gate": "traverse:fir_fence_gate"
+		}
+	},
+	"stripped_fir_log": {
+		"base": "traverse:stripped_fir_log",
+		"textures": {
+			"top": "traverse:block/stripped_fir_log_top"
+		}
+	},
+	"fir_wood": {
+		"base": "traverse:fir_wood",
+		"textures": {
+			"main": "traverse:block/fir_log"
+		}
+	},
+	"stripped_fir_wood": {
+		"base": "traverse:stripped_fir_wood",
+		"textures": {
+			"main": "traverse:block/stripped_fir_log"
+		}
+	}
+}

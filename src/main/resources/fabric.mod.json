@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "extrapieces",
-  "version": "2.2.6",
+  "version": "2.2.7",
 
   "name": "Extra Pieces",
   "description": "Adds more block shapes to Minecraft!",
@@ -14,7 +14,7 @@
     "issues": "https://github.com/Shnupbups/extra-pieces/issues"
   },
 
-  "license": "All Rights Reserved",
+  "license": "LGPLv3",
   "icon": "assets/extrapieces/icon.png",
 
   "environment": "*",

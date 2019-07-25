@@ -216,5 +216,14 @@
   "pieceSet.basalt_grass": "Basalt Grass",
   "pieceSet.japanese_maple_shrub_leaf": "Japanese Maple Shrub Leaf",
 
+  "pieceSet.red_autumnal_leaf": "Red Autumnal Leaf",
+  "pieceSet.brown_autumnal_leaf": "Brown Autumnal Leaf",
+  "pieceSet.orange_autumnal_leaf": "Orange Autumnal Leaf",
+  "pieceSet.yellow_autumnal_leaf": "Yellow Autumnal Leaf",
+  "pieceSet.fir": "Fir",
+  "pieceSet.fir_leaf": "Fir Leaf",
+
+  "pieceSet.wasteland": "Wasteland",
+
   "item.extrapieces.debug_item": "Extra Pieces Debug Item"
 }

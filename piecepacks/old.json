@@ -1,0 +1,103 @@
+{ 
+	"yellow_glazed_terracotta": { 
+		"base": "minecraft:yellow_glazed_terracotta"
+	},
+	"light_gray_glazed_terracotta": { 
+		"base": "minecraft:light_gray_glazed_terracotta"
+	},
+	"white_glazed_terracotta": { 
+		"base": "minecraft:white_glazed_terracotta"
+	},
+	"lime_glazed_terracotta": { 
+		"base": "minecraft:lime_glazed_terracotta"
+	},
+	"dead_tube_coral": { 
+		"base": "minecraft:dead_tube_coral_block"
+	},
+	"pumpkin": { 
+		"base": "minecraft:pumpkin",
+		"textures": { 
+			"main": "minecraft:block/pumpkin_side",
+			"top": "minecraft:block/pumpkin_top"
+		}
+	},
+	"pink_glazed_terracotta": { 
+		"base": "minecraft:pink_glazed_terracotta"
+	},
+	"dead_brain_coral": { 
+		"base": "minecraft:dead_brain_coral_block"
+	},
+	"brown_mushroom": { 
+		"base": "minecraft:brown_mushroom_block"
+	},
+	"mushroom_stem": { 
+		"base": "minecraft:mushroom_stem"
+	},
+	"red_glazed_terracotta": { 
+		"base": "minecraft:red_glazed_terracotta"
+	},
+	"hay": { 
+		"base": "minecraft:hay_block",
+		"textures": { 
+			"main": "minecraft:block/hay_block_side",
+			"top": "minecraft:block/hay_block_top"
+		}
+	},
+	"blue_glazed_terracotta": { 
+		"base": "minecraft:blue_glazed_terracotta"
+	},
+	"dead_fire_coral": { 
+		"base": "minecraft:dead_fire_coral_block"
+	},
+	"red_mushroom": { 
+		"base": "minecraft:red_mushroom_block"
+	},
+	"green_glazed_terracotta": { 
+		"base": "minecraft:green_glazed_terracotta"
+	},
+	"purple_glazed_terracotta": { 
+		"base": "minecraft:purple_glazed_terracotta"
+	},
+	"orange_glazed_terracotta": { 
+		"base": "minecraft:orange_glazed_terracotta"
+	},
+	"dead_bubble_coral": { 
+		"base": "minecraft:dead_bubble_coral_block"
+	},
+	"gray_glazed_terracotta": { 
+		"base": "minecraft:gray_glazed_terracotta"
+	},
+	"melon": { 
+		"base": "minecraft:melon",
+		"textures": { 
+			"main": "minecraft:block/melon_side",
+			"top": "minecraft:block/melon_top"
+		}
+	},
+	"magenta_glazed_terracotta": { 
+		"base": "minecraft:magenta_glazed_terracotta"
+	},
+	"dried_kelp": { 
+		"base": "minecraft:dried_kelp_block",
+		"textures": { 
+			"main": "minecraft:block/dried_kelp_side",
+			"top": "minecraft:block/dried_kelp_top",
+			"bottom": "minecraft:block/dried_kelp_bottom"
+		}
+	},
+	"black_glazed_terracotta": { 
+		"base": "minecraft:black_glazed_terracotta"
+	},
+	"cyan_glazed_terracotta": { 
+		"base": "minecraft:cyan_glazed_terracotta"
+	},
+	"brown_glazed_terracotta": { 
+		"base": "minecraft:brown_glazed_terracotta"
+	},
+	"light_blue_glazed_terracotta": { 
+		"base": "minecraft:light_blue_glazed_terracotta"
+	},
+	"dead_horn_coral": { 
+		"base": "minecraft:dead_horn_coral_block"
+	}
+}

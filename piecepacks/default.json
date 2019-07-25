@@ -1,0 +1,894 @@
+{ 
+	"lime_terracotta": { 
+		"base": "minecraft:lime_terracotta"
+	},
+	"quartz": { 
+		"base": "minecraft:quartz_block",
+		"textures": { 
+			"main": "minecraft:block/quartz_block_side",
+			"top": "minecraft:block/quartz_block_top"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:quartz_slab",
+			"extrapieces:stairs": "minecraft:quartz_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"green_concrete": { 
+		"base": "minecraft:green_concrete"
+	},
+	"orange_wool": { 
+		"base": "minecraft:orange_wool"
+	},
+	"red_wool": { 
+		"base": "minecraft:red_wool"
+	},
+	"spruce_log": { 
+		"base": "minecraft:spruce_log",
+		"textures": { 
+			"top": "minecraft:block/spruce_log_top"
+		}
+	},
+	"spruce_wood": { 
+		"base": "minecraft:spruce_wood",
+		"textures": { 
+			"main": "minecraft:block/spruce_log"
+		}
+	},
+	"purpur_pillar": { 
+		"base": "minecraft:purpur_pillar",
+		"textures": { 
+			"top": "minecraft:block/purpur_pillar_top"
+		}
+	},
+	"dark_oak_log": { 
+		"base": "minecraft:dark_oak_log",
+		"textures": { 
+			"top": "minecraft:block/dark_oak_log_top"
+		}
+	},
+	"stripped_spruce_wood": { 
+		"base": "minecraft:stripped_spruce_wood",
+		"textures": { 
+			"main": "minecraft:block/stripped_spruce_log"
+		}
+	},
+	"red_terracotta": { 
+		"base": "minecraft:red_terracotta"
+	},
+	"cut_sandstone": { 
+		"base": "minecraft:cut_sandstone",
+		"textures": { 
+			"top": "minecraft:block/sandstone_top",
+			"bottom": "minecraft:block/sandstone_bottom"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:cut_sandstone_slab"
+		},
+		"exclude": [ 
+			"extrapieces:slab"
+		]
+	},
+	"snow": { 
+		"base": "minecraft:snow_block",
+		"textures": { 
+			"main": "minecraft:block/snow"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:layer": "minecraft:snow"
+		},
+		"uncraftable": [ 
+			"extrapieces:slab"
+		],
+		"exclude": [ 
+			"extrapieces:layer"
+		]
+	},
+	"birch": { 
+		"base": "minecraft:birch_planks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:birch_slab",
+			"extrapieces:fence_gate": "minecraft:birch_fence_gate",
+			"extrapieces:fence": "minecraft:birch_fence",
+			"extrapieces:stairs": "minecraft:birch_stairs"
+		},
+		"uncraftable": [ 
+			"extrapieces:wall"
+		],
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:fence",
+			"extrapieces:fence_gate"
+		]
+	},
+	"terracotta": { 
+		"base": "minecraft:terracotta"
+	},
+	"end_stone_brick": { 
+		"base": "minecraft:end_stone_bricks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:end_stone_brick_slab",
+			"extrapieces:stairs": "minecraft:end_stone_brick_stairs",
+			"extrapieces:wall": "minecraft:end_stone_brick_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"nether_brick": { 
+		"base": "minecraft:nether_bricks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:nether_brick_slab",
+			"extrapieces:fence": "minecraft:nether_brick_fence",
+			"extrapieces:stairs": "minecraft:nether_brick_stairs",
+			"extrapieces:wall": "minecraft:nether_brick_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall",
+			"extrapieces:fence"
+		]
+	},
+	"acacia": { 
+		"base": "minecraft:acacia_planks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:acacia_slab",
+			"extrapieces:fence_gate": "minecraft:acacia_fence_gate",
+			"extrapieces:fence": "minecraft:acacia_fence",
+			"extrapieces:stairs": "minecraft:acacia_stairs"
+		},
+		"uncraftable": [ 
+			"extrapieces:wall"
+		],
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:fence",
+			"extrapieces:fence_gate"
+		]
+	},
+	"diorite": { 
+		"base": "minecraft:diorite",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:diorite_slab",
+			"extrapieces:stairs": "minecraft:diorite_stairs",
+			"extrapieces:wall": "minecraft:diorite_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"stripped_spruce_log": { 
+		"base": "minecraft:stripped_spruce_log",
+		"textures": { 
+			"top": "minecraft:block/stripped_spruce_log_top"
+		}
+	},
+	"light_gray_concrete": { 
+		"base": "minecraft:light_gray_concrete"
+	},
+	"black_concrete": { 
+		"base": "minecraft:black_concrete"
+	},
+	"mossy_stone_brick": { 
+		"base": "minecraft:mossy_stone_bricks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:mossy_stone_brick_slab",
+			"extrapieces:stairs": "minecraft:mossy_stone_brick_stairs",
+			"extrapieces:wall": "minecraft:mossy_stone_brick_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"polished_diorite": { 
+		"base": "minecraft:polished_diorite",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:polished_diorite_slab",
+			"extrapieces:stairs": "minecraft:polished_diorite_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"light_blue_terracotta": { 
+		"base": "minecraft:light_blue_terracotta"
+	},
+	"orange_terracotta": { 
+		"base": "minecraft:orange_terracotta"
+	},
+	"coal": { 
+		"base": "minecraft:coal_block"
+	},
+	"light_blue_wool": { 
+		"base": "minecraft:light_blue_wool"
+	},
+	"green_wool": { 
+		"base": "minecraft:green_wool"
+	},
+	"stripped_jungle_log": { 
+		"base": "minecraft:stripped_jungle_log",
+		"textures": { 
+			"top": "minecraft:block/stripped_jungle_log_top"
+		}
+	},
+	"bubble_coral": { 
+		"base": "minecraft:bubble_coral_block"
+	},
+	"stripped_birch_wood": { 
+		"base": "minecraft:stripped_birch_wood",
+		"textures": { 
+			"main": "minecraft:block/stripped_birch_log"
+		}
+	},
+	"stripped_oak_log": { 
+		"base": "minecraft:stripped_oak_log",
+		"textures": { 
+			"top": "minecraft:block/stripped_oak_log_top"
+		}
+	},
+	"magenta_wool": { 
+		"base": "minecraft:magenta_wool"
+	},
+	"chiseled_sandstone": { 
+		"base": "minecraft:chiseled_sandstone",
+		"textures": { 
+			"top": "minecraft:block/sandstone_top",
+			"bottom": "minecraft:block/sandstone_bottom"
+		}
+	},
+	"granite": { 
+		"base": "minecraft:granite",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:granite_slab",
+			"extrapieces:stairs": "minecraft:granite_stairs",
+			"extrapieces:wall": "minecraft:granite_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"light_gray_wool": { 
+		"base": "minecraft:light_gray_wool"
+	},
+	"stripped_dark_oak_log": { 
+		"base": "minecraft:stripped_dark_oak_log",
+		"textures": { 
+			"top": "minecraft:block/stripped_dark_oak_log_top"
+		}
+	},
+	"stripped_birch_log": { 
+		"base": "minecraft:stripped_birch_log",
+		"textures": { 
+			"top": "minecraft:block/stripped_birch_log_top"
+		}
+	},
+	"acacia_wood": { 
+		"base": "minecraft:acacia_wood",
+		"textures": { 
+			"main": "minecraft:block/acacia_log"
+		}
+	},
+	"oak_log": { 
+		"base": "minecraft:oak_log",
+		"textures": { 
+			"top": "minecraft:block/oak_log_top"
+		}
+	},
+	"smooth_stone": { 
+		"base": "minecraft:smooth_stone",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:smooth_stone_slab"
+		},
+		"exclude": [ 
+			"extrapieces:slab"
+		]
+	},
+	"magma": { 
+		"base": "minecraft:magma_block",
+		"textures": { 
+			"main": "minecraft:block/magma"
+		}
+	},
+	"redstone": { 
+		"base": "minecraft:redstone_block"
+	},
+	"dark_prismarine": { 
+		"base": "minecraft:dark_prismarine",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:dark_prismarine_slab",
+			"extrapieces:stairs": "minecraft:dark_prismarine_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"jungle_log": { 
+		"base": "minecraft:jungle_log",
+		"textures": { 
+			"top": "minecraft:block/jungle_log_top"
+		}
+	},
+	"smooth_sandstone": { 
+		"base": "minecraft:smooth_sandstone",
+		"textures": { 
+			"main": "minecraft:block/sandstone_top"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:smooth_sandstone_slab",
+			"extrapieces:stairs": "minecraft:smooth_sandstone_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"white_concrete": { 
+		"base": "minecraft:white_concrete"
+	},
+	"tube_coral": { 
+		"base": "minecraft:tube_coral_block"
+	},
+	"stripped_oak_wood": { 
+		"base": "minecraft:stripped_oak_wood",
+		"textures": { 
+			"main": "minecraft:block/stripped_oak_log"
+		}
+	},
+	"pink_wool": { 
+		"base": "minecraft:pink_wool"
+	},
+	"spruce": { 
+		"base": "minecraft:spruce_planks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:spruce_slab",
+			"extrapieces:fence_gate": "minecraft:spruce_fence_gate",
+			"extrapieces:fence": "minecraft:spruce_fence",
+			"extrapieces:stairs": "minecraft:spruce_stairs"
+		},
+		"uncraftable": [ 
+			"extrapieces:wall"
+		],
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:fence",
+			"extrapieces:fence_gate"
+		]
+	},
+	"brown_terracotta": { 
+		"base": "minecraft:brown_terracotta"
+	},
+	"prismarine": { 
+		"base": "minecraft:prismarine",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:prismarine_slab",
+			"extrapieces:stairs": "minecraft:prismarine_stairs",
+			"extrapieces:wall": "minecraft:prismarine_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"lime_concrete": { 
+		"base": "minecraft:lime_concrete"
+	},
+	"pink_concrete": { 
+		"base": "minecraft:pink_concrete"
+	},
+	"gray_concrete": { 
+		"base": "minecraft:gray_concrete"
+	},
+	"petrified_oak": { 
+		"base": "minecraft:petrified_oak_slab",
+		"textures": { 
+			"main": "minecraft:block/oak_planks"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:petrified_oak_slab"
+		},
+		"include": [ 
+			"extrapieces:siding"
+		]
+	},
+	"purpur": { 
+		"base": "minecraft:purpur_block",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:purpur_slab",
+			"extrapieces:stairs": "minecraft:purpur_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"obsidian": { 
+		"base": "minecraft:obsidian"
+	},
+	"brown_concrete": { 
+		"base": "minecraft:brown_concrete"
+	},
+	"diamond": { 
+		"base": "minecraft:diamond_block"
+	},
+	"stripped_acacia_wood": { 
+		"base": "minecraft:stripped_acacia_wood",
+		"textures": { 
+			"main": "minecraft:block/stripped_acacia_log"
+		}
+	},
+	"nether_wart": { 
+		"base": "minecraft:nether_wart_block"
+	},
+	"iron": { 
+		"base": "minecraft:iron_block"
+	},
+	"cyan_wool": { 
+		"base": "minecraft:cyan_wool"
+	},
+	"end_stone": { 
+		"base": "minecraft:end_stone"
+	},
+	"jungle": { 
+		"base": "minecraft:jungle_planks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:jungle_slab",
+			"extrapieces:fence_gate": "minecraft:jungle_fence_gate",
+			"extrapieces:fence": "minecraft:jungle_fence",
+			"extrapieces:stairs": "minecraft:jungle_stairs"
+		},
+		"uncraftable": [ 
+			"extrapieces:wall"
+		],
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:fence",
+			"extrapieces:fence_gate"
+		]
+	},
+	"chiseled_red_sandstone": { 
+		"base": "minecraft:chiseled_red_sandstone",
+		"textures": { 
+			"top": "minecraft:block/red_sandstone_top",
+			"bottom": "minecraft:block/red_sandstone_bottom"
+		}
+	},
+	"purple_concrete": { 
+		"base": "minecraft:purple_concrete"
+	},
+	"stripped_dark_oak_wood": { 
+		"base": "minecraft:stripped_dark_oak_wood",
+		"textures": { 
+			"main": "minecraft:block/stripped_dark_oak_log"
+		}
+	},
+	"light_blue_concrete": { 
+		"base": "minecraft:light_blue_concrete"
+	},
+	"emerald": { 
+		"base": "minecraft:emerald_block"
+	},
+	"cyan_concrete": { 
+		"base": "minecraft:cyan_concrete"
+	},
+	"andesite": { 
+		"base": "minecraft:andesite",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:andesite_slab",
+			"extrapieces:stairs": "minecraft:andesite_stairs",
+			"extrapieces:wall": "minecraft:andesite_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"oak_wood": { 
+		"base": "minecraft:oak_wood",
+		"textures": { 
+			"main": "minecraft:block/oak_log"
+		}
+	},
+	"orange_concrete": { 
+		"base": "minecraft:orange_concrete"
+	},
+	"bone": { 
+		"base": "minecraft:bone_block",
+		"textures": { 
+			"main": "minecraft:block/bone_block_side",
+			"top": "minecraft:block/bone_block_top"
+		}
+	},
+	"pink_terracotta": { 
+		"base": "minecraft:pink_terracotta"
+	},
+	"chiseled_quartz": { 
+		"base": "minecraft:chiseled_quartz_block",
+		"textures": { 
+			"top": "minecraft:block/chiseled_quartz_block_top"
+		}
+	},
+	"mossy_cobblestone": { 
+		"base": "minecraft:mossy_cobblestone",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:mossy_cobblestone_slab",
+			"extrapieces:stairs": "minecraft:mossy_cobblestone_stairs",
+			"extrapieces:wall": "minecraft:mossy_cobblestone_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"polished_andesite": { 
+		"base": "minecraft:polished_andesite",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:polished_andesite_slab",
+			"extrapieces:stairs": "minecraft:polished_andesite_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"fire_coral": { 
+		"base": "minecraft:fire_coral_block"
+	},
+	"horn_coral": { 
+		"base": "minecraft:horn_coral_block"
+	},
+	"oak": { 
+		"base": "minecraft:oak_planks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:oak_slab",
+			"extrapieces:fence_gate": "minecraft:oak_fence_gate",
+			"extrapieces:fence": "minecraft:oak_fence",
+			"extrapieces:stairs": "minecraft:oak_stairs"
+		},
+		"uncraftable": [ 
+			"extrapieces:wall"
+		],
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:fence",
+			"extrapieces:fence_gate"
+		]
+	},
+	"purple_terracotta": { 
+		"base": "minecraft:purple_terracotta"
+	},
+	"brick": { 
+		"base": "minecraft:bricks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:brick_slab",
+			"extrapieces:stairs": "minecraft:brick_stairs",
+			"extrapieces:wall": "minecraft:brick_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"yellow_terracotta": { 
+		"base": "minecraft:yellow_terracotta"
+	},
+	"cut_red_sandstone": { 
+		"base": "minecraft:cut_red_sandstone",
+		"textures": { 
+			"top": "minecraft:block/red_sandstone_top",
+			"bottom": "minecraft:block/red_sandstone_bottom"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:cut_red_sandstone_slab"
+		},
+		"exclude": [ 
+			"extrapieces:slab"
+		]
+	},
+	"smooth_quartz": { 
+		"base": "minecraft:smooth_quartz",
+		"textures": { 
+			"main": "minecraft:block/quartz_block_bottom"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:smooth_quartz_slab",
+			"extrapieces:stairs": "minecraft:smooth_quartz_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"quartz_pillar": { 
+		"base": "minecraft:quartz_pillar",
+		"textures": { 
+			"top": "minecraft:block/quartz_pillar_top"
+		}
+	},
+	"purple_wool": { 
+		"base": "minecraft:purple_wool"
+	},
+	"netherrack": { 
+		"base": "minecraft:netherrack"
+	},
+	"cyan_terracotta": { 
+		"base": "minecraft:cyan_terracotta"
+	},
+	"lapis_lazuli": { 
+		"base": "minecraft:lapis_block"
+	},
+	"polished_granite": { 
+		"base": "minecraft:polished_granite",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:polished_granite_slab",
+			"extrapieces:stairs": "minecraft:polished_granite_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"black_terracotta": { 
+		"base": "minecraft:black_terracotta"
+	},
+	"blue_wool": { 
+		"base": "minecraft:blue_wool"
+	},
+	"jungle_wood": { 
+		"base": "minecraft:jungle_wood",
+		"textures": { 
+			"main": "minecraft:block/jungle_log"
+		}
+	},
+	"dark_oak_wood": { 
+		"base": "minecraft:dark_oak_wood",
+		"textures": { 
+			"main": "minecraft:block/dark_oak_log"
+		}
+	},
+	"stripped_jungle_wood": { 
+		"base": "minecraft:stripped_jungle_wood",
+		"textures": { 
+			"main": "minecraft:block/stripped_jungle_log"
+		}
+	},
+	"stone": { 
+		"base": "minecraft:stone",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:stone_slab",
+			"extrapieces:stairs": "minecraft:stone_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"sandstone": { 
+		"base": "minecraft:sandstone",
+		"textures": { 
+			"top": "minecraft:block/sandstone_top",
+			"bottom": "minecraft:block/sandstone_bottom"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:sandstone_slab",
+			"extrapieces:stairs": "minecraft:sandstone_stairs",
+			"extrapieces:wall": "minecraft:sandstone_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"chiseled_stone_brick": { 
+		"base": "minecraft:chiseled_stone_bricks"
+	},
+	"lime_wool": { 
+		"base": "minecraft:lime_wool"
+	},
+	"brown_wool": { 
+		"base": "minecraft:brown_wool"
+	},
+	"birch_log": { 
+		"base": "minecraft:birch_log",
+		"textures": { 
+			"top": "minecraft:block/birch_log_top"
+		}
+	},
+	"red_sandstone": { 
+		"base": "minecraft:red_sandstone",
+		"textures": { 
+			"top": "minecraft:block/red_sandstone_top",
+			"bottom": "minecraft:block/red_sandstone_bottom"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:red_sandstone_slab",
+			"extrapieces:stairs": "minecraft:red_sandstone_stairs",
+			"extrapieces:wall": "minecraft:red_sandstone_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"magenta_terracotta": { 
+		"base": "minecraft:magenta_terracotta"
+	},
+	"yellow_concrete": { 
+		"base": "minecraft:yellow_concrete"
+	},
+	"prismarine_brick": { 
+		"base": "minecraft:prismarine_bricks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:prismarine_brick_slab",
+			"extrapieces:stairs": "minecraft:prismarine_brick_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"gold": { 
+		"base": "minecraft:gold_block"
+	},
+	"stone_brick": { 
+		"base": "minecraft:stone_bricks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:stone_brick_slab",
+			"extrapieces:stairs": "minecraft:stone_brick_stairs",
+			"extrapieces:wall": "minecraft:stone_brick_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"light_gray_terracotta": { 
+		"base": "minecraft:light_gray_terracotta"
+	},
+	"red_concrete": { 
+		"base": "minecraft:red_concrete"
+	},
+	"birch_wood": { 
+		"base": "minecraft:birch_wood",
+		"textures": { 
+			"main": "minecraft:block/birch_log"
+		}
+	},
+	"cracked_stone_brick": { 
+		"base": "minecraft:cracked_stone_bricks"
+	},
+	"white_terracotta": { 
+		"base": "minecraft:white_terracotta"
+	},
+	"cobblestone": { 
+		"base": "minecraft:cobblestone",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:cobblestone_slab",
+			"extrapieces:stairs": "minecraft:cobblestone_stairs",
+			"extrapieces:wall": "minecraft:cobblestone_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"blue_terracotta": { 
+		"base": "minecraft:blue_terracotta"
+	},
+	"black_wool": { 
+		"base": "minecraft:black_wool"
+	},
+	"blue_concrete": { 
+		"base": "minecraft:blue_concrete"
+	},
+	"glowstone": { 
+		"base": "minecraft:glowstone"
+	},
+	"gray_wool": { 
+		"base": "minecraft:gray_wool"
+	},
+	"dark_oak": { 
+		"base": "minecraft:dark_oak_planks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:dark_oak_slab",
+			"extrapieces:fence_gate": "minecraft:dark_oak_fence_gate",
+			"extrapieces:fence": "minecraft:dark_oak_fence",
+			"extrapieces:stairs": "minecraft:dark_oak_stairs"
+		},
+		"uncraftable": [ 
+			"extrapieces:wall"
+		],
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:fence",
+			"extrapieces:fence_gate"
+		]
+	},
+	"smooth_red_sandstone": { 
+		"base": "minecraft:smooth_red_sandstone",
+		"textures": { 
+			"main": "minecraft:block/red_sandstone_top"
+		},
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:smooth_red_sandstone_slab",
+			"extrapieces:stairs": "minecraft:smooth_red_sandstone_stairs"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab"
+		]
+	},
+	"stripped_acacia_log": { 
+		"base": "minecraft:stripped_acacia_log",
+		"textures": { 
+			"top": "minecraft:block/stripped_acacia_log_top"
+		}
+	},
+	"red_nether_brick": { 
+		"base": "minecraft:red_nether_bricks",
+		"vanilla_pieces": { 
+			"extrapieces:slab": "minecraft:red_nether_brick_slab",
+			"extrapieces:stairs": "minecraft:red_nether_brick_stairs",
+			"extrapieces:wall": "minecraft:red_nether_brick_wall"
+		},
+		"exclude": [ 
+			"extrapieces:stairs",
+			"extrapieces:slab",
+			"extrapieces:wall"
+		]
+	},
+	"magenta_concrete": { 
+		"base": "minecraft:magenta_concrete"
+	},
+	"acacia_log": { 
+		"base": "minecraft:acacia_log",
+		"textures": { 
+			"top": "minecraft:block/acacia_log_top"
+		}
+	},
+	"gray_terracotta": { 
+		"base": "minecraft:gray_terracotta"
+	},
+	"white_wool": { 
+		"base": "minecraft:white_wool"
+	},
+	"brain_coral": { 
+		"base": "minecraft:brain_coral_block"
+	},
+	"green_terracotta": { 
+		"base": "minecraft:green_terracotta"
+	},
+	"packed_ice": { 
+		"base": "minecraft:packed_ice"
+	},
+	"yellow_wool": { 
+		"base": "minecraft:yellow_wool"
+	}
+}
