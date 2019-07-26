@@ -60,7 +60,7 @@ public abstract class PieceType {
 		return new Identifier(this.id.toString() + "s");
 	}
 
-	public abstract Block getNew(PieceSet set);
+	public abstract PieceBlock getNew(PieceSet set);
 
 	public PacketByteBuf writePieceType(PacketByteBuf buf) {
 		buf.writeInt(getId().toString().length());

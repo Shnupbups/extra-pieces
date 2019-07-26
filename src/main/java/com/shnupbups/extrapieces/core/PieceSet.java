@@ -263,10 +263,9 @@ public class PieceSet {
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
-		for (PieceType p : getGenTypes()) {
-			if (shouldGenPiece(p) && !hasPiece(p)) {
-				PieceBlock pb = (PieceBlock) p.getNew(this);
-				pieces.put(p, pb);
+		for (PieceType p : genTypes) {
+			if (!hasPiece(p)) {
+				pieces.put(p, p.getNew(this));
 			}
 		}
 		return this;
@@ -283,13 +282,18 @@ public class PieceSet {
 		if (isRegistered())
 			return this;
 		if (!isGenerated()) generate();
-		for (PieceType b : genTypes) {
-			Identifier id = new Identifier(b.getId().getNamespace(), b.getBlockId(getName()));
-			Registry.register(Registry.BLOCK, id, pieces.get(b).getBlock());
-			if (this.getBase() != Blocks.AIR) ModItemGroups.getItemGroup(pieces.get(b));
-			BlockItem item = new PieceBlockItem(pieces.get(b), new Item.Settings());
+		for (PieceType type : genTypes) {
+			PieceBlock block = pieces.get(type);
+
+			Identifier id = new Identifier(type.getId().getNamespace(), type.getBlockId(getName()));
+
+			Registry.register(Registry.BLOCK, id, block.getBlock());
+
+			if (this.getBase() != Blocks.AIR) ModItemGroups.getItemGroup(block);
+
+			BlockItem item = new PieceBlockItem(block, new Item.Settings());
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
-			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
+			Registry.register(Registry.ITEM, id, item);
 		}
 		registered = true;
 		//System.out.println("DEBUG! PieceSet register: "+this.toString());
@@ -327,10 +331,6 @@ public class PieceSet {
 	 */
 	public Block getBase() {
 		return base;
-	}
-
-	private boolean shouldGenPiece(PieceType piece) {
-		return Arrays.asList(genTypes).contains(piece);
 	}
 
 	/**

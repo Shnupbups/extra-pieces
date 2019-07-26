@@ -15,8 +15,8 @@ public final class BasePiece extends PieceType {
 		return baseName;
 	}
 
-	public Block getNew(PieceSet set) {
-		return set.getBase();
+	public PieceBlock getNew(PieceSet set) {
+		return (PieceBlock)set.getBase();
 	}
 
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
