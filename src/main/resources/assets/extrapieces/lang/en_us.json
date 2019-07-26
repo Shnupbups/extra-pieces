@@ -190,10 +190,7 @@
   "pieceSet.green_glowing_mushroom": "Green Glowing Mushroom",
   "pieceSet.blue_glowing_mushroom": "Blue Glowing Mushroom",
   "pieceSet.purple_glowing_mushroom": "Purple Glowing Mushroom",
-  "pieceSet.basalt_brick": "Basalt Brick",
   "pieceSet.vibranium": "Vibranium",
-
-  "pieceSet.wasteland": "Wasteland",
 
   "pieceSet.redwood": "Redwood",
   "pieceSet.redwood_leaf": "Redwood Leaf",
@@ -208,7 +205,7 @@
   "pieceSet.willow_leaf": "Willow Leaf",
   "pieceSet.japanese_maple": "Japanese Maple",
   "pieceSet.japanese_maple_leaf": "Japanese Maple Leaf",
-  "pieceSet.dark_japanese_maple": "Dark Japanese Maple",
+  "pieceSet.dark_japanese_maple_leaf": "Dark Japanese Maple Leaf",
   "pieceSet.rainbow_eucalyptus": "Rainbow Eucalyptus",
   "pieceSet.rainbow_eucalyptus_leaf": "Rainbow Eucalyptus Leaf",
   "pieceSet.sakura": "Sakura",
