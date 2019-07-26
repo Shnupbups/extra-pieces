@@ -530,7 +530,7 @@ public class PieceSet {
 		public boolean includeMode = false;
 		public ArrayList<PieceType> genTypes = PieceTypes.getTypesNoBase();
 		public ArrayList<PieceType> uncraftable = new ArrayList<>();
-		public HashMap<PieceType, Identifier> vanillaPieces = new HashMap<>();
+		public HashMap<Identifier, Identifier> vanillaPieces = new HashMap<>();
 		public String packName;
 
 		public Builder(String name, JsonObject ob, String packName) {
@@ -561,8 +561,7 @@ public class PieceSet {
 			if (ob.containsKey("vanilla_pieces")) {
 				JsonObject vp = ob.getObject("vanilla_pieces");
 				for (String s : vp.keySet()) {
-					PieceType pt = PieceTypes.getType(s);
-					this.vanillaPieces.put(pt, new Identifier(vp.get(String.class, s)));
+					this.vanillaPieces.put(new Identifier(s), new Identifier(vp.get(String.class, s)));
 				}
 			}
 			if (ob.containsKey("exclude")) {
@@ -604,7 +603,7 @@ public class PieceSet {
 			if (this.mainTexture != null) ps.setTexture(this.mainTexture);
 			if (this.topTexture != null) ps.setTopTexture(this.topTexture);
 			if (this.bottomTexture != null) ps.setBottomTexture(this.bottomTexture);
-			for (PieceType pt : this.vanillaPieces.keySet()) {
+			for (PieceType pt : this.getVanillaPieces().keySet()) {
 				ps.addVanillaPiece(pt, Registry.BLOCK.get(this.vanillaPieces.get(pt)));
 			}
 			if (this.includeMode) ps.setInclude();
@@ -613,6 +612,15 @@ public class PieceSet {
 			}
 			this.built = true;
 			return ps;
+		}
+
+		public HashMap<PieceType, Identifier> getVanillaPieces() {
+			HashMap<PieceType, Identifier> vPcs = new HashMap<>();
+			for(Identifier pt:vanillaPieces.keySet()) {
+				Optional<PieceType> opt = PieceTypes.getTypeOrEmpty(pt);
+				if(opt.isPresent()) vPcs.put(opt.get(),vanillaPieces.get(pt));
+			}
+			return vPcs;
 		}
 
 		public Identifier getBaseID() {
@@ -630,14 +638,14 @@ public class PieceSet {
 		public boolean isReady() {
 			boolean ready = Registry.BLOCK.getOrEmpty(base).isPresent();
 			if(ready)
-			for(Identifier id:vanillaPieces.values()) {
+			for(Identifier id:getVanillaPieces().values()) {
 				if(!Registry.BLOCK.getOrEmpty(id).isPresent()) ready = false;
 			}
 			return ready;
 		}
 
 		public String toString() {
-			return "PieceSet.Builder{ pack: " + getPackName() + " , base: " + getBaseID().toString() + " }";
+			return "PieceSet.Builder{ name: "+ name +" , pack: " + getPackName() + " , base: " + getBaseID().toString() + " }";
 		}
 	}
 }

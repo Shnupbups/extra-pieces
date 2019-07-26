@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "extrapieces",
-  "version": "2.3.1",
+  "version": "2.4.0",
 
   "name": "Extra Pieces",
   "description": "Adds more block shapes to Minecraft!",
@@ -24,6 +24,9 @@
     ],
     "client": [
       "com.shnupbups.extrapieces.ExtraPiecesClient"
+    ],
+    "extrapieces": [
+      "com.test.foobar.Test"
     ]
   },
   "mixins": [

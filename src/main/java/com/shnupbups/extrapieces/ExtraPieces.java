@@ -1,5 +1,6 @@
 package com.shnupbups.extrapieces;
 
+import com.shnupbups.extrapieces.api.EPInitializer;
 import com.shnupbups.extrapieces.register.ModConfigs;
 import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
@@ -63,6 +64,11 @@ public class ExtraPieces implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModConfigs.init();
+		FabricLoader.getInstance().getEntrypoints("extrapieces", EPInitializer.class).forEach(api -> {
+			log("EPInitializer "+api.toString());
+			api.onInitialize();
+		});
+		ModConfigs.initPiecePacks();
 		ArtificeResourcePack datapack = Artifice.registerData(getID("ep_data"), data -> {
 			ModBlocks.init(data);
 		});

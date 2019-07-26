@@ -85,6 +85,10 @@ public class PieceTypes {
 		return getType(idt);
 	}
 
+	public static Optional<PieceType> getTypeOrEmpty(String id) {
+		return Optional.ofNullable(getType(id));
+	}
+
 	public static PieceType readPieceType(PacketByteBuf buf) {
 		return getType(buf.readString(buf.readInt()));
 	}

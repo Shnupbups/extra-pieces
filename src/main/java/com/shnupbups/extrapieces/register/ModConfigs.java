@@ -42,7 +42,6 @@ public class ModConfigs {
 			ExtraPieces.log("SyntaxError loading config");
 		}
 		findAndCopyPiecePacks();
-		initPiecePacks();
 	}
 
 	public static void findAndCopyPiecePacks() {

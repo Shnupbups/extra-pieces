@@ -1,11 +1,13 @@
 package com.shnupbups.extrapieces.register;
 
 import com.shnupbups.extrapieces.ExtraPieces;
+import com.shnupbups.extrapieces.api.EPInitializer;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -333,6 +335,9 @@ public class ModBlocks {
 		ModRecipes.init(data);
 		ModLootTables.init(data);
 		ModTags.init(data);
+		FabricLoader.getInstance().getEntrypoints("extrapieces", EPInitializer.class).forEach(api -> {
+			api.addData(data);
+		});
 	}
 
 	public static boolean isDone() {

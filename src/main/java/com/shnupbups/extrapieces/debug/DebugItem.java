@@ -50,7 +50,7 @@ public class DebugItem extends Item {
 		if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
 			for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
 				if (!psb.isBuilt())
-					player.addChatMessage(new LiteralText("Errored PieceSet: " + psb.toString() + " Make sure the base actually exists!"), false);
+					player.addChatMessage(new LiteralText("Errored PieceSet: " + psb.toString() + " Make sure the base and any vanilla pieces actually exist!"), false);
 			}
 			return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
 		}
