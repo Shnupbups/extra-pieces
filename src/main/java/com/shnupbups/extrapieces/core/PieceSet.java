@@ -8,7 +8,7 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
-import com.shnupbups.extrapieces.config.EPConfig;
+import com.shnupbups.extrapieces.register.ModConfigs;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.register.ModItemGroups;
 import com.shnupbups.extrapieces.register.ModLootTables;
@@ -492,7 +492,7 @@ public class PieceSet {
 				}
 
 			}
-			if (!isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && (isStonecuttable() || EPConfig.everythingStonecuttable)) {
+			if (!isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && (isStonecuttable() || ModConfigs.everythingStonecuttable)) {
 				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
 				pb.getType().getStonecuttingRecipe().add(data, id, this);
@@ -628,10 +628,10 @@ public class PieceSet {
 		}
 
 		public boolean isReady() {
-			boolean ready = Registry.BLOCK.containsId(base);
+			boolean ready = Registry.BLOCK.getOrEmpty(base).isPresent();
 			if(ready)
 			for(Identifier id:vanillaPieces.values()) {
-				if(!Registry.BLOCK.containsId(id)) ready = false;
+				if(!Registry.BLOCK.getOrEmpty(id).isPresent()) ready = false;
 			}
 			return ready;
 		}

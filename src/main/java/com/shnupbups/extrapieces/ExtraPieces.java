@@ -1,6 +1,6 @@
 package com.shnupbups.extrapieces;
 
-import com.shnupbups.extrapieces.config.EPConfig;
+import com.shnupbups.extrapieces.register.ModConfigs;
 import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.swordglowsblue.artifice.api.Artifice;
@@ -62,7 +62,7 @@ public class ExtraPieces implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		EPConfig.init();
+		ModConfigs.init();
 		ArtificeResourcePack datapack = Artifice.registerData(getID("ep_data"), data -> {
 			ModBlocks.init(data);
 		});
