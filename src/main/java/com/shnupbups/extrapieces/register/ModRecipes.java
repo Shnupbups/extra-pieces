@@ -46,16 +46,8 @@ public class ModRecipes {
 	}
 
 	public static void addMiscRecipes(ArtificeResourcePack.ServerResourcePackBuilder data, PieceSet ps) {
-		ExtraPieces.log("Register recipes: "+ps.getName());
-
 		if (ps.hasPiece(PieceTypes.STAIRS)) {
-
 			Identifier bid = Registry.BLOCK.getId(ps.getPiece(PieceTypes.STAIRS));
-
-			if(bid.getPath().equals("air")) {
-				System.out.println("air: "+bid+" blk: "+ps.getPiece(PieceTypes.STAIRS));
-			}
-
 			Identifier id = ExtraPieces.getID(bid.getPath() + "_to_base");
 			STAIRS_TO_BASE.add(data, id, ps);
 			r++;

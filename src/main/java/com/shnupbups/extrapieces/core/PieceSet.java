@@ -205,12 +205,16 @@ public class PieceSet {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("PieceSet{ base: ").append(getBase()).append(", pieces: [");
-		for (PieceType p : pieces.keySet()) {
-			sb.append("{").append(p.toString()).append(" = ").append(pieces.get(p).getBlock());
-			if (isVanillaPiece(p)) sb.append(", Vanilla Piece!");
-			else if (!isCraftable(p)) sb.append(", Uncraftable!");
+
+		for (Map.Entry<PieceType, PieceBlock> piece : pieces.entrySet()) {
+			sb.append("{").append(piece.getKey().toString()).append(" = ").append(piece.getValue());
+
+			if (isVanillaPiece(piece.getKey())) sb.append(", Vanilla Piece!");
+			else if (!isCraftable(piece.getKey())) sb.append(", Uncraftable!");
+
 			sb.append("} , ");
 		}
+
 		sb.delete(sb.length() - 2, sb.length());
 		sb.append("] ");
 		if (isStonecuttable()) sb.append(", Stonecuttable! ");
@@ -560,8 +564,11 @@ public class PieceSet {
 			}
 			if (ob.containsKey("vanilla_pieces")) {
 				JsonObject vp = ob.getObject("vanilla_pieces");
-				for (String s : vp.keySet()) {
-					this.vanillaPieces.put(new Identifier(s), new Identifier(vp.get(String.class, s)));
+
+				for(Map.Entry<String, JsonElement> entry: vp.entrySet()) {
+					String value = vp.getMarshaller().marshall(String.class, entry.getValue());
+
+					this.vanillaPieces.put(new Identifier(entry.getKey()), new Identifier(value));
 				}
 			}
 			if (ob.containsKey("exclude")) {
@@ -595,7 +602,10 @@ public class PieceSet {
 		}
 
 		public PieceSet build() {
-			if (built) return PieceSets.getSet(Registry.BLOCK.get(base));
+			if (built) {
+				return PieceSets.getSet(Registry.BLOCK.get(base));
+			}
+
 			PieceSet ps = new PieceSet(Registry.BLOCK.get(base), name, genTypes);
 			if (this.stonecuttable != null) ps.setStonecuttable(this.stonecuttable);
 			if (this.woodmillable != null) ps.setWoodmillable(this.woodmillable);
@@ -603,25 +613,28 @@ public class PieceSet {
 			if (this.mainTexture != null) ps.setTexture(this.mainTexture);
 			if (this.topTexture != null) ps.setTopTexture(this.topTexture);
 			if (this.bottomTexture != null) ps.setBottomTexture(this.bottomTexture);
-			for (PieceType pt : this.getVanillaPieces().keySet()) {
-				ps.addVanillaPiece(pt, Registry.BLOCK.get(this.vanillaPieces.get(pt.getId())));
+
+			for (Map.Entry<PieceType, Identifier> vanillaPiece : this.getVanillaPieces().entrySet()) {
+				ps.addVanillaPiece(vanillaPiece.getKey(), Registry.BLOCK.get(vanillaPiece.getValue()));
 			}
+
 			if (this.includeMode) ps.setInclude();
 			for (PieceType pt : this.uncraftable) {
 				ps.setUncraftable(pt);
 			}
+
 			this.built = true;
 			return ps;
 		}
 
 		public HashMap<PieceType, Identifier> getVanillaPieces() {
-			HashMap<PieceType, Identifier> vPcs = new HashMap<>();
+			HashMap<PieceType, Identifier> collected = new HashMap<>();
 
 			for(Map.Entry<Identifier, Identifier> entry: vanillaPieces.entrySet()) {
-				PieceTypes.getTypeOrEmpty(entry.getKey()).ifPresent(type -> vPcs.put(type, entry.getValue()));
+				PieceTypes.getTypeOrEmpty(entry.getKey()).ifPresent(type -> collected.put(type, entry.getValue()));
 			}
 
-			return vPcs;
+			return collected;
 		}
 
 		public Identifier getBaseID() {

@@ -1,6 +1,7 @@
 package com.shnupbups.extrapieces.register;
 
 import blue.endless.jankson.Jankson;
+import blue.endless.jankson.JsonElement;
 import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.JsonPrimitive;
 import blue.endless.jankson.impl.SyntaxError;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Map;
 
 public class ModConfigs {
 
@@ -102,9 +104,10 @@ public class ModConfigs {
 			try (FileReader reader = new FileReader(f)) {
 				ExtraPieces.log("Loading piece pack " + f.getName());
 				JsonObject pp = Jankson.builder().build().load(f);
-				for (String s : pp.keySet()) {
-					JsonObject jsonSet = (JsonObject) pp.get(s);
-					PieceSet.Builder psb = new PieceSet.Builder(s, jsonSet, f.getName());
+
+				for (Map.Entry<String, JsonElement> entry : pp.entrySet()) {
+					JsonObject jsonSet = (JsonObject) entry.getValue();
+					PieceSet.Builder psb = new PieceSet.Builder(entry.getKey(), jsonSet, f.getName());
 					setsNum++;
 					ppSetsNum++;
 					ModBlocks.registerSet(psb);
