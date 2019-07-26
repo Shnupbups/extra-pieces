@@ -14,6 +14,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.function.BiConsumer;
 
 public class ModBlocks {
@@ -305,33 +306,47 @@ public class ModBlocks {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
-			for(PieceSet.Builder psb:new ArrayList<>(primedBuilders)) {
-				if(psb.isReady()&&!psb.isBuilt()) {
-					psb.build().register(data);
-					primedBuilders.remove(psb);
-					if (isDone()) {
-						finish(data);
-					}
+			Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
+			PieceSet.Builder builder;
+
+			while(primed.hasNext()) {
+				builder = primed.next();
+
+				if(builder.isReady() && !builder.isBuilt()) {
+					builder.build().register(data);
+					primed.remove();
 				}
 			}
-			if (setBuilders.containsKey(id)) {
-				//ExtraPieces.log(setBuilders.get(id).name);
-				PieceSet.Builder current = setBuilders.get(id);
-				if(current.isReady()&&!current.isBuilt()) {
+
+			PieceSet.Builder current = setBuilders.get(id);
+
+			if (current != null) {
+				if(!current.isBuilt() && current.isReady()) {
 					current.build().register(data);
-					if (isDone()) {
-						finish(data);
-					}
 				} else {
 					primedBuilders.add(setBuilders.get(id));
 				}
 			}
 		});
+
+		if(isDone()) {
+			ExtraPieces.log("Done! All sets built!");
+		} else {
+			// Exceptional condition...
+
+			for (PieceSet.Builder psb : setBuilders.values()) {
+				if (!psb.isBuilt()) {
+					ExtraPieces.log("Warning: Piece Set "+psb.name+" was not built!");
+				}
+			}
+		}
+
+		finish(data);
+
 		ExtraPieces.log("Registered all PieceSets!");
 	}
 
 	public static void finish(ArtificeResourcePack.ServerResourcePackBuilder data) {
-		ExtraPieces.log("Done! All sets built!");
 		ModRecipes.init(data);
 		ModLootTables.init(data);
 		ModTags.init(data);
@@ -343,10 +358,14 @@ public class ModBlocks {
 	public static boolean isDone() {
 		if(ModBlocks.done) return true;
 		boolean done = primedBuilders.isEmpty();
+
 		if (done) {
 			int built = 0;
 			for (PieceSet.Builder psb : setBuilders.values()) {
-				if (!psb.isBuilt()) done = false;
+				if (!psb.isBuilt()) {
+					done = false;
+				}
+
 				else built++;
 			}
 			if (built != ModBlocks.built) {
@@ -354,6 +373,7 @@ public class ModBlocks {
 				ModBlocks.built = built;
 			}
 		}
+
 		ModBlocks.done = done;
 		return done;
 	}
