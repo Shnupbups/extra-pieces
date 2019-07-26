@@ -7,7 +7,6 @@ import blue.endless.jankson.impl.SyntaxError;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
-import com.shnupbups.extrapieces.register.ModBlocks;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.File;
@@ -50,29 +49,38 @@ public class ModConfigs {
 		FabricLoader.getInstance().getAllMods().stream().map(modContainer -> {
 			com.google.gson.JsonElement je = modContainer.getMetadata().getCustomElement(ExtraPieces.mod_id + ":piecepack");
 			Path path = null;
-			if(je!=null) {
+
+			if (je != null) {
 				ExtraPieces.log("Found Piece Pack in "+modContainer.getMetadata().getName()+" ("+modContainer.getMetadata().getId()+")");
 				path = modContainer.getPath(je.getAsString());
 			}
+
 			return path;
 		}).forEach(path -> {
-			if(path!=null&&path.toFile().exists()) {
-				if(path.getFileName().endsWith(".json")) {
-					File file = new File(ExtraPieces.getPiecePackDirectory(),path.getFileName().toString());
-					if(!file.exists()) {
+			if (path == null) {
+				return;
+			}
+
+			if (Files.exists(path)) {
+				if (path.toString().endsWith(".json")) {
+					Path destination = ExtraPieces.getPiecePackDirectory().toPath().resolve(path.getFileName().toString());
+
+					if (Files.notExists(destination)) {
 						try {
-							Files.copy(path, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+							Files.createDirectories(destination.getParent());
+							Files.copy(path, destination, StandardCopyOption.REPLACE_EXISTING);
+
 							ExtraPieces.log("Successfully copied PiecePack "+path.getFileName()+" from a mod jar!");
 						} catch(IOException e) {
 							ExtraPieces.log("IOException copying PiecePack "+path.getFileName()+" from a mod jar!");
 						}
 					} else {
-						ExtraPieces.log("Piece Pack "+file.getName()+" already present.");
+						ExtraPieces.log("Piece Pack "+path.getFileName()+" already present.");
 					}
 				} else {
 					ExtraPieces.log("A mod specified a Piece Pack named "+path.getFileName()+", but it is not a .json file! (You must include the '.json' in the name!)");
 				}
-			} else if(path!=null) {
+			} else {
 				ExtraPieces.log("A mod specified a Piece Pack named "+path.getFileName()+", but no such file existed in its jar!");
 			}
 		});
