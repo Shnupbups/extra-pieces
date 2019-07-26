@@ -604,7 +604,7 @@ public class PieceSet {
 			if (this.topTexture != null) ps.setTopTexture(this.topTexture);
 			if (this.bottomTexture != null) ps.setBottomTexture(this.bottomTexture);
 			for (PieceType pt : this.getVanillaPieces().keySet()) {
-				ps.addVanillaPiece(pt, Registry.BLOCK.get(this.vanillaPieces.get(pt)));
+				ps.addVanillaPiece(pt, Registry.BLOCK.get(this.vanillaPieces.get(pt.getId())));
 			}
 			if (this.includeMode) ps.setInclude();
 			for (PieceType pt : this.uncraftable) {
@@ -616,10 +616,11 @@ public class PieceSet {
 
 		public HashMap<PieceType, Identifier> getVanillaPieces() {
 			HashMap<PieceType, Identifier> vPcs = new HashMap<>();
-			for(Identifier pt:vanillaPieces.keySet()) {
-				Optional<PieceType> opt = PieceTypes.getTypeOrEmpty(pt);
-				if(opt.isPresent()) vPcs.put(opt.get(),vanillaPieces.get(pt));
+
+			for(Map.Entry<Identifier, Identifier> entry: vanillaPieces.entrySet()) {
+				PieceTypes.getTypeOrEmpty(entry.getKey()).ifPresent(type -> vPcs.put(type, entry.getValue()));
 			}
+
 			return vPcs;
 		}
 
