@@ -20,7 +20,7 @@ public class ModBlocks {
 
 	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
 	public static ArrayList<PieceSet.Builder> primedBuilders = new ArrayList<>();
-	public static boolean done = false;
+	public static boolean finished = false;
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
 	public static PieceSet DARK_PRISMARINE_PIECES;
@@ -300,31 +300,36 @@ public class ModBlocks {
 	}
 
 	public static void registerSet(PieceSet.Builder psb) {
-		setBuilders.put(psb.getBaseID(), psb);
+		if(!setBuilders.containsKey(psb.getBaseID())) {
+			setBuilders.put(psb.getBaseID(), psb);
+		} else {
+			ExtraPieces.log("Piece Pack "+psb.packName+" tried to register a set for "+psb.getBaseID()+" when one already exists! Skipping...");
+		}
 	}
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
 			for(PieceSet.Builder psb:new ArrayList<>(primedBuilders)) {
 				if(psb.isReady()&&!psb.isBuilt()) {
+					//ExtraPieces.log("Building psb "+psb+" now that it's ready!");
 					psb.build().register(data);
 					primedBuilders.remove(psb);
-					if (isDone()) {
-						finish(data);
-					}
 				}
 			}
 			if (setBuilders.containsKey(id)) {
 				//ExtraPieces.log(setBuilders.get(id).name);
 				PieceSet.Builder current = setBuilders.get(id);
 				if(current.isReady()&&!current.isBuilt()) {
+					//ExtraPieces.log("Building psb "+current+" immediately as it is ready!");
 					current.build().register(data);
-					if (isDone()) {
-						finish(data);
-					}
 				} else {
+					PieceSet.Builder psb = setBuilders.get(id);
+					//ExtraPieces.log("Priming psb "+psb+" as it's not yet ready!");
 					primedBuilders.add(setBuilders.get(id));
 				}
+			}
+			if (isDone() && !ModBlocks.finished) {
+				finish(data);
 			}
 		});
 		ExtraPieces.log("Registered all PieceSets!");
@@ -338,10 +343,11 @@ public class ModBlocks {
 		FabricLoader.getInstance().getEntrypoints("extrapieces", EPInitializer.class).forEach(api -> {
 			api.addData(data);
 		});
+		ModBlocks.finished = true;
 	}
 
 	public static boolean isDone() {
-		if(ModBlocks.done) return true;
+		if(ModBlocks.finished) return true;
 		boolean done = primedBuilders.isEmpty();
 		if (done) {
 			int built = 0;
@@ -354,7 +360,6 @@ public class ModBlocks {
 				ModBlocks.built = built;
 			}
 		}
-		ModBlocks.done = done;
 		return done;
 	}
 

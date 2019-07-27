@@ -158,4 +158,23 @@ public class PieceSets {
 		}
 		return null;
 	}
+
+	public static boolean setExists(String name) {
+		for(PieceSet ps:registry.values()) {
+			if (ps.getName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static String getNewSetName(String oldName) {
+		String newName = oldName;
+		int nameIndex = 1;
+		while(setExists(newName)) {
+			nameIndex++;
+			newName = oldName+"_"+nameIndex;
+		}
+		return newName;
+	}
 }
