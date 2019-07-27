@@ -90,9 +90,8 @@ public class ExtraPieces implements ModInitializer {
 			if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
 				for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
 					if (!psb.isBuilt())
-						server.sendMessage(new LiteralText("Errored Piece Set: " + psb.toString() + " Make sure the base and any vanilla pieces actually exist!"));
+						server.sendMessage(new LiteralText("Piece Set " + psb.toString() + " could not be built, make sure the base and any vanilla pieces actually exist!"));
 				}
-				server.sendMessage(new LiteralText("This is a major error! No recipes, loot tables or tags for Extra Pieces can be made!"));
 			}
 		});
 	}
