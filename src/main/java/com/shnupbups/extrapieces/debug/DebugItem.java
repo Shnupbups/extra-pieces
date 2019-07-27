@@ -39,21 +39,24 @@ public class DebugItem extends Item {
 				context.getPlayer().addChatMessage(new LiteralText(state.getBlock() + " is vanilla piece! Type: " + pb.getType() + " Base: " + pb.getSet().getBase()), false);
 				return ActionResult.SUCCESS;
 			} else {
-				context.getPlayer().addChatMessage(new LiteralText(state.getBlock() + " s not part of a PieceSet."), false);
+				context.getPlayer().addChatMessage(new LiteralText(state.getBlock() + " is not part of a PieceSet."), false);
 			}
 		}
 		return ActionResult.PASS;
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world_1, PlayerEntity player, Hand hand) {
-		if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
-			for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
-				if (!psb.isBuilt())
-					player.addChatMessage(new LiteralText("Errored PieceSet: " + psb.toString() + " Make sure the base and any vanilla pieces actually exist!"), false);
-			}
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		if(!world.isClient()) {
+			if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
+				for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
+					if (!psb.isBuilt())
+						player.addChatMessage(new LiteralText("Errored Piece Set: " + psb.toString() + " Make sure the base and any vanilla pieces actually exist!"), false);
+				}
+			} else player.addChatMessage(new LiteralText("All Piece Sets seem fine!"), false);
+			player.getItemCooldownManager().set(this, 20);
 			return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
 		}
-		return super.use(world_1, player, hand);
+		return super.use(world,player,hand);
 	}
 }

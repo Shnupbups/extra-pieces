@@ -13,7 +13,7 @@ A list of the piece packs in this folder is as follows: (may not always be kept 
 - Default (ships with the mod, you don't need to install this) - default.json
 - Old (piece sets that used to be in the default pack before version 2.2.0) - old.json
 - Odds and Ends (vanilla sets that aren't in the default or old packs) - odds.json
-- Terrestria (for the mod Terrestria) - terrestria.json
+- Terrestria (ships with Terrestria, you don't need to install this) - terrestria.json
 - Traverse (for the mod Traverse) - traverse.json
 - EzWastelands (for the mod EzWastelands) - wastelands.json
 

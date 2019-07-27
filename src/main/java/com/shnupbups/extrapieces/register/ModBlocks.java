@@ -21,7 +21,7 @@ public class ModBlocks {
 
 	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
 	public static ArrayList<PieceSet.Builder> primedBuilders = new ArrayList<>();
-	public static boolean done = false;
+	public static boolean finished = false;
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
 	public static PieceSet DARK_PRISMARINE_PIECES;
@@ -301,7 +301,11 @@ public class ModBlocks {
 	}
 
 	public static void registerSet(PieceSet.Builder psb) {
-		setBuilders.put(psb.getBaseID(), psb);
+		if(!setBuilders.containsKey(psb.getBaseID())) {
+			setBuilders.put(psb.getBaseID(), psb);
+		} else {
+			ExtraPieces.log("Piece Pack "+psb.packName+" tried to register a set for "+psb.getBaseID()+" when one already exists! Skipping...");
+		}
 	}
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
@@ -312,7 +316,7 @@ public class ModBlocks {
 			while(primed.hasNext()) {
 				builder = primed.next();
 
-				if(builder.isReady() && !builder.isBuilt()) {
+				if(!builder.isBuilt() && builder.isReady()) {
 					builder.build().register(data);
 					primed.remove();
 				}
@@ -334,9 +338,9 @@ public class ModBlocks {
 		} else {
 			// Exceptional condition...
 
-			for (PieceSet.Builder psb : setBuilders.values()) {
-				if (!psb.isBuilt()) {
-					ExtraPieces.log("Warning: Piece Set "+psb.name+" was not built!");
+			for (PieceSet.Builder builder : setBuilders.values()) {
+				if (!builder.isBuilt()) {
+					ExtraPieces.log("Warning: Piece Set "+builder.name+" was not built!");
 				}
 			}
 		}
@@ -353,10 +357,12 @@ public class ModBlocks {
 		FabricLoader.getInstance().getEntrypoints("extrapieces", EPInitializer.class).forEach(api -> {
 			api.addData(data);
 		});
+
+		ModBlocks.finished = true;
 	}
 
 	public static boolean isDone() {
-		if(ModBlocks.done) return true;
+		if(ModBlocks.finished) return true;
 		boolean done = primedBuilders.isEmpty();
 
 		if (done) {
@@ -374,7 +380,6 @@ public class ModBlocks {
 			}
 		}
 
-		ModBlocks.done = done;
 		return done;
 	}
 

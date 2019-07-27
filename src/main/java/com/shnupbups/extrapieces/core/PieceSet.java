@@ -56,6 +56,7 @@ public class PieceSet {
 
 	private final Block base;
 	private final String name;
+	private final String originalName;
 	private PieceType[] genTypes;
 	private Map<PieceType, PieceBlock> pieces = new HashMap<>();
 	private boolean registered = false;
@@ -82,7 +83,8 @@ public class PieceSet {
 
 	PieceSet(Block base, String name, List<PieceType> types, boolean isDefault) {
 		this.base = base;
-		this.name = name.toLowerCase();
+		this.originalName = name.toLowerCase();
+		this.name = PieceSets.getNewSetName(originalName);
 		Identifier id = Registry.BLOCK.getId(base);
 		this.mainTexture = new Identifier(id.getNamespace(), "block/" + id.getPath());
 		this.topTexture = mainTexture;
@@ -314,6 +316,10 @@ public class PieceSet {
 		return name;
 	}
 
+	public String getOriginalName() {
+		return originalName;
+	}
+
 	/**
 	 * Gets a {@link PieceType} from this {@link PieceSet}, if it exists.<br>
 	 * If {@link #isGenerated()} returns {@code false}, runs {@link #generate()} first.
@@ -418,9 +424,11 @@ public class PieceSet {
 	}
 
 	public String getTranslationKey() {
-		if (!Language.getInstance().hasTranslation("pieceSet." + this.getName()))
-			return this.getBase().getTranslationKey();
-		else return "pieceSet." + this.getName();
+		if(Language.getInstance().hasTranslation("pieceSet." + this.getName())) {
+			return "pieceSet." + this.getName();
+		} else if (Language.getInstance().hasTranslation("pieceSet." + this.getOriginalName())) {
+			return "pieceSet." + this.getOriginalName();
+		} else return this.getBase().getTranslationKey();
 	}
 
 	public PieceSet setInclude() {
@@ -470,7 +478,9 @@ public class PieceSet {
 		if (!this.getExcludedTypes().isEmpty() && !includeMode) {
 			JsonArray ex = new JsonArray();
 			for (PieceType p : this.getExcludedTypes()) {
-				ex.add(new JsonPrimitive(p));
+				if(!this.isVanillaPiece(p)){
+					ex.add(new JsonPrimitive(p));
+				}
 			}
 			ob.put("exclude", ex);
 		}
@@ -653,7 +663,10 @@ public class PieceSet {
 			boolean ready = Registry.BLOCK.getOrEmpty(base).isPresent();
 			if(ready)
 			for(Identifier id:getVanillaPieces().values()) {
-				if(!Registry.BLOCK.getOrEmpty(id).isPresent()) ready = false;
+				if(!Registry.BLOCK.getOrEmpty(id).isPresent()) {
+					ExtraPieces.log("Psb" + this + " not yet ready!");
+					ready = false;
+				}
 			}
 			return ready;
 		}

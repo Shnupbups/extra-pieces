@@ -43,7 +43,7 @@
 		"base": "minecraft:diamond_ore"
 	},
 	"lapis_lazuli_ore": { 
-		"base": "minecraft:lapis_lazuli_ore"
+		"base": "minecraft:lapis_ore"
 	},
 	"emerald_ore": { 
 		"base": "minecraft:emerald_ore"

@@ -1,13 +1,18 @@
 package com.shnupbups.extrapieces;
 
 import com.shnupbups.extrapieces.api.EPInitializer;
+import com.shnupbups.extrapieces.core.PieceSet;
+import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.register.ModConfigs;
 import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.swordglowsblue.artifice.api.Artifice;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.server.ServerStartCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
@@ -80,5 +85,15 @@ public class ExtraPieces implements ModInitializer {
 			}
 		}
 		Registry.register(Registry.ITEM, getID("debug_item"), new DebugItem());
+
+		ServerStartCallback.EVENT.register(server -> {
+			if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
+				for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
+					if (!psb.isBuilt())
+						server.sendMessage(new LiteralText("Errored Piece Set: " + psb.toString() + " Make sure the base and any vanilla pieces actually exist!"));
+				}
+				server.sendMessage(new LiteralText("This is a major error! No recipes, loot tables or tags for Extra Pieces can be made!"));
+			}
+		});
 	}
 }
