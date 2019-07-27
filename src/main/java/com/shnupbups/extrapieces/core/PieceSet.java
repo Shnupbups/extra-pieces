@@ -658,7 +658,7 @@ public class PieceSet {
 		}
 
 		public String toString() {
-			return "PieceSet.Builder{ name: "+ name +" , pack: " + getPackName() + " , base: " + getBaseID().toString() + " , ready: " + isReady() + " }";
+			return "PieceSet.Builder{ name: "+ name +" , pack: " + getPackName() + " , base: " + getBaseID().toString() + " }";
 		}
 	}
 }
