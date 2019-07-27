@@ -52,7 +52,7 @@ public class ModConfigs {
 			Path path = null;
 
 			if (je != null) {
-				ExtraPieces.log("Found Piece Pack in "+modContainer.getMetadata().getName()+" ("+modContainer.getMetadata().getId()+")");
+				ExtraPieces.log("Found Piece Pack in " + modContainer.getMetadata().getName() + " (" + modContainer.getMetadata().getId() + ")");
 				path = modContainer.getPath(je.getAsString());
 			}
 
@@ -71,18 +71,18 @@ public class ModConfigs {
 							Files.createDirectories(destination.getParent());
 							Files.copy(path, destination, StandardCopyOption.REPLACE_EXISTING);
 
-							ExtraPieces.log("Successfully copied PiecePack "+path.getFileName()+" from a mod jar!");
-						} catch(IOException e) {
-							ExtraPieces.log("IOException copying PiecePack "+path.getFileName()+" from a mod jar!");
+							ExtraPieces.log("Successfully copied PiecePack " + path.getFileName() + " from a mod jar!");
+						} catch (IOException e) {
+							ExtraPieces.log("IOException copying PiecePack " + path.getFileName() + " from a mod jar!");
 						}
 					} else {
-						ExtraPieces.log("Piece Pack "+path.getFileName()+" already present.");
+						ExtraPieces.log("Piece Pack " + path.getFileName() + " already present.");
 					}
 				} else {
-					ExtraPieces.log("A mod specified a Piece Pack named "+path.getFileName()+", but it is not a .json file! (You must include the '.json' in the name!)");
+					ExtraPieces.log("A mod specified a Piece Pack named " + path.getFileName() + ", but it is not a .json file! (You must include the '.json' in the name!)");
 				}
 			} else {
-				ExtraPieces.log("A mod specified a Piece Pack named "+path.getFileName()+", but no such file existed in its jar!");
+				ExtraPieces.log("A mod specified a Piece Pack named " + path.getFileName() + ", but no such file existed in its jar!");
 			}
 		});
 	}

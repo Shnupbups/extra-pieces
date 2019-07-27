@@ -4,7 +4,6 @@ import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
-import net.minecraft.block.Block;
 
 public final class BasePiece extends PieceType {
 	public BasePiece() {
@@ -16,7 +15,7 @@ public final class BasePiece extends PieceType {
 	}
 
 	public PieceBlock getNew(PieceSet set) {
-		return (PieceBlock)set.getBase();
+		return (PieceBlock) set.getBase();
 	}
 
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {

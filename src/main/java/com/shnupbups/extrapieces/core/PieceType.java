@@ -6,7 +6,6 @@ import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
 import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
-import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.registry.Registry;

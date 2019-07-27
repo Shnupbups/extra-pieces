@@ -160,7 +160,7 @@ public class PieceSets {
 	}
 
 	public static boolean setExists(String name) {
-		for(PieceSet ps:registry.values()) {
+		for (PieceSet ps : registry.values()) {
 			if (ps.getName().equals(name)) {
 				return true;
 			}
@@ -171,9 +171,9 @@ public class PieceSets {
 	public static String getNewSetName(String oldName) {
 		String newName = oldName;
 		int nameIndex = 1;
-		while(setExists(newName)) {
+		while (setExists(newName)) {
 			nameIndex++;
-			newName = oldName+"_"+nameIndex;
+			newName = oldName + "_" + nameIndex;
 		}
 		return newName;
 	}

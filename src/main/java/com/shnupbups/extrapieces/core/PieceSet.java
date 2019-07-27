@@ -8,8 +8,8 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
-import com.shnupbups.extrapieces.register.ModConfigs;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
+import com.shnupbups.extrapieces.register.ModConfigs;
 import com.shnupbups.extrapieces.register.ModItemGroups;
 import com.shnupbups.extrapieces.register.ModLootTables;
 import com.shnupbups.extrapieces.register.ModRecipes;
@@ -424,7 +424,7 @@ public class PieceSet {
 	}
 
 	public String getTranslationKey() {
-		if(Language.getInstance().hasTranslation("pieceSet." + this.getName())) {
+		if (Language.getInstance().hasTranslation("pieceSet." + this.getName())) {
 			return "pieceSet." + this.getName();
 		} else if (Language.getInstance().hasTranslation("pieceSet." + this.getOriginalName())) {
 			return "pieceSet." + this.getOriginalName();
@@ -478,7 +478,7 @@ public class PieceSet {
 		if (!this.getExcludedTypes().isEmpty() && !includeMode) {
 			JsonArray ex = new JsonArray();
 			for (PieceType p : this.getExcludedTypes()) {
-				if(!this.isVanillaPiece(p)){
+				if (!this.isVanillaPiece(p)) {
 					ex.add(new JsonPrimitive(p));
 				}
 			}
@@ -575,7 +575,7 @@ public class PieceSet {
 			if (ob.containsKey("vanilla_pieces")) {
 				JsonObject vp = ob.getObject("vanilla_pieces");
 
-				for(Map.Entry<String, JsonElement> entry: vp.entrySet()) {
+				for (Map.Entry<String, JsonElement> entry : vp.entrySet()) {
 					String value = vp.getMarshaller().marshall(String.class, entry.getValue());
 
 					this.vanillaPieces.put(new Identifier(entry.getKey()), new Identifier(value));
@@ -640,7 +640,7 @@ public class PieceSet {
 		public HashMap<PieceType, Identifier> getVanillaPieces() {
 			HashMap<PieceType, Identifier> collected = new HashMap<>();
 
-			for(Map.Entry<Identifier, Identifier> entry: vanillaPieces.entrySet()) {
+			for (Map.Entry<Identifier, Identifier> entry : vanillaPieces.entrySet()) {
 				PieceTypes.getTypeOrEmpty(entry.getKey()).ifPresent(type -> collected.put(type, entry.getValue()));
 			}
 
@@ -660,12 +660,12 @@ public class PieceSet {
 		}
 
 		public boolean isReady() {
-			if(!Registry.BLOCK.getOrEmpty(base).isPresent()) {
+			if (!Registry.BLOCK.getOrEmpty(base).isPresent()) {
 				return false;
 			}
 
-			for(Identifier id: getVanillaPieces().values()) {
-				if(!Registry.BLOCK.getOrEmpty(id).isPresent()) {
+			for (Identifier id : getVanillaPieces().values()) {
+				if (!Registry.BLOCK.getOrEmpty(id).isPresent()) {
 					return false;
 				}
 			}
@@ -674,7 +674,7 @@ public class PieceSet {
 		}
 
 		public String toString() {
-			return "PieceSet.Builder{ name: "+ name +" , pack: " + getPackName() + " , base: " + getBaseID().toString() + " }";
+			return "PieceSet.Builder{ name: " + name + " , pack: " + getPackName() + " , base: " + getBaseID().toString() + " }";
 		}
 	}
 }

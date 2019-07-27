@@ -301,10 +301,10 @@ public class ModBlocks {
 	}
 
 	public static void registerSet(PieceSet.Builder psb) {
-		if(!setBuilders.containsKey(psb.getBaseID())) {
+		if (!setBuilders.containsKey(psb.getBaseID())) {
 			setBuilders.put(psb.getBaseID(), psb);
 		} else {
-			ExtraPieces.log("Piece Pack "+psb.packName+" tried to register a set for "+psb.getBaseID()+" when one already exists! Skipping...");
+			ExtraPieces.log("Piece Pack " + psb.packName + " tried to register a set for " + psb.getBaseID() + " when one already exists! Skipping...");
 		}
 	}
 
@@ -313,10 +313,10 @@ public class ModBlocks {
 			Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
 			PieceSet.Builder builder;
 
-			while(primed.hasNext()) {
+			while (primed.hasNext()) {
 				builder = primed.next();
 
-				if(!builder.isBuilt() && builder.isReady()) {
+				if (!builder.isBuilt() && builder.isReady()) {
 					builder.build().register(data);
 					primed.remove();
 				}
@@ -325,7 +325,7 @@ public class ModBlocks {
 			PieceSet.Builder current = setBuilders.get(id);
 
 			if (current != null && !current.isBuilt()) {
-				if(current.isReady()) {
+				if (current.isReady()) {
 					current.build().register(data);
 				} else {
 					ExtraPieces.log("Piece Set Builder" + current + " not yet ready! Deferring to delayed build...");
@@ -334,14 +334,14 @@ public class ModBlocks {
 			}
 		});
 
-		if(isDone()) {
+		if (isDone()) {
 			ExtraPieces.log("Done! All sets built!");
 		} else {
 			// Exceptional condition...
 
 			for (PieceSet.Builder builder : setBuilders.values()) {
 				if (!builder.isBuilt()) {
-					ExtraPieces.log("Warning: Piece Set "+builder.name+" was not built!");
+					ExtraPieces.log("Warning: Piece Set " + builder.name + " was not built!");
 				}
 			}
 		}
@@ -363,7 +363,7 @@ public class ModBlocks {
 	}
 
 	public static boolean isDone() {
-		if(ModBlocks.finished) return true;
+		if (ModBlocks.finished) return true;
 		boolean done = primedBuilders.isEmpty();
 
 		if (done) {
@@ -371,9 +371,7 @@ public class ModBlocks {
 			for (PieceSet.Builder psb : setBuilders.values()) {
 				if (!psb.isBuilt()) {
 					done = false;
-				}
-
-				else built++;
+				} else built++;
 			}
 			if (built != ModBlocks.built) {
 				//ExtraPieces.log(built+"/"+setBuilders.size());

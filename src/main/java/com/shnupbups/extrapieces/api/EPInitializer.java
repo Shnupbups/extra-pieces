@@ -11,7 +11,7 @@ public interface EPInitializer {
 	/**
 	 * Called after the config is loaded.<br>
 	 * But before any piece packs have been loaded.<br>
-	 *<br>
+	 * <br>
 	 * Create a {@link PieceType} and register it with {@link PieceTypes#register(PieceType)}
 	 */
 	void onInitialize();

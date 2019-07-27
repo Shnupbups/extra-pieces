@@ -47,7 +47,7 @@ public class DebugItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-		if(!world.isClient()) {
+		if (!world.isClient()) {
 			if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
 				for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
 					if (!psb.isBuilt())
@@ -57,6 +57,6 @@ public class DebugItem extends Item {
 			player.getItemCooldownManager().set(this, 20);
 			return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
 		}
-		return super.use(world,player,hand);
+		return super.use(world, player, hand);
 	}
 }
