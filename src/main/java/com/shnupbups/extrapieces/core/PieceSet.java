@@ -207,12 +207,16 @@ public class PieceSet {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("PieceSet{ base: ").append(getBase()).append(", pieces: [");
-		for (PieceType p : pieces.keySet()) {
-			sb.append("{").append(p.toString()).append(" = ").append(pieces.get(p).getBlock());
-			if (isVanillaPiece(p)) sb.append(", Vanilla Piece!");
-			else if (!isCraftable(p)) sb.append(", Uncraftable!");
+
+		for (Map.Entry<PieceType, PieceBlock> piece : pieces.entrySet()) {
+			sb.append("{").append(piece.getKey().toString()).append(" = ").append(piece.getValue());
+
+			if (isVanillaPiece(piece.getKey())) sb.append(", Vanilla Piece!");
+			else if (!isCraftable(piece.getKey())) sb.append(", Uncraftable!");
+
 			sb.append("} , ");
 		}
+
 		sb.delete(sb.length() - 2, sb.length());
 		sb.append("] ");
 		if (isStonecuttable()) sb.append(", Stonecuttable! ");
@@ -265,10 +269,9 @@ public class PieceSet {
 	 * @return This {@link PieceSet} with all {@link PieceType}s generated.
 	 */
 	public PieceSet generate() {
-		for (PieceType p : getGenTypes()) {
-			if (shouldGenPiece(p) && !hasPiece(p)) {
-				PieceBlock pb = (PieceBlock) p.getNew(this);
-				pieces.put(p, pb);
+		for (PieceType p : genTypes) {
+			if (!hasPiece(p)) {
+				pieces.put(p, p.getNew(this));
 			}
 		}
 		return this;
@@ -285,13 +288,18 @@ public class PieceSet {
 		if (isRegistered())
 			return this;
 		if (!isGenerated()) generate();
-		for (PieceType b : genTypes) {
-			Identifier id = new Identifier(b.getId().getNamespace(), b.getBlockId(getName()));
-			Registry.register(Registry.BLOCK, id, pieces.get(b).getBlock());
-			if (this.getBase() != Blocks.AIR) ModItemGroups.getItemGroup(pieces.get(b));
-			BlockItem item = new PieceBlockItem(pieces.get(b), new Item.Settings());
+		for (PieceType type : genTypes) {
+			PieceBlock block = pieces.get(type);
+
+			Identifier id = new Identifier(type.getId().getNamespace(), type.getBlockId(getName()));
+
+			Registry.register(Registry.BLOCK, id, block.getBlock());
+
+			if (this.getBase() != Blocks.AIR) ModItemGroups.getItemGroup(block);
+
+			BlockItem item = new PieceBlockItem(block, new Item.Settings());
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
-			Registry.register(Registry.ITEM, Registry.BLOCK.getId(pieces.get(b).getBlock()), item);
+			Registry.register(Registry.ITEM, id, item);
 		}
 		registered = true;
 		//System.out.println("DEBUG! PieceSet register: "+this.toString());
@@ -333,10 +341,6 @@ public class PieceSet {
 	 */
 	public Block getBase() {
 		return base;
-	}
-
-	private boolean shouldGenPiece(PieceType piece) {
-		return Arrays.asList(genTypes).contains(piece);
 	}
 
 	/**
@@ -570,8 +574,11 @@ public class PieceSet {
 			}
 			if (ob.containsKey("vanilla_pieces")) {
 				JsonObject vp = ob.getObject("vanilla_pieces");
-				for (String s : vp.keySet()) {
-					this.vanillaPieces.put(new Identifier(s), new Identifier(vp.get(String.class, s)));
+
+				for(Map.Entry<String, JsonElement> entry: vp.entrySet()) {
+					String value = vp.getMarshaller().marshall(String.class, entry.getValue());
+
+					this.vanillaPieces.put(new Identifier(entry.getKey()), new Identifier(value));
 				}
 			}
 			if (ob.containsKey("exclude")) {
@@ -605,7 +612,10 @@ public class PieceSet {
 		}
 
 		public PieceSet build() {
-			if (built) return PieceSets.getSet(Registry.BLOCK.get(base));
+			if (built) {
+				return PieceSets.getSet(Registry.BLOCK.get(base));
+			}
+
 			PieceSet ps = new PieceSet(Registry.BLOCK.get(base), name, genTypes);
 			if (this.stonecuttable != null) ps.setStonecuttable(this.stonecuttable);
 			if (this.woodmillable != null) ps.setWoodmillable(this.woodmillable);
@@ -613,24 +623,28 @@ public class PieceSet {
 			if (this.mainTexture != null) ps.setTexture(this.mainTexture);
 			if (this.topTexture != null) ps.setTopTexture(this.topTexture);
 			if (this.bottomTexture != null) ps.setBottomTexture(this.bottomTexture);
-			for (PieceType pt : this.getVanillaPieces().keySet()) {
-				ps.addVanillaPiece(pt, Registry.BLOCK.get(this.vanillaPieces.get(pt.getId())));
+
+			for (Map.Entry<PieceType, Identifier> vanillaPiece : this.getVanillaPieces().entrySet()) {
+				ps.addVanillaPiece(vanillaPiece.getKey(), Registry.BLOCK.get(vanillaPiece.getValue()));
 			}
+
 			if (this.includeMode) ps.setInclude();
 			for (PieceType pt : this.uncraftable) {
 				ps.setUncraftable(pt);
 			}
+
 			this.built = true;
 			return ps;
 		}
 
 		public HashMap<PieceType, Identifier> getVanillaPieces() {
-			HashMap<PieceType, Identifier> vPcs = new HashMap<>();
-			for(Identifier pt:vanillaPieces.keySet()) {
-				Optional<PieceType> opt = PieceTypes.getTypeOrEmpty(pt);
-				if(opt.isPresent()) vPcs.put(opt.get(),vanillaPieces.get(pt));
+			HashMap<PieceType, Identifier> collected = new HashMap<>();
+
+			for(Map.Entry<Identifier, Identifier> entry: vanillaPieces.entrySet()) {
+				PieceTypes.getTypeOrEmpty(entry.getKey()).ifPresent(type -> collected.put(type, entry.getValue()));
 			}
-			return vPcs;
+
+			return collected;
 		}
 
 		public Identifier getBaseID() {
@@ -646,15 +660,17 @@ public class PieceSet {
 		}
 
 		public boolean isReady() {
-			boolean ready = Registry.BLOCK.getOrEmpty(base).isPresent();
-			if(ready)
-			for(Identifier id:getVanillaPieces().values()) {
+			if(!Registry.BLOCK.getOrEmpty(base).isPresent()) {
+				return false;
+			}
+
+			for(Identifier id: getVanillaPieces().values()) {
 				if(!Registry.BLOCK.getOrEmpty(id).isPresent()) {
-					ExtraPieces.log("Psb" + this + " not yet ready!");
-					ready = false;
+					return false;
 				}
 			}
-			return ready;
+
+			return true;
 		}
 
 		public String toString() {

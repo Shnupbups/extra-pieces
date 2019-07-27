@@ -6,32 +6,45 @@ import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ModTags {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		HashMap<PieceType, ArrayList<Identifier>> map = new HashMap<>();
-		for (PieceSet ps : PieceSets.registry.values()) {
-			for (PieceBlock pb : ps.getPieceBlocks()) {
-				if (!map.containsKey(pb.getType())) map.put(pb.getType(), new ArrayList<>());
-				if (pb.getBlock() instanceof PieceBlock) map.get(pb.getType()).add(Registry.BLOCK.getId(pb.getBlock()));
+
+		for (PieceSet set : PieceSets.registry.values()) {
+			for (PieceBlock pieceBlock : set.getPieceBlocks()) {
+				ArrayList<Identifier> identifiers = map.computeIfAbsent(pieceBlock.getType(), ty -> new ArrayList<>());
+				Block block = pieceBlock.getBlock();
+
+				if (block instanceof PieceBlock) {
+					identifiers.add(Registry.BLOCK.getId(block));
+				}
 			}
 		}
-		for (PieceType pt : map.keySet()) {
-			data.addBlockTag(pt.getTagId(), tag -> {
+
+		for (Map.Entry<PieceType, ArrayList<Identifier>> entry : map.entrySet()) {
+			PieceType type = entry.getKey();
+			ArrayList<Identifier> identifiers = entry.getValue();
+
+			data.addBlockTag(entry.getKey().getTagId(), tag -> {
 				tag.replace(false);
-				tag.values(map.get(pt).toArray(new Identifier[map.get(pt).size()]));
+				tag.values(identifiers.toArray(new Identifier[0]));
 			});
-			data.addItemTag(pt.getTagId(), tag -> {
+
+			data.addItemTag(entry.getKey().getTagId(), tag -> {
 				tag.replace(false);
-				tag.values(map.get(pt).toArray(new Identifier[map.get(pt).size()]));
+				tag.values(identifiers.toArray(new Identifier[0]));
 			});
-			ExtraPieces.log("Added block and item tags for " + pt.toString() + ", " + map.get(pt).size() + " entries.");
+
+			ExtraPieces.log("Added block and item tags for " + type.toString() + ", " + identifiers.size() + " entries.");
 		}
 	}
 }

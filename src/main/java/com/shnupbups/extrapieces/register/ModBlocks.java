@@ -14,6 +14,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.function.BiConsumer;
 
 public class ModBlocks {
@@ -309,50 +310,69 @@ public class ModBlocks {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
-			for(PieceSet.Builder psb:new ArrayList<>(primedBuilders)) {
-				if(psb.isReady()&&!psb.isBuilt()) {
-					//ExtraPieces.log("Building psb "+psb+" now that it's ready!");
-					psb.build().register(data);
-					primedBuilders.remove(psb);
+			Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
+			PieceSet.Builder builder;
+
+			while(primed.hasNext()) {
+				builder = primed.next();
+
+				if(!builder.isBuilt() && builder.isReady()) {
+					builder.build().register(data);
+					primed.remove();
 				}
 			}
-			if (setBuilders.containsKey(id)) {
-				//ExtraPieces.log(setBuilders.get(id).name);
-				PieceSet.Builder current = setBuilders.get(id);
-				if(current.isReady()&&!current.isBuilt()) {
-					//ExtraPieces.log("Building psb "+current+" immediately as it is ready!");
+
+			PieceSet.Builder current = setBuilders.get(id);
+
+			if (current != null && !current.isBuilt()) {
+				if(current.isReady()) {
 					current.build().register(data);
 				} else {
-					PieceSet.Builder psb = setBuilders.get(id);
-					//ExtraPieces.log("Priming psb "+psb+" as it's not yet ready!");
+					ExtraPieces.log("Piece Set Builder" + current + " not yet ready! Deferring to delayed build...");
 					primedBuilders.add(setBuilders.get(id));
 				}
 			}
-			if (isDone() && !ModBlocks.finished) {
-				finish(data);
-			}
 		});
+
+		if(isDone()) {
+			ExtraPieces.log("Done! All sets built!");
+		} else {
+			// Exceptional condition...
+
+			for (PieceSet.Builder builder : setBuilders.values()) {
+				if (!builder.isBuilt()) {
+					ExtraPieces.log("Warning: Piece Set "+builder.name+" was not built!");
+				}
+			}
+		}
+
+		finish(data);
+
 		ExtraPieces.log("Registered all PieceSets!");
 	}
 
 	public static void finish(ArtificeResourcePack.ServerResourcePackBuilder data) {
-		ExtraPieces.log("Done! All sets built!");
 		ModRecipes.init(data);
 		ModLootTables.init(data);
 		ModTags.init(data);
 		FabricLoader.getInstance().getEntrypoints("extrapieces", EPInitializer.class).forEach(api -> {
 			api.addData(data);
 		});
+
 		ModBlocks.finished = true;
 	}
 
 	public static boolean isDone() {
 		if(ModBlocks.finished) return true;
 		boolean done = primedBuilders.isEmpty();
+
 		if (done) {
 			int built = 0;
 			for (PieceSet.Builder psb : setBuilders.values()) {
-				if (!psb.isBuilt()) done = false;
+				if (!psb.isBuilt()) {
+					done = false;
+				}
+
 				else built++;
 			}
 			if (built != ModBlocks.built) {
@@ -360,6 +380,7 @@ public class ModBlocks {
 				ModBlocks.built = built;
 			}
 		}
+
 		return done;
 	}
 
