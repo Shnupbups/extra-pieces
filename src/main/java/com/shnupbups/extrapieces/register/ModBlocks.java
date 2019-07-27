@@ -324,10 +324,11 @@ public class ModBlocks {
 
 			PieceSet.Builder current = setBuilders.get(id);
 
-			if (current != null) {
-				if(!current.isBuilt() && current.isReady()) {
+			if (current != null && !current.isBuilt()) {
+				if(current.isReady()) {
 					current.build().register(data);
 				} else {
+					ExtraPieces.log("Piece Set Builder" + current + " not yet ready! Deferring to delayed build...");
 					primedBuilders.add(setBuilders.get(id));
 				}
 			}
