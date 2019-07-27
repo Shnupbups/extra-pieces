@@ -2,9 +2,7 @@ package com.shnupbups.extrapieces.register;
 
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.api.EPInitializer;
-import com.shnupbups.extrapieces.core.PieceSet;
-import com.shnupbups.extrapieces.core.PieceSets;
-import com.shnupbups.extrapieces.core.PieceTypes;
+import com.shnupbups.extrapieces.core.*;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.loader.api.FabricLoader;
@@ -18,8 +16,6 @@ import java.util.function.BiConsumer;
 
 public class ModBlocks {
 
-	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
-	public static ArrayList<PieceSet.Builder> primedBuilders = new ArrayList<>();
 	public static boolean finished = false;
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
@@ -309,14 +305,16 @@ public class ModBlocks {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
-			for(PieceSet.Builder psb:new ArrayList<>(primedBuilders)) {
-				if(psb.isReady()&&!psb.isBuilt()) {
+			for(PiecePack pp:new ArrayList<>(PiecePacks.primedPacks)) {
+				if(pp.isReady()&&!pp.isBuilt()) {
 					//ExtraPieces.log("Building psb "+psb+" now that it's ready!");
-					psb.build().register(data);
-					primedBuilders.remove(psb);
+					for(PieceSet ps:pp.build()) {
+						ps.register(data);
+					}
+					PiecePacks.primedPacks.remove(pp);
 				}
 			}
-			if (setBuilders.containsKey(id)) {
+			if (PiecePacks.packs.containsKey(id)) {
 				//ExtraPieces.log(setBuilders.get(id).name);
 				PieceSet.Builder current = setBuilders.get(id);
 				if(current.isReady()&&!current.isBuilt()) {

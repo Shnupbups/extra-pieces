@@ -97,6 +97,10 @@ public class PieceSet {
 		else PieceSets.registerSet(this);
 	}
 
+	public void setGenTypes(List<PieceType> types) {
+		this.genTypes = types.toArray(new PieceType[types.size()]);
+	}
+
 	public PieceSet setOpaque() {
 		this.opaque = true;
 		return this;
@@ -538,10 +542,16 @@ public class PieceSet {
 		public Identifier topTexture;
 		public Identifier bottomTexture;
 		public boolean includeMode = false;
-		public ArrayList<PieceType> genTypes = PieceTypes.getTypesNoBase();
-		public ArrayList<PieceType> uncraftable = new ArrayList<>();
+		public ArrayList<Identifier> genTypes;
+		public ArrayList<Identifier> uncraftable = new ArrayList<>();
 		public HashMap<Identifier, Identifier> vanillaPieces = new HashMap<>();
 		public String packName;
+
+		public Builder(String name, Identifier base, String packName) {
+			this.name = name;
+			this.packName = packName;
+			this.base = base;
+		}
 
 		public Builder(String name, JsonObject ob, String packName) {
 			this.name = name;
@@ -575,22 +585,21 @@ public class PieceSet {
 				}
 			}
 			if (ob.containsKey("exclude")) {
+				this.genTypes = new ArrayList<>();
 				JsonArray ex = ob.get(JsonArray.class, "exclude");
 				for (JsonElement je : ex) {
 					JsonPrimitive jp = (JsonPrimitive) je;
 					String s = jp.asString();
-					PieceType pt = PieceTypes.getType(s);
-					this.genTypes.remove(pt);
+					this.genTypes.add(new Identifier(s));
 				}
 			} else if (ob.containsKey("include")) {
 				this.includeMode = true;
-				this.genTypes.clear();
+				this.genTypes = new ArrayList<>();
 				JsonArray in = ob.get(JsonArray.class, "include");
 				for (JsonElement je : in) {
 					JsonPrimitive jp = (JsonPrimitive) je;
 					String s = jp.asString();
-					PieceType pt = PieceTypes.getType(s);
-					this.genTypes.add(pt);
+					this.genTypes.add(new Identifier(s));
 				}
 			}
 			if (ob.containsKey("uncraftable")) {
@@ -598,15 +607,55 @@ public class PieceSet {
 				for (JsonElement je : uc) {
 					JsonPrimitive jp = (JsonPrimitive) je;
 					String s = jp.asString();
-					PieceType pt = PieceTypes.getType(s);
-					this.uncraftable.add(pt);
+					this.uncraftable.add(new Identifier(s));
 				}
 			}
 		}
 
+		public void setStonecuttable(boolean stonecuttable) {
+			this.stonecuttable = stonecuttable;
+		}
+
+		public void setWoodmillable(boolean woodmillable) {
+			this.woodmillable = woodmillable;
+		}
+
+		public void setOpaque(boolean opaque) {
+			this.opaque = opaque;
+		}
+
+		public void setMainTexture(Identifier mainTexture) {
+			this.mainTexture = mainTexture;
+		}
+
+		public void setTopTexture(Identifier topTexture) {
+			this.topTexture = topTexture;
+		}
+
+		public void setBottomTexture(Identifier bottomTexture) {
+			this.bottomTexture = bottomTexture;
+		}
+
+		public void setGenTypes(ArrayList<Identifier> genTypes) {
+			this.genTypes = genTypes;
+		}
+
+		public void setIncludeMode(boolean includeMode) {
+			this.includeMode = includeMode;
+		}
+
+		public void setUncraftable(ArrayList<Identifier> uncraftable) {
+			this.uncraftable = uncraftable;
+		}
+
+		public void setVanillaPieces(HashMap<Identifier,Identifier> vanillaPieces) {
+			this.vanillaPieces = vanillaPieces;
+		}
+
 		public PieceSet build() {
 			if (built) return PieceSets.getSet(Registry.BLOCK.get(base));
-			PieceSet ps = new PieceSet(Registry.BLOCK.get(base), name, genTypes);
+			PieceSet ps = new PieceSet(Registry.BLOCK.get(base), name);
+			if (this.getGenTypes() != null) ps.setGenTypes(getGenTypes());
 			if (this.stonecuttable != null) ps.setStonecuttable(this.stonecuttable);
 			if (this.woodmillable != null) ps.setWoodmillable(this.woodmillable);
 			if (this.opaque != null) ps.setOpaque(this.opaque);
@@ -617,7 +666,7 @@ public class PieceSet {
 				ps.addVanillaPiece(pt, Registry.BLOCK.get(this.vanillaPieces.get(pt.getId())));
 			}
 			if (this.includeMode) ps.setInclude();
-			for (PieceType pt : this.uncraftable) {
+			for (PieceType pt : this.getUncraftable()) {
 				ps.setUncraftable(pt);
 			}
 			this.built = true;
@@ -631,6 +680,33 @@ public class PieceSet {
 				if(opt.isPresent()) vPcs.put(opt.get(),vanillaPieces.get(pt));
 			}
 			return vPcs;
+		}
+
+		public ArrayList<PieceType> getUncraftable() {
+			ArrayList<PieceType> un = new ArrayList<>();
+			for(Identifier pt:uncraftable) {
+				Optional<PieceType> opt = PieceTypes.getTypeOrEmpty(pt);
+				if(opt.isPresent()) un.add(opt.get());
+			}
+			return un;
+		}
+
+		public ArrayList<PieceType> getGenTypes() {
+			if(genTypes==null) return null;
+			ArrayList<PieceType> gt = new ArrayList<>();
+			if(includeMode) {
+				for (Identifier pt : genTypes) {
+					Optional<PieceType> opt = PieceTypes.getTypeOrEmpty(pt);
+					if (opt.isPresent()) gt.add(opt.get());
+				}
+			} else {
+				gt = PieceTypes.getTypesNoBase();
+				for (Identifier pt : genTypes) {
+					Optional<PieceType> opt = PieceTypes.getTypeOrEmpty(pt);
+					if (opt.isPresent()) gt.remove(opt.get());
+				}
+			}
+			return gt;
 		}
 
 		public Identifier getBaseID() {

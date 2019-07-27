@@ -5,6 +5,8 @@ import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.JsonPrimitive;
 import blue.endless.jankson.impl.SyntaxError;
 import com.shnupbups.extrapieces.ExtraPieces;
+import com.shnupbups.extrapieces.core.PiecePack;
+import com.shnupbups.extrapieces.core.PiecePacks;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import net.fabricmc.loader.api.FabricLoader;
@@ -99,27 +101,12 @@ public class ModConfigs {
 			}
 		}
 		for (File f : ppDir.listFiles()) {
-			try (FileReader reader = new FileReader(f)) {
-				ExtraPieces.log("Loading piece pack " + f.getName());
-				JsonObject pp = Jankson.builder().build().load(f);
-				for (String s : pp.keySet()) {
-					JsonObject jsonSet = (JsonObject) pp.get(s);
-					PieceSet.Builder psb = new PieceSet.Builder(s, jsonSet, f.getName());
-					setsNum++;
-					ppSetsNum++;
-					ModBlocks.registerSet(psb);
-				}
-				ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack " + f.getName());
-			} catch (IOException e) {
-				ExtraPieces.log("IOException loading piece pack " + f.getName());
-				ExtraPieces.log(e.getMessage());
-			} catch (SyntaxError e) {
-				ExtraPieces.log("SyntaxError loading piece pack " + f.getName());
-				ExtraPieces.log(e.getCompleteMessage());
-			}
-			ppSetsNum = 0;
+			ExtraPieces.log("Loading piece pack " + f.getName());
+			PiecePack pp = PiecePack.fromFile(f);
+			PiecePacks.addPack(pp);
+			ExtraPieces.log("Generated " + pp.getSetCount() + " PieceSets from piece pack " + f.getName());
 		}
-		ExtraPieces.log("Generated " + setsNum + " PieceSets!");
+		ExtraPieces.log("Generated " + PiecePacks.getTotalSetCount() + " PieceSets!");
 	}
 
 	public static void generateConfig(File config) {
