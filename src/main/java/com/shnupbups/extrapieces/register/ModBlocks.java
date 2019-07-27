@@ -341,7 +341,7 @@ public class ModBlocks {
 
 			for (PieceSet.Builder builder : setBuilders.values()) {
 				if (!builder.isBuilt()) {
-					ExtraPieces.log("Warning: Piece Set " + builder.name + " was not built!");
+					ExtraPieces.log("Warning: Piece Set " + builder.name + " from Piece Pack " + builder.packName +" was not built!");
 				}
 			}
 		}
