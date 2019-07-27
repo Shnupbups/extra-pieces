@@ -660,15 +660,17 @@ public class PieceSet {
 		}
 
 		public boolean isReady() {
-			boolean ready = Registry.BLOCK.getOrEmpty(base).isPresent();
-			if(ready)
-			for(Identifier id:getVanillaPieces().values()) {
+			if(!Registry.BLOCK.getOrEmpty(base).isPresent()) {
+				return false;
+			}
+
+			for(Identifier id: getVanillaPieces().values()) {
 				if(!Registry.BLOCK.getOrEmpty(id).isPresent()) {
-					ExtraPieces.log("Psb" + this + " not yet ready!");
-					ready = false;
+					return false;
 				}
 			}
-			return ready;
+
+			return true;
 		}
 
 		public String toString() {
