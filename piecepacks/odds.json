@@ -1,78 +1,81 @@
-{ 
-	"dirt": { 
-		"base": "minecraft:dirt"
-	},
-	"coarse_dirt": { 
-		"base": "minecraft:coarse_dirt"
-	},
-	"sand": { 
-		"base": "minecraft:sand"
-	},
-	"gravel": { 
-		"base": "minecraft:gravel"
-	},
-	"soul_sand": { 
-		"base": "minecraft:soul_sand"
-	},
-	"podzol": { 
-		"base": "minecraft:podzol",
-		"textures": { 
-			"main": "minecraft:block/podzol_side",
-			"top": "minecraft:block/podzol_top",
-			"bottom": "minecraft:block/dirt"
+{
+	"version": "1.0.0",
+	"sets": {
+		"dirt": {
+			"base": "minecraft:dirt"
+		},
+		"coarse_dirt": {
+			"base": "minecraft:coarse_dirt"
+		},
+		"sand": {
+			"base": "minecraft:sand"
+		},
+		"gravel": {
+			"base": "minecraft:gravel"
+		},
+		"soul_sand": {
+			"base": "minecraft:soul_sand"
+		},
+		"podzol": {
+			"base": "minecraft:podzol",
+			"textures": {
+				"main": "minecraft:block/podzol_side",
+				"top": "minecraft:block/podzol_top",
+				"bottom": "minecraft:block/dirt"
+			}
+		},
+		"mycelium": {
+			"base": "minecraft:mycelium",
+			"textures": {
+				"main": "minecraft:block/mycelium_side",
+				"top": "minecraft:block/mycelium_top",
+				"bottom": "minecraft:block/dirt"
+			}
+		},
+		"coal_ore": {
+			"base": "minecraft:coal_ore"
+		},
+		"iron_ore": {
+			"base": "minecraft:iron_ore"
+		},
+		"gold_ore": {
+			"base": "minecraft:gold_ore"
+		},
+		"diamond_ore": {
+			"base": "minecraft:diamond_ore"
+		},
+		"lapis_lazuli_ore": {
+			"base": "minecraft:lapis_ore"
+		},
+		"emerald_ore": {
+			"base": "minecraft:emerald_ore"
+		},
+		"redstone_ore": {
+			"base": "minecraft:redstone_ore"
+		},
+		"clay": {
+			"base": "minecraft:clay"
+		},
+		"oak_leaf": {
+			"base": "minecraft:oak_leaves"
+		},
+		"birch_leaf": {
+			"base": "minecraft:birch_leaves"
+		},
+		"spruce_leaf": {
+			"base": "minecraft:spruce_leaves"
+		},
+		"jungle_leaf": {
+			"base": "minecraft:jungle_leaves"
+		},
+		"acacia_leaf": {
+			"base": "minecraft:acacia_leaves"
+		},
+		"dark_oak_leaf": {
+			"base": "minecraft:dark_oak_leaves"
+		},
+		"bedrock": {
+			"base": "minecraft:bedrock"
 		}
-	},
-	"mycelium": { 
-		"base": "minecraft:mycelium",
-		"textures": { 
-			"main": "minecraft:block/mycelium_side",
-			"top": "minecraft:block/mycelium_top",
-			"bottom": "minecraft:block/dirt"
-		}
-	},
-	"coal_ore": { 
-		"base": "minecraft:coal_ore"
-	},
-	"iron_ore": { 
-		"base": "minecraft:iron_ore"
-	},
-	"gold_ore": { 
-		"base": "minecraft:gold_ore"
-	},
-	"diamond_ore": { 
-		"base": "minecraft:diamond_ore"
-	},
-	"lapis_lazuli_ore": { 
-		"base": "minecraft:lapis_ore"
-	},
-	"emerald_ore": { 
-		"base": "minecraft:emerald_ore"
-	},
-	"redstone_ore": { 
-		"base": "minecraft:redstone_ore"
-	},
-	"clay": { 
-		"base": "minecraft:clay"
-	},
-	"oak_leaf": { 
-		"base": "minecraft:oak_leaves"
-	},
-	"birch_leaf": { 
-		"base": "minecraft:birch_leaves"
-	},
-	"spruce_leaf": { 
-		"base": "minecraft:spruce_leaves"
-	},
-	"jungle_leaf": { 
-		"base": "minecraft:jungle_leaves"
-	},
-	"acacia_leaf": { 
-		"base": "minecraft:acacia_leaves"
-	},
-	"dark_oak_leaf": { 
-		"base": "minecraft:dark_oak_leaves"
-	},
-	"bedrock": { 
-		"base": "minecraft:bedrock"
 	}
 }

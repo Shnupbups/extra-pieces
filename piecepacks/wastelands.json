@@ -1,5 +1,8 @@
 {
-	"wasteland": {
-		"base": "ezwastelands:ezwastelandblock"
+	"version": "1.0.0",
+	"sets": {
+		"wasteland": {
+			"base": "ezwastelands:ezwastelandblock"
+		}
 	}
 }

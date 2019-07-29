@@ -75,6 +75,15 @@ public class ModConfigs {
 						} catch (IOException e) {
 							ExtraPieces.log("IOException copying PiecePack " + path.getFileName() + " from a mod jar!");
 						}
+					} else if(isNewer(path,destination)) {
+						try {
+							Files.createDirectories(destination.getParent());
+							Files.copy(path, destination, StandardCopyOption.REPLACE_EXISTING);
+
+							ExtraPieces.log("Successfully updated PiecePack " + path.getFileName() + " from a mod jar!");
+						} catch (IOException e) {
+							ExtraPieces.log("IOException updating PiecePack " + path.getFileName() + " from a mod jar!");
+						}
 					} else {
 						ExtraPieces.log("Piece Pack " + path.getFileName() + " already present.");
 					}
@@ -102,10 +111,19 @@ public class ModConfigs {
 		}
 		for (File f : ppDir.listFiles()) {
 			try (FileReader reader = new FileReader(f)) {
-				ExtraPieces.log("Loading piece pack " + f.getName());
 				JsonObject pp = Jankson.builder().build().load(f);
-
-				for (Map.Entry<String, JsonElement> entry : pp.entrySet()) {
+				JsonObject sets;
+				String ppVer;
+				if(!pp.containsKey("version")) {
+					sets = pp;
+					ppVer = "0.0.0";
+					ExtraPieces.log("Piece pack "+f.getName()+" doesn't specify a version! Please update it! Defaulting to 0.0.0");
+				} else {
+					sets = pp.getObject("sets");
+					ppVer = pp.get(String.class,"version");
+				}
+				ExtraPieces.log("Loading piece pack " + f.getName()+" version "+ppVer);
+				for (Map.Entry<String, JsonElement> entry : sets.entrySet()) {
 					JsonObject jsonSet = (JsonObject) entry.getValue();
 					PieceSet.Builder psb = new PieceSet.Builder(entry.getKey(), jsonSet, f.getName());
 					setsNum++;
@@ -134,9 +152,12 @@ public class ModConfigs {
 		ModBlocks.generateDefaultSets();
 		try (FileWriter writer = new FileWriter(pack)) {
 			JsonObject pp = new JsonObject();
+			pp.put("version", new JsonPrimitive(ExtraPieces.piece_pack_version));
+			JsonObject sets = new JsonObject();
 			for (PieceSet set : PieceSets.defaults.values()) {
-				pp.put(set.getName(), set.toJson());
+				sets.put(set.getName(), set.toJson());
 			}
+			pp.put("sets",sets);
 			writer.write(pp.toJson(false, true));
 		} catch (IOException e) {
 			ExtraPieces.log("Failed to write to default piece pack!");
@@ -167,4 +188,81 @@ public class ModConfigs {
 		}
 	}
 
+	public static boolean isNewer(Path toCheck, Path toReplace) {
+		try {
+			Path tempDir = Files.createTempDirectory("piecepacks");
+			File toCheckFile = Files.copy(toCheck, tempDir.resolve(toCheck.getFileName()), StandardCopyOption.REPLACE_EXISTING).toFile();
+			File toReplaceFile = toReplace.toFile();
+			JsonObject ppC = Jankson.builder().build().load(toCheckFile);
+			JsonObject ppR = Jankson.builder().build().load(toReplaceFile);
+			Version cVer;
+			Version rVer;
+			if(ppC.containsKey("version")) {
+				cVer = new Version(ppC.get(String.class,"version"));
+			} else cVer = new Version();
+			if(ppR.containsKey("version")) {
+				rVer = new Version(ppR.get(String.class,"version"));
+			} else rVer = new Version();
+			return cVer.compareTo(rVer)==1;
+		} catch (Exception e) {
+			ExtraPieces.log("Failed to check if Piece Pack "+toCheck.getFileName()+" needed updating.");
+			return false;
+		}
+	}
+
+	public static class Version implements Comparable<Version> {
+
+		private String version;
+
+		public final String get() {
+			return this.version;
+		}
+
+		public Version(String version) {
+			if(version == null)
+				throw new IllegalArgumentException("Version can not be null");
+			if(!version.matches("[0-9]+(\\.[0-9]+)*"))
+				throw new IllegalArgumentException("Invalid version format");
+			this.version = version;
+		}
+
+		public Version() {
+			this("0.0.0");
+		}
+
+		@Override public int compareTo(Version that) {
+			if(that == null)
+				return 1;
+			String[] thisParts = this.get().split("\\.");
+			String[] thatParts = that.get().split("\\.");
+			int length = Math.max(thisParts.length, thatParts.length);
+			for(int i = 0; i < length; i++) {
+				int thisPart = i < thisParts.length ?
+						Integer.parseInt(thisParts[i]) : 0;
+				int thatPart = i < thatParts.length ?
+						Integer.parseInt(thatParts[i]) : 0;
+				if(thisPart < thatPart)
+					return -1;
+				if(thisPart > thatPart)
+					return 1;
+			}
+			return 0;
+		}
+
+		@Override
+		public boolean equals(Object that) {
+			if(this == that)
+				return true;
+			if(that == null)
+				return false;
+			if(this.getClass() != that.getClass())
+				return false;
+			return this.compareTo((Version) that) == 0;
+		}
+
+		@Override
+		public String toString() {
+			return version;
+		}
+	}
 }

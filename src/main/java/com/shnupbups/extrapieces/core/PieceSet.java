@@ -482,7 +482,7 @@ public class PieceSet {
 					ex.add(new JsonPrimitive(p));
 				}
 			}
-			ob.put("exclude", ex);
+			if(!ex.isEmpty()) ob.put("exclude", ex);
 		}
 		if (includeMode) {
 			JsonArray in = new JsonArray();
