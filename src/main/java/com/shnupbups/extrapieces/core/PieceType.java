@@ -2,10 +2,12 @@ package com.shnupbups.extrapieces.core;
 
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
+import com.shnupbups.extrapieces.blocks.PieceBlockItem;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
 import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
@@ -139,5 +141,9 @@ public abstract class PieceType {
 				var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
 			});
 		});
+	}
+
+	public PieceBlockItem getBlockItem(PieceBlock pb) {
+		return new PieceBlockItem(pb,new Item.Settings());
 	}
 }

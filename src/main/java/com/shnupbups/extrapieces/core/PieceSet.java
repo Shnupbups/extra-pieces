@@ -297,7 +297,7 @@ public class PieceSet {
 
 			if (this.getBase() != Blocks.AIR) ModItemGroups.getItemGroup(block);
 
-			BlockItem item = new PieceBlockItem(block, new Item.Settings());
+			BlockItem item = type.getBlockItem(block);
 			item.appendBlocks(Item.BLOCK_ITEMS, item);
 			Registry.register(Registry.ITEM, id, item);
 		}

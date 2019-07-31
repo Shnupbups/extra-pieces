@@ -22,7 +22,7 @@ import java.io.File;
 public class ExtraPieces implements ModInitializer {
 	public static final String mod_id = "extrapieces";
 	public static final String mod_name = "Extra Pieces";
-	public static final String piece_pack_version = "2.5.0";
+	public static final String piece_pack_version = "2.5.1";
 	public static final Logger logger = LogManager.getFormatterLogger(mod_name);
 
 	public static final boolean DUMP = false;
