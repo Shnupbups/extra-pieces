@@ -9,6 +9,8 @@ import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
+import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
+import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
 import com.shnupbups.extrapieces.register.ModConfigs;
 import com.shnupbups.extrapieces.register.ModItemGroups;
 import com.shnupbups.extrapieces.register.ModLootTables;
@@ -509,14 +511,20 @@ public class PieceSet {
 			if (!isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && (isStonecuttable() || ModConfigs.everythingStonecuttable)) {
 				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
-				pb.getType().getStonecuttingRecipe().add(data, id, this);
-				ModRecipes.incrementStonecuttingRecipes();
+				StonecuttingPieceRecipe r = pb.getType().getStonecuttingRecipe();
+				if(r!=null) {
+					r.add(data, id, this);
+					ModRecipes.incrementStonecuttingRecipes();
+				}
 			}
 			if (ExtraPieces.isWoodmillInstalled() && !isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && isWoodmillable()) {
 				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_woodmilling");
-				pb.getType().getWoodmillingRecipe().add(data, id, this);
-				ModRecipes.incrementWoodmillingRecipes();
+				WoodmillingPieceRecipe r = pb.getType().getWoodmillingRecipe();
+				if(r!=null) {
+					r.add(data, id, this);
+					ModRecipes.incrementWoodmillingRecipes();
+				}
 			}
 		}
 		ModRecipes.addMiscRecipes(data, this);
