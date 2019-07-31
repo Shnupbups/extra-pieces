@@ -9,6 +9,7 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.Identifier;
 
 import java.io.File;
 import java.io.FileReader;
@@ -26,6 +27,7 @@ public class ModConfigs {
 	public static boolean everythingStonecuttable = false;
 	private static int setsNum = 0;
 	private static int ppSetsNum = 0;
+	private static int ppVpNum = 0;
 
 	public static void init() {
 		File config = new File(ExtraPieces.getConfigDirectory(), "config.json");
@@ -75,7 +77,7 @@ public class ModConfigs {
 						} catch (IOException e) {
 							ExtraPieces.log("IOException copying PiecePack " + path.getFileName() + " from a mod jar!");
 						}
-					} else if(isNewer(path,destination)) {
+					} else if (isNewer(path, destination)) {
 						try {
 							Files.createDirectories(destination.getParent());
 							Files.copy(path, destination, StandardCopyOption.REPLACE_EXISTING);
@@ -112,25 +114,45 @@ public class ModConfigs {
 		for (File f : ppDir.listFiles()) {
 			try (FileReader reader = new FileReader(f)) {
 				JsonObject pp = Jankson.builder().build().load(f);
-				JsonObject sets;
+				JsonObject sets = null;
+				JsonObject vanillaPieces = null;
 				String ppVer;
-				if(!pp.containsKey("version")) {
+				if (!pp.containsKey("version")) {
 					sets = pp;
 					ppVer = "0.0.0";
-					ExtraPieces.log("Piece pack "+f.getName()+" doesn't specify a version! Please update it! Defaulting to 0.0.0");
+					ExtraPieces.log("Piece pack " + f.getName() + " doesn't specify a version! Please update it! Defaulting to 0.0.0");
 				} else {
-					sets = pp.getObject("sets");
-					ppVer = pp.get(String.class,"version");
+					if (pp.containsKey("sets")) sets = pp.getObject("sets");
+					if (pp.containsKey("vanilla_pieces")) vanillaPieces = pp.getObject("vanilla_pieces");
+					ppVer = pp.get(String.class, "version");
 				}
-				ExtraPieces.log("Loading piece pack " + f.getName()+" version "+ppVer);
-				for (Map.Entry<String, JsonElement> entry : sets.entrySet()) {
-					JsonObject jsonSet = (JsonObject) entry.getValue();
-					PieceSet.Builder psb = new PieceSet.Builder(entry.getKey(), jsonSet, f.getName());
-					setsNum++;
-					ppSetsNum++;
-					ModBlocks.registerSet(psb);
+				ExtraPieces.log("Loading piece pack " + f.getName() + " version " + ppVer);
+				if (sets != null) {
+					for (Map.Entry<String, JsonElement> entry : sets.entrySet()) {
+						JsonObject jsonSet = (JsonObject) entry.getValue();
+						PieceSet.Builder psb = new PieceSet.Builder(entry.getKey(), jsonSet, f.getName());
+						setsNum++;
+						ppSetsNum++;
+						ModBlocks.registerSet(psb);
+					}
+					ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack " + f.getName());
 				}
-				ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack " + f.getName());
+				if (vanillaPieces != null) {
+					for (Map.Entry<String, JsonElement> entry : vanillaPieces.entrySet()) {
+						JsonObject jsonPiece = (JsonObject) entry.getValue();
+						if (jsonPiece.containsKey("base") && jsonPiece.containsKey("type") && jsonPiece.containsKey("piece")) {
+							Identifier base = new Identifier(jsonPiece.get(String.class, "base"));
+							Identifier type = new Identifier(jsonPiece.get(String.class, "type"));
+							Identifier piece = new Identifier(jsonPiece.get(String.class, "piece"));
+							ppVpNum++;
+							ModBlocks.registerVanillaPiece(base, type, piece);
+						} else {
+							ExtraPieces.log("Invalid vanilla piece " + entry.getKey() + " in piece pack " + f.getName());
+						}
+					}
+					ExtraPieces.log("Added " + ppVpNum + " vanilla pieces from piece pack " + f.getName());
+				}
+
 			} catch (IOException e) {
 				ExtraPieces.log("IOException loading piece pack " + f.getName());
 				ExtraPieces.log(e.getMessage());
@@ -139,6 +161,7 @@ public class ModConfigs {
 				ExtraPieces.log(e.getCompleteMessage());
 			}
 			ppSetsNum = 0;
+			ppVpNum = 0;
 		}
 		ExtraPieces.log("Generated " + setsNum + " PieceSets!");
 	}
@@ -157,7 +180,7 @@ public class ModConfigs {
 			for (PieceSet set : PieceSets.defaults.values()) {
 				sets.put(set.getName(), set.toJson());
 			}
-			pp.put("sets",sets);
+			pp.put("sets", sets);
 			writer.write(pp.toJson(false, true));
 		} catch (IOException e) {
 			ExtraPieces.log("Failed to write to default piece pack!");
@@ -197,15 +220,15 @@ public class ModConfigs {
 			JsonObject ppR = Jankson.builder().build().load(toReplaceFile);
 			Version cVer;
 			Version rVer;
-			if(ppC.containsKey("version")) {
-				cVer = new Version(ppC.get(String.class,"version"));
+			if (ppC.containsKey("version")) {
+				cVer = new Version(ppC.get(String.class, "version"));
 			} else cVer = new Version();
-			if(ppR.containsKey("version")) {
-				rVer = new Version(ppR.get(String.class,"version"));
+			if (ppR.containsKey("version")) {
+				rVer = new Version(ppR.get(String.class, "version"));
 			} else rVer = new Version();
-			return cVer.compareTo(rVer)==1;
+			return cVer.compareTo(rVer) == 1;
 		} catch (Exception e) {
-			ExtraPieces.log("Failed to check if Piece Pack "+toCheck.getFileName()+" needed updating.");
+			ExtraPieces.log("Failed to check if Piece Pack " + toCheck.getFileName() + " needed updating.");
 			return false;
 		}
 	}
@@ -214,14 +237,10 @@ public class ModConfigs {
 
 		private String version;
 
-		public final String get() {
-			return this.version;
-		}
-
 		public Version(String version) {
-			if(version == null)
+			if (version == null)
 				throw new IllegalArgumentException("Version can not be null");
-			if(!version.matches("[0-9]+(\\.[0-9]+)*"))
+			if (!version.matches("[0-9]+(\\.[0-9]+)*"))
 				throw new IllegalArgumentException("Invalid version format");
 			this.version = version;
 		}
@@ -230,20 +249,25 @@ public class ModConfigs {
 			this("0.0.0");
 		}
 
-		@Override public int compareTo(Version that) {
-			if(that == null)
+		public final String get() {
+			return this.version;
+		}
+
+		@Override
+		public int compareTo(Version that) {
+			if (that == null)
 				return 1;
 			String[] thisParts = this.get().split("\\.");
 			String[] thatParts = that.get().split("\\.");
 			int length = Math.max(thisParts.length, thatParts.length);
-			for(int i = 0; i < length; i++) {
+			for (int i = 0; i < length; i++) {
 				int thisPart = i < thisParts.length ?
 						Integer.parseInt(thisParts[i]) : 0;
 				int thatPart = i < thatParts.length ?
 						Integer.parseInt(thatParts[i]) : 0;
-				if(thisPart < thatPart)
+				if (thisPart < thatPart)
 					return -1;
-				if(thisPart > thatPart)
+				if (thisPart > thatPart)
 					return 1;
 			}
 			return 0;
@@ -251,11 +275,11 @@ public class ModConfigs {
 
 		@Override
 		public boolean equals(Object that) {
-			if(this == that)
+			if (this == that)
 				return true;
-			if(that == null)
+			if (that == null)
 				return false;
-			if(this.getClass() != that.getClass())
+			if (this.getClass() != that.getClass())
 				return false;
 			return this.compareTo((Version) that) == 0;
 		}

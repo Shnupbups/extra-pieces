@@ -482,7 +482,7 @@ public class PieceSet {
 					ex.add(new JsonPrimitive(p));
 				}
 			}
-			if(!ex.isEmpty()) ob.put("exclude", ex);
+			if (!ex.isEmpty()) ob.put("exclude", ex);
 		}
 		if (includeMode) {
 			JsonArray in = new JsonArray();
@@ -635,6 +635,10 @@ public class PieceSet {
 
 			this.built = true;
 			return ps;
+		}
+
+		public void addVanillaPiece(Identifier type, Identifier piece) {
+			vanillaPieces.put(type, piece);
 		}
 
 		public HashMap<PieceType, Identifier> getVanillaPieces() {

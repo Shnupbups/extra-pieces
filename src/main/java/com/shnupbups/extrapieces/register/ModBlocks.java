@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
@@ -21,7 +22,11 @@ public class ModBlocks {
 
 	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
 	public static ArrayList<PieceSet.Builder> primedBuilders = new ArrayList<>();
+
+	public static HashMap<Pair<Identifier, Identifier>, Identifier> vanillaPieces = new HashMap<>();
+
 	public static boolean finished = false;
+
 	public static PieceSet PRISMARINE_PIECES;
 	public static PieceSet PRISMARINE_BRICK_PIECES;
 	public static PieceSet DARK_PRISMARINE_PIECES;
@@ -174,7 +179,7 @@ public class ModBlocks {
 		SMOOTH_STONE_PIECES = PieceSets.createDefaultSet(Blocks.SMOOTH_STONE, "smooth_stone", PieceSet.NO_SLAB).addVanillaPiece(PieceTypes.SLAB, Blocks.SMOOTH_STONE_SLAB);
 		SANDSTONE_PIECES = PieceSets.createDefaultSet(Blocks.SANDSTONE, "sandstone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.SANDSTONE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.SANDSTONE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.SANDSTONE_WALL).setTopTexture("sandstone_top").setBottomTexture("sandstone_bottom");
 		CUT_SANDSTONE_PIECES = PieceSets.createDefaultSet(Blocks.CUT_SANDSTONE, "cut_sandstone", PieceSet.NO_SLAB).addVanillaPiece(PieceTypes.SLAB, Blocks.CUT_SANDSTONE_SLAB).setTopTexture("sandstone_top").setBottomTexture("sandstone_bottom");
-		PETRIFIED_OAK_PIECES = PieceSets.createDefaultSet(Blocks.PETRIFIED_OAK_SLAB, "petrified_oak", PieceTypes.SIDING).addVanillaPiece(PieceTypes.SLAB, Blocks.PETRIFIED_OAK_SLAB).setTexture("oak_planks").setInclude();
+		PETRIFIED_OAK_PIECES = PieceSets.createDefaultSet(Blocks.PETRIFIED_OAK_SLAB, "petrified_oak", PieceTypes.SIDING).addVanillaPiece(PieceTypes.SLAB, Blocks.PETRIFIED_OAK_SLAB).setTexture("oak_planks").setUncraftable(PieceTypes.SIDING).setInclude();
 		COBBLESTONE_PIECES = PieceSets.createDefaultSet(Blocks.COBBLESTONE, "cobblestone", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.COBBLESTONE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.COBBLESTONE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.COBBLESTONE_WALL);
 		BRICK_PIECES = PieceSets.createDefaultSet(Blocks.BRICKS, "brick", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.BRICK_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.BRICK_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.BRICK_WALL);
 		STONE_BRICK_PIECES = PieceSets.createDefaultSet(Blocks.STONE_BRICKS, "stone_brick", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.STONE_BRICK_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.STONE_BRICK_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.STONE_BRICK_WALL);
@@ -302,9 +307,22 @@ public class ModBlocks {
 
 	public static void registerSet(PieceSet.Builder psb) {
 		if (!setBuilders.containsKey(psb.getBaseID())) {
+			for (Pair<Identifier, Identifier> pair : vanillaPieces.keySet()) {
+				if (pair.getLeft().equals(psb.getBaseID())) {
+					psb.addVanillaPiece(pair.getRight(), vanillaPieces.get(pair));
+				}
+			}
 			setBuilders.put(psb.getBaseID(), psb);
 		} else {
 			ExtraPieces.log("Piece Pack " + psb.packName + " tried to register a set for " + psb.getBaseID() + " when one already exists! Skipping...");
+		}
+	}
+
+	public static void registerVanillaPiece(Identifier base, Identifier type, Identifier piece) {
+		if (setBuilders.containsKey(base)) {
+			setBuilders.get(base).addVanillaPiece(type, piece);
+		} else {
+			vanillaPieces.put(new Pair<>(base, type), piece);
 		}
 	}
 
@@ -341,7 +359,7 @@ public class ModBlocks {
 
 			for (PieceSet.Builder builder : setBuilders.values()) {
 				if (!builder.isBuilt()) {
-					ExtraPieces.log("Warning: Piece Set " + builder.name + " from Piece Pack " + builder.packName +" was not built!");
+					ExtraPieces.log("Warning: Piece Set " + builder.name + " from Piece Pack " + builder.packName + " was not built!");
 				}
 			}
 		}
