@@ -14,7 +14,10 @@
 				"extrapieces:slab": "traverse:fir_slab",
 				"extrapieces:fence": "traverse:fir_fence",
 				"extrapieces:fence_gate": "traverse:fir_fence_gate"
-			}
+			},
+			"uncraftable": [
+				"extrapieces:wall"
+			]
 		},
 		"stripped_fir_log": {
 			"base": "traverse:stripped_fir_log",
