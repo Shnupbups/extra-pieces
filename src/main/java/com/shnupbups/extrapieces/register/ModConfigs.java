@@ -214,7 +214,7 @@ public class ModConfigs {
 	public static boolean isNewer(Path toCheck, Path toReplace) {
 		try {
 			Path tempDir = Files.createTempDirectory("piecepacks");
-			File toCheckFile = Files.copy(toCheck, tempDir.resolve(toCheck.getFileName()), StandardCopyOption.REPLACE_EXISTING).toFile();
+			File toCheckFile = Files.copy(toCheck, tempDir.resolve(toCheck.getFileName().toString()), StandardCopyOption.REPLACE_EXISTING).toFile();
 			File toReplaceFile = toReplace.toFile();
 			JsonObject ppC = Jankson.builder().build().load(toCheckFile);
 			JsonObject ppR = Jankson.builder().build().load(toReplaceFile);
@@ -228,7 +228,9 @@ public class ModConfigs {
 			} else rVer = new Version();
 			return cVer.compareTo(rVer) == 1;
 		} catch (Exception e) {
-			ExtraPieces.log("Failed to check if Piece Pack " + toCheck.getFileName() + " needed updating.");
+			ExtraPieces.log("Failed to check if Piece Pack " + toCheck.getFileName() + " needed updating:");
+			e.printStackTrace();
+
 			return false;
 		}
 	}
