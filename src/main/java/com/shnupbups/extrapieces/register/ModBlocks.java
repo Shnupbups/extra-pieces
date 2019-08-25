@@ -350,23 +350,13 @@ public class ModBlocks {
 					primedBuilders.add(setBuilders.get(id));
 				}
 			}
-		});
 
-		if (isDone()) {
-			ExtraPieces.log("Done! All sets built!");
-		} else {
-			// Exceptional condition...
-
-			for (PieceSet.Builder builder : setBuilders.values()) {
-				if (!builder.isBuilt()) {
-					ExtraPieces.log("Warning: Piece Set " + builder.name + " from Piece Pack " + builder.packName + " was not built!");
-				}
+			if (!finished && isDone()) {
+				ExtraPieces.log("Done! All sets built!");
+				finish(data);
+				ExtraPieces.log("Registered all PieceSets!");
 			}
-		}
-
-		finish(data);
-
-		ExtraPieces.log("Registered all PieceSets!");
+		});
 	}
 
 	public static void finish(ArtificeResourcePack.ServerResourcePackBuilder data) {
