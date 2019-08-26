@@ -4,7 +4,8 @@ This folder will contain ones made by me (Shnupbups, the author of Extra Pieces)
 To install them, put them in the piece packs folder.
 The piece packs folder can be found inside the Extra Pieces folder inside the config directory of your Minecraft instance.
 
-For any modders who would like to ship their mods with a built in piece pack, you can! Instructions can be found on the wiki at https://github.com/Shnupbups/extra-pieces/wiki/Mod-Compatibility
+For any modders who would like to ship their mods with a built in piece pack, you can!
+Instructions can be found on the wiki at https://github.com/Shnupbups/extra-pieces/wiki/Mod-Compatibility
 
 A list of the piece packs in this folder is as follows: (may not always be kept up to date)
 
