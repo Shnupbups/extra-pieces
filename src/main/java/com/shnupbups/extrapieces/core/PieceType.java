@@ -89,7 +89,7 @@ public abstract class PieceType {
 	
 	public ArrayList<PieceRecipe> getCraftingRecipes() {
 		ArrayList<PieceRecipe> recipes = new ArrayList<>();
-		recipes.addAll(getShapedRecipes());
+		recipes.addAll(getRecipes());
 		recipes.addAll(getShapelessRecipes());
 		return recipes;
 	}
