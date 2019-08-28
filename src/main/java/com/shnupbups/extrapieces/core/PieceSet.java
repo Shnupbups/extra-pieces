@@ -7,7 +7,6 @@ import blue.endless.jankson.JsonPrimitive;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
-import com.shnupbups.extrapieces.blocks.PieceBlockItem;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
 import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
@@ -16,6 +15,7 @@ import com.shnupbups.extrapieces.register.ModItemGroups;
 import com.shnupbups.extrapieces.register.ModLootTables;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;

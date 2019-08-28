@@ -22,6 +22,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 
+@SuppressWarnings("deprecation")
 public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final IntProperty LAYERS;
 	public static final BooleanProperty WATERLOGGED;
@@ -54,7 +55,7 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 	}
 
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext entityContext_1) {
-		return LAYERS_TO_SHAPE[(Integer) blockState_1.get(LAYERS)];
+		return LAYERS_TO_SHAPE[blockState_1.get(LAYERS)];
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {

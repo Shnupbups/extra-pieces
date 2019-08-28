@@ -30,6 +30,7 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class CornerPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final DirectionProperty FACING;
 	public static final BooleanProperty WATERLOGGED;

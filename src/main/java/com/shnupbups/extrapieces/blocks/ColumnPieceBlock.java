@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class ColumnPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final EnumProperty<Direction.Axis> AXIS;
 	public static final BooleanProperty WATERLOGGED;

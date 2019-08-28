@@ -10,6 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.util.math.Direction;
 
+@SuppressWarnings("deprecation")
 public class StairsPieceBlock extends StairsBlock implements PieceBlock {
 	private final PieceSet set;
 

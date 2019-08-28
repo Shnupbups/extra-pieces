@@ -10,6 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.util.math.Direction;
 
+@SuppressWarnings("deprecation")
 public class SlabPieceBlock extends SlabBlock implements PieceBlock {
 	private final PieceSet set;
 

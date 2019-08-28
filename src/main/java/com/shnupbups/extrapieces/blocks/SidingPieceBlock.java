@@ -29,6 +29,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 
+@SuppressWarnings("deprecation")
 public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final EnumProperty<ModProperties.SidingType> TYPE;
 	public static final BooleanProperty WATERLOGGED;
@@ -79,20 +80,19 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
 		ModProperties.SidingType slabType_1 = blockState_1.get(TYPE);
 		Direction facing = blockState_1.get(FACING_HORIZONTAL);
-		switch (slabType_1) {
-			case DOUBLE:
+		if (slabType_1 == ModProperties.SidingType.DOUBLE) {
 				return VoxelShapes.fullCube();
-			default:
-				switch (facing) {
-					case SOUTH:
-						return SINGLE_SHAPE_SOUTH;
-					case EAST:
-						return SINGLE_SHAPE_EAST;
-					case WEST:
-						return SINGLE_SHAPE_WEST;
-					default:
-						return SINGLE_SHAPE_NORTH;
-				}
+		} else {
+			switch (facing) {
+				case SOUTH:
+					return SINGLE_SHAPE_SOUTH;
+				case EAST:
+					return SINGLE_SHAPE_EAST;
+				case WEST:
+					return SINGLE_SHAPE_WEST;
+				default:
+					return SINGLE_SHAPE_NORTH;
+			}
 		}
 	}
 

@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class WallPieceBlock extends WallBlock implements PieceBlock {
 	private final PieceSet set;
 
