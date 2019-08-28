@@ -25,6 +25,8 @@ public class ExtraPieces implements ModInitializer {
 	public static final String piece_pack_version = "2.5.3";
 	public static final Logger logger = LogManager.getFormatterLogger(mod_name);
 
+	public static ArtificeResourcePack datapack;
+	
 	public static boolean DUMP = false;
 
 	public static File configDir;
@@ -74,16 +76,9 @@ public class ExtraPieces implements ModInitializer {
 			api.onInitialize();
 		});
 		ModConfigs.initPiecePacks();
-		ArtificeResourcePack datapack = Artifice.registerData(getID("ep_data"), data -> {
+		datapack = Artifice.registerData(getID("ep_data"), data -> {
 			ModBlocks.init(data);
 		});
-		if (DUMP) {
-			try {
-				datapack.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent() + "/dump");
-			} catch (Exception e) {
-				ExtraPieces.log("BIG OOF: " + e.getMessage());
-			}
-		}
 		Registry.register(Registry.ITEM, getID("debug_item"), new DebugItem());
 
 		ServerStartCallback.EVENT.register(server -> {
@@ -94,5 +89,15 @@ public class ExtraPieces implements ModInitializer {
 				}
 			}
 		});
+	}
+	
+	public static void dump() {
+		if (DUMP) {
+			try {
+				datapack.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent() + "/dump");
+			} catch (Exception e) {
+				ExtraPieces.log("BIG OOF: " + e.getMessage());
+			}
+		}
 	}
 }

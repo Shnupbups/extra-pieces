@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.function.BiConsumer;
 
+@SuppressWarnings("WeakerAccess")
 public class ModBlocks {
 
 	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
@@ -328,33 +329,56 @@ public class ModBlocks {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
-			Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
-			PieceSet.Builder builder;
-
-			while (primed.hasNext()) {
-				builder = primed.next();
-
-				if (!builder.isBuilt() && builder.isReady()) {
-					builder.build().register(data);
-					primed.remove();
+			if(!finished) {
+				Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
+				PieceSet.Builder builder;
+				
+				while (primed.hasNext()) {
+					builder = primed.next();
+					
+					if (!builder.isBuilt() && builder.isReady()) {
+						builder.build().register(data);
+						primed.remove();
+					}
+				}
+				
+				PieceSet.Builder current = setBuilders.get(id);
+				
+				if (current != null && !current.isBuilt()) {
+					if (current.isReady()) {
+						current.build().register(data);
+					} else {
+						ExtraPieces.log("PieceSet Builder" + current + " not yet ready! Deferring to delayed build...");
+						primedBuilders.add(setBuilders.get(id));
+					}
+				}
+				
+				if (!finished && isDone()) {
+					ExtraPieces.log("Done! All sets built!");
+					finish(data);
+					ExtraPieces.log("Registered all PieceSets!");
 				}
 			}
-
-			PieceSet.Builder current = setBuilders.get(id);
-
-			if (current != null && !current.isBuilt()) {
-				if (current.isReady()) {
-					current.build().register(data);
-				} else {
-					ExtraPieces.log("Piece Set Builder" + current + " not yet ready! Deferring to delayed build...");
-					primedBuilders.add(setBuilders.get(id));
+		});
+		visitRegistry(Registry.ITEM, (id, item) -> {
+			if(!finished) {
+				Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
+				PieceSet.Builder builder;
+				
+				while (primed.hasNext()) {
+					builder = primed.next();
+					
+					if (!builder.isBuilt() && builder.isReady()) {
+						builder.build().register(data);
+						primed.remove();
+					}
 				}
-			}
-
-			if (!finished && isDone()) {
-				ExtraPieces.log("Done! All sets built!");
-				finish(data);
-				ExtraPieces.log("Registered all PieceSets!");
+				
+				if (!finished && isDone()) {
+					ExtraPieces.log("Done! All sets built!");
+					finish(data);
+					ExtraPieces.log("Registered all PieceSets!");
+				}
 			}
 		});
 	}
@@ -368,6 +392,8 @@ public class ModBlocks {
 		});
 
 		ModBlocks.finished = true;
+		
+		ExtraPieces.dump();
 	}
 
 	public static boolean isDone() {

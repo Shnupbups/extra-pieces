@@ -1,10 +1,12 @@
 package com.shnupbups.extrapieces.recipe;
 
+import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 
 public class PieceIngredient {
 	public final PIType type;
@@ -22,6 +24,9 @@ public class PieceIngredient {
 	}
 	
 	public Item asItem(PieceSet set) {
+		if((type == PIType.PIECE) && set.getPiece(pt).equals(Items.AIR)) {
+			ExtraPieces.log("Attempted to get type "+pt.toString()+" from set "+set.getName()+" for a recipe, but got air! This is not good!");
+		}
 		switch(type) {
 			case ITEM:
 				return item;

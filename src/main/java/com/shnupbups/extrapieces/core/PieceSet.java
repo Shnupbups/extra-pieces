@@ -680,7 +680,7 @@ public class PieceSet {
 			}
 
 			for (Identifier id : getVanillaPieces().values()) {
-				if (!Registry.BLOCK.getOrEmpty(id).isPresent()) {
+				if (!Registry.BLOCK.getOrEmpty(id).isPresent() || !Registry.ITEM.getOrEmpty(id).isPresent()) {
 					return false;
 				}
 			}
