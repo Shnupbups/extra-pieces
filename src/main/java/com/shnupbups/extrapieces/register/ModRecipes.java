@@ -4,6 +4,7 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceTypes;
+import com.shnupbups.extrapieces.recipe.PieceIngredient;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.ShapelessPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
@@ -19,18 +20,18 @@ public class ModRecipes {
 	public static final ShapedPieceRecipe POSTS_TO_BASE = new ShapedPieceRecipe(PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.POST);
 	public static final ShapedPieceRecipe COLUMNS_TO_BASE = new ShapedPieceRecipe(PieceTypes.BASE, 4, "ss", "ss").addToKey('s', PieceTypes.COLUMN);
 
-	public static final ShapelessPieceRecipe STAIRS_TO_CORNER = new ShapelessPieceRecipe(PieceTypes.CORNER, 1, PieceTypes.STAIRS);
-	public static final ShapelessPieceRecipe CORNER_TO_STAIRS = new ShapelessPieceRecipe(PieceTypes.STAIRS, 1, PieceTypes.CORNER);
-	public static final ShapelessPieceRecipe SLAB_TO_SIDING = new ShapelessPieceRecipe(PieceTypes.SIDING, 1, PieceTypes.SLAB);
-	public static final ShapelessPieceRecipe SIDING_TO_SLAB = new ShapelessPieceRecipe(PieceTypes.SLAB, 1, PieceTypes.SIDING);
-	public static final ShapelessPieceRecipe SLABS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, PieceTypes.SLAB, PieceTypes.SLAB);
-	public static final ShapelessPieceRecipe SIDINGS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, PieceTypes.SIDING, PieceTypes.SIDING);
-	public static final ShapelessPieceRecipe FENCE_TO_POST = new ShapelessPieceRecipe(PieceTypes.POST, 1, PieceTypes.FENCE);
-	public static final ShapelessPieceRecipe POST_TO_FENCE = new ShapelessPieceRecipe(PieceTypes.FENCE, 1, PieceTypes.POST);
-	public static final ShapelessPieceRecipe WALL_TO_COLUMN = new ShapelessPieceRecipe(PieceTypes.COLUMN, 1, PieceTypes.WALL);
-	public static final ShapelessPieceRecipe COLUMN_TO_WALL = new ShapelessPieceRecipe(PieceTypes.WALL, 1, PieceTypes.COLUMN);
-	public static final ShapelessPieceRecipe LAYERS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER);
-	public static final ShapelessPieceRecipe LAYERS_TO_SLAB = new ShapelessPieceRecipe(PieceTypes.SLAB, 1, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER, PieceTypes.LAYER);
+	public static final ShapelessPieceRecipe STAIRS_TO_CORNER = new ShapelessPieceRecipe(PieceTypes.CORNER, 1, new PieceIngredient(PieceTypes.STAIRS));
+	public static final ShapelessPieceRecipe CORNER_TO_STAIRS = new ShapelessPieceRecipe(PieceTypes.STAIRS, 1, new PieceIngredient(PieceTypes.CORNER));
+	public static final ShapelessPieceRecipe SLAB_TO_SIDING = new ShapelessPieceRecipe(PieceTypes.SIDING, 1, new PieceIngredient(PieceTypes.SLAB));
+	public static final ShapelessPieceRecipe SIDING_TO_SLAB = new ShapelessPieceRecipe(PieceTypes.SLAB, 1, new PieceIngredient(PieceTypes.SIDING));
+	public static final ShapelessPieceRecipe SLABS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, new PieceIngredient(PieceTypes.SLAB), new PieceIngredient(PieceTypes.SLAB));
+	public static final ShapelessPieceRecipe SIDINGS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, new PieceIngredient(PieceTypes.SIDING), new PieceIngredient(PieceTypes.SIDING));
+	public static final ShapelessPieceRecipe FENCE_TO_POST = new ShapelessPieceRecipe(PieceTypes.POST, 1, new PieceIngredient(PieceTypes.FENCE));
+	public static final ShapelessPieceRecipe POST_TO_FENCE = new ShapelessPieceRecipe(PieceTypes.FENCE, 1, new PieceIngredient(PieceTypes.POST));
+	public static final ShapelessPieceRecipe WALL_TO_COLUMN = new ShapelessPieceRecipe(PieceTypes.COLUMN, 1, new PieceIngredient(PieceTypes.WALL));
+	public static final ShapelessPieceRecipe COLUMN_TO_WALL = new ShapelessPieceRecipe(PieceTypes.WALL, 1, new PieceIngredient(PieceTypes.COLUMN));
+	public static final ShapelessPieceRecipe LAYERS_TO_BASE = new ShapelessPieceRecipe(PieceTypes.BASE, 1, new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER));
+	public static final ShapelessPieceRecipe LAYERS_TO_SLAB = new ShapelessPieceRecipe(PieceTypes.SLAB, 1, new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER), new PieceIngredient(PieceTypes.LAYER));
 
 	public static int r = 0, s = 0, w = 0;
 

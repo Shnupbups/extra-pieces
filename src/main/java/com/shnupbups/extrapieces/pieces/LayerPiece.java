@@ -5,9 +5,13 @@ import com.shnupbups.extrapieces.blocks.LayerPieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
+import com.shnupbups.extrapieces.core.PieceTypes;
+import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import java.util.ArrayList;
 
 public class LayerPiece extends PieceType {
 	public LayerPiece() {
@@ -17,7 +21,13 @@ public class LayerPiece extends PieceType {
 	public LayerPieceBlock getNew(PieceSet set) {
 		return new LayerPieceBlock(set);
 	}
-
+	
+	public ArrayList<ShapedPieceRecipe> getShapedRecipes() {
+		ArrayList<ShapedPieceRecipe> recipes = super.getShapedRecipes();
+		recipes.add(new ShapedPieceRecipe(this, 12, "bbb").addToKey('b', PieceTypes.SLAB));
+		return recipes;
+	}
+	
 	public void addBlockModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		addBlockModel(pack, pb, "height_2");
 		addBlockModel(pack, pb, "height_4");

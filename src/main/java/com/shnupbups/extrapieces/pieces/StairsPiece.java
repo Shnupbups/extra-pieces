@@ -29,8 +29,8 @@ public class StairsPiece extends PieceType {
 		return new Identifier("minecraft", "stairs");
 	}
 
-	public ArrayList<ShapedPieceRecipe> getRecipes() {
-		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
+	public ArrayList<ShapedPieceRecipe> getShapedRecipes() {
+		ArrayList<ShapedPieceRecipe> recipes = super.getShapedRecipes();
 		recipes.add(new ShapedPieceRecipe(this, 4, "b  ", "bb ", "bbb").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}

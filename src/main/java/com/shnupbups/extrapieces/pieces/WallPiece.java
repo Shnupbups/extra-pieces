@@ -27,8 +27,8 @@ public class WallPiece extends PieceType {
 		return new Identifier("minecraft", "walls");
 	}
 
-	public ArrayList<ShapedPieceRecipe> getRecipes() {
-		ArrayList<ShapedPieceRecipe> recipes = super.getRecipes();
+	public ArrayList<ShapedPieceRecipe> getShapedRecipes() {
+		ArrayList<ShapedPieceRecipe> recipes = super.getShapedRecipes();
 		recipes.add(new ShapedPieceRecipe(this, 6, "bbb", "bbb").addToKey('b', PieceTypes.BASE));
 		return recipes;
 	}

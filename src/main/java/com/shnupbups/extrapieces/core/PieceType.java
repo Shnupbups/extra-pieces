@@ -3,9 +3,7 @@ package com.shnupbups.extrapieces.core;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlockItem;
-import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
-import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
-import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
+import com.shnupbups.extrapieces.recipe.*;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -73,8 +71,27 @@ public abstract class PieceType {
 		return getId().toString();
 	}
 
+	@Deprecated
+	/**
+	 * Use {@link #getShapedRecipes()} or {@link #getCraftingRecipes()}
+	 */
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
+		return getShapedRecipes();
+	}
+	
+	public ArrayList<ShapedPieceRecipe> getShapedRecipes() {
 		return new ArrayList<>();
+	}
+	
+	public ArrayList<ShapelessPieceRecipe> getShapelessRecipes() {
+		return new ArrayList<>();
+	}
+	
+	public ArrayList<PieceRecipe> getCraftingRecipes() {
+		ArrayList<PieceRecipe> recipes = new ArrayList<>();
+		recipes.addAll(getShapedRecipes());
+		recipes.addAll(getShapelessRecipes());
+		return recipes;
 	}
 
 	public StonecuttingPieceRecipe getStonecuttingRecipe() {

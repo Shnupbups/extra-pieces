@@ -5,9 +5,15 @@ import com.shnupbups.extrapieces.blocks.FenceGatePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
+import com.shnupbups.extrapieces.core.PieceTypes;
+import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+
+import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+
+import java.util.ArrayList;
 
 public class FenceGatePiece extends PieceType {
 	public FenceGatePiece() {
@@ -17,7 +23,13 @@ public class FenceGatePiece extends PieceType {
 	public FenceGatePieceBlock getNew(PieceSet set) {
 		return new FenceGatePieceBlock(set);
 	}
-
+	
+	public ArrayList<ShapedPieceRecipe> getShapedRecipes() {
+		ArrayList<ShapedPieceRecipe> recipes = super.getShapedRecipes();
+		recipes.add(new ShapedPieceRecipe(this, 1, "sbs", "sbs").addToKey('b', PieceTypes.BASE).addToKey('s', Items.STICK));
+		return recipes;
+	}
+	
 	public void addBlockModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		super.addBlockModels(pack, pb);
 		addBlockModel(pack, pb, "wall");

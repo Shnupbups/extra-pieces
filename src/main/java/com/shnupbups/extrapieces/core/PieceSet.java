@@ -7,6 +7,7 @@ import blue.endless.jankson.JsonPrimitive;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
+import com.shnupbups.extrapieces.recipe.PieceRecipe;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
 import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
@@ -352,7 +353,7 @@ public class PieceSet {
 	 * @return Whether this {@link PieceSet} has a {@link PieceType} of type {@code piece}.
 	 */
 	public boolean hasPiece(PieceType piece) {
-		return (pieces.containsKey(piece));
+		return (pieces.containsKey(piece) || piece.equals(PieceTypes.BASE));
 	}
 
 	public ArrayList<PieceType> getPieceTypes() {
@@ -500,11 +501,13 @@ public class PieceSet {
 		for (PieceBlock pb : this.getPieceBlocks()) {
 			if (isCraftable(pb.getType())) {
 				int i = 0;
-				for (ShapedPieceRecipe pr : pb.getType().getRecipes()) {
-					Identifier bid = Registry.BLOCK.getId(pb.getBlock());
-					Identifier id = ExtraPieces.getID(bid.getPath() + "_" + (i++));
-					pr.add(data, id, this);
-					ModRecipes.incrementRecipes();
+				for (PieceRecipe pr : pb.getType().getCraftingRecipes()) {
+					if(pr.canAddForSet(this)) {
+						Identifier bid = Registry.BLOCK.getId(pb.getBlock());
+						Identifier id = ExtraPieces.getID(bid.getPath() + "_" + (i++));
+						pr.add(data, id, this);
+						ModRecipes.incrementRecipes();
+					}
 				}
 
 			}
