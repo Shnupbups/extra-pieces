@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "extrapieces",
-  "version": "2.6.0",
+  "version": "2.6.1",
 
   "name": "Extra Pieces",
   "description": "Adds more block shapes to Minecraft!",
@@ -33,7 +33,7 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.4.0",
+    "fabricloader": ">=0.6.1",
     "fabric": "*"
   },
   "suggests": {

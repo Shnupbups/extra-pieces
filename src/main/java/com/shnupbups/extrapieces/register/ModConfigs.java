@@ -9,6 +9,7 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.metadata.CustomValue;
 import net.minecraft.util.Identifier;
 
 import java.io.File;
@@ -50,12 +51,12 @@ public class ModConfigs {
 
 	public static void findAndCopyPiecePacks() {
 		FabricLoader.getInstance().getAllMods().stream().map(modContainer -> {
-			com.google.gson.JsonElement je = modContainer.getMetadata().getCustomElement(ExtraPieces.mod_id + ":piecepack");
 			Path path = null;
 
-			if (je != null) {
+			if (modContainer.getMetadata().containsCustomValue(ExtraPieces.mod_id + ":piecepack")) {
 				ExtraPieces.log("Found Piece Pack in " + modContainer.getMetadata().getName() + " (" + modContainer.getMetadata().getId() + ")");
-				path = modContainer.getPath(je.getAsString());
+				CustomValue pp = modContainer.getMetadata().getCustomValue(ExtraPieces.mod_id + ":piecepack");
+				path = modContainer.getPath(pp.getAsString());
 			}
 
 			return path;
