@@ -27,11 +27,11 @@ public class ShapelessPieceRecipe extends PieceRecipe {
 			}
 		});
 	}
-	
+
 	@Override
 	public boolean canAddForSet(PieceSet set) {
-		for(PieceIngredient pi: inputs) {
-			if(!pi.hasIngredientInSet(set)) return false;
+		for (PieceIngredient pi : inputs) {
+			if (!pi.hasIngredientInSet(set)) return false;
 		}
 		return true;
 	}

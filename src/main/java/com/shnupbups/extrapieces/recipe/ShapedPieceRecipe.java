@@ -3,7 +3,6 @@ package com.shnupbups.extrapieces.recipe;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.util.Identifier;
@@ -23,11 +22,11 @@ public class ShapedPieceRecipe extends PieceRecipe {
 	public ShapedPieceRecipe addToKey(char c, PieceType type) {
 		return addToKey(c, new PieceIngredient(type));
 	}
-	
+
 	public ShapedPieceRecipe addToKey(char c, Item item) {
 		return addToKey(c, new PieceIngredient(item));
 	}
-	
+
 	public ShapedPieceRecipe addToKey(char c, PieceIngredient ingredient) {
 		key.put(c, ingredient);
 		return this;
@@ -67,11 +66,11 @@ public class ShapedPieceRecipe extends PieceRecipe {
 			}
 		});
 	}
-	
+
 	@Override
 	public boolean canAddForSet(PieceSet set) {
-		for(PieceIngredient pi: key.values()) {
-			if(!pi.hasIngredientInSet(set)) return false;
+		for (PieceIngredient pi : key.values()) {
+			if (!pi.hasIngredientInSet(set)) return false;
 		}
 		return true;
 	}

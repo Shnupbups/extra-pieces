@@ -21,13 +21,13 @@ public class LayerPiece extends PieceType {
 	public LayerPieceBlock getNew(PieceSet set) {
 		return new LayerPieceBlock(set);
 	}
-	
+
 	public ArrayList<ShapedPieceRecipe> getShapedRecipes() {
 		ArrayList<ShapedPieceRecipe> recipes = super.getShapedRecipes();
 		recipes.add(new ShapedPieceRecipe(this, 12, "bbb").addToKey('b', PieceTypes.SLAB));
 		return recipes;
 	}
-	
+
 	public void addBlockModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		addBlockModel(pack, pb, "height_2");
 		addBlockModel(pack, pb, "height_4");

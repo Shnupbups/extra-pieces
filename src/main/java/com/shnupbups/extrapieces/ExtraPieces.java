@@ -26,7 +26,7 @@ public class ExtraPieces implements ModInitializer {
 	public static final Logger logger = LogManager.getFormatterLogger(mod_name);
 
 	public static ArtificeResourcePack datapack;
-	
+
 	public static boolean DUMP = false;
 
 	public static File configDir;
@@ -68,6 +68,16 @@ public class ExtraPieces implements ModInitializer {
 		return FabricLoader.getInstance().isModLoaded("woodmill");
 	}
 
+	public static void dump() {
+		if (DUMP) {
+			try {
+				datapack.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent() + "/dump");
+			} catch (Exception e) {
+				ExtraPieces.log("BIG OOF: " + e.getMessage());
+			}
+		}
+	}
+
 	@Override
 	public void onInitialize() {
 		ModConfigs.init();
@@ -89,15 +99,5 @@ public class ExtraPieces implements ModInitializer {
 				}
 			}
 		});
-	}
-	
-	public static void dump() {
-		if (DUMP) {
-			try {
-				datapack.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent() + "/dump");
-			} catch (Exception e) {
-				ExtraPieces.log("BIG OOF: " + e.getMessage());
-			}
-		}
 	}
 }

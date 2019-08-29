@@ -78,15 +78,15 @@ public abstract class PieceType {
 	public ArrayList<ShapedPieceRecipe> getRecipes() {
 		return getShapedRecipes();
 	}
-	
+
 	public ArrayList<ShapedPieceRecipe> getShapedRecipes() {
 		return new ArrayList<>();
 	}
-	
+
 	public ArrayList<ShapelessPieceRecipe> getShapelessRecipes() {
 		return new ArrayList<>();
 	}
-	
+
 	public ArrayList<PieceRecipe> getCraftingRecipes() {
 		ArrayList<PieceRecipe> recipes = new ArrayList<>();
 		recipes.addAll(getRecipes());
@@ -161,6 +161,6 @@ public abstract class PieceType {
 	}
 
 	public PieceBlockItem getBlockItem(PieceBlock pb) {
-		return new PieceBlockItem(pb,new Item.Settings());
+		return new PieceBlockItem(pb, new Item.Settings());
 	}
 }

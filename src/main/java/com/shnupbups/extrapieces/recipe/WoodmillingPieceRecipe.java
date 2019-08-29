@@ -3,7 +3,6 @@ package com.shnupbups.extrapieces.recipe;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -15,7 +14,7 @@ public class WoodmillingPieceRecipe extends PieceRecipe {
 		super(output, count);
 		this.input = input;
 	}
-	
+
 	public WoodmillingPieceRecipe(PieceType output, int count, PieceType input) {
 		this(output, count, new PieceIngredient(input));
 	}
@@ -37,7 +36,7 @@ public class WoodmillingPieceRecipe extends PieceRecipe {
 			recipe.ingredientItem(Registry.ITEM.getId(getInput(set).asItem()));
 		});
 	}
-	
+
 	@Override
 	public boolean canAddForSet(PieceSet set) {
 		return input.hasIngredientInSet(set);

@@ -81,7 +81,7 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 		ModProperties.SidingType slabType_1 = blockState_1.get(TYPE);
 		Direction facing = blockState_1.get(FACING_HORIZONTAL);
 		if (slabType_1 == ModProperties.SidingType.DOUBLE) {
-				return VoxelShapes.fullCube();
+			return VoxelShapes.fullCube();
 		} else {
 			switch (facing) {
 				case SOUTH:

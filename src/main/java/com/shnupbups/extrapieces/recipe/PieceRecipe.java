@@ -28,6 +28,6 @@ public abstract class PieceRecipe {
 	}
 
 	public abstract void add(ArtificeResourcePack.ServerResourcePackBuilder data, Identifier id, PieceSet set);
-	
+
 	public abstract boolean canAddForSet(PieceSet set);
 }
