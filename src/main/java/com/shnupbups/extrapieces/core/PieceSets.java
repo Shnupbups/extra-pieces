@@ -8,8 +8,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PieceSets {
@@ -91,7 +91,7 @@ public class PieceSets {
 		return null;
 	}
 
-	public static PieceSet createSet(Block base, String name, List<PieceType> types) {
+	public static PieceSet createSet(Block base, String name, Collection<PieceType> types) {
 		if (hasSet(base))
 			throw new IllegalStateException("Block " + base.getTranslationKey() + " already has PieceSet in registry! Use getSet!");
 		else {
@@ -100,7 +100,7 @@ public class PieceSets {
 		}
 	}
 
-	public static PieceSet createDefaultSet(Block base, String name, List<PieceType> types) {
+	public static PieceSet createDefaultSet(Block base, String name, Collection<PieceType> types) {
 		if (types.contains(PieceTypes.BASE)) types.remove(PieceTypes.BASE);
 		return new PieceSet(base, name, types, true);
 	}

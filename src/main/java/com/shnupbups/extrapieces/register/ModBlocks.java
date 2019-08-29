@@ -13,8 +13,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.function.BiConsumer;
 
@@ -22,7 +22,7 @@ import java.util.function.BiConsumer;
 public class ModBlocks {
 
 	public static HashMap<Identifier, PieceSet.Builder> setBuilders = new HashMap<>();
-	public static ArrayList<PieceSet.Builder> primedBuilders = new ArrayList<>();
+	public static HashSet<PieceSet.Builder> primedBuilders = new HashSet<>();
 
 	public static HashMap<Pair<Identifier, Identifier>, Identifier> vanillaPieces = new HashMap<>();
 
@@ -329,21 +329,21 @@ public class ModBlocks {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
 		visitRegistry(Registry.BLOCK, (id, block) -> {
-			if(!finished) {
+			if (!finished) {
 				Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
 				PieceSet.Builder builder;
-				
+
 				while (primed.hasNext()) {
 					builder = primed.next();
-					
+
 					if (!builder.isBuilt() && builder.isReady()) {
 						builder.build().register(data);
 						primed.remove();
 					}
 				}
-				
+
 				PieceSet.Builder current = setBuilders.get(id);
-				
+
 				if (current != null && !current.isBuilt()) {
 					if (current.isReady()) {
 						current.build().register(data);
@@ -352,7 +352,7 @@ public class ModBlocks {
 						primedBuilders.add(setBuilders.get(id));
 					}
 				}
-				
+
 				if (!finished && isDone()) {
 					ExtraPieces.log("Done! All sets built!");
 					finish(data);
@@ -361,19 +361,19 @@ public class ModBlocks {
 			}
 		});
 		visitRegistry(Registry.ITEM, (id, item) -> {
-			if(!finished) {
+			if (!finished) {
 				Iterator<PieceSet.Builder> primed = primedBuilders.iterator();
 				PieceSet.Builder builder;
-				
+
 				while (primed.hasNext()) {
 					builder = primed.next();
-					
+
 					if (!builder.isBuilt() && builder.isReady()) {
 						builder.build().register(data);
 						primed.remove();
 					}
 				}
-				
+
 				if (!finished && isDone()) {
 					ExtraPieces.log("Done! All sets built!");
 					finish(data);
@@ -392,7 +392,7 @@ public class ModBlocks {
 		});
 
 		ModBlocks.finished = true;
-		
+
 		ExtraPieces.dump();
 	}
 

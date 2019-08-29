@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 
 public class PieceTypes {
@@ -24,7 +24,7 @@ public class PieceTypes {
 	public static final PieceType CORNER = new CornerPiece();
 	public static final PieceType LAYER = new LayerPiece();
 
-	private static ArrayList<PieceType> types = new ArrayList<PieceType>();
+	private static HashSet<PieceType> types = new HashSet<PieceType>();
 
 	static {
 		register(PieceTypes.BASE);
@@ -45,12 +45,12 @@ public class PieceTypes {
 		return null;
 	}
 
-	public static ArrayList<PieceType> getTypes() {
+	public static HashSet<PieceType> getTypes() {
 		return types;
 	}
 
-	public static ArrayList<PieceType> getTypesNoBase() {
-		ArrayList<PieceType> nobase = new ArrayList<>(getTypes());
+	public static HashSet<PieceType> getTypesNoBase() {
+		HashSet<PieceType> nobase = new HashSet<>(getTypes());
 		nobase.remove(PieceTypes.BASE);
 		return nobase;
 	}

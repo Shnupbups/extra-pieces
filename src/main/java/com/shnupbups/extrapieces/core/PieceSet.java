@@ -8,7 +8,6 @@ import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.recipe.PieceRecipe;
-import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
 import com.shnupbups.extrapieces.recipe.WoodmillingPieceRecipe;
 import com.shnupbups.extrapieces.register.ModConfigs;
@@ -16,7 +15,6 @@ import com.shnupbups.extrapieces.register.ModItemGroups;
 import com.shnupbups.extrapieces.register.ModLootTables;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -29,31 +27,31 @@ import net.minecraft.util.registry.Registry;
 import java.util.*;
 
 public class PieceSet {
-	public static final ArrayList<PieceType> NO_SLAB;
-	public static final ArrayList<PieceType> NO_SLAB_OR_STAIRS;
-	public static final ArrayList<PieceType> NO_SLAB_STAIRS_OR_WALL;
-	public static final ArrayList<PieceType> JUST_EXTRAS_AND_WALL;
-	public static final ArrayList<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
-	public static final ArrayList<PieceType> NO_LAYER;
+	public static final HashSet<PieceType> NO_SLAB;
+	public static final HashSet<PieceType> NO_SLAB_OR_STAIRS;
+	public static final HashSet<PieceType> NO_SLAB_STAIRS_OR_WALL;
+	public static final HashSet<PieceType> JUST_EXTRAS_AND_WALL;
+	public static final HashSet<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
+	public static final HashSet<PieceType> NO_LAYER;
 
 	static {
-		NO_SLAB = new ArrayList<>(PieceTypes.getTypesNoBase());
+		NO_SLAB = new HashSet<>(PieceTypes.getTypesNoBase());
 		NO_SLAB.remove(PieceTypes.SLAB);
 
-		NO_SLAB_OR_STAIRS = new ArrayList<>(NO_SLAB);
+		NO_SLAB_OR_STAIRS = new HashSet<>(NO_SLAB);
 		NO_SLAB_OR_STAIRS.remove(PieceTypes.STAIRS);
 
-		NO_SLAB_STAIRS_OR_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
+		NO_SLAB_STAIRS_OR_WALL = new HashSet<>(NO_SLAB_OR_STAIRS);
 		NO_SLAB_STAIRS_OR_WALL.remove(PieceTypes.WALL);
 
-		JUST_EXTRAS_AND_WALL = new ArrayList<>(NO_SLAB_OR_STAIRS);
+		JUST_EXTRAS_AND_WALL = new HashSet<>(NO_SLAB_OR_STAIRS);
 		JUST_EXTRAS_AND_WALL.remove(PieceTypes.FENCE);
 		JUST_EXTRAS_AND_WALL.remove(PieceTypes.FENCE_GATE);
 
-		JUST_EXTRAS_AND_FENCE_GATE = new ArrayList<>(NO_SLAB_STAIRS_OR_WALL);
+		JUST_EXTRAS_AND_FENCE_GATE = new HashSet<>(NO_SLAB_STAIRS_OR_WALL);
 		JUST_EXTRAS_AND_FENCE_GATE.remove(PieceTypes.FENCE);
 
-		NO_LAYER = new ArrayList<>(PieceTypes.getTypesNoBase());
+		NO_LAYER = new HashSet<>(PieceTypes.getTypesNoBase());
 		NO_LAYER.remove(PieceTypes.LAYER);
 	}
 
@@ -72,7 +70,7 @@ public class PieceSet {
 	private boolean opaque;
 	private boolean includeMode = false;
 
-	PieceSet(Block base, String name, List<PieceType> types) {
+	PieceSet(Block base, String name, Collection<PieceType> types) {
 		this(base, name, types, false);
 	}
 
@@ -84,7 +82,8 @@ public class PieceSet {
 		this(base, name, PieceTypes.getTypesNoBase(), isDefault);
 	}
 
-	PieceSet(Block base, String name, List<PieceType> types, boolean isDefault) {
+	PieceSet(Block base, String name, Collection<PieceType> types, boolean isDefault) {
+		if (base == Blocks.AIR) ExtraPieces.log("PieceSet " + name + " has air as its base! This is VERY BAD!");
 		this.base = base;
 		this.originalName = name.toLowerCase();
 		this.name = PieceSets.getNewSetName(originalName);
@@ -356,12 +355,12 @@ public class PieceSet {
 		return (pieces.containsKey(piece) || piece.equals(PieceTypes.BASE));
 	}
 
-	public ArrayList<PieceType> getPieceTypes() {
-		return new ArrayList<>(pieces.keySet());
+	public HashSet<PieceType> getPieceTypes() {
+		return new HashSet<>(pieces.keySet());
 	}
 
-	public ArrayList<PieceBlock> getPieceBlocks() {
-		return new ArrayList<>(pieces.values());
+	public HashSet<PieceBlock> getPieceBlocks() {
+		return new HashSet<>(pieces.values());
 	}
 
 	public Map<PieceType, PieceBlock> getPieces() {
@@ -395,8 +394,8 @@ public class PieceSet {
 		return Arrays.asList(genTypes);
 	}
 
-	public List<PieceType> getVanillaTypes() {
-		ArrayList<PieceType> vt = new ArrayList<>();
+	public Set<PieceType> getVanillaTypes() {
+		HashSet<PieceType> vt = new HashSet<>();
 		List gt = Arrays.asList(genTypes);
 		for (PieceType p : this.getPieces().keySet()) {
 			if (!gt.contains(p)) {
@@ -406,21 +405,21 @@ public class PieceSet {
 		return vt;
 	}
 
-	public List<PieceType> getExcludedTypes() {
-		ArrayList<PieceType> et = new ArrayList<>(PieceTypes.getTypesNoBase());
+	public Set<PieceType> getExcludedTypes() {
+		HashSet<PieceType> et = new HashSet<>(PieceTypes.getTypesNoBase());
 		et.removeAll(this.getGenTypes());
 		return et;
 	}
 
-	public List<PieceType> getUncraftableTypes() {
-		ArrayList<PieceType> uc = new ArrayList<>(uncraftable);
+	public Set<PieceType> getUncraftableTypes() {
+		HashSet<PieceType> uc = new HashSet<>(uncraftable);
 		uc.removeAll(this.getVanillaTypes());
 		return uc;
 	}
 
 	public PieceSet excludePiece(PieceType type) {
 		List<PieceType> types = Arrays.asList(this.genTypes);
-		ArrayList<PieceType> newTypes = new ArrayList<>(types);
+		HashSet<PieceType> newTypes = new HashSet<>(types);
 		newTypes.remove(type);
 		this.genTypes = newTypes.toArray(new PieceType[newTypes.size()]);
 		return this;
@@ -502,7 +501,7 @@ public class PieceSet {
 			if (isCraftable(pb.getType())) {
 				int i = 0;
 				for (PieceRecipe pr : pb.getType().getCraftingRecipes()) {
-					if(pr.canAddForSet(this)) {
+					if (pr.canAddForSet(this)) {
 						Identifier bid = Registry.BLOCK.getId(pb.getBlock());
 						Identifier id = ExtraPieces.getID(bid.getPath() + "_" + (i++));
 						pr.add(data, id, this);
@@ -515,7 +514,7 @@ public class PieceSet {
 				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
 				StonecuttingPieceRecipe r = pb.getType().getStonecuttingRecipe();
-				if(r!=null) {
+				if (r != null) {
 					r.add(data, id, this);
 					ModRecipes.incrementStonecuttingRecipes();
 				}
@@ -524,7 +523,7 @@ public class PieceSet {
 				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
 				Identifier id = ExtraPieces.getID(bid.getPath() + "_woodmilling");
 				WoodmillingPieceRecipe r = pb.getType().getWoodmillingRecipe();
-				if(r!=null) {
+				if (r != null) {
 					r.add(data, id, this);
 					ModRecipes.incrementWoodmillingRecipes();
 				}
@@ -553,8 +552,8 @@ public class PieceSet {
 		public Identifier topTexture;
 		public Identifier bottomTexture;
 		public boolean includeMode = false;
-		public ArrayList<PieceType> genTypes = PieceTypes.getTypesNoBase();
-		public ArrayList<PieceType> uncraftable = new ArrayList<>();
+		public HashSet<PieceType> genTypes = PieceTypes.getTypesNoBase();
+		public HashSet<PieceType> uncraftable = new HashSet<>();
 		public HashMap<Identifier, Identifier> vanillaPieces = new HashMap<>();
 		public String packName;
 
@@ -675,7 +674,7 @@ public class PieceSet {
 		}
 
 		public boolean isReady() {
-			if (!Registry.BLOCK.getOrEmpty(base).isPresent()) {
+			if (!Registry.BLOCK.getOrEmpty(base).isPresent() || !Registry.ITEM.getOrEmpty(base).isPresent()) {
 				return false;
 			}
 

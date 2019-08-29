@@ -10,18 +10,18 @@ import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class ModTags {
 
 	public static void init(ArtificeResourcePack.ServerResourcePackBuilder data) {
-		HashMap<PieceType, ArrayList<Identifier>> map = new HashMap<>();
+		HashMap<PieceType, HashSet<Identifier>> map = new HashMap<>();
 
 		for (PieceSet set : PieceSets.registry.values()) {
 			for (PieceBlock pieceBlock : set.getPieceBlocks()) {
-				ArrayList<Identifier> identifiers = map.computeIfAbsent(pieceBlock.getType(), ty -> new ArrayList<>());
+				HashSet<Identifier> identifiers = map.computeIfAbsent(pieceBlock.getType(), ty -> new HashSet<>());
 				Block block = pieceBlock.getBlock();
 
 				if (block instanceof PieceBlock) {
@@ -30,9 +30,9 @@ public class ModTags {
 			}
 		}
 
-		for (Map.Entry<PieceType, ArrayList<Identifier>> entry : map.entrySet()) {
+		for (Map.Entry<PieceType, HashSet<Identifier>> entry : map.entrySet()) {
 			PieceType type = entry.getKey();
-			ArrayList<Identifier> identifiers = entry.getValue();
+			HashSet<Identifier> identifiers = entry.getValue();
 
 			data.addBlockTag(entry.getKey().getTagId(), tag -> {
 				tag.replace(false);
