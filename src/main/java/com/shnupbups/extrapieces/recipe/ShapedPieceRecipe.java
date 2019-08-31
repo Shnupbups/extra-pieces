@@ -1,5 +1,8 @@
 package com.shnupbups.extrapieces.recipe;
 
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
@@ -9,12 +12,13 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class ShapedPieceRecipe extends PieceRecipe {
-	private HashMap<Character, PieceIngredient> key = new HashMap<>();
+	private ListMultimap<Character, PieceIngredient> key = MultimapBuilder.hashKeys().arrayListValues().build();
 	private String[] pattern;
 
 	public ShapedPieceRecipe(PieceType output, int count, String... pattern) {
@@ -39,7 +43,7 @@ public class ShapedPieceRecipe extends PieceRecipe {
 		return this;
 	}
 
-	public HashMap<Character, PieceIngredient> getKey() {
+	public Multimap<Character, PieceIngredient> getKey() {
 		return key;
 	}
 
@@ -47,7 +51,7 @@ public class ShapedPieceRecipe extends PieceRecipe {
 		return pattern;
 	}
 
-	public PieceIngredient getFromKey(char c) {
+	public List<PieceIngredient> getFromKey(char c) {
 		return key.get(c);
 	}
 
@@ -56,9 +60,13 @@ public class ShapedPieceRecipe extends PieceRecipe {
 			recipe.result(Registry.BLOCK.getId(this.getOutput(set)), this.getCount());
 			recipe.group(Registry.BLOCK.getId(getOutput(set)));
 			recipe.pattern(this.getPattern());
-			for (Map.Entry<Character, PieceIngredient> pi : this.getKey().entrySet()) {
-				if(pi.getValue().isTag()) recipe.ingredientTag(pi.getKey(), pi.getValue().getId(set));
-				else recipe.ingredientItem(pi.getKey(), pi.getValue().getId(set));
+			for (Map.Entry<Character, Collection<PieceIngredient>> ingredients : this.getKey().asMap().entrySet()) {
+				recipe.multiIngredient(ingredients.getKey(), ingredient -> {
+					for (PieceIngredient pi : ingredients.getValue()) {
+						if (pi.isTag()) ingredient.tag(pi.getId(set));
+						else ingredient.item(pi.getId(set));
+					}
+				});
 			}
 		});
 	}
