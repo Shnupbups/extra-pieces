@@ -19,6 +19,6 @@ public class ModModels {
 				}
 			}
 		}
-		ExtraPieces.log("Added models and blockstates for " + m + " blocks!");
+		ExtraPieces.debugLog("Added models and blockstates for " + m + " blocks!");
 	}
 }

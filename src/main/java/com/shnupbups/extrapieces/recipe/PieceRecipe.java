@@ -14,6 +14,10 @@ public abstract class PieceRecipe {
 		this.output = output;
 		this.count = count;
 	}
+	
+	public PieceRecipe(PieceType output) {
+		this(output, 1);
+	}
 
 	public PieceType getOutput() {
 		return output;

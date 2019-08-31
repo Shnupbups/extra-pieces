@@ -26,6 +26,9 @@ public class ModConfigs {
 	public static boolean generateDefaultPack = true;
 	public static boolean forceUpdateDefaultPack = false;
 	public static boolean everythingStonecuttable = false;
+	public static boolean debugOutput = false;
+	public static boolean moreDebugOutput = false;
+	public static boolean dumpData = false;
 	private static int setsNum = 0;
 	private static int ppSetsNum = 0;
 	private static int ppVpNum = 0;
@@ -41,10 +44,14 @@ public class ModConfigs {
 			generateDefaultPack = cfg.get("generateDefaultPack").equals(JsonPrimitive.TRUE);
 			forceUpdateDefaultPack = cfg.get("forceUpdateDefaultPack").equals(JsonPrimitive.TRUE);
 			everythingStonecuttable = cfg.get("everythingStonecuttable").equals(JsonPrimitive.TRUE);
+			debugOutput = cfg.get("debugOutput").equals(JsonPrimitive.TRUE);
+			moreDebugOutput = cfg.get("moreDebugOutput").equals(JsonPrimitive.TRUE);
+			dumpData = cfg.get("dumpData").equals(JsonPrimitive.TRUE);
 		} catch (IOException e) {
 			generateConfig(config);
 		} catch (SyntaxError e) {
 			ExtraPieces.log("SyntaxError loading config");
+			ExtraPieces.log(e.getMessage());
 		}
 		findAndCopyPiecePacks();
 	}
@@ -54,7 +61,7 @@ public class ModConfigs {
 			Path path = null;
 
 			if (modContainer.getMetadata().containsCustomValue(ExtraPieces.mod_id + ":piecepack")) {
-				ExtraPieces.log("Found Piece Pack in " + modContainer.getMetadata().getName() + " (" + modContainer.getMetadata().getId() + ")");
+				ExtraPieces.debugLog("Found Piece Pack in " + modContainer.getMetadata().getName() + " (" + modContainer.getMetadata().getId() + ")");
 				CustomValue pp = modContainer.getMetadata().getCustomValue(ExtraPieces.mod_id + ":piecepack");
 				path = modContainer.getPath(pp.getAsString());
 			}
@@ -74,27 +81,27 @@ public class ModConfigs {
 							Files.createDirectories(destination.getParent());
 							Files.copy(path, destination, StandardCopyOption.REPLACE_EXISTING);
 
-							ExtraPieces.log("Successfully copied PiecePack " + path.getFileName() + " from a mod jar!");
+							ExtraPieces.debugLog("Successfully copied PiecePack " + path.getFileName() + " from a mod jar!");
 						} catch (IOException e) {
-							ExtraPieces.log("IOException copying PiecePack " + path.getFileName() + " from a mod jar!");
+							ExtraPieces.debugLog("IOException copying PiecePack " + path.getFileName() + " from a mod jar!");
 						}
 					} else if (isNewer(path, destination)) {
 						try {
 							Files.createDirectories(destination.getParent());
 							Files.copy(path, destination, StandardCopyOption.REPLACE_EXISTING);
 
-							ExtraPieces.log("Successfully updated PiecePack " + path.getFileName() + " from a mod jar!");
+							ExtraPieces.debugLog("Successfully updated PiecePack " + path.getFileName() + " from a mod jar!");
 						} catch (IOException e) {
-							ExtraPieces.log("IOException updating PiecePack " + path.getFileName() + " from a mod jar!");
+							ExtraPieces.debugLog("IOException updating PiecePack " + path.getFileName() + " from a mod jar!");
 						}
 					} else {
-						ExtraPieces.log("Piece Pack " + path.getFileName() + " already present.");
+						ExtraPieces.debugLog("Piece Pack " + path.getFileName() + " already present.");
 					}
 				} else {
-					ExtraPieces.log("A mod specified a Piece Pack named " + path.getFileName() + ", but it is not a .json file! (You must include the '.json' in the name!)");
+					ExtraPieces.debugLog("A mod specified a Piece Pack named " + path.getFileName() + ", but it is not a .json file! (You must include the '.json' in the name!)");
 				}
 			} else {
-				ExtraPieces.log("A mod specified a Piece Pack named " + path.getFileName() + ", but no such file existed in its jar!");
+				ExtraPieces.debugLog("A mod specified a Piece Pack named " + path.getFileName() + ", but no such file existed in its jar!");
 			}
 		});
 	}
@@ -121,13 +128,13 @@ public class ModConfigs {
 				if (!pp.containsKey("version")) {
 					sets = pp;
 					ppVer = "0.0.0";
-					ExtraPieces.log("Piece pack " + f.getName() + " doesn't specify a version! Please update it! Defaulting to 0.0.0");
+					ExtraPieces.debugLog("Piece pack " + f.getName() + " doesn't specify a version! Please update it! Defaulting to 0.0.0");
 				} else {
 					if (pp.containsKey("sets")) sets = pp.getObject("sets");
 					if (pp.containsKey("vanilla_pieces")) vanillaPieces = pp.getObject("vanilla_pieces");
 					ppVer = pp.get(String.class, "version");
 				}
-				ExtraPieces.log("Loading piece pack " + f.getName() + " version " + ppVer);
+				ExtraPieces.debugLog("Loading piece pack " + f.getName() + " version " + ppVer);
 				if (sets != null) {
 					for (Map.Entry<String, JsonElement> entry : sets.entrySet()) {
 						JsonObject jsonSet = (JsonObject) entry.getValue();
@@ -136,7 +143,7 @@ public class ModConfigs {
 						ppSetsNum++;
 						ModBlocks.registerSet(psb);
 					}
-					ExtraPieces.log("Generated " + ppSetsNum + " PieceSets from piece pack " + f.getName());
+					ExtraPieces.debugLog("Generated " + ppSetsNum + " PieceSets from piece pack " + f.getName());
 				}
 				if (vanillaPieces != null) {
 					for (Map.Entry<String, JsonElement> entry : vanillaPieces.entrySet()) {
@@ -148,23 +155,23 @@ public class ModConfigs {
 							ppVpNum++;
 							ModBlocks.registerVanillaPiece(base, type, piece);
 						} else {
-							ExtraPieces.log("Invalid vanilla piece " + entry.getKey() + " in piece pack " + f.getName());
+							ExtraPieces.debugLog("Invalid vanilla piece " + entry.getKey() + " in piece pack " + f.getName());
 						}
 					}
-					ExtraPieces.log("Added " + ppVpNum + " vanilla pieces from piece pack " + f.getName());
+					ExtraPieces.debugLog("Added " + ppVpNum + " vanilla pieces from piece pack " + f.getName());
 				}
 
 			} catch (IOException e) {
-				ExtraPieces.log("IOException loading piece pack " + f.getName());
-				ExtraPieces.log(e.getMessage());
+				ExtraPieces.debugLog("IOException loading piece pack " + f.getName());
+				ExtraPieces.debugLog(e.getMessage());
 			} catch (SyntaxError e) {
-				ExtraPieces.log("SyntaxError loading piece pack " + f.getName());
-				ExtraPieces.log(e.getCompleteMessage());
+				ExtraPieces.debugLog("SyntaxError loading piece pack " + f.getName());
+				ExtraPieces.debugLog(e.getCompleteMessage());
 			}
 			ppSetsNum = 0;
 			ppVpNum = 0;
 		}
-		ExtraPieces.log("Generated " + setsNum + " PieceSets!");
+		ExtraPieces.debugLog("Generated " + setsNum + " PieceSets!");
 	}
 
 	public static void generateConfig(File config) {
@@ -193,6 +200,9 @@ public class ModConfigs {
 		if (!cfg.containsKey("generateDefaultPack")) return true;
 		if (!cfg.containsKey("forceUpdateDefaultPack")) return true;
 		if (!cfg.containsKey("everythingStonecuttable")) return true;
+		if (!cfg.containsKey("debugOutput")) return true;
+		if (!cfg.containsKey("moreDebugOutput")) return true;
+		if (!cfg.containsKey("dumpData")) return true;
 		return false;
 	}
 
@@ -203,6 +213,12 @@ public class ModConfigs {
 			cfg.put("forceUpdateDefaultPack", new JsonPrimitive(forceUpdateDefaultPack));
 		if (!cfg.containsKey("everythingStonecuttable"))
 			cfg.put("everythingStonecuttable", new JsonPrimitive(everythingStonecuttable));
+		if (!cfg.containsKey("debugOutput"))
+			cfg.put("debugOutput", new JsonPrimitive(debugOutput));
+		if (!cfg.containsKey("moreDebugOutput"))
+			cfg.put("moreDebugOutput", new JsonPrimitive(moreDebugOutput));
+		if (!cfg.containsKey("dumpData"))
+			cfg.put("dumpData", new JsonPrimitive(dumpData));
 		if (config.exists()) config.delete();
 		try (FileWriter writer = new FileWriter(config)) {
 			writer.write(cfg.toJson(false, true));

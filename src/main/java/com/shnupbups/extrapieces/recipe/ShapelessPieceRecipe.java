@@ -23,7 +23,8 @@ public class ShapelessPieceRecipe extends PieceRecipe {
 			recipe.result(Registry.BLOCK.getId(this.getOutput(set)), this.getCount());
 			recipe.group(Registry.BLOCK.getId(getOutput(set)));
 			for (PieceIngredient pi : getInputs()) {
-				recipe.ingredientItem(Registry.ITEM.getId(pi.asItem(set).asItem()));
+				if(pi.isTag()) recipe.ingredientTag(pi.getId(set));
+				else recipe.ingredientItem(pi.getId(set));
 			}
 		});
 	}

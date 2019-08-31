@@ -3,7 +3,10 @@ package com.shnupbups.extrapieces.recipe;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -18,13 +21,17 @@ public class WoodmillingPieceRecipe extends PieceRecipe {
 	public WoodmillingPieceRecipe(PieceType output, int count, PieceType input) {
 		this(output, count, new PieceIngredient(input));
 	}
+	
+	public WoodmillingPieceRecipe(PieceType output, int count, ItemConvertible input) {
+		this(output, count, new PieceIngredient(input));
+	}
+	
+	public WoodmillingPieceRecipe(PieceType output, int count, Tag<Item> input) {
+		this(output, count, new PieceIngredient(input));
+	}
 
 	public PieceIngredient getInput() {
 		return input;
-	}
-
-	public ItemConvertible getInput(PieceSet set) {
-		return getInput().asItem(set);
 	}
 
 	public void add(ArtificeResourcePack.ServerResourcePackBuilder data, Identifier id, PieceSet set) {
@@ -33,7 +40,9 @@ public class WoodmillingPieceRecipe extends PieceRecipe {
 			recipe.result(Registry.BLOCK.getId(getOutput(set)));
 			recipe.group(Registry.BLOCK.getId(getOutput(set)));
 			recipe.count(getCount());
-			recipe.ingredientItem(Registry.ITEM.getId(getInput(set).asItem()));
+			PieceIngredient pi = getInput();
+			if(pi.isTag()) recipe.ingredientTag(pi.getId(set));
+			else recipe.ingredientItem(pi.getId(set));
 		});
 	}
 

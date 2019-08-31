@@ -3,44 +3,70 @@ package com.shnupbups.extrapieces.recipe;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
+import com.shnupbups.extrapieces.core.PieceTypes;
+
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
+import java.util.Optional;
 
 public class PieceIngredient {
 	public final PIType type;
-	private Item item;
-	private PieceType pt;
+	private Identifier id;
 
 	public PieceIngredient(PieceType type) {
 		this.type = PIType.PIECE;
-		this.pt = type;
+		this.id = type.getId();
 	}
 
-	public PieceIngredient(Item item) {
+	public PieceIngredient(ItemConvertible item) {
 		this.type = PIType.ITEM;
-		this.item = item;
+		this.id = Registry.ITEM.getId(item.asItem());
+	}
+	
+	public PieceIngredient(Tag<Item> tag) {
+		this.type = PIType.TAG;
+		this.id = tag.getId();
 	}
 
-	public Item asItem(PieceSet set) {
-		if ((type == PIType.PIECE) && set.getPiece(pt).equals(Items.AIR)) {
-			ExtraPieces.log("Attempted to get type " + pt.toString() + " from set " + set.getName() + " for a recipe, but got air! This is not good!");
+	public Identifier getId(PieceSet set) {
+		if ((type == PIType.PIECE) && set.getPiece(getPieceType()).equals(Items.AIR)) {
+			ExtraPieces.log("Attempted to get type " + id.toString() + " from set " + set.getName() + " for a recipe, but got air! This is not good!");
 		}
 		switch (type) {
 			case ITEM:
-				return item;
+			case TAG:
+				return id;
 			case PIECE:
-				return set.getPiece(pt).asItem();
+				return Registry.ITEM.getId(set.getPiece(getPieceType()).asItem());
 			default:
 				return null;
 		}
 	}
+	
+	public boolean isTag() {
+		return type == PIType.TAG;
+	}
 
+	public PieceType getPieceType() {
+		if(type == PIType.PIECE) {
+			Optional<PieceType> pt = PieceTypes.getTypeOrEmpty(id);
+			if(pt.isPresent()) return pt.get();
+		}
+		return null;
+	}
+	
 	public boolean hasIngredientInSet(PieceSet set) {
-		return (type.equals(PIType.ITEM) || set.hasPiece(pt));
+		return (!type.equals(PIType.PIECE) || set.hasPiece(getPieceType()));
 	}
 
 	enum PIType {
 		ITEM,
-		PIECE
+		PIECE,
+		TAG
 	}
 }

@@ -503,29 +503,35 @@ public class PieceSet {
 				for (PieceRecipe pr : pb.getType().getCraftingRecipes()) {
 					if (pr.canAddForSet(this)) {
 						Identifier bid = Registry.BLOCK.getId(pb.getBlock());
-						Identifier id = ExtraPieces.getID(bid.getPath() + "_" + (i++));
-						pr.add(data, id, this);
-						ModRecipes.incrementRecipes();
+						if(!ModRecipes.checkIsAir(bid, this)) {
+							Identifier id = ExtraPieces.getID(bid.getPath() + "_" + (i++));
+							pr.add(data, id, this);
+							ModRecipes.incrementRecipes();
+						}
 					}
 				}
 
 			}
 			if (!isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && (isStonecuttable() || ModConfigs.everythingStonecuttable)) {
 				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
-				Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
-				StonecuttingPieceRecipe r = pb.getType().getStonecuttingRecipe();
-				if (r != null) {
-					r.add(data, id, this);
-					ModRecipes.incrementStonecuttingRecipes();
+				if(!ModRecipes.checkIsAir(bid, this)) {
+					Identifier id = ExtraPieces.getID(bid.getPath() + "_stonecutting");
+					StonecuttingPieceRecipe r = pb.getType().getStonecuttingRecipe();
+					if (r != null) {
+						r.add(data, id, this);
+						ModRecipes.incrementStonecuttingRecipes();
+					}
 				}
 			}
 			if (ExtraPieces.isWoodmillInstalled() && !isVanillaPiece(pb.getType()) && pb.getType() != PieceTypes.BASE && isWoodmillable()) {
 				Identifier bid = Registry.BLOCK.getId(pb.getBlock());
-				Identifier id = ExtraPieces.getID(bid.getPath() + "_woodmilling");
-				WoodmillingPieceRecipe r = pb.getType().getWoodmillingRecipe();
-				if (r != null) {
-					r.add(data, id, this);
-					ModRecipes.incrementWoodmillingRecipes();
+				if(!ModRecipes.checkIsAir(bid, this)) {
+					Identifier id = ExtraPieces.getID(bid.getPath() + "_woodmilling");
+					WoodmillingPieceRecipe r = pb.getType().getWoodmillingRecipe();
+					if (r != null) {
+						r.add(data, id, this);
+						ModRecipes.incrementWoodmillingRecipes();
+					}
 				}
 			}
 		}

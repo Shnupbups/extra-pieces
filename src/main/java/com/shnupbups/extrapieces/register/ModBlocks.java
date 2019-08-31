@@ -303,7 +303,7 @@ public class ModBlocks {
 		STRIPPED_JUNGLE_WOOD_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").setTexture("stripped_jungle_log");
 		STRIPPED_ACACIA_WOOD_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").setTexture("stripped_acacia_log");
 		STRIPPED_DARK_OAK_WOOD_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").setTexture("stripped_dark_oak_log");
-		ExtraPieces.log("Generated Default Sets");
+		ExtraPieces.debugLog("Generated Default Sets");
 	}
 
 	public static void registerSet(PieceSet.Builder psb) {
@@ -315,7 +315,7 @@ public class ModBlocks {
 			}
 			setBuilders.put(psb.getBaseID(), psb);
 		} else {
-			ExtraPieces.log("Piece Pack " + psb.packName + " tried to register a set for " + psb.getBaseID() + " when one already exists! Skipping...");
+			ExtraPieces.debugLog("Piece Pack " + psb.packName + " tried to register a set for " + psb.getBaseID() + " when one already exists! Skipping...");
 		}
 	}
 
@@ -337,6 +337,8 @@ public class ModBlocks {
 					builder = primed.next();
 
 					if (!builder.isBuilt() && builder.isReady()) {
+						ExtraPieces.moreDebugLog("Block "+id.toString()+" registered, triggering a PSB.");
+						ExtraPieces.debugLog("Deferred PieceSet Builder" + builder + " now ready! Building...");
 						builder.build().register(data);
 						primed.remove();
 					}
@@ -348,15 +350,15 @@ public class ModBlocks {
 					if (current.isReady()) {
 						current.build().register(data);
 					} else {
-						ExtraPieces.log("PieceSet Builder" + current + " not yet ready! Deferring to delayed build...");
+						ExtraPieces.debugLog("PieceSet Builder" + current + " not yet ready! Deferring to delayed build...");
 						primedBuilders.add(setBuilders.get(id));
 					}
 				}
 
 				if (!finished && isDone()) {
-					ExtraPieces.log("Done! All sets built!");
+					ExtraPieces.debugLog("Done! All sets built!");
 					finish(data);
-					ExtraPieces.log("Registered all PieceSets!");
+					ExtraPieces.debugLog("Registered all PieceSets!");
 				}
 			}
 		});
@@ -375,9 +377,9 @@ public class ModBlocks {
 				}
 
 				if (!finished && isDone()) {
-					ExtraPieces.log("Done! All sets built!");
+					ExtraPieces.debugLog("Done! All sets built!");
 					finish(data);
-					ExtraPieces.log("Registered all PieceSets!");
+					ExtraPieces.debugLog("Registered all PieceSets!");
 				}
 			}
 		});
@@ -408,7 +410,7 @@ public class ModBlocks {
 				} else built++;
 			}
 			if (built != ModBlocks.built) {
-				//ExtraPieces.log(built+"/"+setBuilders.size());
+				ExtraPieces.moreDebugLog("Built "+built+"/"+setBuilders.size());
 				ModBlocks.built = built;
 			}
 		}

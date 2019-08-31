@@ -9,6 +9,7 @@ import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.recipe.ShapedPieceRecipe;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
@@ -47,11 +48,33 @@ public class LayerPiece extends PieceType {
 
 	public void addBlockstate(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		pack.addBlockState(Registry.BLOCK.getId(pb.getBlock()), state -> {
-			for (int i = 1; i <= 8; i++) {
-				final int j = i * 2;
-				state.variant("layers=" + i, var -> {
-					var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_height_" + j), "block/"));
-				});
+			for(Direction dir : Direction.values()) {
+				for (int i = 1; i <= 8; i++) {
+					final int j = i * 2;
+					state.variant("facing="+dir.asString()+",layers=" + i, var -> {
+						var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_height_" + j), "block/"));
+						var.uvlock(true);
+						switch(dir) {
+							case DOWN:
+								var.rotationX(180);
+								return;
+							case NORTH:
+								var.rotationX(90);
+								return;
+							case SOUTH:
+								var.rotationX(90);
+								var.rotationY(180);
+								return;
+							case EAST:
+								var.rotationX(90);
+								var.rotationY(90);
+								return;
+							case WEST:
+								var.rotationX(90);
+								var.rotationY(270);
+						}
+					});
+				}
 			}
 		});
 	}

@@ -5,10 +5,13 @@ import com.shnupbups.extrapieces.core.PieceType;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class ShapedPieceRecipe extends PieceRecipe {
 	private HashMap<Character, PieceIngredient> key = new HashMap<>();
@@ -23,8 +26,12 @@ public class ShapedPieceRecipe extends PieceRecipe {
 		return addToKey(c, new PieceIngredient(type));
 	}
 
-	public ShapedPieceRecipe addToKey(char c, Item item) {
+	public ShapedPieceRecipe addToKey(char c, ItemConvertible item) {
 		return addToKey(c, new PieceIngredient(item));
+	}
+	
+	public ShapedPieceRecipe addToKey(char c, Tag<Item> tag) {
+		return addToKey(c, new PieceIngredient(tag));
 	}
 
 	public ShapedPieceRecipe addToKey(char c, PieceIngredient ingredient) {
@@ -44,25 +51,14 @@ public class ShapedPieceRecipe extends PieceRecipe {
 		return key.get(c);
 	}
 
-	public HashMap<Character, ItemConvertible> getKey(PieceSet set) {
-		HashMap<Character, ItemConvertible> setKey = new HashMap<>();
-		for (char c : getKey().keySet()) {
-			setKey.put(c, getFromKey(c).asItem(set));
-		}
-		return setKey;
-	}
-
-	public ItemConvertible getFromKey(PieceSet set, char c) {
-		return getFromKey(c).asItem(set);
-	}
-
 	public void add(ArtificeResourcePack.ServerResourcePackBuilder data, Identifier id, PieceSet set) {
 		data.addShapedRecipe(id, recipe -> {
 			recipe.result(Registry.BLOCK.getId(this.getOutput(set)), this.getCount());
 			recipe.group(Registry.BLOCK.getId(getOutput(set)));
 			recipe.pattern(this.getPattern());
-			for (char c : this.getKey(set).keySet()) {
-				recipe.ingredientItem(c, Registry.ITEM.getId(this.getFromKey(set, c).asItem()));
+			for (Map.Entry<Character, PieceIngredient> pi : this.getKey().entrySet()) {
+				if(pi.getValue().isTag()) recipe.ingredientTag(pi.getKey(), pi.getValue().getId(set));
+				else recipe.ingredientItem(pi.getKey(), pi.getValue().getId(set));
 			}
 		});
 	}

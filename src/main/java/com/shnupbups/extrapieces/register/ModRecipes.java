@@ -39,10 +39,10 @@ public class ModRecipes {
 		for (PieceSet ps : PieceSets.registry.values()) {
 			ps.addRecipes(data);
 		}
-		ExtraPieces.log("Registered " + r + " crafting recipes!");
-		ExtraPieces.log("Registered " + s + " stonecutting recipes!");
+		ExtraPieces.debugLog("Registered " + r + " crafting recipes!");
+		ExtraPieces.debugLog("Registered " + s + " stonecutting recipes!");
 		if (ExtraPieces.isWoodmillInstalled()) {
-			ExtraPieces.log("Registered " + w + " woodmilling recipes!");
+			ExtraPieces.debugLog("Registered " + w + " woodmilling recipes!");
 		}
 	}
 
@@ -193,9 +193,9 @@ public class ModRecipes {
 		}
 	}
 
-	private static boolean checkIsAir(Identifier bid, PieceSet ps) {
+	public static boolean checkIsAir(Identifier bid, PieceSet ps) {
 		if (bid.getPath().equals("air")) {
-			ExtraPieces.log("OH NO - " + ps);
+			ExtraPieces.debugLog("OH NO - " + ps);
 			return true;
 		}
 		return false;

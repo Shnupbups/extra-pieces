@@ -13,6 +13,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -26,12 +27,12 @@ import net.minecraft.world.IWorld;
 public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock {
 	public static final IntProperty LAYERS;
 	public static final BooleanProperty WATERLOGGED;
-	protected static final VoxelShape[] LAYERS_TO_SHAPE;
+	public static final EnumProperty<Direction> FACING;
 
 	static {
 		LAYERS = Properties.LAYERS;
 		WATERLOGGED = Properties.WATERLOGGED;
-		LAYERS_TO_SHAPE = new VoxelShape[]{VoxelShapes.empty(), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
+		FACING = Properties.FACING;
 	}
 
 	private final PieceSet set;
@@ -39,7 +40,7 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 	public LayerPieceBlock(PieceSet set) {
 		super(Settings.copy(set.getBase()));
 		this.set = set;
-		this.setDefaultState(this.stateFactory.getDefaultState().with(LAYERS, 1).with(WATERLOGGED, false));
+		this.setDefaultState(this.stateFactory.getDefaultState().with(LAYERS, 1).with(FACING, Direction.UP).with(WATERLOGGED, false));
 	}
 
 	public PieceSet getSet() {
@@ -54,19 +55,35 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 		return PieceTypes.LAYER;
 	}
 
-	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext entityContext_1) {
-		return LAYERS_TO_SHAPE[blockState_1.get(LAYERS)];
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext entityContext_1) {
+		Direction dir = state.get(FACING);
+		int layers = state.get(LAYERS);
+		if(layers == 8) return VoxelShapes.fullCube();
+		switch(dir) {
+			case UP:
+				return Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D*layers, 16.0D);
+			case DOWN:
+				return Block.createCuboidShape(0.0D, 16.0D-(layers*2.0D), 0.0D, 16.0D, 16.0D, 16.0D);
+			case EAST:
+				return Block.createCuboidShape(0.0D, 0.0D, 0.0D, 2.0D*layers, 16.0D, 16.0D);
+			case SOUTH:
+				return Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 2.0D*layers);
+			case WEST:
+				return Block.createCuboidShape(16.0D-(layers*2.0D), 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+			case NORTH:
+				return Block.createCuboidShape(0.0D, 0.0D, 16.0D-(layers*2.0D), 16.0D, 16.0D, 16.0D);
+		} return VoxelShapes.empty();
 	}
 
 	public boolean hasSidedTransparency(BlockState blockState_1) {
 		return true;
 	}
 
-	public boolean canReplace(BlockState blockState_1, ItemPlacementContext itemPlacementContext_1) {
-		int int_1 = blockState_1.get(LAYERS);
+	public boolean canReplace(BlockState state, ItemPlacementContext itemPlacementContext_1) {
+		int int_1 = state.get(LAYERS);
 		if (itemPlacementContext_1.getStack().getItem() == this.asItem() && int_1 < 8) {
 			if (itemPlacementContext_1.canReplaceExisting()) {
-				return itemPlacementContext_1.getSide() == Direction.UP;
+				return itemPlacementContext_1.getSide() == state.get(FACING);
 			} else {
 				return true;
 			}
@@ -86,13 +103,14 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 			return newState;
 		} else {
 			FluidState fluidState_1 = itemPlacementContext_1.getWorld().getFluidState(blockPos_1);
-			return this.getDefaultState().with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
+			return this.getDefaultState().with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER).with(FACING, itemPlacementContext_1.getSide());
 		}
 	}
 
 	protected void appendProperties(StateFactory.Builder<Block, BlockState> stateFactory$Builder_1) {
 		stateFactory$Builder_1.add(LAYERS);
 		stateFactory$Builder_1.add(WATERLOGGED);
+		stateFactory$Builder_1.add(FACING);
 	}
 
 	public FluidState getFluidState(BlockState blockState_1) {

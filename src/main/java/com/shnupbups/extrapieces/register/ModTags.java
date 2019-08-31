@@ -44,7 +44,7 @@ public class ModTags {
 				tag.values(identifiers.toArray(new Identifier[0]));
 			});
 
-			ExtraPieces.log("Added block and item tags for " + type.toString() + ", " + identifiers.size() + " entries.");
+			ExtraPieces.debugLog("Added block and item tags for " + type.toString() + ", " + identifiers.size() + " entries.");
 		}
 	}
 }
