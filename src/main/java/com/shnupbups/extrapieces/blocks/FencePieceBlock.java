@@ -5,16 +5,18 @@ import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderLayer;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceBlock;
+
+import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.ViewableWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 
 import java.util.Random;
 
@@ -26,42 +28,127 @@ public class FencePieceBlock extends FenceBlock implements PieceBlock {
 		super(Settings.copy(set.getBase()));
 		this.set = set;
 	}
-
+	
+	@Override
 	public Block getBlock() {
 		return this;
 	}
-
+	
+	@Override
 	public PieceSet getSet() {
 		return set;
 	}
-
+	
+	@Override
 	public PieceType getType() {
 		return PieceTypes.FENCE;
 	}
-
+	
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void randomDisplayTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
-		this.set.getBase().randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
+		super.randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
+		try {
+			this.getBase().randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
+		} catch (IllegalArgumentException ignored) {}
 	}
-
+	
+	@Override
 	public void onBlockBreakStart(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1) {
-		this.set.getBase().getDefaultState().onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
+		super.onBlockBreakStart(blockState_1, world_1, blockPos_1, playerEntity_1);
+		try {
+			this.getBase().getDefaultState().onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
+		} catch (IllegalArgumentException ignored) {}
 	}
-
+	
+	@Override
 	public void onBroken(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1) {
-		this.set.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
+		super.onBroken(iWorld_1, blockPos_1, blockState_1);
+		try {
+			this.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
+		} catch (IllegalArgumentException ignored) {}
 	}
-
+	
+	@Override
 	public float getBlastResistance() {
-		return this.set.getBase().getBlastResistance();
+		try {
+			return this.getBase().getBlastResistance();
+		} catch (IllegalArgumentException ignored) {
+			return super.getBlastResistance();
+		}
 	}
-
+	
+	@Override
 	public BlockRenderLayer getRenderLayer() {
-		return this.set.getBase().getRenderLayer();
+		try {
+			return this.getBase().getRenderLayer();
+		} catch (IllegalArgumentException ignored) {
+			return super.getRenderLayer();
+		}
 	}
-
+	
+	@Override
 	public int getTickRate(ViewableWorld viewableWorld_1) {
-		return this.set.getBase().getTickRate(viewableWorld_1);
+		try {
+			return this.getBase().getTickRate(viewableWorld_1);
+		} catch (IllegalArgumentException ignored) {
+			return super.getTickRate(viewableWorld_1);
+		}
+	}
+	
+	@Override
+	public void onBlockAdded(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
+		super.onBlockAdded(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
+		try {
+			if (blockState_1.getBlock() != blockState_1.getBlock()) {
+				this.getBase().getDefaultState().neighborUpdate(world_1, blockPos_1, Blocks.AIR, blockPos_1, false);
+				this.getBase().onBlockAdded(this.set.getBase().getDefaultState(), world_1, blockPos_1, blockState_2, false);
+			}
+		} catch (IllegalArgumentException ignored) {}
+	}
+	
+	@Override
+	public void onBlockRemoved(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
+		super.onBlockRemoved(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
+		try {
+			if (blockState_1.getBlock() != blockState_2.getBlock()) {
+				this.getBase().getDefaultState().onBlockRemoved(world_1, blockPos_1, blockState_2, boolean_1);
+			}
+		} catch (IllegalArgumentException ignored) {}
+	}
+	
+	@Override
+	public void onSteppedOn(World world_1, BlockPos blockPos_1, Entity entity_1) {
+		super.onSteppedOn(world_1, blockPos_1, entity_1);
+		try {
+			this.getBase().onSteppedOn(world_1, blockPos_1, entity_1);
+		} catch (IllegalArgumentException ignored) {}
+	}
+	
+	@Override
+	public void onScheduledTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
+		super.onScheduledTick(blockState_1, world_1, blockPos_1, random_1);
+		try {
+			this.getBase().onScheduledTick(blockState_1, world_1, blockPos_1, random_1);
+		} catch (IllegalArgumentException ignored) {}
+	}
+	
+	@Override
+	public boolean activate(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1, Hand hand_1, BlockHitResult blockHitResult_1) {
+		try {
+			boolean a = super.activate(blockState_1, world_1, blockPos_1, playerEntity_1, hand_1, blockHitResult_1);
+			return a || this.getBase().getDefaultState().activate(world_1, playerEntity_1, hand_1, blockHitResult_1);
+		} catch (IllegalArgumentException ignored) {
+			return super.activate(blockState_1, world_1, blockPos_1, playerEntity_1, hand_1, blockHitResult_1);
+		}
+	}
+	
+	@Override
+	public void onDestroyedByExplosion(World world_1, BlockPos blockPos_1, Explosion explosion_1) {
+		super.onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
+		try {
+			this.getBase().onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
+		} catch (IllegalArgumentException ignored) {}
 	}
 
 	@Environment(EnvType.CLIENT)

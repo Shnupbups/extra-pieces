@@ -11,4 +11,8 @@ public interface PieceBlock extends ItemConvertible {
 	Block getBlock();
 
 	PieceSet getSet();
+	
+	default Block getBase() {
+		return getSet().getBase();
+	}
 }

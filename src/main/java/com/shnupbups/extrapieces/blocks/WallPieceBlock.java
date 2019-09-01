@@ -41,27 +41,27 @@ public class WallPieceBlock extends WallBlock implements PieceBlock {
 
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
-		this.set.getBase().randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
+		this.getBase().randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
 	}
 
 	public void onBlockBreakStart(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1) {
-		this.set.getBase().getDefaultState().onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
+		this.getBase().getDefaultState().onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
 	}
 
 	public void onBroken(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1) {
-		this.set.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
+		this.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
 	}
 
 	public float getBlastResistance() {
-		return this.set.getBase().getBlastResistance();
+		return this.getBase().getBlastResistance();
 	}
 
 	public BlockRenderLayer getRenderLayer() {
-		return this.set.getBase().getRenderLayer();
+		return this.getBase().getRenderLayer();
 	}
 
 	public int getTickRate(ViewableWorld viewableWorld_1) {
-		return this.set.getBase().getTickRate(viewableWorld_1);
+		return this.getBase().getTickRate(viewableWorld_1);
 	}
 
 	@Environment(EnvType.CLIENT)

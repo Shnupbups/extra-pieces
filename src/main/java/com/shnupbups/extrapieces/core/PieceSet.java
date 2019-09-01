@@ -566,7 +566,7 @@ public class PieceSet {
 		public Builder(String name, JsonObject ob, String packName) {
 			this.name = name;
 			this.packName = packName;
-			this.base = new Identifier(ob.get(String.class, "base"));
+			this.base = new Identifier(Objects.requireNonNull(ob.get(String.class, "base")));
 			if (ob.containsKey("stonecuttable")) {
 				this.stonecuttable = ob.get("stonecuttable").equals(JsonPrimitive.TRUE);
 			}
@@ -579,13 +579,13 @@ public class PieceSet {
 			if (ob.containsKey("textures")) {
 				JsonObject tx = ob.getObject("textures");
 				if (tx.containsKey("main")) {
-					this.mainTexture = new Identifier(tx.get(String.class, "main"));
+					this.mainTexture = new Identifier(Objects.requireNonNull(tx.get(String.class, "main")));
 				}
 				if (tx.containsKey("top")) {
-					this.topTexture = new Identifier(tx.get(String.class, "top"));
+					this.topTexture = new Identifier(Objects.requireNonNull(tx.get(String.class, "top")));
 				}
 				if (tx.containsKey("bottom")) {
-					this.bottomTexture = new Identifier(tx.get(String.class, "bottom"));
+					this.bottomTexture = new Identifier(Objects.requireNonNull(tx.get(String.class, "bottom")));
 				}
 			}
 			if (ob.containsKey("vanilla_pieces")) {

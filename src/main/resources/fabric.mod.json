@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "extrapieces",
-  "version": "2.7.0",
+  "version": "2.7.1",
 
   "name": "Extra Pieces",
   "description": "Adds more block shapes to Minecraft!",
@@ -12,7 +12,7 @@
 	"coderbot"
   ],
   "contact": {
-    "homepage": "https://minecraft.curseforge.com/projects/extra-pieces",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/extra-pieces",
     "sources": "https://github.com/Shnupbups/extra-pieces",
     "issues": "https://github.com/Shnupbups/extra-pieces/issues"
   },
