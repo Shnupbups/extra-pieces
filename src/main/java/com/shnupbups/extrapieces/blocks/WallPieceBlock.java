@@ -1,20 +1,22 @@
 package com.shnupbups.extrapieces.blocks;
 
+import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderLayer;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.WallBlock;
+import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.ViewableWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 
 import java.util.Random;
 
@@ -40,28 +42,82 @@ public class WallPieceBlock extends WallBlock implements PieceBlock {
 	}
 
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void randomDisplayTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
-		this.getBase().randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
+		super.randomDisplayTick(blockState_1, world_1, blockPos_1, random_1);
+		this.getBase().randomDisplayTick(this.getBaseState(), world_1, blockPos_1, random_1);
 	}
 
+	@Override
 	public void onBlockBreakStart(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1) {
-		this.getBase().getDefaultState().onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
+		super.onBlockBreakStart(blockState_1, world_1, blockPos_1, playerEntity_1);
+		this.getBaseState().onBlockBreakStart(world_1, blockPos_1, playerEntity_1);
 	}
 
+	@Override
 	public void onBroken(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1) {
+		super.onBroken(iWorld_1, blockPos_1, blockState_1);
 		this.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
 	}
 
+	@Override
 	public float getBlastResistance() {
 		return this.getBase().getBlastResistance();
 	}
 
+	@Override
 	public BlockRenderLayer getRenderLayer() {
 		return this.getBase().getRenderLayer();
 	}
 
+	@Override
 	public int getTickRate(ViewableWorld viewableWorld_1) {
 		return this.getBase().getTickRate(viewableWorld_1);
+	}
+
+	@Override
+	public void onBlockAdded(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
+		super.onBlockAdded(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
+		if (blockState_1.getBlock() != blockState_2.getBlock()) {
+			this.getBase().getDefaultState().neighborUpdate(world_1, blockPos_1, Blocks.AIR, blockPos_1, false);
+			this.getBase().getDefaultState().onBlockAdded(world_1, blockPos_1, blockState_2, false);
+		}
+	}
+
+	@Override
+	public void onBlockRemoved(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
+		super.onBlockRemoved(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
+		if (blockState_1.getBlock() != blockState_2.getBlock()) {
+			this.getBaseState().onBlockRemoved(world_1, blockPos_1, blockState_2, boolean_1);
+		}
+	}
+
+	@Override
+	public void onSteppedOn(World world_1, BlockPos blockPos_1, Entity entity_1) {
+		super.onSteppedOn(world_1, blockPos_1, entity_1);
+		try {
+			this.getBase().onSteppedOn(world_1, blockPos_1, entity_1);
+		} catch (IllegalArgumentException ignored) {
+			ExtraPieces.debugLog("Caught an exception in onSteppedOn for "+this.getPieceString());
+		}
+	}
+
+	@Override
+	public void onScheduledTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
+		super.onScheduledTick(blockState_1, world_1, blockPos_1, random_1);
+		this.getBase().onScheduledTick(this.getBaseState(), world_1, blockPos_1, random_1);
+	}
+
+	@Override
+	public boolean activate(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1, Hand hand_1, BlockHitResult blockHitResult_1) {
+		boolean a = super.activate(blockState_1, world_1, blockPos_1, playerEntity_1, hand_1, blockHitResult_1);
+		return a || this.getBaseState().activate(world_1, playerEntity_1, hand_1, blockHitResult_1);
+	}
+
+	@Override
+	public void onDestroyedByExplosion(World world_1, BlockPos blockPos_1, Explosion explosion_1) {
+		super.onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
+		this.getBase().onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
 	}
 
 	@Environment(EnvType.CLIENT)

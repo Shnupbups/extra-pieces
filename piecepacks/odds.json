@@ -1,5 +1,5 @@
 {
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"sets": {
 		"dirt": {
 			"base": "minecraft:dirt"
@@ -50,8 +50,8 @@
 		"emerald_ore": {
 			"base": "minecraft:emerald_ore"
 		},
-		"redstone_ore": {
-			"base": "minecraft:redstone_ore"
+		"quartz_ore": {
+			"base": "minecraft:quartz_ore"
 		},
 		"clay": {
 			"base": "minecraft:clay"
