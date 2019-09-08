@@ -2,6 +2,8 @@ package com.shnupbups.extrapieces.core;
 
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.pieces.*;
+import com.shnupbups.extrapieces.register.ModConfigs;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -26,18 +28,18 @@ public class PieceTypes {
 
 	private static HashSet<PieceType> types = new HashSet<PieceType>();
 
-	static {
+	public static void init() {
 		register(PieceTypes.BASE);
-		register(PieceTypes.STAIRS);
-		register(PieceTypes.SLAB);
-		register(PieceTypes.SIDING);
-		register(PieceTypes.WALL);
-		register(PieceTypes.FENCE);
-		register(PieceTypes.FENCE_GATE);
-		register(PieceTypes.POST);
-		register(PieceTypes.COLUMN);
-		register(PieceTypes.CORNER);
-		register(PieceTypes.LAYER);
+		if(ModConfigs.stairs) register(PieceTypes.STAIRS);
+		if(ModConfigs.slabs) register(PieceTypes.SLAB);
+		if(ModConfigs.sidings) register(PieceTypes.SIDING);
+		if(ModConfigs.walls) register(PieceTypes.WALL);
+		if(ModConfigs.fences) register(PieceTypes.FENCE);
+		if(ModConfigs.fenceGates) register(PieceTypes.FENCE_GATE);
+		if(ModConfigs.posts) register(PieceTypes.POST);
+		if(ModConfigs.columns) register(PieceTypes.COLUMN);
+		if(ModConfigs.corners) register(PieceTypes.CORNER);
+		if(ModConfigs.layers) register(PieceTypes.LAYER);
 	}
 
 	public static PieceType register(PieceType type) {

@@ -164,6 +164,23 @@ public class ModBlocks {
 	public static PieceSet STRIPPED_JUNGLE_WOOD_PIECES;
 	public static PieceSet STRIPPED_ACACIA_WOOD_PIECES;
 	public static PieceSet STRIPPED_DARK_OAK_WOOD_PIECES;
+	public static PieceSet GLASS_PIECES;
+	public static PieceSet WHITE_STAINED_GLASS_PIECES;
+	public static PieceSet ORANGE_STAINED_GLASS_PIECES;
+	public static PieceSet MAGENTA_STAINED_GLASS_PIECES;
+	public static PieceSet LIGHT_BLUE_STAINED_GLASS_PIECES;
+	public static PieceSet YELLOW_STAINED_GLASS_PIECES;
+	public static PieceSet LIME_STAINED_GLASS_PIECES;
+	public static PieceSet PINK_STAINED_GLASS_PIECES;
+	public static PieceSet GRAY_STAINED_GLASS_PIECES;
+	public static PieceSet LIGHT_GRAY_STAINED_GLASS_PIECES;
+	public static PieceSet CYAN_STAINED_GLASS_PIECES;
+	public static PieceSet PURPLE_STAINED_GLASS_PIECES;
+	public static PieceSet BLUE_STAINED_GLASS_PIECES;
+	public static PieceSet BROWN_STAINED_GLASS_PIECES;
+	public static PieceSet GREEN_STAINED_GLASS_PIECES;
+	public static PieceSet RED_STAINED_GLASS_PIECES;
+	public static PieceSet BLACK_STAINED_GLASS_PIECES;
 	static int built = 0;
 
 	public static void generateDefaultSets() {
@@ -303,6 +320,23 @@ public class ModBlocks {
 		STRIPPED_JUNGLE_WOOD_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_JUNGLE_WOOD, "stripped_jungle_wood").setTexture("stripped_jungle_log");
 		STRIPPED_ACACIA_WOOD_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_ACACIA_WOOD, "stripped_acacia_wood").setTexture("stripped_acacia_log");
 		STRIPPED_DARK_OAK_WOOD_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_DARK_OAK_WOOD, "stripped_dark_oak_wood").setTexture("stripped_dark_oak_log");
+		GLASS_PIECES = PieceSets.createDefaultSet(Blocks.GLASS, "glass");
+		WHITE_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.WHITE_STAINED_GLASS, "white_stained_glass");
+		ORANGE_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.ORANGE_STAINED_GLASS, "orange_stained_glass");
+		MAGENTA_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.MAGENTA_STAINED_GLASS, "magenta_stained_glass");
+		LIGHT_BLUE_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.LIGHT_BLUE_STAINED_GLASS, "light_blue_stained_glass");
+		YELLOW_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.YELLOW_STAINED_GLASS, "yellow_stained_glass");
+		LIME_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.LIME_STAINED_GLASS, "lime_stained_glass");
+		PINK_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.PINK_STAINED_GLASS, "pink_stained_glass");
+		GRAY_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.GRAY_STAINED_GLASS, "gray_stained_glass");
+		LIGHT_GRAY_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.LIGHT_GRAY_STAINED_GLASS, "light_gray_stained_glass");
+		CYAN_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.CYAN_STAINED_GLASS, "cyan_stained_glass");
+		PURPLE_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.PURPLE_STAINED_GLASS, "purple_stained_glass");
+		BLUE_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.BLUE_STAINED_GLASS, "blue_stained_glass");
+		BROWN_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.BROWN_STAINED_GLASS, "brown_stained_glass");
+		GREEN_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.GREEN_STAINED_GLASS, "green_stained_glass");
+		RED_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.RED_STAINED_GLASS, "red_stained_glass");
+		BLACK_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.BLACK_STAINED_GLASS, "black_stained_glass");
 		ExtraPieces.debugLog("Generated Default Sets");
 	}
 

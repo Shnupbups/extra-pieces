@@ -3,6 +3,7 @@ package com.shnupbups.extrapieces;
 import com.shnupbups.extrapieces.api.EPInitializer;
 import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
+import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.debug.DebugItem;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.shnupbups.extrapieces.register.ModConfigs;
@@ -22,7 +23,7 @@ import java.io.File;
 public class ExtraPieces implements ModInitializer {
 	public static final String mod_id = "extrapieces";
 	public static final String mod_name = "Extra Pieces";
-	public static final String piece_pack_version = "2.5.3";
+	public static final String piece_pack_version = "2.8.0";
 	public static final Logger logger = LogManager.getFormatterLogger(mod_name);
 
 	public static ArtificeResourcePack datapack;
@@ -87,6 +88,7 @@ public class ExtraPieces implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModConfigs.init();
+		PieceTypes.init();
 		FabricLoader.getInstance().getEntrypoints("extrapieces", EPInitializer.class).forEach(api -> {
 			debugLog("EPInitializer " + api.toString());
 			api.onInitialize();

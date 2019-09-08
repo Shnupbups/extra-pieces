@@ -1,0 +1,13 @@
+1553493480|For clarification, Alexander is the same person as Shnupbups. Version 1.0.0 only had Sidings.
+1553734800|Version 1.1.0 is released, adding Slabs, Stairs, Fences and Walls.
+1554861600|Version 1.2.0 is released, adding lots more piece sets, and making every piece set have every piece type.
+1558058400|Version 1.3.0 is released, adding Corners and Posts.
+1558144800|Work on 2.0.0 begins. This would be a major rewrite resulting in removal of thousands of JSON files.
+1562292000|Version 2.0.0 is released, now everything is added based on a config using JMX and Artifice. Columns are also added.
+1562637600|Version 2.1.0 is released, JMX is no longer used, with Artifice now handling everything JMX did.
+1563760800|Version 2.2.0 is released, adding Layers and changing the config system into Piece Packs.
+1564106400|Version 2.3.0 is released, mods can now ship a Piece Pack in their jars.
+1564192800|Version 2.4.0 is released, mods can now register their own custom piece types.
+1564480800|Version 2.5.0 is released, Piece Pack schema is changed to allow for better mod support.
+1566943200|Version 2.6.0 is released, recipe internals are overhauled, and new recipes are added.
+1567288800|Version 2.7.0 is released, recipe internals are further altered, Layers can now face any direction.

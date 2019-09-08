@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Map;
+import java.util.Objects;
 
 public class ModConfigs {
 
@@ -29,6 +30,18 @@ public class ModConfigs {
 	public static boolean debugOutput = false;
 	public static boolean moreDebugOutput = false;
 	public static boolean dumpData = false;
+	
+	public static boolean slabs = true;
+	public static boolean stairs = true;
+	public static boolean sidings = true;
+	public static boolean corners = true;
+	public static boolean walls = true;
+	public static boolean fences = true;
+	public static boolean fenceGates = true;
+	public static boolean columns = true;
+	public static boolean posts = true;
+	public static boolean layers = true;
+	
 	private static int setsNum = 0;
 	private static int ppSetsNum = 0;
 	private static int ppVpNum = 0;
@@ -41,12 +54,25 @@ public class ModConfigs {
 			if (isConfigOutdated(cfg)) {
 				updateConfig(cfg, config);
 			}
+			
 			generateDefaultPack = cfg.get("generateDefaultPack").equals(JsonPrimitive.TRUE);
 			forceUpdateDefaultPack = cfg.get("forceUpdateDefaultPack").equals(JsonPrimitive.TRUE);
 			everythingStonecuttable = cfg.get("everythingStonecuttable").equals(JsonPrimitive.TRUE);
 			debugOutput = cfg.get("debugOutput").equals(JsonPrimitive.TRUE);
 			moreDebugOutput = cfg.get("moreDebugOutput").equals(JsonPrimitive.TRUE);
 			dumpData = cfg.get("dumpData").equals(JsonPrimitive.TRUE);
+			
+			JsonObject types = cfg.getObject("pieceTypes");
+			slabs = types.get("slabs").equals(JsonPrimitive.TRUE);
+			stairs = types.get("stairs").equals(JsonPrimitive.TRUE);
+			sidings = types.get("sidings").equals(JsonPrimitive.TRUE);
+			corners = types.get("corners").equals(JsonPrimitive.TRUE);
+			walls = types.get("walls").equals(JsonPrimitive.TRUE);
+			fences = types.get("fences").equals(JsonPrimitive.TRUE);
+			fenceGates = types.get("fenceGates").equals(JsonPrimitive.TRUE);
+			columns = types.get("columns").equals(JsonPrimitive.TRUE);
+			posts = types.get("posts").equals(JsonPrimitive.TRUE);
+			layers = types.get("layers").equals(JsonPrimitive.TRUE);
 		} catch (IOException e) {
 			generateConfig(config);
 		} catch (SyntaxError e) {
@@ -109,17 +135,20 @@ public class ModConfigs {
 	public static void initPiecePacks() {
 		File ppDir = ExtraPieces.getPiecePackDirectory();
 		File defaultPack = new File(ppDir, "default.json");
-		if (ppDir.listFiles().length == 0) {
+		File[] packs = ppDir.listFiles();
+		assert packs != null;
+		if (packs.length == 0) {
 			if (generateDefaultPack) {
 				ExtraPieces.log("No piece packs found, generating default!");
 				generateDefaultPack(new File(ppDir, "default.json"));
 			} else ExtraPieces.log("No piece packs found! Why bother having Extra Pieces installed then?");
 		} else {
-			if (generateDefaultPack && (!defaultPack.exists() || forceUpdateDefaultPack)) {
+			if (generateDefaultPack && (!defaultPack.exists() || forceUpdateDefaultPack || isDefaultPackOutdated(defaultPack))) {
+				ExtraPieces.log("Generating default piece pack as it either did not exist or needed updating...");
 				generateDefaultPack(defaultPack);
 			}
 		}
-		for (File f : ppDir.listFiles()) {
+		for (File f : packs) {
 			try (FileReader reader = new FileReader(f)) {
 				JsonObject pp = Jankson.builder().build().load(f);
 				JsonObject sets = null;
@@ -197,13 +226,26 @@ public class ModConfigs {
 	}
 
 	public static boolean isConfigOutdated(JsonObject cfg) {
-		if (!cfg.containsKey("generateDefaultPack")) return true;
-		if (!cfg.containsKey("forceUpdateDefaultPack")) return true;
-		if (!cfg.containsKey("everythingStonecuttable")) return true;
-		if (!cfg.containsKey("debugOutput")) return true;
-		if (!cfg.containsKey("moreDebugOutput")) return true;
-		if (!cfg.containsKey("dumpData")) return true;
-		return false;
+		if (!cfg.containsKey("generateDefaultPack") || 
+			!cfg.containsKey("forceUpdateDefaultPack") || 
+			!cfg.containsKey("everythingStonecuttable") || 
+			!cfg.containsKey("debugOutput") ||
+			!cfg.containsKey("moreDebugOutput") ||
+			!cfg.containsKey("dumpData") ||
+			!cfg.containsKey("pieceTypes")) return true;
+		else {
+			JsonObject types = cfg.getObject("pieceTypes");
+			return !types.containsKey("slabs") ||
+					!types.containsKey("stairs") ||
+					!types.containsKey("sidings") ||
+					!types.containsKey("corners") ||
+					!types.containsKey("walls") ||
+					!types.containsKey("fences") ||
+					!types.containsKey("fenceGates") ||
+					!types.containsKey("columns") ||
+					!types.containsKey("posts") ||
+					!types.containsKey("layers");
+		}
 	}
 
 	public static void updateConfig(JsonObject cfg, File config) {
@@ -219,6 +261,30 @@ public class ModConfigs {
 			cfg.put("moreDebugOutput", new JsonPrimitive(moreDebugOutput));
 		if (!cfg.containsKey("dumpData"))
 			cfg.put("dumpData", new JsonPrimitive(dumpData));
+		if(!cfg.containsKey("pieceTypes"))
+			cfg.put("pieceTypes", new JsonObject());
+		JsonObject types = cfg.getObject("pieceTypes");
+		if(!types.containsKey("slabs"))
+			types.put("slabs", new JsonPrimitive(slabs));
+		if(!types.containsKey("stairs"))
+			types.put("stairs", new JsonPrimitive(stairs));
+		if(!types.containsKey("sidings"))
+			types.put("sidings", new JsonPrimitive(sidings));
+		if(!types.containsKey("corners"))
+			types.put("corners", new JsonPrimitive(corners));
+		if(!types.containsKey("walls"))
+			types.put("walls", new JsonPrimitive(walls));
+		if(!types.containsKey("fences"))
+			types.put("fences", new JsonPrimitive(fences));
+		if(!types.containsKey("fenceGates"))
+			types.put("fenceGates", new JsonPrimitive(fenceGates));
+		if(!types.containsKey("columns"))
+			types.put("columns", new JsonPrimitive(columns));
+		if(!types.containsKey("posts"))
+			types.put("posts", new JsonPrimitive(posts));
+		if(!types.containsKey("layers"))
+			types.put("layers", new JsonPrimitive(layers));
+		cfg.put("pieceTypes", types);
 		if (config.exists()) config.delete();
 		try (FileWriter writer = new FileWriter(config)) {
 			writer.write(cfg.toJson(false, true));
@@ -243,11 +309,26 @@ public class ModConfigs {
 			if (ppR.containsKey("version")) {
 				rVer = new Version(ppR.get(String.class, "version"));
 			} else rVer = new Version();
-			return cVer.compareTo(rVer) == 1;
+			return cVer.isNewerThan(rVer);
 		} catch (Exception e) {
 			ExtraPieces.log("Failed to check if Piece Pack " + toCheck.getFileName() + " needed updating:");
 			e.printStackTrace();
 
+			return false;
+		}
+	}
+	
+	public static boolean isDefaultPackOutdated(File defaultPack) {
+		try {
+			JsonObject dpp = Jankson.builder().build().load(defaultPack);
+			Version ver;
+			if (dpp.containsKey("version")) {
+				ver = new Version(dpp.get(String.class, "version"));
+			} else ver = new Version();
+			return new Version(ExtraPieces.piece_pack_version).isNewerThan(ver);
+		} catch (Exception e) {
+			ExtraPieces.log("Failed to check if default Piece Pack needed updating:");
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -290,6 +371,14 @@ public class ModConfigs {
 					return 1;
 			}
 			return 0;
+		}
+		
+		public boolean isOlderThan(Version that) {
+			return compareTo(that) == -1;
+		}
+		
+		public boolean isNewerThan(Version that) {
+			return compareTo(that) == 1;
 		}
 
 		@Override
