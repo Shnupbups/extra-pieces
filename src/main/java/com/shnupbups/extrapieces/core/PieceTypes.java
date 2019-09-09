@@ -25,6 +25,8 @@ public class PieceTypes {
 	public static final PieceType COLUMN = new ColumnPiece();
 	public static final PieceType CORNER = new CornerPiece();
 	public static final PieceType LAYER = new LayerPiece();
+	
+	public static final PieceType TRIM = new TrimPiece();
 
 	private static HashSet<PieceType> types = new HashSet<PieceType>();
 
@@ -40,6 +42,7 @@ public class PieceTypes {
 		if(ModConfigs.columns) register(PieceTypes.COLUMN);
 		if(ModConfigs.corners) register(PieceTypes.CORNER);
 		if(ModConfigs.layers) register(PieceTypes.LAYER);
+		register(PieceTypes.TRIM);
 	}
 
 	public static PieceType register(PieceType type) {
