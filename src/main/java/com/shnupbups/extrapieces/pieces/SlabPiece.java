@@ -74,13 +74,13 @@ public class SlabPiece extends PieceType {
 				state.variant("type=" + t.asString(), var -> {
 					switch (t) {
 						case BOTTOM:
-							var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+							var.model(getModelPath(pb));
 							break;
 						case TOP:
-							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_top"), "block/"));
+							var.model(getModelPath(pb, "top"));
 							break;
 						case DOUBLE:
-							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_double"), "block/"));
+							var.model(getModelPath(pb, "double"));
 							break;
 					}
 				});

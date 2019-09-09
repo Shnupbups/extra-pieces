@@ -42,7 +42,7 @@ public class LayerPiece extends PieceType {
 
 	public void addItemModel(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		pack.addItemModel(Registry.BLOCK.getId(pb.getBlock()), model -> {
-			model.parent(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_height_2"), "block/"));
+			model.parent(getModelPath(pb, "height_2"));
 		});
 	}
 
@@ -52,7 +52,7 @@ public class LayerPiece extends PieceType {
 				for (int i = 1; i <= 8; i++) {
 					final int j = i * 2;
 					state.variant("facing="+dir.asString()+",layers=" + i, var -> {
-						var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_height_" + j), "block/"));
+						var.model(getModelPath(pb, "height_"+j));
 						var.uvlock(true);
 						switch(dir) {
 							case DOWN:

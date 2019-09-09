@@ -11,3 +11,4 @@
 1564480800|Version 2.5.0 is released, Piece Pack schema is changed to allow for better mod support.
 1566943200|Version 2.6.0 is released, recipe internals are overhauled, and new recipes are added.
 1567288800|Version 2.7.0 is released, recipe internals are further altered, Layers can now face any direction.
+1567967448|Version 2.8.0 is released, piece types can now be individually disabled and transparent pieces look much better.

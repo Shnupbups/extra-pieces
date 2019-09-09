@@ -163,4 +163,12 @@ public abstract class PieceType {
 	public PieceBlockItem getBlockItem(PieceBlock pb) {
 		return new PieceBlockItem(pb, new Item.Settings());
 	}
+	
+	public Identifier getModelPath(PieceBlock pb) {
+		return ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/");
+	}
+	
+	public Identifier getModelPath(PieceBlock pb, String append) {
+		return ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_"+append), "block/");
+	}
 }

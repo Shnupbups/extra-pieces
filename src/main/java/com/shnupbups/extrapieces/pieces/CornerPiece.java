@@ -33,7 +33,7 @@ public class CornerPiece extends PieceType {
 			for (Direction d : Direction.values()) {
 				if (d != Direction.UP && d != Direction.DOWN) {
 					state.variant("facing=" + d.asString(), var -> {
-						var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+						var.model(getModelPath(pb));
 						var.uvlock(true);
 						switch (d) {
 							case SOUTH:

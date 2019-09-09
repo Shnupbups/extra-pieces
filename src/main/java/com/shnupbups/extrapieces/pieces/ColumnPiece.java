@@ -23,7 +23,7 @@ public class ColumnPiece extends PieceType {
 			for (Direction.Axis a : Direction.Axis.values()) {
 				state.variant("axis=" + a.asString(), var -> {
 					var.uvlock(true);
-					var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+					var.model(getModelPath(pb));
 					if (a != Direction.Axis.Y) {
 						var.rotationX(90);
 						if (a == Direction.Axis.X) {

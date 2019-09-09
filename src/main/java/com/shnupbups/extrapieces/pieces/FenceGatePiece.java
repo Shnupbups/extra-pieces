@@ -41,7 +41,7 @@ public class FenceGatePiece extends PieceType {
 			for (Direction d : Direction.values()) {
 				if (d != Direction.UP && d != Direction.DOWN) {
 					state.variant("facing=" + d.asString() + ",in_wall=false,open=false", var -> {
-						var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+						var.model(getModelPath(pb));
 						var.uvlock(true);
 						switch (d) {
 							case NORTH:
@@ -56,7 +56,7 @@ public class FenceGatePiece extends PieceType {
 						}
 					});
 					state.variant("facing=" + d.asString() + ",in_wall=true,open=false", var -> {
-						var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_wall"), "block/"));
+						var.model(getModelPath(pb, "wall"));
 						var.uvlock(true);
 						switch (d) {
 							case NORTH:
@@ -71,7 +71,7 @@ public class FenceGatePiece extends PieceType {
 						}
 					});
 					state.variant("facing=" + d.asString() + ",in_wall=false,open=true", var -> {
-						var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_open"), "block/"));
+						var.model(getModelPath(pb, "open"));
 						var.uvlock(true);
 						switch (d) {
 							case NORTH:
@@ -86,7 +86,7 @@ public class FenceGatePiece extends PieceType {
 						}
 					});
 					state.variant("facing=" + d.asString() + ",in_wall=true,open=true", var -> {
-						var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_wall_open"), "block/"));
+						var.model(getModelPath(pb, "wall_open"));
 						var.uvlock(true);
 						switch (d) {
 							case NORTH:

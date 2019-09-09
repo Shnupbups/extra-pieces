@@ -73,7 +73,7 @@ public class SidingPiece extends PieceType {
 							if (!(d.equals(Direction.DOWN) || d.equals(Direction.UP))) {
 								state.variant("type=" + t.asString() + ",facing=" + d.asString(), var -> {
 									var.uvlock(true);
-									var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+									var.model(getModelPath(pb));
 									switch (d) {
 										case EAST:
 											var.rotationY(90);
@@ -91,7 +91,7 @@ public class SidingPiece extends PieceType {
 						break;
 					case DOUBLE:
 						state.variant("type=" + t.asString(), var -> {
-							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_double"), "block/"));
+							var.model(getModelPath(pb, "double"));
 						});
 						break;
 				}

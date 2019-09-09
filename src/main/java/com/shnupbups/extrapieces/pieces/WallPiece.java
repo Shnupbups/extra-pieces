@@ -50,7 +50,7 @@ public class WallPiece extends PieceType {
 			state.multipartCase(caze -> {
 				caze.when(Direction.UP.asString(), "true");
 				caze.apply(var -> {
-					var.model(ExtraPieces.prependToPath(Registry.BLOCK.getId(pb.getBlock()), "block/"));
+					var.model(getModelPath(pb));
 				});
 			});
 			for (Direction d : Direction.values()) {
@@ -58,7 +58,7 @@ public class WallPiece extends PieceType {
 					state.multipartCase(caze -> {
 						caze.when(d.asString(), "true");
 						caze.apply(var -> {
-							var.model(ExtraPieces.prependToPath(ExtraPieces.appendToPath(Registry.BLOCK.getId(pb.getBlock()), "_side"), "block/"));
+							var.model(getModelPath(pb, "side"));
 							var.uvlock(true);
 							switch (d) {
 								case EAST:
