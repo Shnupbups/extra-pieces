@@ -215,4 +215,16 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 		super.onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
 		this.getBase().onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
 	}
+	
+	@Override
+	public boolean emitsRedstonePower(BlockState blockState_1) {
+		return super.emitsRedstonePower(blockState_1) || this.getBaseState().emitsRedstonePower();
+	}
+	
+	@Override
+	public int getWeakRedstonePower(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, Direction direction_1) {
+		float power = (float)this.getBaseState().getWeakRedstonePower(blockView_1, blockPos_1, direction_1);
+		power = (power / 8) * blockState_1.get(LAYERS);
+		return Math.round(power);
+	}
 }

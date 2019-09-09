@@ -14,6 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.ViewableWorld;
 import net.minecraft.world.World;
@@ -54,5 +55,17 @@ public class StairsPieceBlock extends StairsBlock implements PieceBlock {
 		} catch (IllegalArgumentException ignored) {
 			ExtraPieces.debugLog("Caught an exception in onSteppedOn for "+this.getPieceString());
 		}
+	}
+	
+	@Override
+	public boolean emitsRedstonePower(BlockState blockState_1) {
+		return super.emitsRedstonePower(blockState_1) || this.getBaseState().emitsRedstonePower();
+	}
+	
+	@Override
+	public int getWeakRedstonePower(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, Direction direction_1) {
+		float power = (float)this.getBaseState().getWeakRedstonePower(blockView_1, blockPos_1, direction_1);
+		power = (power / 4) * 3;
+		return Math.round(power);
 	}
 }

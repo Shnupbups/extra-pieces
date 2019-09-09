@@ -26,7 +26,7 @@ public class PieceTypes {
 	public static final PieceType CORNER = new CornerPiece();
 	public static final PieceType LAYER = new LayerPiece();
 
-	private static HashSet<PieceType> types = new HashSet<PieceType>();
+	private static HashSet<PieceType> types = new HashSet<>();
 
 	public static void init() {
 		register(PieceTypes.BASE);

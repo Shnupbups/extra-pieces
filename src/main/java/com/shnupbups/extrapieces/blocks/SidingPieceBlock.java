@@ -9,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 import net.minecraft.block.*;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -272,5 +273,17 @@ public class SidingPieceBlock extends Block implements Waterloggable, PieceBlock
 	public void onDestroyedByExplosion(World world_1, BlockPos blockPos_1, Explosion explosion_1) {
 		super.onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
 		this.getBase().onDestroyedByExplosion(world_1, blockPos_1, explosion_1);
+	}
+	
+	@Override
+	public boolean emitsRedstonePower(BlockState blockState_1) {
+		return super.emitsRedstonePower(blockState_1) || this.getBaseState().emitsRedstonePower();
+	}
+	
+	@Override
+	public int getWeakRedstonePower(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, Direction direction_1) {
+		float power = (float)this.getBaseState().getWeakRedstonePower(blockView_1, blockPos_1, direction_1);
+		if(blockState_1.get(TYPE).equals(ModProperties.SidingType.SINGLE)) power /= 2;
+		return Math.round(power);
 	}
 }
