@@ -154,6 +154,12 @@ public class ModConfigs {
 				JsonObject sets = null;
 				JsonObject vanillaPieces = null;
 				String ppVer;
+				if(pp.containsKey("required_mod")) {
+					String requiredMod = pp.get(String.class, "required_mod");
+					if(!FabricLoader.getInstance().isModLoaded(requiredMod)) {
+						continue;
+					}
+				}
 				if (!pp.containsKey("version")) {
 					sets = pp;
 					ppVer = "0.0.0";
@@ -168,9 +174,11 @@ public class ModConfigs {
 					for (Map.Entry<String, JsonElement> entry : sets.entrySet()) {
 						JsonObject jsonSet = (JsonObject) entry.getValue();
 						PieceSet.Builder psb = new PieceSet.Builder(entry.getKey(), jsonSet, f.getName());
-						setsNum++;
-						ppSetsNum++;
-						ModBlocks.registerSet(psb);
+						if(psb.shouldLoad()) {
+							setsNum++;
+							ppSetsNum++;
+							ModBlocks.registerSet(psb);
+						}
 					}
 					ExtraPieces.debugLog("Generated " + ppSetsNum + " PieceSets from piece pack " + f.getName());
 				}
@@ -181,8 +189,14 @@ public class ModConfigs {
 							Identifier base = new Identifier(jsonPiece.get(String.class, "base"));
 							Identifier type = new Identifier(jsonPiece.get(String.class, "type"));
 							Identifier piece = new Identifier(jsonPiece.get(String.class, "piece"));
-							ppVpNum++;
-							ModBlocks.registerVanillaPiece(base, type, piece);
+							boolean add = true;
+							if(jsonPiece.containsKey("required_mod")) {
+								add = FabricLoader.getInstance().isModLoaded(jsonPiece.get(String.class, "required_mod"));
+							}
+							if(add) {
+								ppVpNum++;
+								ModBlocks.registerVanillaPiece(base, type, piece);
+							}
 						} else {
 							ExtraPieces.debugLog("Invalid vanilla piece " + entry.getKey() + " in piece pack " + f.getName());
 						}

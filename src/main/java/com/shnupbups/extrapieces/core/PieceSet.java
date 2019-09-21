@@ -15,6 +15,9 @@ import com.shnupbups.extrapieces.register.ModItemGroups;
 import com.shnupbups.extrapieces.register.ModLootTables;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+
+import net.fabricmc.loader.api.FabricLoader;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -550,6 +553,7 @@ public class PieceSet {
 	public static class Builder {
 		public final String name;
 		public final Identifier base;
+		public String requiredMod = "minecraft";
 		public boolean built = false;
 		public Boolean stonecuttable;
 		public Boolean woodmillable;
@@ -625,32 +629,38 @@ public class PieceSet {
 					this.uncraftable.add(pt);
 				}
 			}
+			if (ob.containsKey("required_mod")) {
+				requiredMod = ob.get(String.class, "required_mod");
+			}
 		}
 
 		public PieceSet build() {
-			if (built) {
-				return PieceSets.getSet(Registry.BLOCK.get(base));
+			if(shouldLoad()) {
+				if (built) {
+					return PieceSets.getSet(Registry.BLOCK.get(base));
+				}
+				
+				PieceSet ps = new PieceSet(Registry.BLOCK.get(base), name, genTypes);
+				if (this.stonecuttable != null) ps.setStonecuttable(this.stonecuttable);
+				if (this.woodmillable != null) ps.setWoodmillable(this.woodmillable);
+				if (this.opaque != null) ps.setOpaque(this.opaque);
+				if (this.mainTexture != null) ps.setTexture(this.mainTexture);
+				if (this.topTexture != null) ps.setTopTexture(this.topTexture);
+				if (this.bottomTexture != null) ps.setBottomTexture(this.bottomTexture);
+				
+				for (Map.Entry<PieceType, Identifier> vanillaPiece : this.getVanillaPieces().entrySet()) {
+					ps.addVanillaPiece(vanillaPiece.getKey(), Registry.BLOCK.get(vanillaPiece.getValue()));
+				}
+				
+				if (this.includeMode) ps.setInclude();
+				for (PieceType pt : this.uncraftable) {
+					ps.setUncraftable(pt);
+				}
+				
+				this.built = true;
+				return ps;
 			}
-
-			PieceSet ps = new PieceSet(Registry.BLOCK.get(base), name, genTypes);
-			if (this.stonecuttable != null) ps.setStonecuttable(this.stonecuttable);
-			if (this.woodmillable != null) ps.setWoodmillable(this.woodmillable);
-			if (this.opaque != null) ps.setOpaque(this.opaque);
-			if (this.mainTexture != null) ps.setTexture(this.mainTexture);
-			if (this.topTexture != null) ps.setTopTexture(this.topTexture);
-			if (this.bottomTexture != null) ps.setBottomTexture(this.bottomTexture);
-
-			for (Map.Entry<PieceType, Identifier> vanillaPiece : this.getVanillaPieces().entrySet()) {
-				ps.addVanillaPiece(vanillaPiece.getKey(), Registry.BLOCK.get(vanillaPiece.getValue()));
-			}
-
-			if (this.includeMode) ps.setInclude();
-			for (PieceType pt : this.uncraftable) {
-				ps.setUncraftable(pt);
-			}
-
-			this.built = true;
-			return ps;
+			return null;
 		}
 
 		public void addVanillaPiece(Identifier type, Identifier piece) {
@@ -677,6 +687,14 @@ public class PieceSet {
 
 		public String getPackName() {
 			return packName;
+		}
+		
+		public String getRequiredMod() {
+			return requiredMod;
+		}
+		
+		public boolean shouldLoad() {
+			return FabricLoader.getInstance().isModLoaded(getRequiredMod());
 		}
 
 		public boolean isReady() {
