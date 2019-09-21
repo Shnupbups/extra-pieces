@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class ModConfigs {
 
@@ -140,12 +139,18 @@ public class ModConfigs {
 		if (packs.length == 0) {
 			if (generateDefaultPack) {
 				ExtraPieces.log("No piece packs found, generating default!");
-				generateDefaultPack(new File(ppDir, "default.json"));
+				generateDefaultPack(defaultPack);
+				ArrayList<File> packslist = new ArrayList<>(Arrays.asList(packs));
+				packslist.add(defaultPack);
+				packs = packslist.toArray(packs);
 			} else ExtraPieces.log("No piece packs found! Why bother having Extra Pieces installed then?");
 		} else {
 			if (generateDefaultPack && (!defaultPack.exists() || forceUpdateDefaultPack || isDefaultPackOutdated(defaultPack))) {
 				ExtraPieces.log("Generating default piece pack as it either did not exist or needed updating...");
 				generateDefaultPack(defaultPack);
+				ArrayList<File> packslist = new ArrayList<>(Arrays.asList(packs));
+				packslist.add(defaultPack);
+				packs = packslist.toArray(packs);
 			}
 		}
 		for (File f : packs) {
