@@ -11,13 +11,15 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.ViewableWorld;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -74,12 +76,7 @@ public class SlabPieceBlock extends SlabBlock implements PieceBlock {
 	}
 
 	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return this.getBase().getRenderLayer();
-	}
-
-	@Override
-	public int getTickRate(ViewableWorld viewableWorld_1) {
+	public int getTickRate(WorldView viewableWorld_1) {
 		return this.getBase().getTickRate(viewableWorld_1);
 	}
 
@@ -111,15 +108,19 @@ public class SlabPieceBlock extends SlabBlock implements PieceBlock {
 	}
 
 	@Override
-	public void onScheduledTick(BlockState blockState_1, World world_1, BlockPos blockPos_1, Random random_1) {
-		super.onScheduledTick(blockState_1, world_1, blockPos_1, random_1);
-		this.getBase().onScheduledTick(this.getBaseState(), world_1, blockPos_1, random_1);
+	public void scheduledTick(BlockState blockState_1, ServerWorld world_1, BlockPos blockPos_1, Random random_1) {
+		super.scheduledTick(blockState_1, world_1, blockPos_1, random_1);
+		this.getBase().scheduledTick(this.getBaseState(), world_1, blockPos_1, random_1);
 	}
 
 	@Override
-	public boolean activate(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1, Hand hand_1, BlockHitResult blockHitResult_1) {
-		boolean a = super.activate(blockState_1, world_1, blockPos_1, playerEntity_1, hand_1, blockHitResult_1);
-		return a || this.getBaseState().activate(world_1, playerEntity_1, hand_1, blockHitResult_1);
+	public ActionResult onUse(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1, Hand hand_1, BlockHitResult blockHitResult_1) {
+		ActionResult a = super.onUse(blockState_1, world_1, blockPos_1, playerEntity_1, hand_1, blockHitResult_1);
+		if(a.isAccepted() || this.getBaseState().onUse(world_1, playerEntity_1, hand_1, blockHitResult_1).isAccepted()) {
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.PASS;
+		}
 	}
 
 	@Override

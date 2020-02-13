@@ -6,6 +6,7 @@ import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
