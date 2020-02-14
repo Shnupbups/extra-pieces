@@ -33,8 +33,8 @@ dependencies {
 	include "com.lettuce.fudge:artifice:${project.artifice_version}"
 
 	// Jankson
-	modCompile "io.github.cottonmc:Jankson:${project.jankson_version}"
-	include "io.github.cottonmc:Jankson:${project.jankson_version}"
+	modCompile "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
+	include "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
 	
 	// stuff for dev env
 	modImplementation "io.github.prospector:modmenu:${project.modmenu_version}"
