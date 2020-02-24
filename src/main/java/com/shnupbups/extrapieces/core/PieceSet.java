@@ -16,11 +16,13 @@ import com.shnupbups.extrapieces.register.ModLootTables;
 import com.shnupbups.extrapieces.register.ModRecipes;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -546,6 +548,14 @@ public class PieceSet {
 			if (!isVanillaPiece(pb.getType())) {
 				pb.getType().addLootTable(data, pb);
 				ModLootTables.incrementLootTables();
+			}
+		}
+	}
+
+	public void addRenderLayers() {
+		for (PieceBlock pb : this.getPieceBlocks()) {
+			if (!isVanillaPiece(pb.getType())) {
+				BlockRenderLayerMap.INSTANCE.putBlock(pb.getBlock(), RenderLayers.getBlockLayer(pb.getBase().getDefaultState()));
 			}
 		}
 	}
