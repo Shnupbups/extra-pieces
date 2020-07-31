@@ -7,27 +7,20 @@ import com.shnupbups.extrapieces.core.PieceTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.WorldView;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
-
-import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class StairsPieceBlock extends StairsBlock implements PieceBlock {
 	private final PieceSet set;
 
 	public StairsPieceBlock(PieceSet set) {
-		super(set.getBase().getDefaultState(), Settings.copy(set.getBase()));
+		super(set.getBase().getDefaultState(), FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMaterialColor()));
 		this.set = set;
 	}
 

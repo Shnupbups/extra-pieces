@@ -8,9 +8,9 @@ import com.shnupbups.extrapieces.core.PieceTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -30,8 +30,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -52,7 +51,7 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 	private final PieceSet set;
 
 	public LayerPieceBlock(PieceSet set) {
-		super(Settings.copy(set.getBase()));
+		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMaterialColor()));
 		this.set = set;
 		this.setDefaultState(this.stateManager.getDefaultState().with(LAYERS, 1).with(FACING, Direction.UP).with(WATERLOGGED, false));
 	}
@@ -69,7 +68,7 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 		return PieceTypes.LAYER;
 	}
 
-	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext entityContext_1) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext entityContext_1) {
 		Direction dir = state.get(FACING);
 		int layers = state.get(LAYERS);
 		if(layers == 8) return VoxelShapes.fullCube();
@@ -131,8 +130,8 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 		return blockState_1.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(blockState_1);
 	}
 
-	public boolean tryFillWithFluid(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1, FluidState fluidState_1) {
-		return blockState_1.get(LAYERS) < 8 && Waterloggable.super.tryFillWithFluid(iWorld_1, blockPos_1, blockState_1, fluidState_1);
+	public boolean tryFillWithFluid(WorldAccess worldAccess_1, BlockPos blockPos_1, BlockState blockState_1, FluidState fluidState_1) {
+		return blockState_1.get(LAYERS) < 8 && Waterloggable.super.tryFillWithFluid(worldAccess_1, blockPos_1, blockState_1, fluidState_1);
 	}
 
 	public boolean canFillWithFluid(BlockView blockView_1, BlockPos blockPos_1, BlockState blockState_1, Fluid fluid_1) {
@@ -153,20 +152,14 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 	}
 
 	@Override
-	public void onBroken(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1) {
-		super.onBroken(iWorld_1, blockPos_1, blockState_1);
-		this.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
+	public void onBroken(WorldAccess worldAccess_1, BlockPos blockPos_1, BlockState blockState_1) {
+		super.onBroken(worldAccess_1, blockPos_1, blockState_1);
+		this.getBase().onBroken(worldAccess_1, blockPos_1, blockState_1);
 	}
 
 	@Override
 	public float getBlastResistance() {
 		return this.getBase().getBlastResistance();
-	}
-
-
-	@Override
-	public int getTickRate(WorldView viewableWorld_1) {
-		return this.getBase().getTickRate(viewableWorld_1);
 	}
 
 	@Override
@@ -179,10 +172,10 @@ public class LayerPieceBlock extends Block implements Waterloggable, PieceBlock 
 	}
 
 	@Override
-	public void onBlockRemoved(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
-		super.onBlockRemoved(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
+	public void onStateReplaced(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
+		super.onStateReplaced(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
 		if (blockState_1.getBlock() != blockState_2.getBlock()) {
-			this.getBaseState().onBlockRemoved(world_1, blockPos_1, blockState_2, boolean_1);
+			this.getBaseState().onStateReplaced(world_1, blockPos_1, blockState_2, boolean_1);
 		}
 	}
 

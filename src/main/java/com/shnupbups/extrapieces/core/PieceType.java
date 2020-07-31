@@ -6,8 +6,8 @@ import com.shnupbups.extrapieces.blocks.PieceBlockItem;
 import com.shnupbups.extrapieces.recipe.*;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import net.minecraft.item.Item;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
