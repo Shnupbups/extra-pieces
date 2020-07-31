@@ -28,3 +28,5 @@ logs/
 # stuff
 
 *.pdn
+
+.DS_Store
