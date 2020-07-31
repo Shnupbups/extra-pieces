@@ -28,7 +28,7 @@ public class PieceIngredient {
 		this.id = Registry.ITEM.getId(item.asItem());
 	}
 	
-	public PieceIngredient(Tag<Item> tag) {
+	public PieceIngredient(Tag.Identified<Item> tag) {
 		this.type = PIType.TAG;
 		this.id = tag.getId();
 	}

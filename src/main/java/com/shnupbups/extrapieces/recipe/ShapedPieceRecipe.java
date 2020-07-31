@@ -34,7 +34,7 @@ public class ShapedPieceRecipe extends PieceRecipe {
 		return addToKey(c, new PieceIngredient(item));
 	}
 	
-	public ShapedPieceRecipe addToKey(char c, Tag<Item> tag) {
+	public ShapedPieceRecipe addToKey(char c, Tag.Identified<Item> tag) {
 		return addToKey(c, new PieceIngredient(tag));
 	}
 

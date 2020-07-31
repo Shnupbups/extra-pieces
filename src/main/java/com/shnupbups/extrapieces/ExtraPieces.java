@@ -5,6 +5,7 @@ import com.shnupbups.extrapieces.core.PieceSet;
 import com.shnupbups.extrapieces.core.PieceSets;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import com.shnupbups.extrapieces.debug.DebugItem;
+import com.shnupbups.extrapieces.mixin.MinecraftServerAccessor;
 import com.shnupbups.extrapieces.register.ModBlocks;
 import com.shnupbups.extrapieces.register.ModConfigs;
 import com.swordglowsblue.artifice.api.Artifice;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.util.UUID;
 
 public class ExtraPieces implements ModInitializer {
 	public static final String mod_id = "extrapieces";
@@ -85,6 +87,7 @@ public class ExtraPieces implements ModInitializer {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onInitialize() {
 		ModConfigs.init();
@@ -101,7 +104,7 @@ public class ExtraPieces implements ModInitializer {
 			if (ModBlocks.setBuilders.size() != PieceSets.registry.size()) {
 				for (PieceSet.Builder psb : ModBlocks.setBuilders.values()) {
 					if (!psb.isBuilt())
-						server.sendMessage(new LiteralText("Piece Set " + psb.toString() + " could not be built, make sure the base and any vanilla pieces actually exist!"));
+						((MinecraftServerAccessor) server).getLogger().info("Piece Set " + psb.toString() + " could not be built, make sure the base and any vanilla pieces actually exist!");
 				}
 			}
 		});

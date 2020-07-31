@@ -6,9 +6,10 @@ import com.shnupbups.extrapieces.core.PieceType;
 import com.shnupbups.extrapieces.core.PieceTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityContext;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -26,7 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -54,7 +55,7 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 	private final PieceSet set;
 
 	public PostPieceBlock(PieceSet set) {
-		super(Block.Settings.copy(set.getBase()));
+		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMaterialColor()));
 		this.set = set;
 		this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, false));
 	}
@@ -71,7 +72,7 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 		return PieceTypes.POST;
 	}
 
-	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
+	public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, ShapeContext shapeContext_1) {
 		Direction.Axis axis = blockState_1.get(AXIS);
 		switch (axis) {
 			case X:
@@ -83,10 +84,10 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 		}
 	}
 
-	public VoxelShape getCollisionShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext verticalEntityPosition_1) {
+	public VoxelShape getCollisionShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, ShapeContext shapeContext_1) {
 		Direction.Axis axis = blockState_1.get(AXIS);
 		if (axis == Direction.Axis.Y) return Y_COLLISION;
-		else return super.getCollisionShape(blockState_1, blockView_1, blockPos_1, verticalEntityPosition_1);
+		else return super.getCollisionShape(blockState_1, blockView_1, blockPos_1, shapeContext_1);
 	}
 
 	public BlockState rotate(BlockState blockState_1, BlockRotation rotation_1) {
@@ -112,11 +113,11 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 		return this.getDefaultState().with(AXIS, itemPlacementContext_1.getSide().getAxis()).with(WATERLOGGED, fluidState_1.getFluid() == Fluids.WATER);
 	}
 
-	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos blockPos_1, BlockPos blockPos_2) {
+	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, WorldAccess worldAccess_1, BlockPos blockPos_1, BlockPos blockPos_2) {
 		if (blockState_1.get(WATERLOGGED)) {
-			iWorld_1.getFluidTickScheduler().schedule(blockPos_1, Fluids.WATER, Fluids.WATER.getTickRate(iWorld_1));
+			worldAccess_1.getFluidTickScheduler().schedule(blockPos_1, Fluids.WATER, Fluids.WATER.getTickRate(worldAccess_1));
 		}
-		return super.getStateForNeighborUpdate(blockState_1, direction_1, blockState_2, iWorld_1, blockPos_1, blockPos_2);
+		return super.getStateForNeighborUpdate(blockState_1, direction_1, blockState_2, worldAccess_1, blockPos_1, blockPos_2);
 	}
 
 	protected void appendProperties(StateManager.Builder<Block, BlockState> stateFactory$Builder_1) {
@@ -127,7 +128,7 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 		return blockState_1.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(blockState_1);
 	}
 
-	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, BlockPlacementEnvironment blockPlacementEnvironment_1) {
+	public boolean canPlaceAtSide(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, NavigationType navigationType_1) {
 		return false;
 	}
 
@@ -145,19 +146,14 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 	}
 
 	@Override
-	public void onBroken(IWorld iWorld_1, BlockPos blockPos_1, BlockState blockState_1) {
-		super.onBroken(iWorld_1, blockPos_1, blockState_1);
-		this.getBase().onBroken(iWorld_1, blockPos_1, blockState_1);
+	public void onBroken(WorldAccess worldAccess_1, BlockPos blockPos_1, BlockState blockState_1) {
+		super.onBroken(worldAccess_1, blockPos_1, blockState_1);
+		this.getBase().onBroken(worldAccess_1, blockPos_1, blockState_1);
 	}
 
 	@Override
 	public float getBlastResistance() {
 		return this.getBase().getBlastResistance();
-	}
-
-	@Override
-	public int getTickRate(WorldView viewableWorld_1) {
-		return this.getBase().getTickRate(viewableWorld_1);
 	}
 
 	@Override
@@ -170,10 +166,10 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 	}
 
 	@Override
-	public void onBlockRemoved(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
-		super.onBlockRemoved(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
+	public void onStateReplaced(BlockState blockState_1, World world_1, BlockPos blockPos_1, BlockState blockState_2, boolean boolean_1) {
+		super.onStateReplaced(blockState_1, world_1, blockPos_1, blockState_2, boolean_1);
 		if (blockState_1.getBlock() != blockState_2.getBlock()) {
-			this.getBaseState().onBlockRemoved(world_1, blockPos_1, blockState_2, boolean_1);
+			this.getBaseState().onStateReplaced(world_1, blockPos_1, blockState_2, boolean_1);
 		}
 	}
 

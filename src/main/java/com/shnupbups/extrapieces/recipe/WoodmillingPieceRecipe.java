@@ -26,7 +26,7 @@ public class WoodmillingPieceRecipe extends PieceRecipe {
 		this(output, count, new PieceIngredient(input));
 	}
 	
-	public WoodmillingPieceRecipe(PieceType output, int count, Tag<Item> input) {
+	public WoodmillingPieceRecipe(PieceType output, int count, Tag.Identified<Item> input) {
 		this(output, count, new PieceIngredient(input));
 	}
 

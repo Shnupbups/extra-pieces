@@ -36,6 +36,7 @@ public class WallPiece extends PieceType {
 	public void addBlockModels(ArtificeResourcePack.ClientResourcePackBuilder pack, PieceBlock pb) {
 		super.addBlockModels(pack, pb);
 		addBlockModel(pack, pb, "side");
+		addBlockModel(pack, pb, "side_tall");
 		addBlockModel(pack, pb, "inventory");
 	}
 
@@ -56,9 +57,27 @@ public class WallPiece extends PieceType {
 			for (Direction d : Direction.values()) {
 				if (d != Direction.UP && d != Direction.DOWN) {
 					state.multipartCase(caze -> {
-						caze.when(d.asString(), "true");
+						caze.when(d.asString(), "low");
 						caze.apply(var -> {
 							var.model(getModelPath(pb, "side"));
+							var.uvlock(true);
+							switch (d) {
+								case EAST:
+									var.rotationY(90);
+									break;
+								case WEST:
+									var.rotationY(270);
+									break;
+								case SOUTH:
+									var.rotationY(180);
+									break;
+							}
+						});
+					});
+					state.multipartCase(caze -> {
+						caze.when(d.asString(), "tall");
+						caze.apply(var -> {
+							var.model(getModelPath(pb, "side_tall"));
 							var.uvlock(true);
 							switch (d) {
 								case EAST:

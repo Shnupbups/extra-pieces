@@ -7,8 +7,8 @@ import com.shnupbups.extrapieces.register.ModConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 
 import java.util.HashSet;
 import java.util.Optional;

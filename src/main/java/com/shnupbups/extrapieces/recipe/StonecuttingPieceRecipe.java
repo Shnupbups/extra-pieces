@@ -26,7 +26,7 @@ public class StonecuttingPieceRecipe extends PieceRecipe {
 		this(output, count, new PieceIngredient(input));
 	}
 	
-	public StonecuttingPieceRecipe(PieceType output, int count, Tag<Item> input) {
+	public StonecuttingPieceRecipe(PieceType output, int count, Tag.Identified<Item> input) {
 		this(output, count, new PieceIngredient(input));
 	}
 
