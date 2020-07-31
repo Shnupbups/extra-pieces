@@ -181,6 +181,33 @@ public class ModBlocks {
 	public static PieceSet GREEN_STAINED_GLASS_PIECES;
 	public static PieceSet RED_STAINED_GLASS_PIECES;
 	public static PieceSet BLACK_STAINED_GLASS_PIECES;
+	public static PieceSet CRIMSON_PIECES;
+	public static PieceSet WARPED_PIECES;
+	public static PieceSet CRIMSON_STEM_PIECES;
+	public static PieceSet WARPED_STEM_PIECES;
+	public static PieceSet STRIPPED_CRIMSON_STEM_PIECES;
+	public static PieceSet STRIPPED_WARPED_STEM_PIECES;
+	public static PieceSet CRIMSON_HYPHAE_PIECES;
+	public static PieceSet WARPED_HYPHAE_PIECES;
+	public static PieceSet STRIPPED_CRIMSON_HYPHAE_PIECES;
+	public static PieceSet STRIPPED_WARPED_HYPHAE_PIECES;
+	public static PieceSet HONEYCOMB_PIECES;
+	public static PieceSet BASALT_PIECES;
+	public static PieceSet POLISHED_BASALT_PIECES;
+	public static PieceSet BLACKSTONE_PIECES;
+	public static PieceSet POLISHED_BLACKSTONE_PIECES;
+	public static PieceSet CHISELED_POLISHED_BLACKSTONE_PIECES;
+	public static PieceSet POLISHED_BLACKSTONE_BRICK_PIECES;
+	public static PieceSet CRACKED_POLISHED_BLACKSTONE_BRICK_PIECES;
+	public static PieceSet NETHERITE_PIECES;
+	public static PieceSet CHISELED_NETHER_BRICK_PIECES;
+	public static PieceSet CRACKED_NETHER_BRICK_PIECES;
+	public static PieceSet CRYING_OBSIDIAN_PIECES;
+	public static PieceSet GILDED_BLACKSTONE_PIECES;
+	public static PieceSet QUARTZ_BRICK_PIECES;
+	public static PieceSet SHROOMLIGHT_PIECES;
+	public static PieceSet SOUL_SOIL_PIECES;
+	public static PieceSet WARPED_WART_PIECES;
 	static int built = 0;
 
 	public static void generateDefaultSets() {
@@ -337,6 +364,35 @@ public class ModBlocks {
 		GREEN_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.GREEN_STAINED_GLASS, "green_stained_glass").setUncraftable(PieceTypes.WALL);
 		RED_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.RED_STAINED_GLASS, "red_stained_glass").setUncraftable(PieceTypes.WALL);
 		BLACK_STAINED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.BLACK_STAINED_GLASS, "black_stained_glass").setUncraftable(PieceTypes.WALL);
+
+		CRIMSON_PIECES = PieceSets.createDefaultSet(Blocks.CRIMSON_PLANKS, "crimson", PieceSet.JUST_EXTRAS_AND_WALL).setUncraftable(PieceTypes.WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.CRIMSON_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.CRIMSON_STAIRS).addVanillaPiece(PieceTypes.FENCE, Blocks.CRIMSON_FENCE).addVanillaPiece(PieceTypes.FENCE_GATE, Blocks.CRIMSON_FENCE_GATE);
+		WARPED_PIECES = PieceSets.createDefaultSet(Blocks.WARPED_PLANKS, "warped", PieceSet.JUST_EXTRAS_AND_WALL).setUncraftable(PieceTypes.WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.WARPED_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.WARPED_STAIRS).addVanillaPiece(PieceTypes.FENCE, Blocks.WARPED_FENCE).addVanillaPiece(PieceTypes.FENCE_GATE, Blocks.WARPED_FENCE_GATE);
+		CRIMSON_STEM_PIECES = PieceSets.createDefaultSet(Blocks.CRIMSON_STEM, "crimson_stem").setTopTexture("crimson_stem_top");
+		WARPED_STEM_PIECES = PieceSets.createDefaultSet(Blocks.WARPED_STEM, "warped_stem").setTopTexture("warped_stem_top");
+		STRIPPED_CRIMSON_STEM_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_CRIMSON_STEM, "stripped_crimson_stem").setTopTexture("stripped_crimson_stem_top");
+		STRIPPED_WARPED_STEM_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_WARPED_STEM, "stripped_warped_stem").setTopTexture("stripped_warped_stem_top");
+		CRIMSON_HYPHAE_PIECES = PieceSets.createDefaultSet(Blocks.CRIMSON_HYPHAE, "crimson_hyphae").setTexture("crimson_stem");
+		WARPED_HYPHAE_PIECES = PieceSets.createDefaultSet(Blocks.WARPED_HYPHAE, "warped_hyphae").setTexture("warped_stem");
+		STRIPPED_CRIMSON_HYPHAE_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_CRIMSON_HYPHAE, "stripped_crimson_hyphae").setTexture("stripped_crimson_stem");
+		STRIPPED_WARPED_HYPHAE_PIECES = PieceSets.createDefaultSet(Blocks.STRIPPED_WARPED_HYPHAE, "stripped_warped_hyphae").setTexture("stripped_warped_stem");
+		HONEYCOMB_PIECES = PieceSets.createDefaultSet(Blocks.HONEYCOMB_BLOCK, "honeycomb");
+		BASALT_PIECES = PieceSets.createDefaultSet(Blocks.BASALT, "basalt").setTexture("basalt_side").setTopTexture("basalt_top");
+		POLISHED_BASALT_PIECES = PieceSets.createDefaultSet(Blocks.POLISHED_BASALT, "polished_basalt").setTexture("polished_basalt_side").setTopTexture("polished_basalt_top");
+		BLACKSTONE_PIECES = PieceSets.createDefaultSet(Blocks.BLACKSTONE, "blackstone", PieceSet.NO_SLAB_STAIRS_OR_WALL).setTopTexture("blackstone_top").addVanillaPiece(PieceTypes.SLAB, Blocks.BLACKSTONE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.BLACKSTONE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.BLACKSTONE_WALL);
+		POLISHED_BLACKSTONE_PIECES = PieceSets.createDefaultSet(Blocks.POLISHED_BLACKSTONE, "polished_blackstone").addVanillaPiece(PieceTypes.SLAB, Blocks.POLISHED_BLACKSTONE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.POLISHED_BLACKSTONE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.POLISHED_BLACKSTONE_WALL);
+		CHISELED_POLISHED_BLACKSTONE_PIECES = PieceSets.createDefaultSet(Blocks.CHISELED_POLISHED_BLACKSTONE, "chiseled_polished_blackstone");
+		POLISHED_BLACKSTONE_BRICK_PIECES = PieceSets.createDefaultSet(Blocks.POLISHED_BLACKSTONE_BRICKS, "polished_blackstone_brick").addVanillaPiece(PieceTypes.SLAB, Blocks.POLISHED_BLACKSTONE_BRICK_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.POLISHED_BLACKSTONE_BRICK_WALL);
+		CRACKED_POLISHED_BLACKSTONE_BRICK_PIECES = PieceSets.createDefaultSet(Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS, "cracked_polished_blackstone_brick");
+		NETHERITE_PIECES = PieceSets.createDefaultSet(Blocks.NETHERITE_BLOCK, "netherite");
+		CHISELED_NETHER_BRICK_PIECES = PieceSets.createDefaultSet(Blocks.CHISELED_NETHER_BRICKS, "chiseled_nether_brick");
+		CRACKED_NETHER_BRICK_PIECES = PieceSets.createDefaultSet(Blocks.CRACKED_NETHER_BRICKS, "cracked_nether_brick");
+		CRYING_OBSIDIAN_PIECES = PieceSets.createDefaultSet(Blocks.CRYING_OBSIDIAN, "crying_obsidian");
+		GILDED_BLACKSTONE_PIECES = PieceSets.createDefaultSet(Blocks.GILDED_BLACKSTONE, "gilded_blackstone");
+		QUARTZ_BRICK_PIECES = PieceSets.createDefaultSet(Blocks.QUARTZ_BRICKS, "quartz_brick");
+		SHROOMLIGHT_PIECES = PieceSets.createDefaultSet(Blocks.SHROOMLIGHT, "shroomlight");
+		SOUL_SOIL_PIECES = PieceSets.createDefaultSet(Blocks.SOUL_SOIL, "soul_soil");
+		WARPED_WART_PIECES = PieceSets.createDefaultSet(Blocks.WARPED_WART_BLOCK, "warped_wart");
+
 		ExtraPieces.debugLog("Generated Default Sets");
 	}
 
