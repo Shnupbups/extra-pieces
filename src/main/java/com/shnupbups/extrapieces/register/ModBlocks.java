@@ -484,8 +484,6 @@ public class ModBlocks {
 		});
 
 		ModBlocks.finished = true;
-
-		ExtraPieces.dump();
 	}
 
 	public static boolean isDone() {

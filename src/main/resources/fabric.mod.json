@@ -1,27 +1,25 @@
 {
   "schemaVersion": 1,
   "id": "extrapieces",
-  "version": "2.9.0",
-
+  "version": "2.9.1",
   "name": "Extra Pieces",
   "description": "Adds more block shapes to Minecraft! Special thanks to coderbot, Florens Pauwels, Vaerian, jcaimeey and Zachary Wright.",
   "authors": [
     "Shnupbups"
   ],
   "contributors": [
-	  "coderbot",
+    "coderbot",
     "Florens Pauwels",
-    "Vaerian"
+    "Vaerian",
+    "Jeroen Bollen"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/extra-pieces",
     "sources": "https://github.com/Shnupbups/extra-pieces",
     "issues": "https://github.com/Shnupbups/extra-pieces/issues"
   },
-
   "license": "LGPLv3",
   "icon": "assets/extrapieces/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -31,11 +29,9 @@
       "com.shnupbups.extrapieces.ExtraPiecesClient"
     ]
   },
-  "mixins": [
-  ],
-
+  "mixins": [],
   "depends": {
-    "fabricloader": ">=0.6.1",
+    "fabricloader": ">=0.11.1",
     "fabric": "*"
   },
   "suggests": {

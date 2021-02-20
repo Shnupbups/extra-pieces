@@ -28,7 +28,6 @@ public class ModConfigs {
 	public static boolean everythingStonecuttable = false;
 	public static boolean debugOutput = false;
 	public static boolean moreDebugOutput = false;
-	public static boolean dumpData = false;
 	
 	public static boolean slabs = true;
 	public static boolean stairs = true;
@@ -59,7 +58,6 @@ public class ModConfigs {
 			everythingStonecuttable = cfg.get("everythingStonecuttable").equals(JsonPrimitive.TRUE);
 			debugOutput = cfg.get("debugOutput").equals(JsonPrimitive.TRUE);
 			moreDebugOutput = cfg.get("moreDebugOutput").equals(JsonPrimitive.TRUE);
-			dumpData = cfg.get("dumpData").equals(JsonPrimitive.TRUE);
 			
 			JsonObject types = cfg.getObject("pieceTypes");
 			slabs = types.get("slabs").equals(JsonPrimitive.TRUE);
@@ -250,7 +248,6 @@ public class ModConfigs {
 			!cfg.containsKey("everythingStonecuttable") || 
 			!cfg.containsKey("debugOutput") ||
 			!cfg.containsKey("moreDebugOutput") ||
-			!cfg.containsKey("dumpData") ||
 			!cfg.containsKey("pieceTypes")) return true;
 		else {
 			JsonObject types = cfg.getObject("pieceTypes");
@@ -278,8 +275,6 @@ public class ModConfigs {
 			cfg.put("debugOutput", new JsonPrimitive(debugOutput));
 		if (!cfg.containsKey("moreDebugOutput"))
 			cfg.put("moreDebugOutput", new JsonPrimitive(moreDebugOutput));
-		if (!cfg.containsKey("dumpData"))
-			cfg.put("dumpData", new JsonPrimitive(dumpData));
 		if(!cfg.containsKey("pieceTypes"))
 			cfg.put("pieceTypes", new JsonObject());
 		JsonObject types = cfg.getObject("pieceTypes");

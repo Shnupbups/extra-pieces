@@ -74,16 +74,6 @@ public class ExtraPieces implements ModInitializer {
 		return FabricLoader.getInstance().isModLoaded("woodmill");
 	}
 
-	public static void dump() {
-		if (ModConfigs.dumpData) {
-			try {
-				datapack.dumpResources(FabricLoader.getInstance().getConfigDirectory().getParent() + "/dump");
-			} catch (Exception e) {
-				ExtraPieces.debugLog("BIG OOF: " + e.getMessage());
-			}
-		}
-	}
-
 	@Override
 	public void onInitialize() {
 		ModConfigs.init();
@@ -93,7 +83,7 @@ public class ExtraPieces implements ModInitializer {
 			api.onInitialize();
 		});
 		ModConfigs.initPiecePacks();
-		datapack = Artifice.registerData(getID("ep_data"), ModBlocks::init);
+		Artifice.registerDataPack(getID("ep_data"), ModBlocks::init);
 		Registry.register(Registry.ITEM, getID("debug_item"), new DebugItem());
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {

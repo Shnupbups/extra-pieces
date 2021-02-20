@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.4-SNAPSHOT'
+	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -17,6 +17,7 @@ repositories {
     maven { url "https://minecraft.curseforge.com/api/maven"}
 	jcenter()
 	maven { url "http://server.bbkr.space:8081/artifactory/libs-release/" }
+	maven { url "https://maven.terraformersmc.com/releases/" }
 }
 
 dependencies {
@@ -37,7 +38,7 @@ dependencies {
 	include "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
 	
 	// stuff for dev env
-	modImplementation "io.github.prospector:modmenu:${project.modmenu_version}"
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     modImplementation ("me.shedaniel:RoughlyEnoughItems:${project.rei_version}") { exclude(module: 'ModMenu') }
 }
 
