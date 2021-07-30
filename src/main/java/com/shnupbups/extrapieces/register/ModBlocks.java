@@ -210,14 +210,6 @@ public class ModBlocks {
 	public static PieceSet WARPED_WART_PIECES;
 	// 1.17 Blocks
 	public static PieceSet AMETHYST_PIECES;
-	public static PieceSet COPPER_PIECES;
-	public static PieceSet EXPOSED_COPPER_PIECES;
-	public static PieceSet WEATHERED_COPPER_PIECES;
-	public static PieceSet OXIDIZED_COPPER_PIECES;
-	public static PieceSet CUT_COPPER_PIECES;
-	public static PieceSet EXPOSED_CUT_COPPER_PIECES;
-	public static PieceSet WEATHERED_CUT_COPPER_PIECES;
-	public static PieceSet OXIDIZED_CUT_COPPER_PIECES;
 	public static PieceSet WAXED_COPPER_PIECES;
 	public static PieceSet WAXED_EXPOSED_COPPER_PIECES;
 	public static PieceSet WAXED_WEATHERED_COPPER_PIECES;
