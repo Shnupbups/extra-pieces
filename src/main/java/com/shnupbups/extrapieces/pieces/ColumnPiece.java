@@ -1,6 +1,5 @@
 package com.shnupbups.extrapieces.pieces;
 
-import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.ColumnPieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;

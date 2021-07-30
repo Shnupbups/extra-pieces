@@ -20,7 +20,7 @@ public class StairsPieceBlock extends StairsBlock implements PieceBlock {
 	private final PieceSet set;
 
 	public StairsPieceBlock(PieceSet set) {
-		super(set.getBase().getDefaultState(), FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMaterialColor()));
+		super(set.getBase().getDefaultState(), FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMapColor()));
 		this.set = set;
 	}
 
@@ -42,9 +42,9 @@ public class StairsPieceBlock extends StairsBlock implements PieceBlock {
 	}
 
 	@Override
-	public void onSteppedOn(World world_1, BlockPos blockPos_1, Entity entity_1) {
+	public void onSteppedOn(World world_1, BlockPos blockPos_1, BlockState blockState_1, Entity entity_1) {
 		try {
-			this.getBase().onSteppedOn(world_1, blockPos_1, entity_1);
+			this.getBase().onSteppedOn(world_1, blockPos_1, blockState_1, entity_1);
 		} catch (IllegalArgumentException ignored) {
 			ExtraPieces.debugLog("Caught an exception in onSteppedOn for "+this.getPieceString());
 		}

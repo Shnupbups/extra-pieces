@@ -208,6 +208,40 @@ public class ModBlocks {
 	public static PieceSet SHROOMLIGHT_PIECES;
 	public static PieceSet SOUL_SOIL_PIECES;
 	public static PieceSet WARPED_WART_PIECES;
+	// 1.17 Blocks
+	public static PieceSet AMETHYST_PIECES;
+	public static PieceSet COPPER_PIECES;
+	public static PieceSet EXPOSED_COPPER_PIECES;
+	public static PieceSet WEATHERED_COPPER_PIECES;
+	public static PieceSet OXIDIZED_COPPER_PIECES;
+	public static PieceSet CUT_COPPER_PIECES;
+	public static PieceSet EXPOSED_CUT_COPPER_PIECES;
+	public static PieceSet WEATHERED_CUT_COPPER_PIECES;
+	public static PieceSet OXIDIZED_CUT_COPPER_PIECES;
+	public static PieceSet WAXED_COPPER_PIECES;
+	public static PieceSet WAXED_EXPOSED_COPPER_PIECES;
+	public static PieceSet WAXED_WEATHERED_COPPER_PIECES;
+	public static PieceSet WAXED_OXIDIZED_COPPER_PIECES;
+	public static PieceSet WAXED_CUT_COPPER_PIECES;
+	public static PieceSet WAXED_EXPOSED_CUT_COPPER_PIECES;
+	public static PieceSet WAXED_WEATHERED_CUT_COPPER_PIECES;
+	public static PieceSet WAXED_OXIDIZED_CUT_COPPER_PIECES;
+	public static PieceSet CALCITE_PIECES;
+	public static PieceSet DEEPSLATE_PIECES;
+	public static PieceSet COBBLED_DEEPSLATE_PIECES;
+	public static PieceSet POLISHED_DEEPSLATE_PIECES;
+	public static PieceSet DEEPSLATE_BRICKS_PIECES;
+	public static PieceSet CRACKED_DEEPSLATE_BRICKS_PIECES;
+	public static PieceSet DEEPSLATE_TILES_PIECES;
+	public static PieceSet CRACKED_DEEPSLATE_TILES_PIECES;
+	public static PieceSet CHISLED_DEEPSLATE_PIECES;
+	public static PieceSet DRIPSTONE_PIECES;
+	public static PieceSet MOSS_PIECES;
+	public static PieceSet ROOTED_DIRT_PIECES;
+	public static PieceSet SMOOTH_BASALT_PIECES;
+	public static PieceSet TINTED_GLASS_PIECES;
+	public static PieceSet TUFF_PIECES;
+
 	static int built = 0;
 
 	public static void generateDefaultSets() {
@@ -392,6 +426,31 @@ public class ModBlocks {
 		SHROOMLIGHT_PIECES = PieceSets.createDefaultSet(Blocks.SHROOMLIGHT, "shroomlight");
 		SOUL_SOIL_PIECES = PieceSets.createDefaultSet(Blocks.SOUL_SOIL, "soul_soil");
 		WARPED_WART_PIECES = PieceSets.createDefaultSet(Blocks.WARPED_WART_BLOCK, "warped_wart");
+
+		AMETHYST_PIECES = PieceSets.createDefaultSet(Blocks.AMETHYST_BLOCK, "amethyst");
+		WAXED_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_COPPER_BLOCK, "waxed_copper").setTexture("copper_block");
+		WAXED_EXPOSED_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_EXPOSED_COPPER, "waxed_exposed_copper").setTexture("exposed_copper");
+		WAXED_WEATHERED_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_WEATHERED_COPPER, "waxed_weathered_copper").setTexture("weathered_copper");
+		WAXED_OXIDIZED_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_OXIDIZED_COPPER, "waxed_oxidized_copper").setTexture("oxidized_copper");
+		WAXED_CUT_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_CUT_COPPER, "waxed_cut_copper", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceTypes.SLAB, Blocks.WAXED_CUT_COPPER_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.WAXED_CUT_COPPER_STAIRS).setTexture("cut_copper");
+		WAXED_EXPOSED_CUT_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_EXPOSED_CUT_COPPER, "waxed_exposed_cut_copper", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceTypes.SLAB, Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS).setTexture("exposed_cut_copper");
+		WAXED_WEATHERED_CUT_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_WEATHERED_CUT_COPPER, "waxed_weathered_cut_copper", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceTypes.SLAB, Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS).setTexture("weathered_cut_copper");
+		WAXED_OXIDIZED_CUT_COPPER_PIECES = PieceSets.createDefaultSet(Blocks.WAXED_OXIDIZED_CUT_COPPER, "waxed_oxidized_cut_copper", PieceSet.NO_SLAB_OR_STAIRS).addVanillaPiece(PieceTypes.SLAB, Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS).setTexture("oxidized_cut_copper");
+		CALCITE_PIECES = PieceSets.createDefaultSet(Blocks.CALCITE, "calcite");
+		DEEPSLATE_PIECES = PieceSets.createDefaultSet(Blocks.DEEPSLATE, "deepslate");
+		COBBLED_DEEPSLATE_PIECES = PieceSets.createDefaultSet(Blocks.COBBLED_DEEPSLATE, "cobbled_deepslate", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.COBBLED_DEEPSLATE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.COBBLED_DEEPSLATE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.COBBLED_DEEPSLATE_WALL);
+		POLISHED_DEEPSLATE_PIECES = PieceSets.createDefaultSet(Blocks.POLISHED_DEEPSLATE, "polished_deepslate", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.POLISHED_DEEPSLATE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.POLISHED_DEEPSLATE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.POLISHED_DEEPSLATE_WALL);
+		DEEPSLATE_BRICKS_PIECES = PieceSets.createDefaultSet(Blocks.DEEPSLATE_BRICKS, "deepslate_bricks", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.DEEPSLATE_BRICK_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.DEEPSLATE_BRICK_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.DEEPSLATE_BRICK_WALL);
+		CRACKED_DEEPSLATE_BRICKS_PIECES = PieceSets.createDefaultSet(Blocks.CRACKED_DEEPSLATE_BRICKS, "cracked_deepslate_bricks");
+		DEEPSLATE_TILES_PIECES = PieceSets.createDefaultSet(Blocks.DEEPSLATE_TILES, "deepslate_tiles", PieceSet.NO_SLAB_STAIRS_OR_WALL).addVanillaPiece(PieceTypes.SLAB, Blocks.DEEPSLATE_TILE_SLAB).addVanillaPiece(PieceTypes.STAIRS, Blocks.DEEPSLATE_TILE_STAIRS).addVanillaPiece(PieceTypes.WALL, Blocks.DEEPSLATE_TILE_WALL);
+		CRACKED_DEEPSLATE_TILES_PIECES = PieceSets.createDefaultSet(Blocks.CRACKED_DEEPSLATE_TILES, "cracked_deepslate_tiles");
+		CHISLED_DEEPSLATE_PIECES = PieceSets.createDefaultSet(Blocks.CHISELED_DEEPSLATE, "chiseled_deepslate");
+		DRIPSTONE_PIECES = PieceSets.createDefaultSet(Blocks.DRIPSTONE_BLOCK, "dripstone");
+		MOSS_PIECES = PieceSets.createDefaultSet(Blocks.MOSS_BLOCK, "moss", PieceSet.NO_FENCES_OR_WALLS);
+		ROOTED_DIRT_PIECES = PieceSets.createDefaultSet(Blocks.ROOTED_DIRT, "rooted_dirt", PieceSet.NO_FENCES_OR_WALLS);
+		SMOOTH_BASALT_PIECES = PieceSets.createDefaultSet(Blocks.SMOOTH_BASALT, "smooth_basalt");
+		TINTED_GLASS_PIECES = PieceSets.createDefaultSet(Blocks.TINTED_GLASS, "tinted_glass");
+		TUFF_PIECES = PieceSets.createDefaultSet(Blocks.TUFF, "tuff");
 
 		ExtraPieces.debugLog("Generated Default Sets");
 	}

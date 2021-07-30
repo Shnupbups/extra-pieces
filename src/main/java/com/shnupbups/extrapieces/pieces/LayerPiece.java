@@ -72,6 +72,8 @@ public class LayerPiece extends PieceType {
 							case WEST:
 								var.rotationX(90);
 								var.rotationY(270);
+							default:
+								break;
 						}
 					});
 				}

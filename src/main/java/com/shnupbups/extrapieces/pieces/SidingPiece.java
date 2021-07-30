@@ -84,6 +84,8 @@ public class SidingPiece extends PieceType {
 										case SOUTH:
 											var.rotationY(180);
 											break;
+										default:
+											break;
 									}
 								});
 							}
@@ -95,7 +97,6 @@ public class SidingPiece extends PieceType {
 						});
 						break;
 				}
-
 			}
 		});
 	}
