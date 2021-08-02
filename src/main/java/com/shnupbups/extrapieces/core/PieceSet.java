@@ -6,6 +6,7 @@ import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.JsonPrimitive;
 import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FakePieceBlock;
+import com.shnupbups.extrapieces.blocks.options.Harvesting;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.recipe.PieceRecipe;
 import com.shnupbups.extrapieces.recipe.StonecuttingPieceRecipe;
@@ -21,10 +22,12 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Language;
 import net.minecraft.util.registry.Registry;
@@ -38,7 +41,8 @@ public class PieceSet {
 	public static final HashSet<PieceType> JUST_EXTRAS_AND_WALL;
 	public static final HashSet<PieceType> JUST_EXTRAS_AND_FENCE_GATE;
 	public static final HashSet<PieceType> NO_LAYER;
-
+	public static final HashSet<PieceType> NO_FENCES_OR_WALLS;
+	
 	static {
 		NO_SLAB = new HashSet<>(PieceTypes.getTypesNoBase());
 		NO_SLAB.remove(PieceTypes.SLAB);
@@ -58,6 +62,14 @@ public class PieceSet {
 
 		NO_LAYER = new HashSet<>(PieceTypes.getTypesNoBase());
 		NO_LAYER.remove(PieceTypes.LAYER);
+
+		// Set for organics/terrain
+		NO_FENCES_OR_WALLS = new HashSet<>(PieceTypes.getTypesNoBase());
+		NO_FENCES_OR_WALLS.remove(PieceTypes.COLUMN);
+		NO_FENCES_OR_WALLS.remove(PieceTypes.FENCE);
+		NO_FENCES_OR_WALLS.remove(PieceTypes.FENCE_GATE);
+		NO_FENCES_OR_WALLS.remove(PieceTypes.WALL);
+		NO_FENCES_OR_WALLS.remove(PieceTypes.POST);
 	}
 
 	private final Block base;
@@ -74,6 +86,9 @@ public class PieceSet {
 	private Identifier bottomTexture;
 	private boolean opaque;
 	private boolean includeMode = false;
+	private final MapColor defaultMapColor;
+	private final Tag<Item> harvestTool;
+	private final int harvestLevel;
 
 	PieceSet(Block base, String name, Collection<PieceType> types) {
 		this(base, name, types, false);
@@ -100,6 +115,9 @@ public class PieceSet {
 		this.genTypes = types.toArray(new PieceType[types.size()]);
 		this.stonecuttable = isNormallyStonecuttable();
 		this.woodmillable = isNormallyWoodmillable();
+		this.defaultMapColor =  base.getDefaultMapColor();
+		this.harvestTool = Harvesting.getTool(base);
+		this.harvestLevel = Harvesting.getLevel(base);
 		if (isDefault) PieceSets.registerDefaultSet(this);
 		else PieceSets.registerSet(this);
 	}
@@ -154,6 +172,18 @@ public class PieceSet {
 
 	public Identifier getMainTexture() {
 		return mainTexture;
+	}
+	
+	public MapColor getDefaultMapColor() {
+		return defaultMapColor;
+	}
+	
+	public Tag<Item> getHarvestTool() {
+		return harvestTool;
+	}
+
+	public int getHarvestLevel() {
+		return harvestLevel;
 	}
 
 	public Identifier getTopTexture() {
@@ -401,7 +431,7 @@ public class PieceSet {
 
 	public Set<PieceType> getVanillaTypes() {
 		HashSet<PieceType> vt = new HashSet<>();
-		List gt = Arrays.asList(genTypes);
+		List<PieceType> gt = Arrays.asList(genTypes);
 		for (PieceType p : this.getPieces().keySet()) {
 			if (!gt.contains(p)) {
 				vt.add(p);

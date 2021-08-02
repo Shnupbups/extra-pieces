@@ -1,6 +1,5 @@
 package com.shnupbups.extrapieces.pieces;
 
-import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.FenceGatePieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
@@ -53,6 +52,8 @@ public class FenceGatePiece extends PieceType {
 							case EAST:
 								var.rotationY(270);
 								break;
+							default:
+								break;
 						}
 					});
 					state.variant("facing=" + d.asString() + ",in_wall=true,open=false", var -> {
@@ -67,6 +68,8 @@ public class FenceGatePiece extends PieceType {
 								break;
 							case EAST:
 								var.rotationY(270);
+								break;
+							default:
 								break;
 						}
 					});
@@ -83,6 +86,8 @@ public class FenceGatePiece extends PieceType {
 							case EAST:
 								var.rotationY(270);
 								break;
+							default:
+								break;
 						}
 					});
 					state.variant("facing=" + d.asString() + ",in_wall=true,open=true", var -> {
@@ -97,6 +102,8 @@ public class FenceGatePiece extends PieceType {
 								break;
 							case EAST:
 								var.rotationY(270);
+								break;
+							default:
 								break;
 						}
 					});

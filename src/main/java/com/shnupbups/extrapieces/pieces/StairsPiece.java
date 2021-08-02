@@ -67,6 +67,8 @@ public class StairsPiece extends PieceType {
 											case SOUTH:
 												y = 90;
 												break;
+											default:
+												break;
 										}
 										break;
 									case OUTER_RIGHT:
@@ -86,6 +88,8 @@ public class StairsPiece extends PieceType {
 													case SOUTH:
 														y = 90;
 														break;
+													default:
+														break;
 												}
 												break;
 											case TOP:
@@ -101,6 +105,8 @@ public class StairsPiece extends PieceType {
 														break;
 													case SOUTH:
 														y = 180;
+														break;
+													default:
 														break;
 												}
 												break;
@@ -123,6 +129,8 @@ public class StairsPiece extends PieceType {
 													case SOUTH:
 														y = 0;
 														break;
+													default:
+														break;
 												}
 												break;
 											case TOP:
@@ -138,6 +146,8 @@ public class StairsPiece extends PieceType {
 														break;
 													case SOUTH:
 														y = 90;
+														break;
+													default:
 														break;
 												}
 												break;
@@ -160,6 +170,8 @@ public class StairsPiece extends PieceType {
 													case NORTH:
 														y = 270;
 														break;
+													default:
+														break;
 												}
 												break;
 											case TOP:
@@ -175,6 +187,8 @@ public class StairsPiece extends PieceType {
 														break;
 													case SOUTH:
 														y = 180;
+														break;
+													default:
 														break;
 												}
 												break;
@@ -197,6 +211,8 @@ public class StairsPiece extends PieceType {
 													case SOUTH:
 														y = 0;
 														break;
+													default:
+														break;
 												}
 												break;
 											case TOP:
@@ -212,6 +228,8 @@ public class StairsPiece extends PieceType {
 														break;
 													case SOUTH:
 														y = 90;
+														break;
+													default:
 														break;
 												}
 												break;

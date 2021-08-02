@@ -1,6 +1,5 @@
 package com.shnupbups.extrapieces.pieces;
 
-import com.shnupbups.extrapieces.ExtraPieces;
 import com.shnupbups.extrapieces.blocks.CornerPieceBlock;
 import com.shnupbups.extrapieces.blocks.PieceBlock;
 import com.shnupbups.extrapieces.core.PieceSet;
@@ -44,6 +43,8 @@ public class CornerPiece extends PieceType {
 								break;
 							case WEST:
 								var.rotationY(270);
+								break;
+							default:
 								break;
 						}
 					});

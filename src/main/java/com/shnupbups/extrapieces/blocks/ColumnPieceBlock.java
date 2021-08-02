@@ -54,7 +54,7 @@ public class ColumnPieceBlock extends Block implements Waterloggable, PieceBlock
 	private final PieceSet set;
 
 	public ColumnPieceBlock(PieceSet set) {
-		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMaterialColor()));
+		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getDefaultMapColor()).breakByTool(set.getHarvestTool(), set.getHarvestLevel()));
 		this.set = set;
 		this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, false));
 	}
@@ -173,10 +173,10 @@ public class ColumnPieceBlock extends Block implements Waterloggable, PieceBlock
 	}
 	
 	@Override
-	public void onSteppedOn(World world_1, BlockPos blockPos_1, Entity entity_1) {
-		super.onSteppedOn(world_1, blockPos_1, entity_1);
+	public void onSteppedOn(World world_1, BlockPos blockPos_1, BlockState blockState_1, Entity entity_1) {
+		super.onSteppedOn(world_1, blockPos_1, blockState_1, entity_1);
 		try {
-			this.getBase().onSteppedOn(world_1, blockPos_1, entity_1);
+			this.getBase().onSteppedOn(world_1, blockPos_1, blockState_1, entity_1);
 		} catch (IllegalArgumentException ignored) {
 			ExtraPieces.debugLog("Caught an exception in onSteppedOn for "+this.getPieceString());
 		}

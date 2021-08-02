@@ -70,6 +70,8 @@ public class FencePiece extends PieceType {
 								case SOUTH:
 									var.rotationY(180);
 									break;
+								default:
+									break;
 							}
 						});
 					});
