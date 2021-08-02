@@ -54,7 +54,7 @@ public class PostPieceBlock extends Block implements Waterloggable, PieceBlock {
 	private final PieceSet set;
 
 	public PostPieceBlock(PieceSet set) {
-		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMapColor()));
+		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getDefaultMapColor()).breakByTool(set.getHarvestTool(), set.getHarvestLevel()));
 		this.set = set;
 		this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED, false));
 	}

@@ -29,7 +29,7 @@ public class FencePieceBlock extends FenceBlock implements PieceBlock {
 	private final PieceSet set;
 
 	public FencePieceBlock(PieceSet set) {
-		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getBase().getDefaultMapColor()));
+		super(FabricBlockSettings.copyOf(set.getBase()).materialColor(set.getDefaultMapColor()).breakByTool(set.getHarvestTool(), set.getHarvestLevel()));
 		this.set = set;
 	}
 	
